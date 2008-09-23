@@ -1,6 +1,6 @@
+package oldVersion;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Observable;
 
 /**
  * Class ClockTimer
@@ -8,7 +8,7 @@ import java.util.Observable;
  * @author Arnaud Knobloch
  */
 
-public class ClockTimer extends Observable {
+public class OldClockTimer extends MyObservable {
 
 	/* Les attributs de notre timer */
 	private int hour, minute, second;
@@ -17,7 +17,7 @@ public class ClockTimer extends Observable {
 	 * Constructeur
 	 */
 	
-	public ClockTimer() {
+	public OldClockTimer() {
 
 		/* On cree l'objet Calendar permettant de recuperer proprement les informations dont on a besoin */
 
@@ -107,14 +107,14 @@ public class ClockTimer extends Observable {
 	public class Timer extends Thread {
 
 		/* Instance de notre class sujet (Observable) */
-		private ClockTimer clockTimer;
+		private OldClockTimer clockTimer;
 
 		/**
 		 * Constructeur
 		 * @param clockTimer
 		 */
 		
-		public Timer(ClockTimer clockTimer) {
+		public Timer(OldClockTimer clockTimer) {
 
 			this.clockTimer = clockTimer;
 			this.start();

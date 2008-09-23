@@ -1,3 +1,4 @@
+package oldVersion;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,12 +11,12 @@ import java.util.Observer;
  * @author Arnaud Knobloch
  */
 
-public class AnalogClock implements Observer {
+public class OldAnalogClock implements MyObserver {
 
 	/**
 	 * Constructeur
 	 */
-	public AnalogClock() {
+	public OldAnalogClock() {
 		
 	}
 	
@@ -24,7 +25,7 @@ public class AnalogClock implements Observer {
 	 * @param clockTimer
 	 */
 	
-	public void draw(ClockTimer clockTimer) {
+	public void draw(OldClockTimer clockTimer) {
 	    
         int hour = clockTimer.getHour();
         int minute = clockTimer.getMinute();
@@ -44,9 +45,8 @@ public class AnalogClock implements Observer {
 	/**
 	 * Methode update
 	 */
-	
-	public void update(Observable observable, Object arg1) {
+	public void update(MyObservable observable) {
 
-            draw((ClockTimer)observable);
+		draw((OldClockTimer)observable);
 	}
 }
