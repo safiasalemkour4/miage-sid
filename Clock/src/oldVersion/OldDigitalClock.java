@@ -2,8 +2,6 @@ package oldVersion;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Class DigitalClock
