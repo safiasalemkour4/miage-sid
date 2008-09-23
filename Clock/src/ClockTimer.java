@@ -1,4 +1,5 @@
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Observable;
 
@@ -130,14 +131,23 @@ public class ClockTimer extends Observable {
 
 				try {
 
+					/* On cree notre objet */
+				    int hour = clockTimer.getHour();
+			        int minute = clockTimer.getMinute();
+			        int second = clockTimer.getSecond();
+			        
+			        /* On cree une date avec les donnes de notre timer */
+			        Date date = new Date();
+			        date.setTime(hour*60*60*1000+minute*60*1000+second*1000-1000*60*60);
+			        
 					/* On specifie que l'objet a changer */
 					setChanged();
 
 					/* On attend 1s */
 					Thread.sleep(1000);
-
+					
 					/* On notifie les Observers */
-					this.clockTimer.notifyObservers();
+					this.clockTimer.notifyObservers(date);
 
 					/* MAJ des attributs de notre Timer */
 					
