@@ -15,7 +15,7 @@ public class Theatre
 		}
 	}
 	
-	public int reserve()
+	public synchronized int reserve()
 	{
 		int result = -1;
 		
@@ -33,6 +33,7 @@ public class Theatre
 	
 	public String toString()
 	{
+		// TODO dfds
 		return ("Nombre de place libre :");
 	}
 }
