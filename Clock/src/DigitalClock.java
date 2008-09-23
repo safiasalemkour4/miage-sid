@@ -31,7 +31,7 @@ public class DigitalClock implements Observer {
         
         /* On cree une date avec les donnes de notre timer */
         Date date = new Date();
-        date.setTime(hour*60*60*1000+minute*60*1000+second*1000);
+        date.setTime(hour*60*60*1000+minute*60*1000+second*1000-1000*60*60);
         
 		/* On cree le format pour l'affichage de l'heure a aprtir de l'objet date */
 		DateFormat dateFormat = new SimpleDateFormat("HH'h':mm'm':ss's'");

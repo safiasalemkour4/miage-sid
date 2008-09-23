@@ -33,7 +33,7 @@ public class OldAnalogClock implements MyObserver {
         
         /* On cree une date avec les donnes de notre timer */
         Date date = new Date();
-        date.setTime(hour*60*60*1000+minute*60*1000+second*1000); // (parametre : millisecond)
+        date.setTime(hour*60*60*1000+minute*60*1000+second*1000-1000*60*60); // (parametre : millisecond)
         
 		/* On cree le format pour l'affichage de l'heure a aprtir de l'objet date */
 		DateFormat dateFormat = new SimpleDateFormat("h:mm:ss a");
