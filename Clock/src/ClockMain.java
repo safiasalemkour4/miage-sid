@@ -12,7 +12,7 @@ public class ClockMain {
 	
 	public static void main(String[] args) {
 
-		/* Instance de l'Observable */
+		/* Instance de l'Observable */ 
 		ClockTimer clockTimer = new ClockTimer();
 		
 		/* Instances des Observers */
