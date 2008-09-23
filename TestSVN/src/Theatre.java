@@ -4,15 +4,17 @@
  */
 public class Theatre 
 {
-	Integer[][] places = new Integer[100][2];
+	private Integer[][] places = new Integer[100][2];
+	private int libres;
 	
 	public Theatre()
 	{
 		for (int i=0; i<100; i++)
 		{
-			places[i][0] = 1;
-			places[i][1] = i+1;
+			this.places[i][0] = 1;
+			this.places[i][1] = i+1;
 		}
+		this.libres = 100;
 	}
 	
 	public synchronized int reserve()
@@ -26,6 +28,7 @@ public class Theatre
 			{
 				places[numPlace][0] = 0;
 				result = places[numPlace][1];
+				this.libres --;
 			}
 		}
 		return result;
@@ -33,7 +36,13 @@ public class Theatre
 	
 	public String toString()
 	{
-		// TODO dfds
-		return ("Nombre de place libre :");
+		String result = ("Nombre de places libres : "+this.libres+"\n");
+		result += ("Places reservees :");
+		for (Integer place[] : this.places)
+		{
+			if (place[0] == 0)
+				result += (" "+place[1]);
+		}
+		return result;
 	}
 }

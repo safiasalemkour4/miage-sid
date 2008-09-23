@@ -32,6 +32,25 @@ public class Test {
 		suzy.start();
 		geraldine.start();
 		anne.start();
+		
+		try 
+		{
+			bob.join();
+			marcel.join();
+			patrick.join();
+			maurice.join();
+			mickey.join();
+			eddy.join();
+			clara.join();
+			suzy.join();
+			geraldine.join();
+			anne.join();
+		} 
+		catch (InterruptedException e) 
+		{
+			e.printStackTrace();
+		}
+		System.out.println(sebastopol);
 	}
 
 }
