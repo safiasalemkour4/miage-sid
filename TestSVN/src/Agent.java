@@ -4,7 +4,8 @@
  * @author Florian COLLIGNON & Arnaud KNOBLOCH
  */
 
-public class Agent extends Thread {
+public class Agent extends Thread 
+{
 
 	/**	Theater affected to the agent */
 	private Theater theaterRoom;
@@ -21,27 +22,33 @@ public class Agent extends Thread {
 	 * @param t , theater of the agent
 	 */
 
-	public Agent (String n, Theater t) {
+	public Agent (String n, Theater t) 
+	{
 
 		this.name = n;
 		this.theaterRoom = t;
 	}
 
 	@Override
-	public void run () {
+	public void run () 
+	{
 
 		// Initialize the array of reserved places to 5
 		this.places = new Integer[5];
 
 		// Reserve randomly 5 places in the theater
-		for (int i=0; i<5; i++) {
+		for (int i=0; i<5; i++) 
+		{
 			
-			try {
+			try 
+			{
 				// Wait randomly many second before reserve one place
 				Thread.sleep(Math.round((float)(1000 * Math.random())));
 				this.places[i] = this.theaterRoom.reserve();
 				
-			} catch(InterruptedException e)	{
+			} 
+			catch(InterruptedException e)	
+			{
 				e.printStackTrace();
 			}
 		}
@@ -52,7 +59,8 @@ public class Agent extends Thread {
 
 	// Override of the toString method
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 
 		// Add one header
 		String result = "Liste des 5 places réservées par l'agent "+this.name+" : \n";

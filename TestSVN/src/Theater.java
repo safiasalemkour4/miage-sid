@@ -3,7 +3,8 @@
  * @author Florian COLLIGNON & Arnaud KNOBLOCH
  */
 
-public class Theater {
+public class Theater 
+{
 
 	/** 
 	 * List of the places, 
@@ -20,10 +21,12 @@ public class Theater {
 	 * Empty constructor for Theater
 	 */
 
-	public Theater() {
+	public Theater() 
+	{
 
 		// Initialize all places with one number for name and at the free state
-		for (int i=0; i<100; i++) {
+		for (int i=0; i<100; i++) 
+		{
 
 			this.places[i][0] = 1;
 			this.places[i][1] = i+1;
@@ -37,18 +40,21 @@ public class Theater {
 	 * Synchronize method, allow that many agent don't reserved the same place
 	 * @return number of the reserved place
 	 */
-	public synchronized int reserve() {
+	public synchronized int reserve() 
+	{
 
 		int result = -1;
 
 		// While no free place is found, search one 
-		while (result == -1) {
+		while (result == -1) 
+		{
 
 			// Affect randomly one place number
 			int numPlace = Math.round((float)Math.random()*99);
 
 			// If this one is free
-			if (places[numPlace][0] == 1) {
+			if (places[numPlace][0] == 1) 
+			{
 
 				// Change the state to busy
 				places[numPlace][0] = 0;
@@ -65,16 +71,19 @@ public class Theater {
 
 	// Override of the toString method
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 
 		// Add the number of free places
 		String result = ("Nombre de places libres : "+this.freePlaces+"\n");
 
 		// Add the list of reserved places
-		result += ("Places reservees :");
+		result += ("Places réservées :");
 
-		for (Integer place[] : this.places) {
-			if (place[0] == 0) {
+		for (Integer place[] : this.places) 
+		{
+			if (place[0] == 0) 
+			{
 				result += (" "+place[1]);
 			}
 		}

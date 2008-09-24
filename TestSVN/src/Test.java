@@ -5,19 +5,21 @@
  * @author Florian COLLIGNON & Arnaud KNOBLOCH
  */
 
-public class Test {
+public class Test 
+{
 
 	/**
 	 * Main method
 	 * @param args
 	 */
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		
 		// Initialize the theater (Sebastopol is one theater of Lille)
 		Theater sebastopol = new Theater();
 	
-		// Initialize the 10 differents agents
+		// Initialize the 10 different agents
 		Agent bob = new Agent("Bob",sebastopol);
 		Agent marcel = new Agent("Marcel",sebastopol);
 		Agent patrick = new Agent("Patrick",sebastopol);
@@ -42,7 +44,8 @@ public class Test {
 		anne.start();
 		
 		// While the threads agent are not finished, the main method wait
-		try  {
+		try  
+		{
 			
 			bob.join();
 			marcel.join();
@@ -55,7 +58,9 @@ public class Test {
 			geraldine.join();
 			anne.join();
 			
-		} catch (InterruptedException e) {
+		} 
+		catch (InterruptedException e) 
+		{
 			e.printStackTrace();
 		}
 		
