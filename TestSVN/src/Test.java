@@ -1,16 +1,21 @@
 /**
+ * Main test class
+ * Create one theater and 10 commercial agents
+ * All agent reserved randomly and at randomly moment 5 places
  * @author Florian COLLIGNON & Arnaud KNOBLOCH
- *
  */
 public class Test {
 
 	/**
+	 * Main method
 	 * @param args
 	 */
 	public static void main(String[] args)
 	{
-		Theatre sebastopol = new Theatre();
+		// Initialize the theater (Sebastopol is one theater of Lille)
+		Theater sebastopol = new Theater();
 	
+		// Initialize the 10 different agents
 		Agent bob = new Agent("Bob",sebastopol);
 		Agent marcel = new Agent("Marcel",sebastopol);
 		Agent patrick = new Agent("Patrick",sebastopol);
@@ -22,6 +27,7 @@ public class Test {
 		Agent geraldine = new Agent("Geraldine",sebastopol);
 		Agent anne = new Agent("Anne",sebastopol);
 
+		// Start the 10 thread agent
 		bob.start();
 		marcel.start();
 		patrick.start();
@@ -33,6 +39,7 @@ public class Test {
 		geraldine.start();
 		anne.start();
 		
+		// While the threads agent are not finished, the main method wait
 		try 
 		{
 			bob.join();
@@ -50,6 +57,7 @@ public class Test {
 		{
 			e.printStackTrace();
 		}
+		// Print the theater informations
 		System.out.println(sebastopol);
 	}
 
