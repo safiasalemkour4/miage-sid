@@ -4,18 +4,20 @@
  * All agent reserved randomly and at randomly moment 5 places
  * @author Florian COLLIGNON & Arnaud KNOBLOCH
  */
+
 public class Test {
 
 	/**
 	 * Main method
 	 * @param args
 	 */
-	public static void main(String[] args)
-	{
+	
+	public static void main(String[] args) {
+		
 		// Initialize the theater (Sebastopol is one theater of Lille)
 		Theater sebastopol = new Theater();
 	
-		// Initialize the 10 different agents
+		// Initialize the 10 differents agents
 		Agent bob = new Agent("Bob",sebastopol);
 		Agent marcel = new Agent("Marcel",sebastopol);
 		Agent patrick = new Agent("Patrick",sebastopol);
@@ -27,7 +29,7 @@ public class Test {
 		Agent geraldine = new Agent("Geraldine",sebastopol);
 		Agent anne = new Agent("Anne",sebastopol);
 
-		// Start the 10 thread agent
+		// Start the 10 threads agent
 		bob.start();
 		marcel.start();
 		patrick.start();
@@ -40,8 +42,7 @@ public class Test {
 		anne.start();
 		
 		// While the threads agent are not finished, the main method wait
-		try 
-		{
+		try  {
 			bob.join();
 			marcel.join();
 			patrick.join();
@@ -52,13 +53,12 @@ public class Test {
 			suzy.join();
 			geraldine.join();
 			anne.join();
-		} 
-		catch (InterruptedException e) 
-		{
+			
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
 		// Print the theater informations
 		System.out.println(sebastopol);
 	}
-
 }
