@@ -43,6 +43,7 @@ public class Test {
 		
 		// While the threads agent are not finished, the main method wait
 		try  {
+			
 			bob.join();
 			marcel.join();
 			patrick.join();
@@ -58,7 +59,7 @@ public class Test {
 			e.printStackTrace();
 		}
 		
-		// Print the theater informations
+		// At the end, we print the theater informations
 		System.out.println(sebastopol);
 	}
 }

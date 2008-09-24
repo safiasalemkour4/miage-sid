@@ -35,10 +35,12 @@ public class Agent extends Thread {
 
 		// Reserve randomly 5 places in the theater
 		for (int i=0; i<5; i++) {
+			
 			try {
 				// Wait randomly many second before reserve one place
 				Thread.sleep(Math.round((float)(1000 * Math.random())));
 				this.places[i] = this.theaterRoom.reserve();
+				
 			} catch(InterruptedException e)	{
 				e.printStackTrace();
 			}
