@@ -9,15 +9,18 @@ public class SystemProcess extends Thread {
 	private CyclicBarrier barrier;
 	
 	private int lastId;
+
+	private int currentPhase;
 	
 	public SystemProcess(int numberOfProcess) {
 
 		this.listProcessus = new ArrayList<Processus>();
 		this.lastId = 0;
-		
+		this.currentPhase = 0;
 		System.out.println("Un systeme de "+numberOfProcess+" processus vient d'etre cree.");
 		
 		barrier = new CyclicBarrier(numberOfProcess);
+		
 	}
 
 	/**
@@ -26,26 +29,57 @@ public class SystemProcess extends Thread {
 
 	public void run() {
 
-		while (true) {
-
-			checkCrashPourcent();
-
+		while (this.currentPhase<this.checkNbProcessus()) {
+			
+			this.currentPhase++;
+			
+			System.out.println("\nPhase "+this.currentPhase);
+			
+			//checkCrashPourcent();
+			
+			startSendAllProcessus();
+			
+			if (this.isAllMsgSended()) {
+				startReceiveAllProcessus();
+			}
+			
 		}
 	}
 
-	public void startAllProcessus() {
+	public void startSendAllProcessus() {
 
+		//for (Processus p : this.listProcessus) {
+
+			//p.sendFirstNumber();
+		//}
+		
 		for (Processus p : this.listProcessus) {
-
-			p.sendFirstNumber();
+			
+				p.start();
+		
 		}
+	}
+
+	public void startReceiveAllProcessus() {
+
+		//for (Processus p : this.listProcessus) {
+
+			//p.sendFirstNumber();
+		//}
 		
 		for (Processus p : this.listProcessus) {
 
-			p.start();
+			p.notifyAll();
+		}
+		
+		try {
+			sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
-
+	
 	public void addProcessus() {
 
 		this.lastId++;
@@ -59,7 +93,28 @@ public class SystemProcess extends Thread {
 	private void checkCrashPourcent() {
 
 		// Verif ici que quÕil nÕy a jamais plus que f processus en panne (20%).
+		//checkNbCrash() / this.listProcessus.size();
 
+	}
+	
+	public int checkNbProcessus() {
+		
+		return this.listProcessus.size();
+	}
+	
+	public int checkNbCrash() {
+		
+		int res = 0;
+		
+		for (Processus p : this.listProcessus) {
+
+			if (p.isCrashed()) {
+
+				res++;
+			}
+		}
+		
+		return res;
 	}
 
 	public ArrayList<Processus> getOthersProc(Processus processus) {
@@ -80,6 +135,26 @@ public class SystemProcess extends Thread {
 
 	public CyclicBarrier getBarrier() {
 		return barrier;
+	}
+
+	public boolean isAllMsgSended() {
+		
+		int res = 0;
+		
+		for (Processus p : this.listProcessus) {
+
+			if (p.isInterrupted()) {
+
+				res++;
+			}
+		}
+		
+		if (res==this.listProcessus.size()) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 	

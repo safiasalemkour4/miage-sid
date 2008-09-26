@@ -1,109 +1,204 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.BrokenBarrierException;
 
 
 public class Processus extends Thread {
 
-		private SystemProcess system;
-		
-		private ArrayList<Integer> listNumber;
-		
-		private String id;
 
-		/**
-		 * Constructeur
-		 */
-		
-		public Processus(String id, SystemProcess system) {
+	// SAUVEGARDER SI LE CHIFFRE A ETE SEND !!!!!
+	private SystemProcess system;
 
-			this.id = id;
-			this.system=system;
+	private ArrayList<Number> listNumber;
 
-			this.listNumber = new ArrayList<Integer>();
-			
-			this.listNumber.add(new Integer((int) (Math.random()*10)));
+	private String id;
 
+	private boolean isCrashed;
+
+
+
+	/**
+	 * Constructeur
+	 */
+
+	public Processus(String id, SystemProcess system) {
+
+		this.id = id;
+		this.system=system;
+
+		this.listNumber = new ArrayList<Number>();
+
+		this.listNumber.add(new Number((int) (Math.random()*10)));
+
+	}
+
+	/**
+	 * Methode Run
+	 */
+
+	public void run() {
+
+		// Faire k phases avec k = nb proc crashé + 1
+
+		try {
+
+
+			// Escequ'il va cracher ?
+			// Si oui, il envoit une partie a des proc alea ?
+
+			// Si il tombe en panne, chque msg a 20% de chance d'etre send
+			if (!isCrashed) {
+
+				this.system.getBarrier().await();
+				
+				sendNumber();
+			}
+
+
+
+		} catch (InterruptedException e) {
+
+			e.printStackTrace();
+
+		} catch (BrokenBarrierException e) {
+
+			e.printStackTrace();
 		}
-		
-		/**
-		 * Methode Run
+
+	}
+
+	public void sendNumber() throws InterruptedException {
+
+		/*
+		 * IL FAUT SEND DIRECTEMENT UNE LIST DE NUMBER !!!!
 		 */
+		String message = "Le processus "+this.id+" envoit ";
+		String crash = "";
 
-		public void run() {
+		ArrayList<Number> sendList = new ArrayList<Number>();
 
-			while (true) {
+		/* On regarde si le processus va se crasher */
 
-				try {
-					// Escequ'il va cracher ?
-					// Si oui, il envoit une partie a des proc alea ?
-					
-					this.system.getBarrier().await();
-					
-					sleep(10);
-					
-				} catch (InterruptedException e) {
-					
-					e.printStackTrace();
-					
-				} catch (BrokenBarrierException e) {
+		/* Si le processus se crash */
+		if (willICrashed()) {
 
-					e.printStackTrace();
+			this.isCrashed = true;
+			crash = " et il se crash !";
+
+			/* */
+			for (Number n : listNumber) {
+
+				/* Si l'envoit du message se crash */
+				if (this.willThisMessageCrash()) {
+
+				} 
+
+				/* Si l'envoit du message fonctionne */
+				else {
+
+					/* Si le nombre n'a pas deja ete envoye */
+					if (!n.isSended()) {
+						sendList.add(n);
+						n.setSended();
+						message += +n.getNumber()+", ";
+					}
 				}
 			}
-		}
-		
-		public void sendFirstNumber() {
-			
-			int firstNumber = this.listNumber.get(0);
-			System.out.println("Le processus "+this.getId()+" envoit "+firstNumber+" a tout le monde");
-			
-			ArrayList<Processus> listProc = this.system.getOthersProc(this);
-			
-			for (Processus p : listProc) {
-				
-				p.receiveNumber(firstNumber);
-			}
-			
-		}
-		
-		public void sendNumber(int i) {
-			
-			System.out.println("Le processus "+this.getId()+" envoit "+i+" a tout le monde");
-			
-			ArrayList<Processus> listProc = this.system.getOthersProc(this);
-			
-			for (Processus p : listProc) {
-				
-				p.receiveNumber(i);
+		} 
+
+		/* Si le processus ne se crash pas */
+		else {
+
+			for (Number n : listNumber) {
+
+				/* Si le nombre n'a pas deja ete envoye */
+				if (!n.isSended()) {
+					sendList.add(n);
+					n.setSended();
+					message += +n.getNumber()+", ";
+				}
+
 			}
 		}
+		System.out.println(message+crash);
 		
-		// Si chiffre rien
-		//sinon add tab + renvoyer au autre
+this.interrupt();
 		
-		public void receiveNumber(int number) {
-		
-			System.out.println("Le processus "+this.getId()+" reçoit "+number);
+		if (system.isAllMsgSended()) {
 			
-			// Pas possible de contains car nouvelle objet 
-			boolean addNumber = true;
-			
-			for (Integer i : listNumber) {
-				
-				if (i.intValue() == number) {
-					
+			/* On envoit la liste de nombre aux processus */
+			for (Processus p : this.system.getOthersProc(this)) {
+				p.receiveNumber(sendList);
+			}
+		}
+	}
+
+	// Si chiffre rien
+	//sinon add tab + renvoyer au autre
+
+	private boolean willThisMessageCrash() {
+
+		if (Math.random()<0.2) {
+
+			return true;
+
+		} else {
+
+			return false;
+		}
+	}
+
+	public void receiveNumber(ArrayList<Number> sendList) {
+
+		String message = "Le processus "+this.id+" reçoit ";
+
+		// Pas possible de contains car nouvelle objet 
+		boolean addNumber = true;
+
+		for (Number sended : sendList) {
+
+			message += sended.getNumber()+", ";
+
+			for (Number n : listNumber) {
+
+				if (n.getNumber() == sended.getNumber()) {
+
 					addNumber = false;
 				}
 			}
-			
+
 			if (addNumber) {
-				
-				this.listNumber.add(new Integer(number));
-				
-				this.sendNumber(number);
+
+				this.listNumber.add(sended);
+
 			}
 		}
 
+		System.out.println(message);
 
 	}
+
+	public boolean willICrashed() {
+
+		if (Math.random()<0.2) {
+
+			return true;
+
+		} else {
+
+			return false;
+		}
+
+	}
+
+	public boolean isCrashed() {
+		return isCrashed;
+	}
+
+	public void setCrashed(boolean isCrashed) {
+		this.isCrashed = isCrashed;
+	}
+
+
+}
