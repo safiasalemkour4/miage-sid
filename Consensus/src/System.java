@@ -1,14 +1,13 @@
+import java.util.ArrayList;
+
 
 public class System extends Thread {
 	
-	private Processus p1, p2, p3, p4;
+	private ArrayList<Processus> listProcessus;
 	
 	public System() {
 		
-		this.p1 = new Processus();
-		this.p2 = new Processus();
-		this.p3 = new Processus();
-		this.p4 = new Processus();
+		this.listProcessus = new ArrayList<Processus>();
 		
 	}
 	
@@ -31,9 +30,31 @@ public class System extends Thread {
 		}
 	}
 
+	public void addProcessus() {
+		
+		this.listProcessus.add(new Processus());
+		
+	}
+	
 	private void checkCrashPourcent() {
 		
 		// Verif ici que qu’il n’y a jamais plus que f processus en panne (20%).
+		
+	}
+	
+	public ArrayList<Processus> getOthersProc(Processus processus) {
+		
+		ArrayList<Processus> res = new ArrayList<Processus>();
+		
+		for (Processus p : this.listProcessus) {
+			
+			if (processus.getId() != p.getId()) {
+				
+				res.add(p);
+			}
+		}
+		
+		return res;
 		
 	}
 
