@@ -8,11 +8,15 @@ public class SystemProcess extends Thread {
 
 	private CyclicBarrier barrier;
 	
+	private int lastId;
+	
 	public SystemProcess(int numberOfProcess) {
 
 		this.listProcessus = new ArrayList<Processus>();
-
-		System.out.println(numberOfProcess);
+		this.lastId = 0;
+		
+		System.out.println("Un systeme de "+numberOfProcess+" processus vient d'etre cree.");
+		
 		barrier = new CyclicBarrier(numberOfProcess);
 	}
 
@@ -33,13 +37,22 @@ public class SystemProcess extends Thread {
 
 		for (Processus p : this.listProcessus) {
 
+			p.sendFirstNumber();
+		}
+		
+		for (Processus p : this.listProcessus) {
+
 			p.start();
 		}
 	}
 
 	public void addProcessus() {
 
-		this.listProcessus.add(new Processus(this));
+		this.lastId++;
+		
+		System.out.println("Ajout du processus "+this.lastId);
+		
+		this.listProcessus.add(new Processus(""+this.lastId,this));
 
 	}
 

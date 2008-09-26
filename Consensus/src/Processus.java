@@ -8,19 +8,21 @@ public class Processus extends Thread {
 		private SystemProcess system;
 		
 		private ArrayList<Integer> listNumber;
+		
+		private String id;
 
 		/**
 		 * Constructeur
 		 */
 		
-		public Processus(SystemProcess system) {
+		public Processus(String id, SystemProcess system) {
 
+			this.id = id;
 			this.system=system;
-			
+
 			this.listNumber = new ArrayList<Integer>();
 			
 			this.listNumber.add(new Integer((int) (Math.random()*10)));
-			
 
 		}
 		
@@ -33,7 +35,6 @@ public class Processus extends Thread {
 			while (true) {
 
 				try {
-
 					// Escequ'il va cracher ?
 					// Si oui, il envoit une partie a des proc alea ?
 					
@@ -50,6 +51,20 @@ public class Processus extends Thread {
 					e.printStackTrace();
 				}
 			}
+		}
+		
+		public void sendFirstNumber() {
+			
+			int firstNumber = this.listNumber.get(0);
+			System.out.println("Le processus "+this.getId()+" envoit "+firstNumber+" a tout le monde");
+			
+			ArrayList<Processus> listProc = this.system.getOthersProc(this);
+			
+			for (Processus p : listProc) {
+				
+				p.receiveNumber(firstNumber);
+			}
+			
 		}
 		
 		public void sendNumber(int i) {
@@ -89,4 +104,6 @@ public class Processus extends Thread {
 				this.sendNumber(number);
 			}
 		}
+
+
 	}
