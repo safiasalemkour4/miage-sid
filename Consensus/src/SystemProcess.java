@@ -12,14 +12,18 @@ public class SystemProcess extends Thread {
 
 	private int currentPhase;
 	
+	private boolean processStarted;
 	public SystemProcess(int numberOfProcess) {
 
 		this.listProcessus = new ArrayList<Processus>();
 		this.lastId = 0;
 		this.currentPhase = 0;
+		this.processStarted = false;
 		System.out.println("Un systeme de "+numberOfProcess+" processus vient d'etre cree.");
 		
 		barrier = new CyclicBarrier(numberOfProcess);
+		System.out.println(" waiting :" +barrier.getNumberWaiting());
+		System.out.println(" parties :" +barrier.getParties());
 		
 	}
 
@@ -36,12 +40,20 @@ public class SystemProcess extends Thread {
 			System.out.println("\nPhase "+this.currentPhase);
 			
 			//checkCrashPourcent();
+			System.out.println(" waiting :" +barrier.getNumberWaiting());
+			System.out.println(" parties :" +barrier.getParties());
 			
-			startSendAllProcessus();
-			
-			if (this.isAllMsgSended()) {
-				startReceiveAllProcessus();
+			//if (!this.processStarted) {
+				//this.processStarted = true;
+				startSendAllProcessus();
+			//}
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+
 			
 		}
 	}
@@ -60,6 +72,20 @@ public class SystemProcess extends Thread {
 		}
 	}
 
+	public void stopSendAllProcessus() {
+
+		//for (Processus p : this.listProcessus) {
+
+			//p.sendFirstNumber();
+		//}
+		
+		for (Processus p : this.listProcessus) {
+			
+				p.stop();
+		
+		}
+	}
+	
 	public void startReceiveAllProcessus() {
 
 		//for (Processus p : this.listProcessus) {
@@ -134,7 +160,7 @@ public class SystemProcess extends Thread {
 	}
 
 	public CyclicBarrier getBarrier() {
-		return barrier;
+		return this.barrier;
 	}
 
 	public boolean isAllMsgSended() {
@@ -143,11 +169,13 @@ public class SystemProcess extends Thread {
 		
 		for (Processus p : this.listProcessus) {
 
-			if (p.isInterrupted()) {
+			if (p.isMsgSended()) {
 
 				res++;
 			}
 		}
+		
+		//System.out.println("res : "+res);
 		
 		if (res==this.listProcessus.size()) {
 			return true;

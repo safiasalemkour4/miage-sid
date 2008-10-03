@@ -16,7 +16,7 @@ public class Processus extends Thread {
 
 	private boolean isCrashed;
 
-
+	private boolean msgSended;
 
 	/**
 	 * Constructeur
@@ -26,7 +26,8 @@ public class Processus extends Thread {
 
 		this.id = id;
 		this.system=system;
-
+this.isCrashed = false;
+this.msgSended = false;
 		this.listNumber = new ArrayList<Number>();
 
 		this.listNumber.add(new Number((int) (Math.random()*10)));
@@ -43,15 +44,15 @@ public class Processus extends Thread {
 
 		try {
 
-
+			this.system.getBarrier().await();
+			
+			//System.out.println(" lol : "+this.system.getBarrier().getNumberWaiting());
 			// Escequ'il va cracher ?
 			// Si oui, il envoit une partie a des proc alea ?
 
 			// Si il tombe en panne, chque msg a 20% de chance d'etre send
 			if (!isCrashed) {
 
-				this.system.getBarrier().await();
-				
 				sendNumber();
 			}
 
@@ -65,17 +66,19 @@ public class Processus extends Thread {
 
 			e.printStackTrace();
 		}
+		System.out.println("le proc "+this.id+" a finit");
 
 	}
 
 	public void sendNumber() throws InterruptedException {
 
-		/*
-		 * IL FAUT SEND DIRECTEMENT UNE LIST DE NUMBER !!!!
-		 */
+		/* Le message a afficher */
 		String message = "Le processus "+this.id+" envoit ";
+		
+		/* Le message si il y a un crash du processus */
 		String crash = "";
 
+		/* La liste de nombre de le processus devra envoyer */
 		ArrayList<Number> sendList = new ArrayList<Number>();
 
 		/* On regarde si le processus va se crasher */
@@ -86,7 +89,7 @@ public class Processus extends Thread {
 			this.isCrashed = true;
 			crash = " et il se crash !";
 
-			/* */
+			/* On construit la liste de nombre a envoyer */
 			for (Number n : listNumber) {
 
 				/* Si l'envoit du message se crash */
@@ -121,17 +124,39 @@ public class Processus extends Thread {
 
 			}
 		}
+		
+		/* On affiche le message d'envoit */
 		System.out.println(message+crash);
 		
-this.interrupt();
+		this.msgSended = true;
 		
+		/* On attend que tous les processus aient envoyer leurs nombres */
+		while (!system.isAllMsgSended()) {
+			Thread.sleep(10);
+		}
+		
+		/* Si tous les processus ont envoyer leurs nombres */
 		if (system.isAllMsgSended()) {
 			
-			/* On envoit la liste de nombre aux processus */
+			try {
+				this.system.getBarrier().await();
+			} catch (BrokenBarrierException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			/* On envoit la liste de nombre aux processus
+			 *
+			 * Correspond a :
+			 * " 1. Envoyer toutes les valeurs de Vi qui n’ont pas encore été envoyées par pi à tous les 
+			 * autres processus "
+			 */
 			for (Processus p : this.system.getOthersProc(this)) {
 				p.receiveNumber(sendList);
 			}
 		}
+		
+
 	}
 
 	// Si chiffre rien
@@ -151,6 +176,8 @@ this.interrupt();
 
 	public void receiveNumber(ArrayList<Number> sendList) {
 
+		this.msgSended = false;
+		
 		String message = "Le processus "+this.id+" reçoit ";
 
 		// Pas possible de contains car nouvelle objet 
@@ -200,5 +227,15 @@ this.interrupt();
 		this.isCrashed = isCrashed;
 	}
 
+	
+	public boolean isMsgSended() {
+		return msgSended;
+	}
+
+	public void setMsgSended(boolean msgSended) {
+		this.msgSended = msgSended;
+	}
+
+	
 
 }
