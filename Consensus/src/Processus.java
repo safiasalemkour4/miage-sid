@@ -124,9 +124,6 @@ public class Processus extends Thread {
 
 			message = message.substring(0, message.length()-2);
 			
-			if (this.system.itIsMyTurn(this)) {
-				//this.system.finishMyTurn(this);
-			}
 		} 
 
 		/* Si le processus ne se crash pas */
@@ -172,7 +169,10 @@ public class Processus extends Thread {
 		 * autres processus "
 		 */
 		for (Processus p : this.system.getOthersProc(this)) {
-			p.receiveNumber(sendList);
+			if (!p.isCrashed()) {
+				p.receiveNumber(sendList);
+			}
+
 		}
 
 		/* On attend que tous les processus aient recut leurs nombres */
@@ -204,7 +204,9 @@ public class Processus extends Thread {
 
 
 		this.listNumberReceive.clear();
+		if (!this.isCrashed) {
 		system.finishMyTurn(this);
+		}
 	}
 
 	// Si chiffre rien

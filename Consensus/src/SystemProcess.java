@@ -178,14 +178,14 @@ public class SystemProcess extends Thread {
 	 * @param p the applicant
 	 * @return true if it's the turn of the process, else false
 	 */
-	
+
 	public synchronized boolean itIsMyTurn(Processus p) {
 
 		String res ="{";
 		for (Object obj : this.listProcessus) {
 			res += ((Processus)obj).getMyName()+"}, ";
 		}
-		
+
 		if (((Processus)this.listProcessus.peek()).getMyName().compareTo(p.getMyName())==0) {
 
 			System.out.println("My turn ? "+p.getMyName()+" YES \n"+res);
@@ -202,18 +202,28 @@ public class SystemProcess extends Thread {
 	 * @param p the applicant
 	 * Set to end the turn of the thread
 	 */
-	
-	public synchronized void finishMyTurn(Processus p) {
-		
-		try {
-			
-			System.out.println("It is the end for me "+((Processus)this.listProcessus.peek()).getMyName());
-			this.listProcessus.take();
-			this.listProcessus.add(p);
-			
-		} catch (InterruptedException e) {
 
-			e.printStackTrace();
+	public synchronized void finishMyTurn(Processus p) {
+
+		if (itIsMyTurn(p)) {
+
+			try {
+
+				if (p.isCrashed()) {
+					
+					this.listProcessus.take();
+					
+				} else {
+
+					System.out.println("It is the end for me "+((Processus)this.listProcessus.peek()).getMyName());
+					this.listProcessus.take();
+					this.listProcessus.add(p);
+				}
+				
+			} catch (InterruptedException e) {
+
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -221,7 +231,7 @@ public class SystemProcess extends Thread {
 	 * Method displayInfos (Syncrhonized)
 	 * @param message the message to display
 	 */
-	
+
 	public synchronized void displayInfos(String message) {
 
 		System.out.println(message);
@@ -231,19 +241,19 @@ public class SystemProcess extends Thread {
 	 * Method itIsTheEnd
 	 * @return true if it's the end of the algorithme
 	 */
-	
+
 	public synchronized boolean itIsTheEnd() {
-		
+
 		return !(this.currentPhase<this.checkNbProcessus()-1);
 	}
-	
+
 	/**
 	 * Getter Barrier
 	 * @return CyclicBarrier
 	 */
-	
+
 	public CyclicBarrier getBarrier() {
-		
+
 		return this.barrier;
 	}
 
@@ -251,9 +261,9 @@ public class SystemProcess extends Thread {
 	 * Getter barrierPhase
 	 * @return CyclicBarrier
 	 */
-	
+
 	public CyclicBarrier getBarrierPhase() {
-		
+
 		return this.barrierPhase;
 	}
 
@@ -261,9 +271,9 @@ public class SystemProcess extends Thread {
 	 * Getter phase
 	 * @return currentPhase
 	 */
-	
+
 	public int getCurrentPhase() {
-		
+
 		return currentPhase;
 	}
 }
