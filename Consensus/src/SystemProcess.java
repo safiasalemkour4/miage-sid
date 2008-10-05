@@ -54,7 +54,7 @@ public class SystemProcess extends Thread {
 		startAllProcess();
 
 		/* While phase k < Nb Process */ 
-		while (this.currentPhase<this.checkNbProcessus()) {
+		while (!itIsTheEnd()) {
 
 			this.currentPhase++;
 
@@ -179,14 +179,20 @@ public class SystemProcess extends Thread {
 	 * @return true if it's the turn of the process, else false
 	 */
 	
-	public boolean itIsMyTurn(Processus p) {
+	public synchronized boolean itIsMyTurn(Processus p) {
 
+		String res ="{";
+		for (Object obj : this.listProcessus) {
+			res += ((Processus)obj).getMyName()+"}, ";
+		}
+		
 		if (((Processus)this.listProcessus.peek()).getMyName().compareTo(p.getMyName())==0) {
 
+			System.out.println("My turn ? "+p.getMyName()+" YES \n"+res);
 			return true;
 
 		} else {
-
+			System.out.println("My turn ? "+p.getMyName()+" NO - it's he turn of "+((Processus)this.listProcessus.peek()).getMyName()+"\n"+res);
 			return false;
 		}
 	}
@@ -197,10 +203,11 @@ public class SystemProcess extends Thread {
 	 * Set to end the turn of the thread
 	 */
 	
-	public void finishMyTurn(Processus p) {
+	public synchronized void finishMyTurn(Processus p) {
 		
 		try {
 			
+			System.out.println("It is the end for me "+((Processus)this.listProcessus.peek()).getMyName());
 			this.listProcessus.take();
 			this.listProcessus.add(p);
 			
@@ -225,9 +232,9 @@ public class SystemProcess extends Thread {
 	 * @return true if it's the end of the algorithme
 	 */
 	
-	public boolean itIsTheEnd() {
+	public synchronized boolean itIsTheEnd() {
 		
-		return !(this.currentPhase<this.checkNbProcessus());
+		return !(this.currentPhase<this.checkNbProcessus()-1);
 	}
 	
 	/**

@@ -1,12 +1,8 @@
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 import java.util.concurrent.BrokenBarrierException;
 
 
 public class Processus extends Thread {
-
-	private boolean endOfMyPhase = false;
 
 	private SystemProcess system;
 
@@ -18,10 +14,6 @@ public class Processus extends Thread {
 
 	private boolean isCrashed;
 
-	private boolean msgSended;
-
-	private int currentPhase;
-
 	/**
 	 * Constructeur
 	 */
@@ -30,9 +22,8 @@ public class Processus extends Thread {
 
 		this.name = name;
 		this.system=system;
-		this.currentPhase = 0;
 		this.isCrashed = false;
-		this.msgSended = false;
+
 		this.listNumber = new ArrayList<Number>();
 		this.listNumberReceive = new ArrayList<Number>();
 
@@ -50,42 +41,26 @@ public class Processus extends Thread {
 
 		try {
 
-			//System.out.println("END ?"+this.system.itisTheEnd());
+			/* While phase k < Nb Process */ 
 			while(!this.system.itIsTheEnd()) {
 
-				/* On attend que les autres processus soit RUN */
+				/* We wait other process */
 				this.system.getBarrier().await();
 
-				this.currentPhase++;
-				//if (this.currentPhase == this.system.getCurrentPhase()) {
-
-				/* On envoit et on recoit */
+				/* If the thread is alive */
 				if (!isCrashed) {
 
 					while (!this.system.itIsMyTurn(this)) {
-						Thread.sleep(1);
+						Thread.yield();
+						Thread.sleep(10);
 					}
 
 					sendNumber();
-
-
 				}
 
-				/* Sinon on attend */
-				//} else {
-
-				//Thread.sleep(10);
-				//}
 				this.system.getBarrierPhase().await();
-
 			}
-
-			//System.out.println(" lol : "+this.system.getBarrier().getNumberWaiting());
-			// Escequ'il va cracher ?
-			// Si oui, il envoit une partie a des proc alea ?
-
-			// Si il tombe en panne, chque msg a 20% de chance d'etre send
-
+			
 		} catch (InterruptedException e) {
 
 			e.printStackTrace();
@@ -96,12 +71,12 @@ public class Processus extends Thread {
 		}
 
 		System.out.println("Je ("+this.name+") decide "+this.getMinNumber());
+		
 		if (this.system.itIsMyTurn(this)) {
 			this.system.finishMyTurn(this);
 		}
+		
 		System.out.println("le proc "+this.name+" a finit");
-
-
 	}
 
 	public void sendNumber() throws InterruptedException {
@@ -134,6 +109,10 @@ public class Processus extends Thread {
 				/* Si l'envoit du message fonctionne */
 				else {
 
+					// Si oui, il envoit une partie a des proc alea ?
+
+					// Si il tombe en panne, chque msg a 20% de chance d'etre send
+					
 					/* Si le nombre n'a pas deja ete envoye */
 					if (!n.isSended()) {
 						sendList.add(n);
@@ -146,7 +125,7 @@ public class Processus extends Thread {
 			message = message.substring(0, message.length()-2);
 			
 			if (this.system.itIsMyTurn(this)) {
-				this.system.finishMyTurn(this);
+				//this.system.finishMyTurn(this);
 			}
 		} 
 
@@ -172,8 +151,6 @@ public class Processus extends Thread {
 		/* On affiche le message d'envoit */
 		//System.out.println(message+crash);
 		system.displayInfos(message+crash);
-
-		this.msgSended = true;
 
 		system.finishMyTurn(this);
 
@@ -206,7 +183,8 @@ public class Processus extends Thread {
 		}
 
 		while (!this.system.itIsMyTurn(this)) {
-			Thread.sleep(1);
+			Thread.yield();
+			Thread.sleep(10);
 		}
 
 		message = "Le processus "+this.name+" reoit ";
@@ -246,8 +224,6 @@ public class Processus extends Thread {
 
 	public void receiveNumber(ArrayList<Number> sendList) {
 
-		this.msgSended = false;
-
 		// Pas possible de contains car nouvelle objet 
 		boolean addNumber = true;
 
@@ -276,13 +252,9 @@ public class Processus extends Thread {
 
 			}
 		}
-
-
 	}
 
 	public void addNumber(int numberValue) {
-
-		this.msgSended = false;
 
 		// Pas possible de contains car nouvelle objet 
 		boolean addNumber = true;
@@ -309,9 +281,6 @@ public class Processus extends Thread {
 			this.listNumber.add(new Number(numberValue));
 
 		}
-
-
-
 	}
 
 	public int getMinNumber() {
@@ -343,7 +312,6 @@ public class Processus extends Thread {
 
 			return false;
 		}
-
 	}
 
 	public boolean isCrashed() {
@@ -354,27 +322,7 @@ public class Processus extends Thread {
 		this.isCrashed = isCrashed;
 	}
 
-
-	public boolean isMsgSended() {
-		return msgSended;
-	}
-
-	public void setMsgSended(boolean msgSended) {
-		this.msgSended = msgSended;
-	}
-
-	public boolean isEndOfMyPhase() {
-		return endOfMyPhase;
-	}
-
-	public void setEndOfMyPhase(boolean endOfMyPhase) {
-		this.endOfMyPhase = endOfMyPhase;
-	}
-
 	public String getMyName() {
 		return name;
 	}
-
-
-
 }
