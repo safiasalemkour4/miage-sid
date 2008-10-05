@@ -50,7 +50,8 @@ public class Processus extends Thread {
 				/* If the thread is alive */
 				if (!isCrashed) {
 
-					while (!this.system.itIsMyTurn(this)) {
+					while (!this.system.itIsMyTurn(this)) { // TODO
+						//System.out.println("(1)");
 						Thread.yield();
 						Thread.sleep(10);
 					}
@@ -60,7 +61,7 @@ public class Processus extends Thread {
 
 				this.system.getBarrierPhase().await();
 			}
-			
+
 		} catch (InterruptedException e) {
 
 			e.printStackTrace();
@@ -70,12 +71,10 @@ public class Processus extends Thread {
 			e.printStackTrace();
 		}
 
-		System.out.println("Je ("+this.name+") decide "+this.getMinNumber());
-		
-		if (this.system.itIsMyTurn(this)) {
-			this.system.finishMyTurn(this);
+		if (this.system.itIsMyTurn(this)) { // TODO
+			this.system.finishMyTurn(this); 
 		}
-		
+
 		System.out.println("le proc "+this.name+" a finit");
 	}
 
@@ -112,7 +111,7 @@ public class Processus extends Thread {
 					// Si oui, il envoit une partie a des proc alea ?
 
 					// Si il tombe en panne, chque msg a 20% de chance d'etre send
-					
+
 					/* Si le nombre n'a pas deja ete envoye */
 					if (!n.isSended()) {
 						sendList.add(n);
@@ -123,7 +122,7 @@ public class Processus extends Thread {
 			}
 
 			message = message.substring(0, message.length()-2);
-			
+
 		} 
 
 		/* Si le processus ne se crash pas */
@@ -148,8 +147,9 @@ public class Processus extends Thread {
 		/* On affiche le message d'envoit */
 		//System.out.println(message+crash);
 		system.displayInfos(message+crash);
-
-		system.finishMyTurn(this);
+		//System.out.println("(2)");
+		/* on finit son tour, sil il est crasher alors on le vire de la liste */
+		system.finishMyTurn(this); // TODO
 
 		/* On attend que tous les processus aient envoyer leurs nombres */
 		try {
@@ -169,6 +169,8 @@ public class Processus extends Thread {
 		 * autres processus "
 		 */
 		for (Processus p : this.system.getOthersProc(this)) {
+
+			/* Si le processus n'a pas crasher alros il recoit des nombres */
 			if (!p.isCrashed()) {
 				p.receiveNumber(sendList);
 			}
@@ -182,9 +184,13 @@ public class Processus extends Thread {
 			e1.printStackTrace();
 		}
 
-		while (!this.system.itIsMyTurn(this)) {
-			Thread.yield();
-			Thread.sleep(10);
+		/* Permet d'afficher ds l'ordre ce que les processus ont recut */
+		if (!this.isCrashed) {
+			while (!this.system.itIsMyTurn(this)) { // TODO
+				//System.out.println("(3)");
+				Thread.yield();
+				Thread.sleep(10);
+			}
 		}
 
 		message = "Le processus "+this.name+" reçoit ";
@@ -204,8 +210,13 @@ public class Processus extends Thread {
 
 
 		this.listNumberReceive.clear();
+
+		/* Seul les process non crash (qui font encore parti de la list) peuvent finir leur tour */
 		if (!this.isCrashed) {
-		system.finishMyTurn(this);
+			//System.out.println("(4)");
+			system.finishMyTurn(this); //TODO
+		} else {
+
 		}
 	}
 
@@ -286,9 +297,9 @@ public class Processus extends Thread {
 	}
 
 	public int getMinNumber() {
-		
+
 		int res = listNumber.get(0).getValue();
-		
+
 		for (Number n : listNumber) {
 
 			if (n.getValue() < res) {
@@ -296,14 +307,15 @@ public class Processus extends Thread {
 				res = n.getValue();
 			}
 		}
-		
+
 		return res;
 	}
-	
+
 	public boolean willICrashed() {
 
 		if (Math.random()<0.2) {
 			// Si il y a moins de 20% de crash ds le system
+			System.out.println("crash : "+system.checkCrashPourcent());
 			if (system.checkCrashPourcent()<0.2) {
 				return true;
 			} else {

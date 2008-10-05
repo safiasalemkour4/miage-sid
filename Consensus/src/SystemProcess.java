@@ -17,6 +17,9 @@ public class SystemProcess extends Thread {
 	/** CyclicBarrier use in the system */
 	private CyclicBarrier barrier, barrierPhase;
 
+	/** The number of process in the system */
+	private int numberOfProcess;
+	
 	/** The id of the last thread create */
 	private int lastProcesId;
 
@@ -30,14 +33,15 @@ public class SystemProcess extends Thread {
 
 	public SystemProcess(int numberOfProcess) {
 
+		this.numberOfProcess = numberOfProcess;
 		this.listProcessus = new ArrayBlockingQueue<Processus>(numberOfProcess, true);
 
 		this.lastProcesId = 0;
 		this.currentPhase = 0;
 
-		System.out.println("----------------------------------------------------------------\n" +
-				"---   Un systeme de "+numberOfProcess+" processus vient d'etre cree.   ---\n"+
-		"----------------------------------------------------------------\n");
+		System.out.println("-----------------------------------------------------------\n" +
+							"---   Un systeme de "+numberOfProcess+" processus vient d'etre cree.   ---\n"+
+							"-----------------------------------------------------------\n");
 
 		barrier = new CyclicBarrier(numberOfProcess);
 		barrierPhase = new CyclicBarrier(numberOfProcess+1);
@@ -77,6 +81,26 @@ public class SystemProcess extends Thread {
 
 				e.printStackTrace();
 			}
+		}
+
+		/* We wait all the process finish */
+		for (Processus p : this.listProcessus) {
+
+			try {
+				
+				p.join();
+				
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		
+		System.out.println("------------\n- Decision -\n------------");
+		
+		for (Processus p : this.listProcessus) {
+
+			System.out.println("Le processus "+p.getMyName()+" decide "+p.getMinNumber());
 		}
 	}
 
@@ -119,7 +143,7 @@ public class SystemProcess extends Thread {
 
 	public double checkCrashPourcent() {
 
-		return (this.checkNbCrash()/this.checkNbProcessus());
+		return ((double)this.checkNbCrash()/(double)this.checkNbProcessus());
 	}
 
 	/**
@@ -129,7 +153,7 @@ public class SystemProcess extends Thread {
 
 	public int checkNbProcessus() {
 
-		return this.listProcessus.size();
+		return this.numberOfProcess;
 	}
 
 	/**
@@ -139,17 +163,8 @@ public class SystemProcess extends Thread {
 
 	public int checkNbCrash() {
 
-		int res = 0;
+		return this.numberOfProcess-this.listProcessus.size();
 
-		for (Processus p : this.listProcessus) {
-
-			if (p.isCrashed()) {
-
-				res++;
-			}
-		}
-
-		return res;
 	}
 
 	/**
@@ -188,11 +203,11 @@ public class SystemProcess extends Thread {
 
 		if (((Processus)this.listProcessus.peek()).getMyName().compareTo(p.getMyName())==0) {
 
-			System.out.println("My turn ? "+p.getMyName()+" YES \n"+res);
+			//System.out.println("My turn ? "+p.getMyName()+" YES \n"+res);
 			return true;
 
 		} else {
-			System.out.println("My turn ? "+p.getMyName()+" NO - it's he turn of "+((Processus)this.listProcessus.peek()).getMyName()+"\n"+res);
+			//System.out.println("My turn ? "+p.getMyName()+" NO - it's he turn of "+((Processus)this.listProcessus.peek()).getMyName()+"\n"+res);
 			return false;
 		}
 	}
@@ -205,21 +220,24 @@ public class SystemProcess extends Thread {
 
 	public synchronized void finishMyTurn(Processus p) {
 
+		/* If it's my turn */
 		if (itIsMyTurn(p)) {
 
 			try {
 
+				/* If it's crashed */
 				if (p.isCrashed()) {
-					
+
+					/* We remove the process bu we don't add them at the queue */
 					this.listProcessus.take();
-					
+
 				} else {
 
-					System.out.println("It is the end for me "+((Processus)this.listProcessus.peek()).getMyName());
+					/* We move the process in he head to the queue */
 					this.listProcessus.take();
 					this.listProcessus.add(p);
 				}
-				
+
 			} catch (InterruptedException e) {
 
 				e.printStackTrace();
