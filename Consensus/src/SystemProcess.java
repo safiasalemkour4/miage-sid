@@ -1,137 +1,146 @@
 import java.util.ArrayList;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
+/**
+ * SystemProcess class
+ * Represent the system of process
+ * @author Florian COLLIGNON & Arnaud KNOBLOCH
+ */
 
 public class SystemProcess extends Thread {
 
-	private ArrayList<Processus> listProcessus;
+	/** The list of process of the system */
+	private ArrayBlockingQueue<Processus> listProcessus;
 
-	private CyclicBarrier barrier;
-	
-	private int lastId;
+	/** CyclicBarrier use in the system */
+	private CyclicBarrier barrier, barrierPhase;
 
+	/** The id of the last thread create */
+	private int lastProcesId;
+
+	/** The current phase */
 	private int currentPhase;
-	
-	private boolean processStarted;
+
+	/**
+	 * Constructor
+	 * @param numberOfProcess the number of process
+	 */
+
 	public SystemProcess(int numberOfProcess) {
 
-		this.listProcessus = new ArrayList<Processus>();
-		this.lastId = 0;
+		this.listProcessus = new ArrayBlockingQueue<Processus>(numberOfProcess, true);
+
+		this.lastProcesId = 0;
 		this.currentPhase = 0;
-		this.processStarted = false;
-		System.out.println("Un systeme de "+numberOfProcess+" processus vient d'etre cree.");
-		
+
+		System.out.println("----------------------------------------------------------------\n" +
+				"---   Un systeme de "+numberOfProcess+" processus vient d'etre cree.   ---\n"+
+		"----------------------------------------------------------------\n");
+
 		barrier = new CyclicBarrier(numberOfProcess);
-		System.out.println(" waiting :" +barrier.getNumberWaiting());
-		System.out.println(" parties :" +barrier.getParties());
-		
+		barrierPhase = new CyclicBarrier(numberOfProcess+1);
+
 	}
 
 	/**
-	 * Methode Run
+	 * Method Run
 	 */
 
 	public void run() {
 
+		/* We run all the tread of the system */
+		startAllProcess();
+
+		/* While phase k < Nb Process */ 
 		while (this.currentPhase<this.checkNbProcessus()) {
-			
+
 			this.currentPhase++;
-			
-			System.out.println("\nPhase "+this.currentPhase);
-			
-			//checkCrashPourcent();
-			System.out.println(" waiting :" +barrier.getNumberWaiting());
-			System.out.println(" parties :" +barrier.getParties());
-			
-			//if (!this.processStarted) {
-				//this.processStarted = true;
-				startSendAllProcessus();
-			//}
+
+			System.out.println("------------\n- Phase "+this.currentPhase+" -\n------------");
+
+			//System.out.println(" waiting :" +barrier.getNumberWaiting());
+			//System.out.println(" parties :" +barrier.getParties());
+
+			/* We wait all process have finish the phase */
 			try {
-				Thread.sleep(5000);
+
+				barrierPhase.await();
+				System.out.println("\n");
+
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+
+				e.printStackTrace();
+
+			} catch (BrokenBarrierException e) {
+
 				e.printStackTrace();
 			}
-
-			
 		}
 	}
 
-	public void startSendAllProcessus() {
+	/**
+	 * Method startAllProcess
+	 * Run all the thread
+	 */
 
-		//for (Processus p : this.listProcessus) {
+	public void startAllProcess() {
 
-			//p.sendFirstNumber();
-		//}
-		
 		for (Processus p : this.listProcessus) {
-			
-				p.start();
-		
+
+			p.start();
 		}
 	}
 
-	public void stopSendAllProcessus() {
+	/**
+	 * Method addProcessus
+	 * Add a thread (process) to the system
+	 */
 
-		//for (Processus p : this.listProcessus) {
+	public void addProcessus() {
 
-			//p.sendFirstNumber();
-		//}
-		
-		for (Processus p : this.listProcessus) {
-			
-				p.stop();
-		
-		}
-	}
-	
-	public void startReceiveAllProcessus() {
+		this.lastProcesId++;
 
-		//for (Processus p : this.listProcessus) {
-
-			//p.sendFirstNumber();
-		//}
-		
-		for (Processus p : this.listProcessus) {
-
-			p.notifyAll();
-		}
-		
 		try {
-			sleep(1000);
+
+			this.listProcessus.put(new Processus("proc_"+this.lastProcesId,this));
+
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
-	
-	public void addProcessus() {
 
-		this.lastId++;
-		
-		System.out.println("Ajout du processus "+this.lastId);
-		
-		this.listProcessus.add(new Processus(""+this.lastId,this));
+	/**
+	 * Method checkCrashPourcent
+	 * @return the pourcent of process crashed
+	 */
 
+	public double checkCrashPourcent() {
+
+		return (this.checkNbCrash()/this.checkNbProcessus());
 	}
 
-	private void checkCrashPourcent() {
+	/**
+	 * Method checkNbProcessus
+	 * @return the number of process in the system
+	 */
 
-		// Verif ici que quÕil nÕy a jamais plus que f processus en panne (20%).
-		//checkNbCrash() / this.listProcessus.size();
-
-	}
-	
 	public int checkNbProcessus() {
-		
+
 		return this.listProcessus.size();
 	}
-	
+
+	/**
+	 * Method checkNbCrash
+	 * @return the number of process crashed
+	 */
+
 	public int checkNbCrash() {
-		
+
 		int res = 0;
-		
+
 		for (Processus p : this.listProcessus) {
 
 			if (p.isCrashed()) {
@@ -139,9 +148,15 @@ public class SystemProcess extends Thread {
 				res++;
 			}
 		}
-		
+
 		return res;
 	}
+
+	/**
+	 * Method getOthersProc
+	 * @param processus the applicant
+	 * @return a arrayList of process
+	 */
 
 	public ArrayList<Processus> getOthersProc(Processus processus) {
 
@@ -156,34 +171,92 @@ public class SystemProcess extends Thread {
 		}
 
 		return res;
-
 	}
 
+	/**
+	 * Method itIsMyTurn
+	 * @param p the applicant
+	 * @return true if it's the turn of the process, else false
+	 */
+	
+	public boolean itIsMyTurn(Processus p) {
+
+		if (((Processus)this.listProcessus.peek()).getMyName().compareTo(p.getMyName())==0) {
+
+			return true;
+
+		} else {
+
+			return false;
+		}
+	}
+
+	/**
+	 * Method finishMyTurn
+	 * @param p the applicant
+	 * Set to end the turn of the thread
+	 */
+	
+	public void finishMyTurn(Processus p) {
+		
+		try {
+			
+			this.listProcessus.take();
+			this.listProcessus.add(p);
+			
+		} catch (InterruptedException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Method displayInfos (Syncrhonized)
+	 * @param message the message to display
+	 */
+	
+	public synchronized void displayInfos(String message) {
+
+		System.out.println(message);
+	}
+
+	/**
+	 * Method itIsTheEnd
+	 * @return true if it's the end of the algorithme
+	 */
+	
+	public boolean itIsTheEnd() {
+		
+		return !(this.currentPhase<this.checkNbProcessus());
+	}
+	
+	/**
+	 * Getter Barrier
+	 * @return CyclicBarrier
+	 */
+	
 	public CyclicBarrier getBarrier() {
+		
 		return this.barrier;
 	}
 
-	public boolean isAllMsgSended() {
+	/**
+	 * Getter barrierPhase
+	 * @return CyclicBarrier
+	 */
+	
+	public CyclicBarrier getBarrierPhase() {
 		
-		int res = 0;
-		
-		for (Processus p : this.listProcessus) {
-
-			if (p.isMsgSended()) {
-
-				res++;
-			}
-		}
-		
-		//System.out.println("res : "+res);
-		
-		if (res==this.listProcessus.size()) {
-			return true;
-		} else {
-			return false;
-		}
-
+		return this.barrierPhase;
 	}
 
+	/**
+	 * Getter phase
+	 * @return currentPhase
+	 */
 	
+	public int getCurrentPhase() {
+		
+		return currentPhase;
+	}
 }

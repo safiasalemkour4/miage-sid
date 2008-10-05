@@ -6,29 +6,35 @@ import java.util.concurrent.BrokenBarrierException;
 
 public class Processus extends Thread {
 
+	private boolean endOfMyPhase = false;
 
-	// SAUVEGARDER SI LE CHIFFRE A ETE SEND !!!!!
 	private SystemProcess system;
 
 	private ArrayList<Number> listNumber;
 
-	private String id;
+	private ArrayList<Number> listNumberReceive;
+
+	private String name;
 
 	private boolean isCrashed;
 
 	private boolean msgSended;
 
+	private int currentPhase;
+
 	/**
 	 * Constructeur
 	 */
 
-	public Processus(String id, SystemProcess system) {
+	public Processus(String name, SystemProcess system) {
 
-		this.id = id;
+		this.name = name;
 		this.system=system;
-this.isCrashed = false;
-this.msgSended = false;
+		this.currentPhase = 0;
+		this.isCrashed = false;
+		this.msgSended = false;
 		this.listNumber = new ArrayList<Number>();
+		this.listNumberReceive = new ArrayList<Number>();
 
 		this.listNumber.add(new Number((int) (Math.random()*10)));
 
@@ -44,19 +50,41 @@ this.msgSended = false;
 
 		try {
 
-			this.system.getBarrier().await();
-			
+			//System.out.println("END ?"+this.system.itisTheEnd());
+			while(!this.system.itIsTheEnd()) {
+
+				/* On attend que les autres processus soit RUN */
+				this.system.getBarrier().await();
+
+				this.currentPhase++;
+				//if (this.currentPhase == this.system.getCurrentPhase()) {
+
+				/* On envoit et on recoit */
+				if (!isCrashed) {
+
+					while (!this.system.itIsMyTurn(this)) {
+						Thread.sleep(1);
+					}
+
+					sendNumber();
+
+
+				}
+
+				/* Sinon on attend */
+				//} else {
+
+				//Thread.sleep(10);
+				//}
+				this.system.getBarrierPhase().await();
+
+			}
+
 			//System.out.println(" lol : "+this.system.getBarrier().getNumberWaiting());
 			// Escequ'il va cracher ?
 			// Si oui, il envoit une partie a des proc alea ?
 
 			// Si il tombe en panne, chque msg a 20% de chance d'etre send
-			if (!isCrashed) {
-
-				sendNumber();
-			}
-
-
 
 		} catch (InterruptedException e) {
 
@@ -66,15 +94,21 @@ this.msgSended = false;
 
 			e.printStackTrace();
 		}
-		System.out.println("le proc "+this.id+" a finit");
+
+		System.out.println("Je ("+this.name+") decide "+this.getMinNumber());
+		if (this.system.itIsMyTurn(this)) {
+			this.system.finishMyTurn(this);
+		}
+		System.out.println("le proc "+this.name+" a finit");
+
 
 	}
 
 	public void sendNumber() throws InterruptedException {
 
 		/* Le message a afficher */
-		String message = "Le processus "+this.id+" envoit ";
-		
+		String message = "Le processus "+this.name+" envoit ";
+
 		/* Le message si il y a un crash du processus */
 		String crash = "";
 
@@ -104,14 +138,22 @@ this.msgSended = false;
 					if (!n.isSended()) {
 						sendList.add(n);
 						n.setSended();
-						message += +n.getNumber()+", ";
+						message += +n.getValue()+", ";
 					}
 				}
+			}
+
+			message = message.substring(0, message.length()-2);
+			
+			if (this.system.itIsMyTurn(this)) {
+				this.system.finishMyTurn(this);
 			}
 		} 
 
 		/* Si le processus ne se crash pas */
 		else {
+
+			/* On met a jour le message */
 
 			for (Number n : listNumber) {
 
@@ -119,44 +161,72 @@ this.msgSended = false;
 				if (!n.isSended()) {
 					sendList.add(n);
 					n.setSended();
-					message += +n.getNumber()+", ";
+					message += +n.getValue()+", ";
 				}
-
 			}
+
+			message = message.substring(0, message.length()-2);
+			message += " a tout le monde";
 		}
-		
+
 		/* On affiche le message d'envoit */
-		System.out.println(message+crash);
-		
-		this.msgSended = true;
-		
-		/* On attend que tous les processus aient envoyer leurs nombres */
-		while (!system.isAllMsgSended()) {
-			Thread.sleep(10);
-		}
-		
-		/* Si tous les processus ont envoyer leurs nombres */
-		if (system.isAllMsgSended()) {
-			
-			try {
-				this.system.getBarrier().await();
-			} catch (BrokenBarrierException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			/* On envoit la liste de nombre aux processus
-			 *
-			 * Correspond a :
-			 * " 1. Envoyer toutes les valeurs de Vi qui n’ont pas encore été envoyées par pi à tous les 
-			 * autres processus "
-			 */
-			for (Processus p : this.system.getOthersProc(this)) {
-				p.receiveNumber(sendList);
-			}
-		}
-		
+		//System.out.println(message+crash);
+		system.displayInfos(message+crash);
 
+		this.msgSended = true;
+
+		system.finishMyTurn(this);
+
+		/* On attend que tous les processus aient envoyer leurs nombres */
+		try {
+			this.system.getBarrier().await();
+		} catch (BrokenBarrierException e1) {
+			e1.printStackTrace();
+		}
+
+		/* Si tous les processus ont envoyer leurs nombres */
+
+
+
+		/* On envoit la liste de nombre aux processus
+		 *
+		 * Correspond a :
+		 * " 1. Envoyer toutes les valeurs de Vi qui n’ont pas encore été envoyées par pi à tous les 
+		 * autres processus "
+		 */
+		for (Processus p : this.system.getOthersProc(this)) {
+			p.receiveNumber(sendList);
+		}
+
+		/* On attend que tous les processus aient recut leurs nombres */
+		try {
+			this.system.getBarrier().await();
+		} catch (BrokenBarrierException e1) {
+			e1.printStackTrace();
+		}
+
+		while (!this.system.itIsMyTurn(this)) {
+			Thread.sleep(1);
+		}
+
+		message = "Le processus "+this.name+" reçoit ";
+		for (Number n : listNumberReceive) {
+
+			message += n.getValue()+", ";
+			this.addNumber(n.getValue());
+		}
+
+		if (!this.listNumberReceive.isEmpty()) {
+			message = message.substring(0, message.length()-2);
+		} else {
+			message += "empty";
+		}
+
+		system.displayInfos(message);
+
+
+		this.listNumberReceive.clear();
+		system.finishMyTurn(this);
 	}
 
 	// Si chiffre rien
@@ -177,40 +247,97 @@ this.msgSended = false;
 	public void receiveNumber(ArrayList<Number> sendList) {
 
 		this.msgSended = false;
-		
-		String message = "Le processus "+this.id+" reçoit ";
 
 		// Pas possible de contains car nouvelle objet 
 		boolean addNumber = true;
 
 		for (Number sended : sendList) {
 
-			message += sended.getNumber()+", ";
-
 			for (Number n : listNumber) {
 
-				if (n.getNumber() == sended.getNumber()) {
+				if (n.getValue() == sended.getValue()) {
 
-					addNumber = false;
+					//addNumber = false;
 				}
 			}
 
+			// On peu recevoir 2x le m'm nombre
+			/*for (Number n : listNumberReceive) {
+
+				if (n.getValue() == sended.getValue()) {
+
+					addNumber = false;
+				}
+			}*/
+
 			if (addNumber) {
 
-				this.listNumber.add(sended);
+				this.listNumberReceive.add(sended);
 
 			}
 		}
 
-		System.out.println(message);
 
 	}
 
+	public void addNumber(int numberValue) {
+
+		this.msgSended = false;
+
+		// Pas possible de contains car nouvelle objet 
+		boolean addNumber = true;
+
+		for (Number n : listNumber) {
+
+			if (n.getValue() == numberValue) {
+
+				addNumber = false;
+			}
+		}
+
+		// On peu recevoir 2x le m'm nombre
+		/*for (Number n : listNumberReceive) {
+
+				if (n.getValue() == sended.getValue()) {
+
+					addNumber = false;
+				}
+			}*/
+
+		if (addNumber) {
+
+			this.listNumber.add(new Number(numberValue));
+
+		}
+
+
+
+	}
+
+	public int getMinNumber() {
+		
+		int res = listNumber.get(0).getValue();
+		
+		for (Number n : listNumber) {
+
+			if (n.getValue() < res) {
+
+				res = n.getValue();
+			}
+		}
+		
+		return res;
+	}
+	
 	public boolean willICrashed() {
 
 		if (Math.random()<0.2) {
-
-			return true;
+			// Si il y a moins de 20% de crash ds le system
+			if (system.checkCrashPourcent()<0.2) {
+				return true;
+			} else {
+				return false;
+			}
 
 		} else {
 
@@ -227,7 +354,7 @@ this.msgSended = false;
 		this.isCrashed = isCrashed;
 	}
 
-	
+
 	public boolean isMsgSended() {
 		return msgSended;
 	}
@@ -236,6 +363,18 @@ this.msgSended = false;
 		this.msgSended = msgSended;
 	}
 
-	
+	public boolean isEndOfMyPhase() {
+		return endOfMyPhase;
+	}
+
+	public void setEndOfMyPhase(boolean endOfMyPhase) {
+		this.endOfMyPhase = endOfMyPhase;
+	}
+
+	public String getMyName() {
+		return name;
+	}
+
+
 
 }

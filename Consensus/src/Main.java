@@ -27,6 +27,6 @@ public class Main {
 		}
 
 		/* We start the system */
-		system.start();;
+		system.start();
 	}
 }
