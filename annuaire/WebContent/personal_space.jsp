@@ -4,6 +4,7 @@
 <jsp:useBean id="user" scope="session" class="tools.UserBean"/>
 <jsp:setProperty name="user" property="*"/>
 <jsp:include page="header.jsp"/>
+
 <table align="center" cellspacing="10" cellpadding="10">
 	<tr>
 		<td align="center" colspan="3">
