@@ -3,7 +3,7 @@
  * Extend Thread
  * @author Florian COLLIGNON & Arnaud KNOBLOCH
  */
-
+ 
 public class Agent extends Thread 
 {
 
