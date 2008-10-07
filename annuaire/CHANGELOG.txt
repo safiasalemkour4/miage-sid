@@ -1,0 +1,4 @@
+Fichier contenant le journal des modifications:
+=============================
+
+<date de création>: création du projet

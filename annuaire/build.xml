@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+ ===================================================================
+
+  Fichier build.xml générique pour un projet WEb Dynamique (Master Miage)
+  Authors: Azim Roussanaly <azim@loria.fr>
+
+  Les cibles standards :
+  - compile
+  - war
+  - deploy/undeploy
+  - javadoc
+  - dist
+
+
+  Copyright (c) 2007 Université Nancy2
+  ===================================================================
+-->
+
+<project default="compile" basedir=".">
+
+	<property environment="env"/>
+
+
+	<!-- Arborescence du projet : ce qui est créé : -->
+	<!-- 1) Dossiers -->
+	<property name="dir.webcontent" value="WebContent" />
+	<property name="dir.extlib" value="extlib" />
+	<property name="dir.lib" value="${dir.webcontent}/WEB-INF/lib" />
+	<property name="dir.src" value="src" />
+	<property name="dir.doc" value="doc"/>
+	<property name="dir.img" value="${dir.webcontent}/img"/>
+	<property name="dir.samples" value="samples"/>
+	<property name="dir.bin" value="bin"/>
+
+	<!-- 2) Fichiers -->
+	<property name="file.properties" value="proj.properties"/>
+	<property name="file.readme" value="README.txt"/>
+	<property name="file.licence" value="LICENSE.fr"/>
+	<property name="file.todo" value="TODO.txt"/>
+	<property name="file.changelog" value="CHANGELOG.txt"/>
+	<property name="file.buildxml" value="build.xml"/>
+
+	<!-- Chargement des properties du projet -->
+	<property file="${file.properties}"/>
+
+	<!-- Arborescence du projet : ce qui est construit -->
+	<!-- 1) Dossiers -->
+	<property name="dir.build" value="build"/>
+	<property name="dir.build.classes" value="${dir.build}/classes"/>
+	<property name="dir.build.javadoc" value="${dir.build}/javadoc"/>
+	<property name="dir.dist" value="dist"/>
+
+	<!-- 2) Fichiers -->
+	<property name="file.war" value="${name}.war"/>
+
+	<!-- Définition des taches du deployeur -->
+	<taskdef resource="org/apache/catalina/ant/catalina.tasks" classpathref="classpath"/>
+
+	<!--
+ =====================================================================
+ Déterminer le classpath : on prend tous les jars situés dans ${dir.lib}
+ =====================================================================
+ -->
+	<target name="classpath" description="Recherche des librairies">
+		<path id="classpath">
+			<fileset dir="${dir.lib}" includes="**/*.jar"/>
+			<fileset dir="${dir.extlib}" includes="**/*.jar"/>
+		</path>
+		<echo message="Classpath déterminé automatiquement"/>
+	</target>
+
+	<!--
+ =====================================================================
+ Préparer les répertoires construits   : build, build/classes, build/lib
+ =====================================================================
+ -->
+	<target name="prepare" depends="classpath" description="Préparation des répertoires">
+		<mkdir dir="${dir.build}"/>
+		<mkdir dir="${dir.build.classes}"/>
+		<echo message="Répertoires d'accueil construits"/>
+	</target>
+
+	<!--
+ =====================================================================
+Compiler les sources :
+1)on compile tous les java dans src
+2)on recopie  les fichiers properties dans src
+ =====================================================================
+ -->
+	<target name="compile" depends="prepare" description="Compilation des fichiers sources">
+		<javac srcdir="${dir.src}" deprecation="true" destdir="${dir.build.classes}"
+   			debug="${debug}" classpathref="classpath">
+		</javac>
+
+		<copy todir="${dir.build.classes}">
+			<fileset dir="${dir.src}" includes="**/*.properties"/>
+			<fileset dir="${dir.src}" includes="**/*.jpg **/*.gif"/>
+		</copy>
+
+	</target>
+
+	<!--
+ =====================================================================
+ Préparation de dist : création du répertoire dist
+ =====================================================================
+ -->
+	<target name="prepare-dist">
+		<mkdir dir="${dir.dist}"/>
+	</target>
+
+	<!--
+ =====================================================================
+ Créer une distribution source : tar puis gzip des patternset concernés
+ =====================================================================
+ -->
+	<target name="dist" depends="prepare-dist" description="Création d'une distribution source">
+
+		<tar tarfile="${dir.dist}/${name}${version}-src.tar.gz" compression="gzip">
+
+			<tarfileset description="fichiers communs" dir="${basedir}" prefix="${name}">
+				<include name="${file.readme}"/>
+				<include name="${file.licence}"/>
+				<include name="${file.changelog}"/>
+				<include name="${file.properties}"/>
+				<include name="${file.todo}"/>
+				<include name="${file.buildxml}"/>
+			</tarfileset>
+
+			<tarfileset description="exemples" dir="${dir.samples}" prefix="${name}/${dir.samples}">
+				<include name="**"/>
+			</tarfileset>
+
+			<tarfileset description="scripts" dir="${dir.bin}" prefix="${name}/${dir.bin}">
+				<include name="**"/>
+			</tarfileset>
+
+			<tarfileset description="documentation" dir="${dir.doc}" prefix="${name}/${dir.doc}">
+				<include name="**"/>
+				<exclude name="**/*.aux"/>
+				<exclude name="**/*.bbl"/>
+				<exclude name="**/*.log"/>
+			</tarfileset>
+
+			<tarfileset description="librairies jar" dir="${dir.extlib}" prefix="${name}/${dir.extlib}">
+				<include name="**/*.jar"/>
+			</tarfileset>
+
+			<tarfileset description="web content" dir="${dir.webcontent}" prefix="${name}/${dir.vebcontent}">
+				<include name="**/*.jar"/>
+			</tarfileset>
+
+			<tarfileset description="programmes source" dir="${dir.src}" prefix="${name}/${dir.src}">
+				<include name="**"/>
+			</tarfileset>
+
+		</tar>
+	</target>
+
+<!--
+ =====================================================================
+ Créer le fichier war
+ =====================================================================
+-->
+	<target name="war" depends="compile">
+  		<copy todir="${dir.webcontent}/WEB-INF/classes">
+			<fileset dir="${dir.build.classes}"/>
+		</copy>
+ 		<jar destfile="${file.war}">
+			<fileset dir="${dir.webcontent}"/>
+   		</jar>
+   	</target>
+
+<!--
+ =====================================================================
+Déployer
+ =====================================================================
+-->
+  <target name="deploy" depends="war" description="Deployer l'application web">
+    <deploy url="${url}" username="${user}" password="${pwd}"
+            path="/${name}" war="${file.war}" update="true" />
+  </target>
+
+<!--
+ =====================================================================
+ Un-déployer
+ =====================================================================
+-->
+  <target name="undeploy" description="Undeploy web application">
+    <undeploy url="${url}" username="${user}" password="${pwd}"
+              path="/${name}"/>
+  </target>
+
+	<!--
+ =====================================================================
+ Créer le javadoc
+ =====================================================================
+ -->
+	<target name="javadoc" depends="prepare">
+		<mkdir dir="${dir.build.javadoc}"/>
+		<javadoc packagenames="${packages.base}.*"
+   sourcepath="${dir.src}"
+   excludepackagenames=""
+   defaultexcludes="yes"
+   destdir="${dir.build.javadoc}"
+   author="true"
+   version="true"
+   use="true"
+   classpathref="classpath"
+   windowtitle="${name} ${version} API">
+			<doctitle>
+				<![CDATA[<h1>${Name} ${version} API</h1>]]></doctitle>
+	</javadoc>
+</target>
+
+<!--
+ =====================================================================
+ Faire le ménage
+ =====================================================================
+ -->
+<target name="clean">
+	<delete dir="${dir.build}"/>
+	<delete dir="${dir.dist}"/>
+	<delete dir="${dir.webcontent}/WEB-INF/classes"/>	
+	<delete file="${file.war}"/>
+	<echo message="Répertoires détruits"/>
+</target>
+
+</project>
+
+

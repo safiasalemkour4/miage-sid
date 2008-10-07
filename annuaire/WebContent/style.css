@@ -1,0 +1,74 @@
+@CHARSET "ISO-8859-1";
+body {
+    margin:30px;
+    text-align:center;
+    color: purple;
+    background-color: #d8da3d
+}
+
+#header {
+    width: 100%;
+    height: 70px;
+    padding-top:20px;
+    background-image: url("trame.png");
+    border: solid 1px #4c4c2c;
+}
+
+#error {
+    margin-top: 20px;
+    padding-top:10px;
+    font: bold 16px georgia;
+    color: red;
+    background-color: #f9a391;
+    width: 100%;
+    height: 50px;
+    display: none;
+    border:solid 1px red;
+    text-align:center;
+}
+
+#info {
+    margin-top: 20px;
+    padding-top:10px;
+    font: bold 16px georgia;
+    color: green;
+    background-color: #a7ff98;
+    width: 100%;
+    height: 50px;
+    display: none;
+    border:solid 1px green;
+    text-align:center;
+}
+
+#content {
+    text-align: left;
+    background-color: #a5a72e;
+    border:solid 1px #8b8c29;
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    min-height: 300px;
+}
+
+#content div {
+    text-align: center;
+}
+
+#content div {
+    padding: 20px;
+    text-align: -moz-center;
+}
+    
+#content div div {
+	width: 400px;
+    padding: 20px;
+    border: solid 1px #8b8c29;
+    background-color: #d8da3d
+}
+
+#footer {
+    margin-top: 20px;
+    font: bold 10px georgia;
+    color: black;
+}
