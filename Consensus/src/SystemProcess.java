@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * SystemProcess class
@@ -59,18 +61,19 @@ public class SystemProcess extends Thread {
 
 		/* While phase k < Nb Process */ 
 		while (!itIsTheEnd()) {
-
+			
 			this.currentPhase++;
-
+			
 			System.out.println("------------\n- Phase "+this.currentPhase+" -\n------------");
-
-			//System.out.println(" waiting :" +barrier.getNumberWaiting());
-			//System.out.println(" parties :" +barrier.getParties());
 
 			/* We wait all process have finish the phase */
 			try {
-
+	
+				System.out.println("AVANT BARRIERE");
 				barrierPhase.await();
+				barrierPhase.await();
+				System.out.println("APRES BARRIERE");
+				
 				System.out.println("\n");
 
 			} catch (InterruptedException e) {
@@ -80,12 +83,13 @@ public class SystemProcess extends Thread {
 			} catch (BrokenBarrierException e) {
 
 				e.printStackTrace();
-			}
+			} 
 		}
-
+		System.out.println("----");
+		
 		/* We wait all the process finish */
 		for (Processus p : this.listProcessus) {
-
+			
 			try {
 				
 				p.join();
@@ -196,18 +200,14 @@ public class SystemProcess extends Thread {
 
 	public synchronized boolean itIsMyTurn(Processus p) {
 
-		String res ="{";
-		for (Object obj : this.listProcessus) {
-			res += ((Processus)obj).getMyName()+"}, ";
-		}
+		if (this.listProcessus.peek().getMyName().compareTo(p.getMyName())==0) {
 
-		if (((Processus)this.listProcessus.peek()).getMyName().compareTo(p.getMyName())==0) {
-
-			//System.out.println("My turn ? "+p.getMyName()+" YES \n"+res);
+			//System.out.println("le tour de "+((Processus)this.listProcessus.peek()).getMyName()+" : NO !");
 			return true;
 
 		} else {
-			//System.out.println("My turn ? "+p.getMyName()+" NO - it's he turn of "+((Processus)this.listProcessus.peek()).getMyName()+"\n"+res);
+			
+			//System.out.println("le tour de "+((Processus)this.listProcessus.peek()).getMyName()+" : YES !");
 			return false;
 		}
 	}
@@ -228,12 +228,12 @@ public class SystemProcess extends Thread {
 				/* If it's crashed */
 				if (p.isCrashed()) {
 
-					/* We remove the process bu we don't add them at the queue */
+					/* We remove the process but we don't add them at the queue */
 					this.listProcessus.take();
 
 				} else {
 
-					/* We move the process in he head to the queue */
+					/* We move the process in the head to the queue */
 					this.listProcessus.take();
 					this.listProcessus.add(p);
 				}

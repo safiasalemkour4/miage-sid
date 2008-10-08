@@ -43,10 +43,10 @@ public class Processus extends Thread {
 
 			/* While phase k < Nb Process */ 
 			while(!this.system.itIsTheEnd()) {
-
+				
 				/* We wait other process */
 				this.system.getBarrier().await();
-
+	
 				/* If the thread is alive */
 				if (!isCrashed) {
 
@@ -57,9 +57,24 @@ public class Processus extends Thread {
 					}
 
 					sendNumber();
-				}
+					
+				} else {
 
+				}
+				System.out.println("Je suis avant la barriere de phase : "+this.name);
+				
+				/* We wait other process for the end oh the phase */
 				this.system.getBarrierPhase().await();
+				
+// TODO LE BUG C VERS ICI
+				
+				System.out.println("Je suis apres la barriere de phase : "+this.name);
+				
+				// Permet de laisser lecontrol au system
+				Thread.sleep(10);
+				
+				this.system.getBarrierPhase().await();
+				
 			}
 
 		} catch (InterruptedException e) {
@@ -71,15 +86,11 @@ public class Processus extends Thread {
 			e.printStackTrace();
 		}
 
-		if (this.system.itIsMyTurn(this)) { // TODO
-			this.system.finishMyTurn(this); 
-		}
-
 		System.out.println("le proc "+this.name+" a finit");
 	}
 
 	public void sendNumber() throws InterruptedException {
-
+		
 		/* Le message a afficher */
 		String message = "Le processus "+this.name+" envoit ";
 
@@ -152,16 +163,15 @@ public class Processus extends Thread {
 		system.finishMyTurn(this); // TODO
 
 		/* On attend que tous les processus aient envoyer leurs nombres */
-		try {
+		/*try {
 			this.system.getBarrier().await();
 		} catch (BrokenBarrierException e1) {
 			e1.printStackTrace();
-		}
+		}*/
 
 		/* Si tous les processus ont envoyer leurs nombres */
 
-
-
+		
 		/* On envoit la liste de nombre aux processus
 		 *
 		 * Correspond a :
@@ -178,15 +188,15 @@ public class Processus extends Thread {
 		}
 
 		/* On attend que tous les processus aient recut leurs nombres */
-		try {
+		/*try {
 			this.system.getBarrier().await();
 		} catch (BrokenBarrierException e1) {
 			e1.printStackTrace();
-		}
+		}*/
 
 		/* Permet d'afficher ds l'ordre ce que les processus ont recut */
 		if (!this.isCrashed) {
-			while (!this.system.itIsMyTurn(this)) { // TODO
+			while (!this.system.itIsMyTurn(this)) {
 				//System.out.println("(3)");
 				Thread.yield();
 				Thread.sleep(10);
@@ -215,8 +225,6 @@ public class Processus extends Thread {
 		if (!this.isCrashed) {
 			//System.out.println("(4)");
 			system.finishMyTurn(this); //TODO
-		} else {
-
 		}
 	}
 
@@ -315,7 +323,7 @@ public class Processus extends Thread {
 
 		if (Math.random()<0.2) {
 			// Si il y a moins de 20% de crash ds le system
-			System.out.println("crash : "+system.checkCrashPourcent());
+
 			if (system.checkCrashPourcent()<0.2) {
 				return true;
 			} else {
