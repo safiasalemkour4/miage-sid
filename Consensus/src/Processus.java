@@ -51,10 +51,10 @@ public class Processus extends Thread {
 
 			/* While phase k < Nb Process */ 
 			while(!this.system.itIsTheEnd()) {
-				
+
 				/* We wait other process */
 				this.system.getBarrier().await();
-	
+
 				/* If the thread is alive */
 				if (!isCrashed) {
 
@@ -66,20 +66,16 @@ public class Processus extends Thread {
 
 					/* The process send numbers */
 					sendNumber();
-					
+
 				} 
-				
+
 				/* We wait other process for the end oh the phase */
 				this.system.getBarrierPhase().await();
-				
-// TODO LE BUG C VERS ICI
-				
-				
-				// Permet de laisser lecontrol au system
+
+				/* Give the hand o the system (to close the barrier and so the turn) */
 				Thread.sleep(10);
-				
 				this.system.getBarrierPhase().await();
-				
+
 			}
 
 		} catch (InterruptedException e) {
@@ -91,9 +87,9 @@ public class Processus extends Thread {
 	 * Send the number to orher process of the system
 	 * @throws InterruptedException
 	 */
-	
+
 	public void sendNumber() throws InterruptedException {
-		
+
 		/* The message */
 		String message = "Le processus "+this.name+" envoit ";
 
@@ -120,12 +116,9 @@ public class Processus extends Thread {
 				/* else */
 				else {
 
-					// Si oui, il envoit une partie a des proc alea ?
-
-					// Si il tombe en panne, chque msg a 20% de chance d'etre send
-
-					/* Si le nombre n'a pas deja ete envoye */
+					/* If the message was not send before */
 					if (!n.isSended()) {
+						
 						sendList.add(n);
 						n.setSended();
 						message += +n.getValue()+", ";
@@ -134,7 +127,6 @@ public class Processus extends Thread {
 			}
 
 			message = message.substring(0, message.length()-2);
-
 		} 
 
 		/* If the process is still alive */
@@ -144,17 +136,26 @@ public class Processus extends Thread {
 
 			for (Number n : listNumber) {
 
+				/* If the message was not send before */
 				if (!n.isSended()) {
+					
 					sendList.add(n);
 					n.setSended();
 					message += +n.getValue()+", ";
 				}
 			}
 
+			if (sendList.isEmpty()) {
+
+				message += "rien de nouveau  ";
+			}
+			
 			message = message.substring(0, message.length()-2);
 			message += " a tout le monde";
 		}
 
+
+		
 		/* We display the message */
 		system.displayInfos(message+crash);
 
@@ -166,7 +167,7 @@ public class Processus extends Thread {
 		 * Correspond to :
 		 * " 1. Envoyer toutes les valeurs de Vi qui nÕont pas encore ŽtŽ envoyŽes par pi ˆ tous les autres processus "
 		 */
-		
+
 		for (Processus p : this.system.getOthersProc(this)) {
 
 			/* If the process is still alive */
@@ -175,80 +176,74 @@ public class Processus extends Thread {
 			}
 		}
 
-		/* The process wait for is turn */
+
 		if (!this.isCrashed) {
-			
+
+			/* The process wait for is turn */
 			while (!this.system.itIsMyTurn(this)) {
 
 				Thread.yield();
 				Thread.sleep(10);
 			}
+
+
+			/* We display what the process receive */
+
+			message = "Le processus "+this.name+" reoit ";
+
+			for (Number n : listNumberReceive) {
+
+				message += n.getValue()+", ";
+				this.addNumber(n.getValue());
+			}
+
+			if (!this.listNumberReceive.isEmpty()) {
+
+				message = message.substring(0, message.length()-2);
+
+			} else {
+
+				message += "rien de nouveau par rapport a la phase precedente";
+			}
+
+			/* We display the message */
+			system.displayInfos(message);
+
 		}
-
-		/* We display what the process receive */
-	
-		message = "Le processus "+this.name+" reoit ";
-		
-		for (Number n : listNumberReceive) {
-
-			message += n.getValue()+", ";
-			this.addNumber(n.getValue());
-		}
-
-		if (!this.listNumberReceive.isEmpty()) {
-			
-			message = message.substring(0, message.length()-2);
-			
-		} else {
-			
-			message += "empty";
-		}
-
-		/* We display the message */
-		system.displayInfos(message);
 
 		/* We clear the list */
 		this.listNumberReceive.clear();
 
 		/* Only process alive can finish the turn */
-		
+
 		if (!this.isCrashed) {
 
 			system.finishMyTurn(this);
 		}
 	}
 
-
 	/**
 	 * Method receiveNumber
 	 * @param sendList the list of number
 	 */
-	
+
 	public void receiveNumber(ArrayList<Number> sendList) {
 
 		/* We can't use the method contains because it's not the same references */
-		
+
 		boolean addNumber = true;
 
 		for (Number sended : sendList) {
 
-			for (Number n : listNumber) {
-
-				if (n.getValue() == sended.getValue()) {
-
-					//addNumber = false;
-				}
-			}
-
-			// On peu recevoir 2x le m'm nombre
-			/*for (Number n : listNumberReceive) {
+			for (Number n : listNumberReceive) {
 
 				if (n.getValue() == sended.getValue()) {
 
 					addNumber = false;
 				}
-			}*/
+			}
 
+			/* If the number is not in the list of number receive (int this turn) by other process */
 			if (addNumber) {
 
 				this.listNumberReceive.add(sended);
@@ -261,10 +256,11 @@ public class Processus extends Thread {
 	 * Method addNumber
 	 * @param numberValue the value of he number
 	 */
-	
+
 	public void addNumber(int numberValue) {
 
 		boolean addNumber = true;
+
 
 		for (Number n : listNumber) {
 
@@ -274,15 +270,7 @@ public class Processus extends Thread {
 			}
 		}
 
-		// On peu recevoir 2x le m'm nombre
-		/*for (Number n : listNumberReceive) {
-
-				if (n.getValue() == sended.getValue()) {
-
-					addNumber = false;
-				}
-			}*/
-
+		/* If the process list number not contains this number */
 		if (addNumber) {
 
 			this.listNumber.add(new Number(numberValue));
@@ -294,7 +282,7 @@ public class Processus extends Thread {
 	 * Method getMinNumber
 	 * @return the minimum value of the list of number
 	 */
-	
+
 	public int getMinNumber() {
 
 		int res = listNumber.get(0).getValue();
@@ -314,18 +302,18 @@ public class Processus extends Thread {
 	 * Method willICrashed
 	 * @return true if the process will crash, else false
 	 */
-	
+
 	public boolean willICrashed() {
 
 		if (Math.random()<0.2) {
-			
+
 			/* If the is less than 20% process crashed in the system */
 			if (system.checkCrashPourcent()<0.2) {
-				
+
 				return true;
-				
+
 			} else {
-				
+
 				return false;
 			}
 
@@ -339,7 +327,7 @@ public class Processus extends Thread {
 	 * Method willThisMessageCrash
 	 * @return true if the message will crash, else false
 	 */
-	
+
 	private boolean willThisMessageCrash() {
 
 		if (Math.random()<0.2) {
@@ -351,35 +339,33 @@ public class Processus extends Thread {
 			return false;
 		}
 	}
-	
-
 
 	/**
 	 * Getter Name
 	 * @return the name of the process
 	 */
-	
+
 	public String getMyName() {
-		
+
 		return name;
 	}
-	
+
 	/**
 	 * Getter Crashed
 	 * @return true if the process is crashed
 	 */
-	
+
 	public boolean isCrashed() {
-		
+
 		return isCrashed;
 	}
-	
+
 	/**
 	 * Setter Crashed
 	 * @param isCrashed the state of the process
 	 */
 	public void setCrashed(boolean isCrashed) {
-		
+
 		this.isCrashed = isCrashed;
 	}
 }
