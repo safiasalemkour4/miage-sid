@@ -3,6 +3,7 @@
 %>
 <jsp:useBean id="user" scope="session" class="tools.UserBean"/>
 <jsp:setProperty name="user" property="*"/>
+
 <jsp:include page="header.jsp"/>
 
 <table align="center" cellspacing="10" cellpadding="10">
@@ -22,6 +23,11 @@
 			<b><a href="resilation">Résiliation</a></b>
 		</td>
 	</tr>
+		<tr>
+		<td align="center" colspan="3">
+			<b><a href="action_deconnection.jsp">Deconnection</a></b>
+		<td>
+	<tr>
 </table>
 
 <jsp:include page="footer.jsp"/>
