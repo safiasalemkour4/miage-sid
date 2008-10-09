@@ -15,8 +15,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		/* Create a number between 1 and 10 */
-		int numberOfProcess = (new Random().nextInt(99))+1;
+		/* Create a number between 1 and 100 */
+		int numberOfProcess = 5;//(new Random().nextInt(99))+1;
 		
 		/* Create the system of process (context) */
 		SystemProcess system = new SystemProcess(numberOfProcess);
