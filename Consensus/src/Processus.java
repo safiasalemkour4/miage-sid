@@ -49,7 +49,7 @@ public class Processus extends Thread {
 
 		try {
 
-			/* While phase k < Nb Process */ 
+			/* While phase k < Nb Process crashed + 1 */ 
 			while(!this.system.itIsTheEnd()) {
 
 				/* We wait other process */

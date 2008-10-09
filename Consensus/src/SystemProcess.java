@@ -237,12 +237,13 @@ public class SystemProcess extends Thread {
 	 */
 
 	public synchronized boolean itIsTheEnd() {
-
-		//si k = nb proc  crash + 1 alors stop
 		
-		if ((this.currentPhase-1)==this.checkNbCrash() + 1 ) {
+		if ((this.currentPhase-1)==this.checkNbCrash() + 1 ) 
+
 			return true;
+		
 		} else {
+			
 			return false;
 		}
 	}
