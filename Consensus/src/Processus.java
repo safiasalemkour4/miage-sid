@@ -1,21 +1,31 @@
 import java.util.ArrayList;
 import java.util.concurrent.BrokenBarrierException;
 
+/**
+ * Processus class
+ * Represent one process
+ * @author Florian COLLIGNON & Arnaud KNOBLOCH
+ */
 
 public class Processus extends Thread {
 
+	/** The system */
 	private SystemProcess system;
 
+	/** The list of the number */
 	private ArrayList<Number> listNumber;
 
+	/** The list of the number receive */
 	private ArrayList<Number> listNumberReceive;
 
+	/** The name of the process (thread) */
 	private String name;
 
+	/** Boolean indicate if the processus is alive or not */
 	private boolean isCrashed;
 
 	/**
-	 * Constructeur
+	 * Constructeur of a process
 	 */
 
 	public Processus(String name, SystemProcess system) {
@@ -37,8 +47,6 @@ public class Processus extends Thread {
 
 	public void run() {
 
-		// Faire k phases avec k = nb proc crashé + 1
-
 		try {
 
 			/* While phase k < Nb Process */ 
@@ -50,25 +58,22 @@ public class Processus extends Thread {
 				/* If the thread is alive */
 				if (!isCrashed) {
 
-					while (!this.system.itIsMyTurn(this)) { // TODO
-						//System.out.println("(1)");
+					/* The process wait for his turn */
+					while (!this.system.itIsMyTurn(this)) {
 						Thread.yield();
 						Thread.sleep(10);
 					}
 
+					/* The process send numbers */
 					sendNumber();
 					
-				} else {
-
-				}
-				System.out.println("Je suis avant la barriere de phase : "+this.name);
+				} 
 				
 				/* We wait other process for the end oh the phase */
 				this.system.getBarrierPhase().await();
 				
 // TODO LE BUG C VERS ICI
 				
-				System.out.println("Je suis apres la barriere de phase : "+this.name);
 				
 				// Permet de laisser lecontrol au system
 				Thread.sleep(10);
@@ -85,37 +90,40 @@ public class Processus extends Thread {
 
 			e.printStackTrace();
 		}
-
 	}
 
+	/**
+	 * Method sendNumber
+	 * Send the number to orher process of the system
+	 * @throws InterruptedException
+	 */
+	
 	public void sendNumber() throws InterruptedException {
 		
-		/* Le message a afficher */
+		/* The message */
 		String message = "Le processus "+this.name+" envoit ";
 
-		/* Le message si il y a un crash du processus */
+		/* The crash message */
 		String crash = "";
 
-		/* La liste de nombre de le processus devra envoyer */
+		/* The list of a number it process will have to send */
 		ArrayList<Number> sendList = new ArrayList<Number>();
 
-		/* On regarde si le processus va se crasher */
+		/* We look if the process crashed */
 
-		/* Si le processus se crash */
+		/* if the process crashed */
 		if (willICrashed()) {
 
 			this.isCrashed = true;
 			crash = " et il se crash !";
 
-			/* On construit la liste de nombre a envoyer */
+			/* We build the list of number we have to send */
 			for (Number n : listNumber) {
 
-				/* Si l'envoit du message se crash */
-				if (this.willThisMessageCrash()) {
+				/* If the message wiil crash */
+				if (this.willThisMessageCrash()) {} 
 
-				} 
-
-				/* Si l'envoit du message fonctionne */
+				/* else */
 				else {
 
 					// Si oui, il envoit une partie a des proc alea ?
@@ -135,14 +143,13 @@ public class Processus extends Thread {
 
 		} 
 
-		/* Si le processus ne se crash pas */
+		/* If the process is still alive */
 		else {
 
-			/* On met a jour le message */
+			/* We update the message */
 
 			for (Number n : listNumber) {
 
-				/* Si le nombre n'a pas deja ete envoye */
 				if (!n.isSended()) {
 					sendList.add(n);
 					n.setSended();

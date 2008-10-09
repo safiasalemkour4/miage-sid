@@ -29,7 +29,7 @@ public class SystemProcess extends Thread {
 	private int currentPhase;
 
 	/**
-	 * Constructor
+	 * Constructor of the system
 	 * @param numberOfProcess the number of process
 	 */
 
@@ -41,9 +41,9 @@ public class SystemProcess extends Thread {
 		this.lastProcesId = 0;
 		this.currentPhase = 1;
 
-		System.out.println("-----------------------------------------------------------\n" +
+		System.out.println("--------------------------------------------------------\n" +
 							"---   Un systeme de "+numberOfProcess+" processus vient d'etre cree.   ---\n"+
-							"-----------------------------------------------------------\n");
+							"--------------------------------------------------------\n");
 
 		barrier = new CyclicBarrier(numberOfProcess);
 		barrierPhase = new CyclicBarrier(numberOfProcess+1);
@@ -67,10 +67,8 @@ public class SystemProcess extends Thread {
 			/* We wait all process have finish the phase */
 			try {
 	
-				System.out.println("AVANT BARRIERE");
 				barrierPhase.await();
 				barrierPhase.await();
-				System.out.println("APRES BARRIERE");
 				
 				System.out.println("\n");
 
@@ -85,20 +83,6 @@ public class SystemProcess extends Thread {
 			
 			
 			this.currentPhase++;
-		}
-		System.out.println("----");
-		
-		/* We wait all the process finish */
-		for (Processus p : this.listProcessus) {
-			/*
-			try {
-				
-				p.join();
-				
-			} catch (InterruptedException e) {
-				
-				e.printStackTrace();
-			}*/
 		}
 		
 		System.out.println("------------\n- Decision -\n------------");
@@ -203,12 +187,10 @@ public class SystemProcess extends Thread {
 
 		if (this.listProcessus.peek().getMyName().compareTo(p.getMyName())==0) {
 
-			//System.out.println("le tour de "+((Processus)this.listProcessus.peek()).getMyName()+" : NO !");
 			return true;
 
 		} else {
 			
-			//System.out.println("le tour de "+((Processus)this.listProcessus.peek()).getMyName()+" : YES !");
 			return false;
 		}
 	}
