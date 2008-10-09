@@ -86,7 +86,6 @@ public class Processus extends Thread {
 			e.printStackTrace();
 		}
 
-		System.out.println("le proc "+this.name+" a finit");
 	}
 
 	public void sendNumber() throws InterruptedException {

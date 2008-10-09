@@ -39,7 +39,7 @@ public class SystemProcess extends Thread {
 		this.listProcessus = new ArrayBlockingQueue<Processus>(numberOfProcess, true);
 
 		this.lastProcesId = 0;
-		this.currentPhase = 0;
+		this.currentPhase = 1;
 
 		System.out.println("-----------------------------------------------------------\n" +
 							"---   Un systeme de "+numberOfProcess+" processus vient d'etre cree.   ---\n"+
@@ -62,8 +62,6 @@ public class SystemProcess extends Thread {
 		/* While phase k < Nb Process */ 
 		while (!itIsTheEnd()) {
 			
-			this.currentPhase++;
-			
 			System.out.println("------------\n- Phase "+this.currentPhase+" -\n------------");
 
 			/* We wait all process have finish the phase */
@@ -84,12 +82,15 @@ public class SystemProcess extends Thread {
 
 				e.printStackTrace();
 			} 
+			
+			
+			this.currentPhase++;
 		}
 		System.out.println("----");
 		
 		/* We wait all the process finish */
 		for (Processus p : this.listProcessus) {
-			
+			/*
 			try {
 				
 				p.join();
@@ -97,7 +98,7 @@ public class SystemProcess extends Thread {
 			} catch (InterruptedException e) {
 				
 				e.printStackTrace();
-			}
+			}*/
 		}
 		
 		System.out.println("------------\n- Decision -\n------------");
@@ -262,7 +263,13 @@ public class SystemProcess extends Thread {
 
 	public synchronized boolean itIsTheEnd() {
 
-		return !(this.currentPhase<this.checkNbProcessus()-1);
+		//si k = nb proc  crash + 1 alors stop
+		
+		if ((this.currentPhase-1)==this.checkNbCrash() + 1 ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
