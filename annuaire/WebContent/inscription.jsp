@@ -1,10 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+<script type="text/javascript">
+	function test() 
+	{
+		var i=0;
+		var valid = true;
+		var mdpValid = true;
+		
+		while ((i<6) && (valid))
+		{
+			if (document.getElementById("userForm").elements[i].value == "")
+				valid = false;
+			i++;
+		}
+		
+		if (document.getElementById("password").value != document.getElementById("confirmpassword").value)
+			mdpValid = false;
+		
+		if (valid)
+		{
+			if (mdpValid)
+				document.getElementById("userForm").submit();
+			else
+				document.location.replace("inscription.jsp?error=pwdConf");
+		}
+		else
+			document.location.replace("inscription.jsp?error=empty");
+	}
+</script>
+	
 <jsp:include page="header.jsp"/>
 
 <p><strong>Inscription </strong></p>
-<form method="POST" action="action_inscription.jsp">
+<form id="userForm" action="action_inscription.jsp" method="post">
 <table width="393" border="0">
   <tr>
     <td>Prénom :</td>
@@ -33,10 +61,9 @@
     <td><input type="text" name="email" id="email" /></td>
   </tr>
 </table>
-<p>
-  <input type="submit" name="ok" id="ok" value="S'inscrire" />
-  <input type="submit" name="cancel" id="cancel" value="Annuler" />
-</p>
 </form>
-
+<p>
+  <input type="button" name="ok" id="ok" value="S'inscrire" onclick="javascript:test();"/>
+  <input type="button" name="cancel" id="cancel" value="Annuler" onclick="javascript:document.location.replace('index.html');"/>
+</p>
 <jsp:include page="footer.jsp"/>
