@@ -238,7 +238,7 @@ public class SystemProcess extends Thread {
 
 	public synchronized boolean itIsTheEnd() {
 		
-		if ((this.currentPhase-1)==this.checkNbCrash() + 1 ) 
+		if ((this.currentPhase-1)==this.checkNbCrash() + 1 ) {
 
 			return true;
 		
