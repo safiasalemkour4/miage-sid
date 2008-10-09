@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * SystemProcess class
@@ -73,14 +71,7 @@ public class SystemProcess extends Thread {
 				System.out.println("\n");
 
 			} catch (InterruptedException e) {
-
-				e.printStackTrace();
-
-			} catch (BrokenBarrierException e) {
-
-				e.printStackTrace();
-			} 
-			
+			} catch (BrokenBarrierException e) {} 
 			
 			this.currentPhase++;
 		}
@@ -91,6 +82,8 @@ public class SystemProcess extends Thread {
 
 			System.out.println("Le processus "+p.getMyName()+" decide "+p.getMinNumber());
 		}
+		
+		System.out.println("\n--> On decide : "+this.listProcessus.peek().getMinNumber());
 	}
 
 	/**
