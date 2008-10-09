@@ -4,17 +4,21 @@
 	<jsp:useBean id="global" scope="session" class="tools.Global"/>
 	<jsp:useBean id="user" scope="session" class="tools.UserBean"/>
 	<jsp:setProperty name="user" property="*"/>
-<% 
-	if (global.addUser(user))
+<%
+	String group = request.getParameter("group_list");
+
+	if (user.getGroupList().contains(group))
 	{
-%>
-	<jsp:forward page="inscription.jsp?error=existingLog"/>
-<%		
+		%>
+			<jsp:forward page="group.jsp?error=alreadyGroup"/>
+		<%
 	}
 	else
 	{
-%>
-	<jsp:forward page="personal_space.jsp?info=inscr"/>
-<%
+		user.getGroupList().add(group);
+		global.updateUser(user);
+		%>
+			<jsp:forward page="group.jsp?info=addGroup"/>
+		<%
 	}
 %>

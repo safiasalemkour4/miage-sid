@@ -8,8 +8,8 @@ import java.util.ArrayList;
  * @authors florian Collignon & Arnaud Knobloch
  */
 
-public class UserBean {
-
+public class UserBean 
+{
 	/** Le prenom de l'utilisateur */
 	private String firstname;
 	
@@ -31,22 +31,34 @@ public class UserBean {
 	 * Constructeur par defaut d'un utilisateur
 	 */
 	
-	public UserBean() {
-		
+	public UserBean() 
+	{
 		this.firstname = "";
 		this.name = "";
 		this.login = "";
 		this.password = "";
 		this.email = "";
 		this.groupList = new ArrayList<String>();
+		this.groupList.add("default");
 	}
-
+	
+	public UserBean(String firstname, String name, String login, String password, String email) 
+	{
+		this.firstname = firstname;
+		this.name = name;
+		this.login = login;
+		this.password = password;
+		this.email = email;
+		this.groupList = new ArrayList<String>();
+		this.groupList.add("default");
+	}
 	/**
 	 * Getter Surname
 	 * @return le prenom de l'utilisateur
 	 */
 	
-	public String getFirstname() {
+	public String getFirstname() 
+	{
 		return firstname;
 	}
 
@@ -55,7 +67,8 @@ public class UserBean {
 	 * @return le nom de l'utilisateur
 	 */
 	
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
 
@@ -64,7 +77,8 @@ public class UserBean {
 	 * @return le login de l'utilisateur
 	 */
 	
-	public String getLogin() {
+	public String getLogin() 
+	{
 		return login;
 	}
 
@@ -73,7 +87,8 @@ public class UserBean {
 	 * @return le password de l'utilisateur
 	 */
 	
-	public String getPassword() {
+	public String getPassword() 
+	{
 		return password;
 	}
 
@@ -82,7 +97,8 @@ public class UserBean {
 	 * @return l'adresse email de l'utilisateur
 	 */
 	
-	public String getEmail() {
+	public String getEmail() 
+	{
 		return email;
 	}
 	
@@ -91,7 +107,8 @@ public class UserBean {
 	 * @return les groupes de l'uilisateur
 	 */
 	
-	public ArrayList<String> getGroups() {
+	public ArrayList<String> getGroupList() 
+	{
 		return groupList;
 	}
 
@@ -100,7 +117,8 @@ public class UserBean {
 	 * @param surname le prenom de l'utilisateur
 	 */
 	
-	public void setFirstname(String firstname) {
+	public void setFirstname(String firstname) 
+	{
 		this.firstname = firstname;
 	}
 
@@ -109,7 +127,8 @@ public class UserBean {
 	 * @param name le nom de l'utilisateur
 	 */
 	
-	public void setName(String name) {
+	public void setName(String name) 
+	{
 		this.name = name;
 	}
 
@@ -118,7 +137,8 @@ public class UserBean {
 	 * @param login le login de l'utilisateur
 	 */
 	
-	public void setLogin(String login) {
+	public void setLogin(String login) 
+	{
 		this.login = login;
 	}
 
@@ -127,7 +147,8 @@ public class UserBean {
 	 * @param password le password de l'utilisateur
 	 */
 	
-	public void setPassword(String password) {
+	public void setPassword(String password)
+	{
 		this.password = password;
 	}
 
@@ -135,7 +156,25 @@ public class UserBean {
 	 * Setter Email
 	 * @param email l'email de l'utilisateur
 	 */
-	public void setEmail(String email) {
+	public void setEmail(String email) 
+	{
 		this.email = email;
 	}
+
+
+	public void setGroupList(ArrayList<String> groupList) 
+	{
+		this.groupList = groupList;
+	}
+	
+	public boolean verifyPwd(String pwd)
+	{
+		boolean result = false;
+		
+			if (this.password.compareTo(pwd) == 0)
+				result = true;
+			
+		return result;
+	}
+
 }

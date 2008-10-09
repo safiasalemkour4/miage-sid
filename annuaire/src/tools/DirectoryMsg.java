@@ -27,6 +27,10 @@ public class DirectoryMsg
 			describe = "Veuillez saisir votre login !!!";
 		else if (typeError.compareTo("logFalse")==0)
 			describe = "Identifiaction incorrect : Login ou Mot de passe mal saisi !!!";
+		else if (typeError.compareTo("alreadyGroup")==0)
+			describe = "Vous etes deja membre de ce groupe !!!";
+		else if (typeError.compareTo("existingLog")==0)
+			describe = "Ce login existe deja, veuillez en choisir un autre !!!";
 		else
 			describe = typeError + "Erreur inconnue";
 		return describe;
@@ -41,6 +45,8 @@ public class DirectoryMsg
 			describe = "Vous avez bien été rattachée au groupe !!!";
 		else if (typeInfo.compareTo("inscr")==0)
 			describe = "Votre inscription a bien été enregistrée !!!";
+		else if (typeInfo.compareTo("addGroup")==0)
+			describe = "Votre adhésion a bien été enregistrée !!!";
 		else
 			describe = typeInfo + "Info inconnue";
 		return describe;
