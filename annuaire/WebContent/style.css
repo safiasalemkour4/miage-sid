@@ -8,6 +8,7 @@ body {
 
 #header {
     width: 100%;
+    min-width: 582px;
     height: 70px;
     padding-top:20px;
     background-image: url("trame.png");
@@ -41,6 +42,7 @@ body {
 }
 
 #content {
+	min-width: 582px;
     text-align: left;
     background-color: #a5a72e;
     border:solid 1px #8b8c29;
@@ -80,6 +82,7 @@ body {
 }
 
 #footer {
+	min-width: 582px;
     margin-top: 20px;
     font: bold 10px georgia;
     color: black;
