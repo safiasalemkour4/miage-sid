@@ -6,7 +6,7 @@
 
 <jsp:include page="header.jsp"/>
 
-<table align="center" cellspacing="10" cellpadding="10">
+<table align="center" cellpadding="15">
 	<tr>
 		<td align="center" colspan="3">
 			<b>Welcome to your Directory, <%= user.getFirstname() %></b>
@@ -14,7 +14,7 @@
 	<tr>
 	<tr align="center">
 		<td>
-			<b><a href="information.jsp">Mes informations personnelles</a></b>
+			<b><a href="information.jsp">Mes infos persos</a></b>
 		</td>
 		<td>
 			<b><a href="group.jsp">Mes groupes</a></b>

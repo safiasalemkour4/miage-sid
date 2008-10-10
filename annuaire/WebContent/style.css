@@ -1,12 +1,29 @@
 @CHARSET "ISO-8859-1";
-body {
+body 
+{
     margin:30px;
     text-align:center;
-    color: purple;
+    color: #2725C2;
     background-color: #d8da3d
 }
 
-#header {
+a
+{
+	color: #ffffff;
+	border: solid 1px #8b8c29;
+	padding: 5px;
+	text-decoration: none;
+	background-color: #a5a72e;
+}
+
+a:hover
+{
+	color: #a5a72e;
+	background-color: #ffffff;
+}	
+
+#header 
+{
     width: 100%;
     min-width: 582px;
     height: 70px;
@@ -15,7 +32,8 @@ body {
     border: solid 1px #4c4c2c;
 }
 
-#error {
+#error 
+{
     margin-top: 20px;
     padding-top:10px;
     font: bold 16px georgia;
@@ -28,7 +46,8 @@ body {
     text-align:center;
 }
 
-#info {
+#info 
+{
     margin-top: 20px;
     padding-top:10px;
     font: bold 16px georgia;
@@ -41,7 +60,8 @@ body {
     text-align:center;
 }
 
-#content {
+#content 
+{
 	min-width: 582px;
     text-align: left;
     background-color: #a5a72e;
@@ -53,35 +73,41 @@ body {
     min-height: 300px;
 }
 
-#content div {
+#content div 
+{
     text-align: center;
 }
 
-#content div {
+#content div 
+{
     padding: 20px;
     text-align: -moz-center;
 }
     
-#content div div {
+#content div div 
+{
 	width: 500px;
     padding: 20px;
     border: solid 1px #8b8c29;
-    background-color: #d8da3d
+    background-color: #d8da3d;
 }
 
-#table {
+#table 
+{
 	padding: 2px;
 	width: 500px;
 	background-color: #a5a72e;
 	border: solid 1px #8b8c29;
 }
 
-#table td {
+#table td 
+{
 	background-color: #d8da3d;
 	border: solid 1px #8b8c29;
 }
 
-#footer {
+#footer 
+{
 	min-width: 582px;
     margin-top: 20px;
     font: bold 10px georgia;

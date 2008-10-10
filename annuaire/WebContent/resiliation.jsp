@@ -14,14 +14,18 @@
 	<tr>
 	<tr align="center">
 		<td>
-			<font color="red">
-			<b><a href="action_resiliation.jsp">Confirmer votre Résiliation</a></b>
-			</font>
+			<a href="personal_space.jsp">
+				<font size="5">
+					<b>Annuler Résiliation</b>
+				</font>					
+			</a>
 		</td>
 		<td>
-			<font size="4" color="green">
-			<b><a href="personal_space.jsp">Annuler Résiliation</a></b>
-			</font>
+			<a href="action_resiliation.jsp">
+				<font size="2">
+					<b>Confirmer votre Résiliation</b>
+				</font>
+			</a>
 		</td>
 	</tr>
 </table>
