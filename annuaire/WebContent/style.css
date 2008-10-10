@@ -61,10 +61,22 @@ body {
 }
     
 #content div div {
-	width: 400px;
+	width: 500px;
     padding: 20px;
     border: solid 1px #8b8c29;
     background-color: #d8da3d
+}
+
+#table {
+	padding: 2px;
+	width: 500px;
+	background-color: #a5a72e;
+	border: solid 1px #8b8c29;
+}
+
+#table td {
+	background-color: #d8da3d;
+	border: solid 1px #8b8c29;
 }
 
 #footer {

@@ -49,11 +49,12 @@ public class Global
 	
 	public boolean addUser(UserBean newUser)
 	{
-		boolean result = false;
+		boolean result = false; 
 		
-		if (!userList.contains(newUser))
+		if (this.findUser(newUser.getLogin()) == -1)
 		{
-			this.userList.add(newUser);
+			this.userList.add(new UserBean(newUser.getFirstname(),newUser.getName(),
+					newUser.getLogin(),newUser.getPassword(),newUser.getEmail()));
 			result = true;
 		}
 		
@@ -64,7 +65,7 @@ public class Global
 	{
 		int idUser = findUser(updatingUser.getLogin());
 		
-		this.userList.set(idUser,updatingUser);
+		this.userList.get(idUser).setGroupList(updatingUser.getGroupList());
 	}
 	
 	public int findUser(String login)
@@ -78,6 +79,16 @@ public class Global
 				result = meter;
 			meter++;
 		}
+		return result;
+	}
+	
+	public String printUsers()
+	{
+		String result = "";
+		
+		for (UserBean u: this.userList)
+			result += u;
+		
 		return result;
 	}
 }

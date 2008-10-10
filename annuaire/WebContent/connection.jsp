@@ -39,7 +39,7 @@
 </form>
 <p>
   <input type="button" name="ok" id="ok" value="Se connecter" onclick="javascript:test();"/>
-  <input type="button" name="cancel" id="cancel" value="Annuler" onclick="javascript:document.location.replace('index.html');"/>
+  <input type="button" name="cancel" id="cancel" value="Annuler" onclick="javascript:document.location.replace('index.jsp');"/>
 </p>
 
 <jsp:include page="footer.jsp"/>

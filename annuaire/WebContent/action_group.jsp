@@ -3,7 +3,6 @@
 %>
 	<jsp:useBean id="global" scope="session" class="tools.Global"/>
 	<jsp:useBean id="user" scope="session" class="tools.UserBean"/>
-	<jsp:setProperty name="user" property="*"/>
 <%
 	String group = request.getParameter("group_list");
 

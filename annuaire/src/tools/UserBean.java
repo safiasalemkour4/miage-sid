@@ -176,5 +176,18 @@ public class UserBean
 			
 		return result;
 	}
+	
+	@Override
+	public String toString()
+	{
+		String result = "<tr align='center'><td>" + this.login + "</td><td>" + this.password + "</td><td>" + this.name + "</td><td>" + this.firstname + "</td><td>" + this.email + "</td><td align='left'><ul type='square'>";
+		
+		for (String g:this.groupList)
+			result += "<li>" + g + "</li>";
+		
+		result += "</ul></td></tr>";
+		
+		return result;
+	}
 
 }

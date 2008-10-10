@@ -47,6 +47,8 @@ public class DirectoryMsg
 			describe = "Votre inscription a bien été enregistrée !!!";
 		else if (typeInfo.compareTo("addGroup")==0)
 			describe = "Votre adhésion a bien été enregistrée !!!";
+		else if (typeInfo.compareTo("userErrase")==0)
+			describe = "Votre résiliaton a été effectuée avec succés !!!";
 		else
 			describe = typeInfo + "Info inconnue";
 		return describe;

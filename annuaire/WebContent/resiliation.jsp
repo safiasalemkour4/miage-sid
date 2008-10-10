@@ -8,26 +8,22 @@
 
 <table align="center" cellspacing="10" cellpadding="10">
 	<tr>
-		<td align="center" colspan="3">
-			<b>Welcome to your Directory, <%= user.getFirstname() %></b>
+		<td align="center" colspan="2">
+			<b>Thanks to have used us Directory, <%= user.getFirstname() %></b>
 		<td>
 	<tr>
 	<tr align="center">
 		<td>
-			<b><a href="information.jsp">Mes informations personnelles</a></b>
+			<font color="red">
+			<b><a href="action_resiliation.jsp">Confirmer votre Résiliation</a></b>
+			</font>
 		</td>
 		<td>
-			<b><a href="group.jsp">Mes groupes</a></b>
-		</td>
-		<td>
-			<b><a href="resiliation.jsp">Résiliation</a></b>
+			<font size="4" color="green">
+			<b><a href="personal_space.jsp">Annuler Résiliation</a></b>
+			</font>
 		</td>
 	</tr>
-		<tr>
-		<td align="center" colspan="3">
-			<b><a href="action_deconnection.jsp">Deconnection</a></b>
-		<td>
-	<tr>
 </table>
 
 <jsp:include page="footer.jsp"/>

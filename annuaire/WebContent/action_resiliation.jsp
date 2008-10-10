@@ -3,19 +3,12 @@
 %>
 	<jsp:useBean id="global" scope="session" class="tools.Global"/>
 	<jsp:useBean id="user" scope="session" class="tools.UserBean"/>
-	<jsp:setProperty name="user" property="*"/>
-	
-<% 
-	if (!global.addUser(user))
-	{
-%>
-	<jsp:forward page="inscription.jsp?error=existingLog"/>
-<%		
-	}
-	else
-	{
-%>
-	<jsp:forward page="personal_space.jsp?info=inscr"/>
 <%
-	}
+	int idUser = global.findUser(user.getLogin());
+	global.getUserList().remove(idUser);
+	
+	user = null;
+	session.removeAttribute("user");
+	
 %>
+	<jsp:forward page="index.jsp?info=userErrase"/>
