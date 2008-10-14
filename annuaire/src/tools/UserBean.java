@@ -1,5 +1,6 @@
 package tools;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,8 +9,10 @@ import java.util.ArrayList;
  * @authors florian Collignon & Arnaud Knobloch
  */
 
-public class UserBean 
+public class UserBean implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+
 	/** Le prenom de l'utilisateur */
 	private String firstname;
 	

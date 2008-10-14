@@ -115,9 +115,10 @@ public class DirectoryBean
 	{
 		int result = -1;
 		
-		if (true)
+		if (findUserLogin(login) != -1)
 		{
-			
+			if (userList.get(findUserLogin(login)).getPassword().compareTo(password)==0)
+				result = findUserLogin(login);
 		}
 		
 		return result;
