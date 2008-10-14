@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * @authors florian Collignon & Arnaud Knobloch
  */
-public class Global 
+public class DirectoryBean 
 {
 	
 	private ArrayList<UserBean> userList = new ArrayList<UserBean>(); 
@@ -18,7 +18,7 @@ public class Global
 	 /**
 	 * 
 	 */
-	public Global()
+	public DirectoryBean()
 	 {
 		this.userList.add(new UserBean("Florian","Collignon","login","pass","login@fai.fr"));
 		this.userList.add(new UserBean("Arnaud","Knobloch","ak","pass","ak@fai.fr"));
@@ -47,28 +47,33 @@ public class Global
 		this.existingGroupList = existingGroupList;
 	}
 	
-	public boolean addUser(UserBean newUser)
+	public String addUser(UserBean newUser)
 	{
-		boolean result = false; 
+		String result = ""; 
 		
-		if (this.findUser(newUser.getLogin()) == -1)
+		if (this.findUserLogin(newUser.getLogin()) == 0)
 		{
+			result = "existingLog";
+		}
+		else if (this.findUserMail(newUser.getEmail()) == 0)
+		{
+			result = "existingMail";
+		}
+		else
 			this.userList.add(new UserBean(newUser.getFirstname(),newUser.getName(),
 					newUser.getLogin(),newUser.getPassword(),newUser.getEmail()));
-			result = true;
-		}
 		
 		return result;
 	}
-	
+
 	public void updateUser(UserBean updatingUser)
 	{
-		int idUser = findUser(updatingUser.getLogin());
+		int idUser = findUserLogin(updatingUser.getLogin());
 		
 		this.userList.get(idUser).setGroupList(updatingUser.getGroupList());
 	}
 	
-	public int findUser(String login)
+	public int findUserLogin(String login)
 	{
 		int result = -1;
 		int meter = 0;
@@ -76,6 +81,20 @@ public class Global
 		for (UserBean u: this.userList)
 		{
 			if (u.getLogin().compareTo(login) == 0)
+				result = meter;
+			meter++;
+		}
+		return result;
+	}
+	
+	private int findUserMail(String email) 
+	{
+		int result = -1;
+		int meter = 0;
+		
+		for (UserBean u: this.userList)
+		{
+			if (u.getEmail().compareTo(email) == 0)
 				result = meter;
 			meter++;
 		}

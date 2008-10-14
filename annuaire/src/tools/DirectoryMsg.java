@@ -31,6 +31,8 @@ public class DirectoryMsg
 			describe = "Vous etes deja membre de ce groupe !!!";
 		else if (typeError.compareTo("existingLog")==0)
 			describe = "Ce login existe deja, veuillez en choisir un autre !!!";
+		else if (typeError.compareTo("existingMail")==0)
+			describe = "Cet Email existe deja, veuillez en choisir un autre !!!";
 		else
 			describe = typeError + "Erreur inconnue";
 		return describe;
