@@ -87,7 +87,7 @@ public class DirectoryBean
 		return result;
 	}
 	
-	private int findUserMail(String email) 
+	public int findUserMail(String email) 
 	{
 		int result = -1;
 		int meter = 0;
