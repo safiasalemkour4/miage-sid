@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-<jsp:useBean id="global" scope="session" class="tools.DirectoryBean"/>
+<jsp:useBean id="directory" scope="session" class="tools.DirectoryBean"/>
 <jsp:useBean id="user" scope="session" class="tools.UserBean"/>
 <jsp:setProperty name="user" property="*"/>
 
@@ -24,7 +24,7 @@
 <form id="userForm" action="action_group.jsp" method="POST">
  	<select name="group_list" id="group_list">
 <%
-	for (String group: global.getExistingGroupList())
+	for (String group: directory.getExistingGroupList())
 	{
 		%>
 		<option><%=group%></option>

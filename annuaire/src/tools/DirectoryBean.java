@@ -110,4 +110,16 @@ public class DirectoryBean
 		
 		return result;
 	}
+	
+	public int login(String login, String password)
+	{
+		int result = -1;
+		
+		if (true)
+		{
+			
+		}
+		
+		return result;
+	}
 }

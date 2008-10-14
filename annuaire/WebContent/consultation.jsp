@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
-<jsp:useBean id="global" scope="session" class="tools.DirectoryBean"/>
+<jsp:useBean id="directory" scope="session" class="tools.DirectoryBean"/>
 
 <jsp:include page="header.jsp"/>
 
@@ -27,7 +27,7 @@
 			<b>Groupe(s)</b>
 		</td>
 	</tr>
-	<%=global.printUsers() %>
+	<%=directory.printUsers() %>
 </table>
 <!-- 
 <p><strong>Rechercher</strong> :</p>

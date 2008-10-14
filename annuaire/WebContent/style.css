@@ -75,11 +75,7 @@ a:hover
 
 #content div 
 {
-    text-align: center;
-}
-
-#content div 
-{
+	text-align: center;
     padding: 20px;
     text-align: -moz-center;
 }
