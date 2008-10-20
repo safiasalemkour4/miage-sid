@@ -1,5 +1,9 @@
 package composite_code;
 
+/**
+ *
+ * @author Arnaud Knobloch
+ */
 
 public interface Equipment {
 

@@ -2,6 +2,11 @@ package composite_code;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Arnaud Knobloch
+ */
+
 public class CompositeEquipment extends ComputerComponent implements Equipment {
 
     private ArrayList<ComputerComponent> listEquipment;

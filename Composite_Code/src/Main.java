@@ -2,17 +2,13 @@
 import composite_code.Bus;
 import composite_code.Cabinet;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 import composite_code.Card;
 import composite_code.Chassis;
 import composite_code.FloppyDisk;
 
 /**
  *
- * @author arnaud
+ * @author Arnaud Knobloch
  */
 public class Main {
 

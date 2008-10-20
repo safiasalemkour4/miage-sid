@@ -1,5 +1,10 @@
 package composite_code;
 
+/**
+ *
+ * @author Arnaud Knobloch
+ */
+
 public class FloppyDisk extends ComputerComponent {
 
     public FloppyDisk() {

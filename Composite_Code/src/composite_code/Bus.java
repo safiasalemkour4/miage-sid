@@ -1,5 +1,10 @@
 package composite_code;
 
+/**
+ *
+ * @author Arnaud Knobloch
+ */
+
 public class Bus extends CompositeEquipment {
 
     public Bus() {
