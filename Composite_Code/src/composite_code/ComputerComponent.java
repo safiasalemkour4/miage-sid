@@ -46,6 +46,10 @@ public class ComputerComponent {
     public float getDiscountPrice() {
         return this.discountPrice;
     }
+    
+    public double getWatt() {
+        return this.watt;
+    }
 
     public void setName(String name) {
         this.name = name;

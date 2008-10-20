@@ -54,9 +54,18 @@ public class CompositeEquipment extends ComputerComponent implements Equipment {
         return res;
     }
 
+    public double getWatt() {
+        double res = 0;
+
+        for (ComputerComponent c : listEquipment) {
+            res += c.getWatt();
+        }
+        return res;
+    }
+    
     public String toString() {
         String res = "Je suis " + super.getName() + ", un element composite, mon prix net est de " + this.getNetPrice()+
-                " et mon prix soldé est de " + this.getDiscountPrice()+ ".\nJe suis composé de :\n";
+                ", mon prix soldé est de " + this.getDiscountPrice()+ " et je ma puissance de et "+this.getWatt()+"w\nJe suis composé de :\n";
         
         for (ComputerComponent c : listEquipment) {
             res += "- "+c.getName()+"\n";
