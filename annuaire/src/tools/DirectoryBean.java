@@ -27,6 +27,14 @@ public class DirectoryBean
 		this.groupList.add("etudiant");
 	 }
 
+	public DirectoryBean(int test)
+	 {
+
+		this.groupList.add("default");
+		this.groupList.add("professeur");
+		this.groupList.add("etudiant");
+	 }
+	
 	public ArrayList<UserBean> getUserList()
 	{
 		return userList;
