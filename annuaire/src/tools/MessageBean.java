@@ -8,10 +8,10 @@ public class MessageBean implements Serializable {
 		private int id;
 		
 		/** */
-		private String from;
+		private UserBean from;
 		
 		/** */
-		private String to;
+		private UserBean to;
 		
 		/** */
 		private String subject;
@@ -24,7 +24,7 @@ public class MessageBean implements Serializable {
 		
 		public static final int RECEIVE = 1, SEND = 2, ERROR = 3;
 		
-		public MessageBean(int id, String from, String to, String subject, String content, int state) {
+		public MessageBean(int id, UserBean from, UserBean to, String subject, String content, int state) {
 			
 			this.id = id;
 			this.from = from;
@@ -39,5 +39,59 @@ public class MessageBean implements Serializable {
 			}
 			
 		}
+
+		public int getId() {
+			return id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
+		}
+
+		public UserBean getFrom() {
+			return from;
+		}
+
+		public void setFrom(UserBean from) {
+			this.from = from;
+		}
+
+		public UserBean getTo() {
+			return to;
+		}
+
+		public void setTo(UserBean to) {
+			this.to = to;
+		}
+
+		public String getSubject() {
+			return subject;
+		}
+
+		public void setSubject(String subject) {
+			this.subject = subject;
+		}
+
+		public String getContent() {
+			return content;
+		}
+
+		public void setContent(String content) {
+			this.content = content;
+		}
+
+		public int getState() {
+			return state;
+		}
+
+		public void setState(int state) {
+			
+			if (state == RECEIVE || state == SEND) {
+				this.state = state;
+			} else {
+				this.state = ERROR;
+			}
+		}
 	
+		
 }

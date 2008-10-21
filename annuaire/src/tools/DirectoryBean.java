@@ -123,4 +123,16 @@ public class DirectoryBean
 		
 		return result;
 	}
+	
+	public void sendMessageToUser(UserBean userFrom, UserBean userTo, MessageBean message) {
+		
+	}
+	
+	public void sendMessageToGroup(UserBean userFrom, String groupName, MessageBean message) {
+		
+	}
+	
+	public void sendMessageToList(UserBean userFrom, MessageBean message) {
+		
+	}
 }
