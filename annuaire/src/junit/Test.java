@@ -68,8 +68,8 @@ public class Test extends TestCase {
 	
 	public void testDirectory() {
 		
-		Assert.assertEquals("3", directory.getGroupList().size());
-		Assert.assertEquals("2", directory.getUserList().size());
+		Assert.assertEquals(3, directory.getGroupList().size());
+		Assert.assertEquals(2, directory.getUserList().size());
 		
 		Assert.assertEquals(user_from.getLogin(), directory.getUserList().get(directory.findUserLogin("ak")).getLogin());
 		Assert.assertEquals(user_to.getLogin(), directory.getUserList().get(directory.findUserLogin("fc")).getLogin());

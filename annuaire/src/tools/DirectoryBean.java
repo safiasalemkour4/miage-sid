@@ -20,8 +20,8 @@ public class DirectoryBean
 	 */
 	public DirectoryBean()
 	 {
-		this.userList.add(new UserBean("Florian","Collignon","login","pass","login@fai.fr"));
-		this.userList.add(new UserBean("Arnaud","Knobloch","ak","pass","ak@fai.fr"));
+		//this.userList.add(new UserBean("Florian","Collignon","login","pass","login@fai.fr"));
+		//this.userList.add(new UserBean("Arnaud","Knobloch","ak","pass","ak@fai.fr"));
 		this.groupList.add("default");
 		this.groupList.add("professeur");
 		this.groupList.add("etudiant");
@@ -51,11 +51,11 @@ public class DirectoryBean
 	{
 		String result = ""; 
 		
-		if (this.findUserLogin(newUser.getLogin()) == -1)
+		if (this.findUserLogin(newUser.getLogin()) != -1)
 		{
 			result = "existingLog";
 		}
-		else if (this.findUserMail(newUser.getEmail()) == -1)
+		else if (this.findUserMail(newUser.getEmail()) != -1)
 		{
 			result = "existingMail";
 		}
@@ -75,6 +75,7 @@ public class DirectoryBean
 			}*/
 
 		}
+		
 		return result;
 	}
 
