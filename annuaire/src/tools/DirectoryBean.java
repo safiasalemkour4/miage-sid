@@ -67,13 +67,12 @@ public class DirectoryBean
 			/* Ajout du groupe a la list de groupe de l'annuaire si l'utilisateur fait parti d'un groupe
 			 * non repertorie
 			 */
-			
-			for (String groupName : newUser.getGroupList()) {
+			/*for (String groupName : newUser.getGroupList()) {
 				
 				if (!this.groupList.contains(groupName)) {
 					this.groupList.add(groupName);
 				}
-			}
+			}*/
 
 		}
 		return result;
