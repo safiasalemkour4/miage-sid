@@ -20,7 +20,7 @@ public class Test extends TestCase {
 		
 		message = new MessageBean(1, user_from, user_to, "Sujet du Message", "Contenu du message", MessageBean.OK);
 		
-		directory = new DirectoryBean();
+		directory = new DirectoryBean(1);
 		directory.addUser(user_from);
 		directory.addUser(user_to);
 	}
@@ -73,6 +73,8 @@ public class Test extends TestCase {
 		
 		Assert.assertEquals(user_from.getLogin(), directory.getUserList().get(directory.findUserLogin("ak")).getLogin());
 		Assert.assertEquals(user_to.getLogin(), directory.getUserList().get(directory.findUserLogin("fc")).getLogin());
+		
+		//directory.updateUser(updatingUser)
 	}
 	
 
