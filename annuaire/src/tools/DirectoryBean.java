@@ -20,8 +20,8 @@ public class DirectoryBean
 	 */
 	public DirectoryBean()
 	 {
-		//this.userList.add(new UserBean("Florian","Collignon","login","pass","login@fai.fr"));
-		//this.userList.add(new UserBean("Arnaud","Knobloch","ak","pass","ak@fai.fr"));
+		this.userList.add(new UserBean("Florian","Collignon","login","pass","login@fai.fr"));
+		this.userList.add(new UserBean("Arnaud","Knobloch","ak","pass","ak@fai.fr"));
 		this.groupList.add("default");
 		this.groupList.add("professeur");
 		this.groupList.add("etudiant");
@@ -83,7 +83,12 @@ public class DirectoryBean
 	{
 		int idUser = findUserLogin(updatingUser.getLogin());
 		
-		this.userList.get(idUser).setGroupList(updatingUser.getGroupList());
+		UserBean oldUser = this.userList.get(idUser);
+		
+		oldUser.setFirstname(updatingUser.getFirstname());
+		oldUser.setName(updatingUser.getName());
+		oldUser.setPassword(updatingUser.getPassword());
+		oldUser.setGroupList(updatingUser.getGroupList());
 	}
 	
 	public int findUserLogin(String login)
