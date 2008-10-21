@@ -22,7 +22,7 @@ public class MessageBean implements Serializable {
 		/** */
 		private int state;
 		
-		public static final int RECEIVE = 1, SEND = 2, ERROR = 3;
+		public static final int OK = 1, ERROR = -1;
 		
 		public MessageBean(int id, UserBean from, UserBean to, String subject, String content, int state) {
 			
@@ -32,7 +32,7 @@ public class MessageBean implements Serializable {
 			this.subject = subject;
 			this.content =  content;
 			
-			if (state == RECEIVE || state == SEND) {
+			if (state == OK) {
 				this.state = state;
 			} else {
 				this.state = ERROR;
@@ -86,7 +86,7 @@ public class MessageBean implements Serializable {
 
 		public void setState(int state) {
 			
-			if (state == RECEIVE || state == SEND) {
+			if (state == OK) {
 				this.state = state;
 			} else {
 				this.state = ERROR;

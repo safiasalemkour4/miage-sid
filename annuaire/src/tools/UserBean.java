@@ -30,6 +30,8 @@ public class UserBean implements Serializable
 	
 	private ArrayList<String> groupList;
 	
+	private ArrayList<MessageBean> messageReceiveList, messageSendList;
+	
 	/**
 	 * Constructeur par defaut d'un utilisateur
 	 */
@@ -43,6 +45,8 @@ public class UserBean implements Serializable
 		this.email = "";
 		this.groupList = new ArrayList<String>();
 		this.groupList.add("default");
+		this.messageReceiveList = new ArrayList<MessageBean>();
+		this.messageSendList = new ArrayList<MessageBean>();
 	}
 	
 	public UserBean(String firstname, String name, String login, String password, String email) 
@@ -54,6 +58,8 @@ public class UserBean implements Serializable
 		this.email = email;
 		this.groupList = new ArrayList<String>();
 		this.groupList.add("default");
+		this.messageReceiveList = new ArrayList<MessageBean>();
+		this.messageSendList = new ArrayList<MessageBean>();
 	}
 	/**
 	 * Getter Surname
@@ -193,4 +199,32 @@ public class UserBean implements Serializable
 		return result;
 	}
 
+	public void addMessageSend(MessageBean message) {
+		
+		this.messageSendList.add(message);
+	}
+	
+	public void addMessageReceive(MessageBean message) {
+		
+		this.messageReceiveList.add(message);
+	}
+
+	public ArrayList<MessageBean> getMessageReceiveList() {
+		return messageReceiveList;
+	}
+
+	public void setMessageReceiveList(ArrayList<MessageBean> messageReceiveList) {
+		this.messageReceiveList = messageReceiveList;
+	}
+
+	public ArrayList<MessageBean> getMessageSendList() {
+		return messageSendList;
+	}
+
+	public void setMessageSendList(ArrayList<MessageBean> messageSendList) {
+		this.messageSendList = messageSendList;
+	}
+
+	
+	
 }

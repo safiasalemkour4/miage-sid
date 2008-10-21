@@ -13,7 +13,7 @@ public class DirectoryBean
 	
 	private ArrayList<UserBean> userList = new ArrayList<UserBean>(); 
 	 
-	private ArrayList<String> existingGroupList = new ArrayList<String>();
+	private ArrayList<String> groupList = new ArrayList<String>();
 	 
 	 /**
 	 * 
@@ -22,9 +22,9 @@ public class DirectoryBean
 	 {
 		this.userList.add(new UserBean("Florian","Collignon","login","pass","login@fai.fr"));
 		this.userList.add(new UserBean("Arnaud","Knobloch","ak","pass","ak@fai.fr"));
-		this.existingGroupList.add("default");
-		this.existingGroupList.add("professeur");
-		this.existingGroupList.add("etudiant");
+		this.groupList.add("default");
+		this.groupList.add("professeur");
+		this.groupList.add("etudiant");
 	 }
 
 	public ArrayList<UserBean> getUserList()
@@ -37,32 +37,45 @@ public class DirectoryBean
 		this.userList = userList;
 	}
 
-	public ArrayList<String> getExistingGroupList() 
+	public ArrayList<String> getGroupList() 
 	{
-		return existingGroupList;
+		return groupList;
 	}
 
-	public void setExistingGroupList(ArrayList<String> existingGroupList) 
+	public void setGroupList(ArrayList<String> groupList) 
 	{
-		this.existingGroupList = existingGroupList;
+		this.groupList = groupList;
 	}
 	
 	public String addUser(UserBean newUser)
 	{
 		String result = ""; 
 		
-		if (this.findUserLogin(newUser.getLogin()) == 0)
+		if (this.findUserLogin(newUser.getLogin()) == -1)
 		{
 			result = "existingLog";
 		}
-		else if (this.findUserMail(newUser.getEmail()) == 0)
+		else if (this.findUserMail(newUser.getEmail()) == -1)
 		{
 			result = "existingMail";
 		}
 		else
+		{
 			this.userList.add(new UserBean(newUser.getFirstname(),newUser.getName(),
 					newUser.getLogin(),newUser.getPassword(),newUser.getEmail()));
-		
+			
+			/* Ajout du groupe a la list de groupe de l'annuaire si l'utilisateur fait parti d'un groupe
+			 * non repertorie
+			 */
+			
+			for (String groupName : newUser.getGroupList()) {
+				
+				if (!this.groupList.contains(groupName)) {
+					this.groupList.add(groupName);
+				}
+			}
+
+		}
 		return result;
 	}
 
@@ -126,13 +139,27 @@ public class DirectoryBean
 	
 	public void sendMessageToUser(UserBean userFrom, UserBean userTo, MessageBean message) {
 		
+		userFrom.addMessageSend(message);
+		userTo.addMessageReceive(message);
 	}
 	
 	public void sendMessageToGroup(UserBean userFrom, String groupName, MessageBean message) {
 		
+		userFrom.addMessageSend(message);
+		
+		for (UserBean user : userList) {
+			if (user.getGroupList().contains(groupName)) {
+				user.addMessageReceive(message);
+			}
+		}
 	}
 	
 	public void sendMessageToList(UserBean userFrom, MessageBean message) {
 		
+		userFrom.addMessageSend(message);
+		
+		for (UserBean user : userList) {
+				user.addMessageReceive(message);
+		}
 	}
 }

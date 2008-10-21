@@ -18,13 +18,11 @@ public class Test extends TestCase {
 		user_from = new UserBean("Arnaud", "Knobloch", "ak", "akpwd", "ak@gmail.com");
 		user_to = new UserBean("Florian", "Collignon", "fc", "fcpwd", "fc@gmail.com");
 		
-		message = new MessageBean(1, user_from, user_to, "Sujet du Message", "Contenu du message", MessageBean.SEND);
+		message = new MessageBean(1, user_from, user_to, "Sujet du Message", "Contenu du message", MessageBean.OK);
 		
 		directory = new DirectoryBean();
 		directory.addUser(user_from);
 		directory.addUser(user_to);
-		
-		directory.sendMessageToUser(user_from, user_to, message);
 	}
 
 	public void testUser() {
@@ -41,7 +39,7 @@ public class Test extends TestCase {
 		Assert.assertEquals("default", user_from.getGroupList().get(0));
 
 		/* On verifie la methode de verification du mot de passe */
-		Assert.assertFalse(user_from.verifyPwd("akpwd"));
+		Assert.assertFalse(user_from.verifyPwd("akwrongpwd"));
 		Assert.assertTrue(user_from.verifyPwd("akpwd"));
 	}
 	
@@ -49,24 +47,32 @@ public class Test extends TestCase {
 		
 		/* On verifie les informations du message */
 		Assert.assertEquals(1, message.getId());
-		Assert.assertEquals("Arnaud", message.getFrom());
-		Assert.assertEquals("Florian", message.getTo());
+		Assert.assertEquals("Arnaud", message.getFrom().getFirstname());
+		Assert.assertEquals("Florian", message.getTo().getFirstname());
 		Assert.assertEquals("Sujet du Message", message.getSubject());
 		Assert.assertEquals("Contenu du message", message.getContent());
 		
 		/* On verifie l'etat du message */
-		Assert.assertEquals(MessageBean.SEND, message.getState());
-		Assert.assertNotSame(MessageBean.RECEIVE, message.getState());
+		Assert.assertEquals(MessageBean.OK, message.getState());
 		Assert.assertNotSame(MessageBean.ERROR, message.getState());
 		
 		/* On test un etat incoherent */
 		message.setState(12345);
 		Assert.assertEquals(MessageBean.ERROR, message.getState());
+		
+		/* On simule l'envoit d'un message */
+		directory.sendMessageToUser(user_from, user_to, message);
+		Assert.assertEquals(message.getId(), user_to.getMessageReceiveList().get(0).getId());
+		Assert.assertEquals(message.getId(), user_from.getMessageSendList().get(0).getId());
 	}
 	
-	public boolean testDirectory() {
+	public void testDirectory() {
 		
-		return false;
+		Assert.assertEquals("3", directory.getGroupList().size());
+		Assert.assertEquals("2", directory.getUserList().size());
+		
+		Assert.assertEquals(user_from.getLogin(), directory.getUserList().get(directory.findUserLogin("ak")).getLogin());
+		Assert.assertEquals(user_to.getLogin(), directory.getUserList().get(directory.findUserLogin("fc")).getLogin());
 	}
 	
 
