@@ -21,7 +21,6 @@
 	}
 	else
 	{
-		System.out.println("erreur : "+error);
 %>
 	<jsp:forward page="personal_space.jsp?info=inscr"/>
 <%
