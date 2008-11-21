@@ -16,6 +16,18 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
  * Represente un Agent d'Achat
  */
 
+/**
+ * Agent qui va envoyer des requetes à agentBDD et agentStock
+ * pour mettre à jour selon la stratégie de production 
+ * 
+ * Stratégie : 
+ * - quand produire ? (en fonction du stock ? periodiquement ? en fonction des sous ?) 
+ * - quel qté produire ? (en fonction du stock ?) 
+ * 
+ * Peut etre sous les ordres d'un super-agent décidant de la strat?
+ *
+ */
+
 public class ProducerAgent extends Agent {
 
 	private ContentManager manager = (ContentManager)this.getContentManager();

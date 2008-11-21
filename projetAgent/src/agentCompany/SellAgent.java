@@ -16,6 +16,27 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
  * Represente un Agent de Vente
  */
 
+/**
+ * Agent qui recoit des requetes venant des acheteurs des autres entrepises
+ * Il fournira deux services : venteCD et venteDVD
+ * Protocole (un service est bloqué tout au long du protocole, 
+ * une seule requete Achat à la fois): 
+ * 
+ * Lorsque recoit disponible(Disque,qté):
+ * 1) envoie reponseDispo avec le prix du produit
+ * 2) si il recoit une validerAchat true -> demande à agentBDD et agentStock de MAJ
+ * 		sinon timeout 5 s et se débloquer (attendre d'autres requete)
+ *
+ *Rq: le prix de vente peut etre différent selon les demandeDispo
+ *	mais une fois qu'on a envoyé le prix on est obligé de le vendre
+ *	au prix indiqué
+ *
+ * Stratégie : 
+ * - à quel prix vendre ? 
+ * - doit-on varier le prix selon la commande ? (selon la qté demandé? selon nos stock? nos sous?)
+ * - quel qté minimum une commande doit avoir ?
+ */
+
 public class SellAgent extends Agent {
 
 	private ContentManager manager = (ContentManager)getContentManager();
@@ -48,7 +69,7 @@ public class SellAgent extends Agent {
 		sd.setName("Vente de CDs");
 		sd.setOwnership(this.getName());
 
-		/* Enregistrement du service aupr�s du DF Agent */
+		/* Enregistrement du service aupr�s du DF Agent */
 		dfd.addServices(sd);
 
 		try {

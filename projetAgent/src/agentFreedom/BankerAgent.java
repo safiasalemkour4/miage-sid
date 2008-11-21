@@ -16,6 +16,12 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
  * Represente un Agent d'Achat
  */
 
+
+/**
+ * Recoit les requetes de MAJ de la part des agent producteur, commercial
+ * vendeur et acheteur et MAJ variable "caisse"
+ * 
+ */
 public class BankerAgent extends Agent {
 
 	private ContentManager manager = (ContentManager)this.getContentManager();

@@ -16,6 +16,12 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
  * Represente un Agent d'Achat
  */
 
+/**
+ * Agent qui va recevoir les requetes venant des agents
+ * vendeur, acheteur, producteur et commercial et va mettre
+ * à jour la BDD en fonction des requetes 
+ */
+
 public class BDDAgent extends Agent {
 
 	private ContentManager manager = (ContentManager)this.getContentManager();

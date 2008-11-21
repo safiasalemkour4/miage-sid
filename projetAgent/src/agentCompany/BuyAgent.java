@@ -16,6 +16,20 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
  * Represente un Agent d'Achat
  */
 
+/**
+ * Agent qui va envoyer des requetes d'achat aux vendeur des autres
+ * entreprises. 
+ * 1) envoie de Disponible (Disque, Qté)
+ * 2) recoit réponseDispo
+ * 3) si sup 0 : envoyer validerAchat(true/false)
+ * 4) demander à agentBDD et agentStock de mettre à jour
+ * 
+ * Stratégie : 
+ * - quel quantité acheté ? (en fonction du niveau de notre stock?)
+ * - quel prix maximum on veut mettre ?
+ * 
+ */
+
 public class BuyAgent extends Agent {
 
 	private ContentManager manager = (ContentManager)this.getContentManager();
@@ -44,7 +58,7 @@ public class BuyAgent extends Agent {
 		sd.setName("Achat de CDs");
 		sd.setOwnership(this.getName());
 		
-		/* Enregistrement du service aupr�s du DF Agent */
+		/* Enregistrement du service aupr�s du DF Agent */
 		dfd.addServices(sd);
 
 		try {

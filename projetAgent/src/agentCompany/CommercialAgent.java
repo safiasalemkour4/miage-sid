@@ -16,6 +16,17 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
  * Represente un Agent d'Achat
  */
 
+/**
+ * Recoit "nouvellePhase" venant du client.
+ * Demande a tous les agents de finir leur action en cours et de s'arreter
+ * Renvoi OK au client quand tout le monde est arreter
+ * Recoit une demande de dispo de CD de la part du client
+ * Renvoit ses disponibilite (le prix)
+ * Si il recoit une validationAchat du client - > met a jour agentBDD
+ * 
+ * 
+ */
+
 public class CommercialAgent extends Agent {
 
 	private ContentManager manager = (ContentManager)this.getContentManager();

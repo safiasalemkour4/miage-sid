@@ -15,6 +15,28 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
  * @author Arnaud Knobloch
  * Represente un Agent d'Achat
  */
+/**
+ * Un tour de jeu a 2 phases : 
+ * 1) client envoi "nouvellePhase(1)" au commerciale
+ * 		et client se met en attente (dort pdt 10s)
+ * 2) commerciale demande si tout le monde est pret et envoi ok au client
+ * 3) l'entreprise produit, achete et vend aux autres boites
+ * 
+ * 4) client sort du cycle d'attente
+ *  	et il envoi nouvellePhase(2) au commerciale
+ * 5) commerciale demande a tout le monde de s'arreter, 
+ * 		quand tout le monde est arreté, envoi OK au client
+ * 6) quand client a recu 4 OK
+ *  - envoi disponibilité
+ *  - recoit réponseDispo
+ *  - compare prix
+ *  - envoi validerAchat a la boite elu
+ * 
+ * fin phase 2 
+ * 7) envoi de nouvellePhase(1)...
+ * 
+ */
+
 
 public class ClientAgent extends Agent {
 
