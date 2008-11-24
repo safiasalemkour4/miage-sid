@@ -1,4 +1,4 @@
-package agentCompany;
+
 
 public class MainAgent {
 
