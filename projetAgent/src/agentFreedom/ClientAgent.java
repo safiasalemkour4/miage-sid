@@ -19,8 +19,8 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
  * Un tour de jeu a 2 phases : 
  * 1) client envoi "nouvellePhase(1)" au commerciale
  * 		et client se met en attente (dort pdt 10s)
- * 2) commerciale demande si tout le monde est pret et envoi ok au client
- * 3) l'entreprise produit, achete et vend aux autres boites
+ * 
+ * 2) l'entreprise produit, achete et vend aux autres boites
  * 
  * 4) client sort du cycle d'attente
  *  	et il envoi nouvellePhase(2) au commerciale
