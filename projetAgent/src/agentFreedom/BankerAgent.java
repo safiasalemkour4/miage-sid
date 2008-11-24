@@ -16,6 +16,11 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
  * Represente un Agent d'Achat
  */
 
+/**
+ * Agent qui va recevoir les requetes venant des agents
+ * vendeur, acheteur, producteur et commercial et va mettre
+ * � jour la BDD en fonction des requetes 
+ */
 
 /**
  * Recoit les requetes de MAJ de la part des agent producteur, commercial

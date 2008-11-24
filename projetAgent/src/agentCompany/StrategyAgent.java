@@ -10,26 +10,16 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 
-/**
- * Class BuyAgent
- * @author Arnaud Knobloch
- * Represente un Agent d'Achat
- */
 
-/**
- * Agent qui va recevoir les requetes venant des agents
- * vendeur, acheteur, producteur et commercial et va mettre
- * à jour la BDD en fonction des requetes 
- */
 
-public class BDDAgent extends Agent {
 
-	private ContentManager manager = (ContentManager)this.getContentManager();
+public class StrategyAgent extends Agent {
 
-	
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
-	  
+	
+	private ContentManager manager = (ContentManager)this.getContentManager();
+
 	/**
 	 * Methode setup
 	 * Utile et necessaire pour l'initialisation de l'agent
@@ -38,11 +28,31 @@ public class BDDAgent extends Agent {
 	public void setup() {
 	    
 		/* Ajout du comportement d'achat */
-		this.addBehaviour(new BDDBehaviour(this));
+		this.addBehaviour(new BuyBehaviour(this));
 	    
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
 
+		/* Creation d'une decription du service */
+		ServiceDescription sd = new ServiceDescription();
+		sd.setType("Achat");
+		sd.setName("Achat de CDs");
+		sd.setOwnership(this.getName());
+		
+		/* Enregistrement du service auprï¿½s du DF Agent */
+		dfd.addServices(sd);
+
+		try {
+
+			DFService.register(this, dfd);
+
+		} catch (FIPAException e) {
+			
+			e.printStackTrace();
+		}
 	}
+
+	
+	
 }
