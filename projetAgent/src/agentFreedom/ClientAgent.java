@@ -1,5 +1,5 @@
 package agentFreedom;
-import protege.VentecdOntology;
+import protege.OntoCDOntology;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;

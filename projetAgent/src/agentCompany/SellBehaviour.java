@@ -1,7 +1,7 @@
 package agentCompany;
 
-import protege.VendreCD;
-import protege.VentecdOntology;
+
+import protege.OntoCDOntology;
 import jade.content.ContentElement;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
@@ -41,7 +41,7 @@ public class SellBehaviour extends SimpleBehaviour {
 
 	public void action() {
 
-		// CrŽer une instance du message et le recevoir
+		// Crï¿½er une instance du message et le recevoir
 		ACLMessage msg = myAgent.blockingReceive(mt); 
 
 		if (msg != null) {
@@ -53,12 +53,12 @@ public class SellBehaviour extends SimpleBehaviour {
 				
 				ce = this.myAgent.getContentManager().extractContent(msg);
 
-				if (ce instanceof VendreCD) {
+				/*if (ce instanceof VendreCD) {
 					
 					VendreCD myPredicat = ( VendreCD ) ce;
 
 					System.out.println("Le titre du cd est  : "+myPredicat.getCd().getTitle());
-				}
+				}*/
 
 			} catch (UngroundedException e) {
 

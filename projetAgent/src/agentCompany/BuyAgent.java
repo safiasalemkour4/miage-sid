@@ -1,5 +1,5 @@
 package agentCompany;
-import protege.VentecdOntology;
+import protege.OntoCDOntology;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
@@ -43,24 +43,35 @@ public class BuyAgent extends Agent {
 	 * Utile et necessaire pour l'initialisation de l'agent
 	 */
 	
+	/*************************************************
+	 * -gui -host localhost –container hck_business_agent:agentCompany.CommercialAgent hck_buy_agent:agentCompany.BuyAgent hck_producer_agent:agentCompany.ProducerAgent	hck_sell_agent:agentCompany.SellAgent hck_strategy_agent:agentCompany.StrategyAgent	hck_banker_agent:agentFreedom.BankerAgent	hck_stockmanager_agent:agentFreedom.StockManagerAgent	hck_log_agent:agentFreedom.LogAgent
+				
+	 */
 	public void setup() {
 	    
 		/* Ajout du comportement d'achat */
 		this.addBehaviour(new BuyBehaviour(this));
-	    
+
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
-
-		/* Creation d'une decription du service */
-		ServiceDescription sd = new ServiceDescription();
-		sd.setType("Achat");
-		sd.setName("Achat de CDs");
-		sd.setOwnership(this.getName());
 		
-		/* Enregistrement du service aupr�s du DF Agent */
-		dfd.addServices(sd);
-
+		/* Creation d'une decription du service : Production de Cds */
+		ServiceDescription sdBuyCd = new ServiceDescription();
+		sdBuyCd.setType("HCK_AchatCD");
+		sdBuyCd.setName("Achat de CDs aux concurrents");
+		sdBuyCd.setOwnership(this.getName());
+		
+		/* Creation d'une decription du service : Production de Dvds */
+		ServiceDescription sdBuyDvd = new ServiceDescription();
+		sdBuyDvd.setType("HCK_AchatDVD");
+		sdBuyDvd.setName("Achat de DVDs aux concurrents");
+		sdBuyDvd.setOwnership(this.getName());
+		
+		/* Enregistrement des services aupres du DF Agent */
+		dfd.addServices(sdBuyCd);
+		dfd.addServices(sdBuyDvd);
+		
 		try {
 
 			DFService.register(this, dfd);

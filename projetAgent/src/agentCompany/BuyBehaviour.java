@@ -1,20 +1,15 @@
 package agentCompany;
 
-import protege.CD;
-import protege.VendreCD;
-import protege.VentecdOntology;
-import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.Codec.CodecException;
 import jade.content.lang.sl.SLCodec;
-import jade.content.onto.Ontology;
 import jade.content.onto.OntologyException;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
-import jade.domain.FIPANames;
-import jade.domain.JADEAgentManagement.JADEManagementOntology;
 import jade.lang.acl.ACLMessage;
+import protege.CD;
+import protege.OntoCDOntology;
 
 /**
  * Class BuyBehaviour
@@ -25,7 +20,7 @@ import jade.lang.acl.ACLMessage;
 public class BuyBehaviour extends SimpleBehaviour {
 
 	private Codec codec = new SLCodec();
-	private VentecdOntology ontology = (VentecdOntology) VentecdOntology.getInstance();
+	private OntoCDOntology ontology = (OntoCDOntology) OntoCDOntology.getInstance();
 
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
@@ -43,15 +38,15 @@ public class BuyBehaviour extends SimpleBehaviour {
 
 	public void action() {
 
-		//Créer une instance de la classe ACLMessage avec un template (Inform, Query,…) 
+		//CrÔøΩer une instance de la classe ACLMessage avec un template (Inform, Query,ÔøΩ) 
 		ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 
-		//Remplir l’ensemble des agents receveurs dans l’instance ACLMessage. 
+		//Remplir lÔøΩensemble des agents receveurs dans lÔøΩinstance ACLMessage. 
 		msg.addReceiver(new AID("sell_agent", AID.ISLOCALNAME));
 
 		//Remplir le texte du contenu du message
 
-		//msg.setContent("Salut ça va ?");
+		//msg.setContent("Salut ÔøΩa va ?");
 
 		msg.setLanguage(codec.getName());
 		msg.setOntology(ontology.getName());
@@ -64,21 +59,21 @@ public class BuyBehaviour extends SimpleBehaviour {
 
 
 		// On cree le cd
-		CD cd = new CD();
-		cd.setTitle("test titre");
+		//CD cd = new CD();
+		//cd.setTitle("test titre");
 
 		// On cree le predicat
-		VendreCD venteCD = new VendreCD();
-		venteCD.setCd(cd);
+		//VendreCD venteCD = new VendreCD();
+		//venteCD.setCd(cd);
 
 		// On ajoute au content manager
-		try {
+		/*try {
 			this.myAgent.getContentManager().fillContent(msg,venteCD);
 		} catch (CodecException e) {
 			e.printStackTrace();
 		} catch (OntologyException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		//Envoyer le message au receveur avec
 		this.myAgent.send(msg);

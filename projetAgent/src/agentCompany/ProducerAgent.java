@@ -1,5 +1,5 @@
 package agentCompany;
-import protege.VentecdOntology;
+import protege.OntoCDOntology;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
@@ -49,6 +49,31 @@ public class ProducerAgent extends Agent {
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
+		
+		/* Creation d'une decription du service : Production de Cds */
+		ServiceDescription sdProdCd = new ServiceDescription();
+		sdProdCd.setType("HCK_ProductionCD");
+		sdProdCd.setName("Production de CDs");
+		sdProdCd.setOwnership(this.getName());
+		
+		/* Creation d'une decription du service : Production de Dvds */
+		ServiceDescription sdProdDvd = new ServiceDescription();
+		sdProdDvd.setType("HCK_ProductionDVD");
+		sdProdDvd.setName("Production de DVDs");
+		sdProdDvd.setOwnership(this.getName());
+		
+		/* Enregistrement des services aupres du DF Agent */
+		dfd.addServices(sdProdCd);
+		dfd.addServices(sdProdDvd);
+		
+		try {
+
+			DFService.register(this, dfd);
+
+		} catch (FIPAException e) {
+			
+			e.printStackTrace();
+		}
 
 	}
 }

@@ -1,7 +1,5 @@
-package agentCompany;
+package agentFreedom;
 
-import protege.VendreCD;
-import protege.VentecdOntology;
 import jade.content.ContentElement;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
@@ -41,37 +39,7 @@ public class LogBehaviour extends SimpleBehaviour {
 
 	public void action() {
 
-		// Cr�er une instance du message et le recevoir
-		ACLMessage msg = myAgent.blockingReceive(mt); 
 
-		if (msg != null) {
-
-			ContentElement ce;
-
-			/* On essaye de recuperer notre predicat */
-			try {
-				
-				ce = this.myAgent.getContentManager().extractContent(msg);
-
-				if (ce instanceof VendreCD) {
-					
-					VendreCD myPredicat = ( VendreCD ) ce;
-
-					System.out.println("Le titre du cd est  : "+myPredicat.getCd().getTitle());
-				}
-
-			} catch (UngroundedException e) {
-
-				e.printStackTrace();
-			} catch (CodecException e) {
-				e.printStackTrace();
-			} catch (OntologyException e) {
-
-				e.printStackTrace();
-			}
-
-		}
-		//System.out.println("Message recut : "+msg.getContent());
 	}
 
 	public boolean done() {

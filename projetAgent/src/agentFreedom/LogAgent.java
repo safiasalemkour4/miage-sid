@@ -1,5 +1,6 @@
-package agentCompany;
-import protege.VentecdOntology;
+package agentFreedom;
+
+import agentCompany.BuyBehaviour;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
@@ -40,13 +41,13 @@ public class LogAgent extends Agent {
 		dfd.setName(this.getAID());
 
 		/* Creation d'une decription du service */
-		ServiceDescription sd = new ServiceDescription();
-		sd.setType("Achat");
-		sd.setName("Achat de CDs");
-		sd.setOwnership(this.getName());
+		ServiceDescription sdLog = new ServiceDescription();
+		sdLog.setType("HCK_Log");
+		sdLog.setName("Log des actions (stock et banque)");
+		sdLog.setOwnership(this.getName());
 		
-		/* Enregistrement du service aupr�s du DF Agent */
-		dfd.addServices(sd);
+		/* Enregistrement du service aupres du DF Agent */
+		dfd.addServices(sdLog);
 
 		try {
 

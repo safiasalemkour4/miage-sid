@@ -1,5 +1,5 @@
 package agentCompany;
-import protege.VentecdOntology;
+import protege.OntoCDOntology;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
@@ -35,13 +35,13 @@ public class StrategyAgent extends Agent {
 		dfd.setName(this.getAID());
 
 		/* Creation d'une decription du service */
-		ServiceDescription sd = new ServiceDescription();
-		sd.setType("Achat");
-		sd.setName("Achat de CDs");
-		sd.setOwnership(this.getName());
+		ServiceDescription sdStrategy = new ServiceDescription();
+		sdStrategy.setType("HCK_Strategie");
+		sdStrategy.setName("Strategie sur le business de Cds et de Dvds");
+		sdStrategy.setOwnership(this.getName());
 		
-		/* Enregistrement du service aupr�s du DF Agent */
-		dfd.addServices(sd);
+		/* Enregistrement du service aupres du DF Agent */
+		dfd.addServices(sdStrategy);
 
 		try {
 

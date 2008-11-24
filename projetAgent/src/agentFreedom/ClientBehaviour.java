@@ -1,8 +1,7 @@
 package agentFreedom;
 
 import protege.CD;
-import protege.VendreCD;
-import protege.VentecdOntology;
+import protege.OntoCDOntology;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.Codec.CodecException;
@@ -25,7 +24,7 @@ import jade.lang.acl.ACLMessage;
 public class ClientBehaviour extends SimpleBehaviour {
 
 	private Codec codec = new SLCodec();
-	private VentecdOntology ontology = (VentecdOntology) VentecdOntology.getInstance();
+	private OntoCDOntology ontology = (OntoCDOntology) OntoCDOntology.getInstance();
 
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;

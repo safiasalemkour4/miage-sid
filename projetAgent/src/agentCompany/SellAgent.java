@@ -1,5 +1,6 @@
 package agentCompany;
-import protege.VentecdOntology;
+
+import protege.OntoCDOntology;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
@@ -41,7 +42,7 @@ public class SellAgent extends Agent {
 
 	private ContentManager manager = (ContentManager)getContentManager();
 	private Codec codec = new SLCodec();
-	private VentecdOntology ontology = (VentecdOntology) VentecdOntology.getInstance();
+	private OntoCDOntology ontology = (OntoCDOntology) OntoCDOntology.getInstance();
 
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
@@ -62,21 +63,29 @@ public class SellAgent extends Agent {
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
-
-		/* Creation d'une decription du service */
-		ServiceDescription sd = new ServiceDescription();
-		sd.setType("Vente");
-		sd.setName("Vente de CDs");
-		sd.setOwnership(this.getName());
-
-		/* Enregistrement du service aupr�s du DF Agent */
-		dfd.addServices(sd);
-
+		
+		/* Creation d'une decription du service : Production de Cds */
+		ServiceDescription sdSellCd = new ServiceDescription();
+		sdSellCd.setType("HCK_VenteCD");
+		sdSellCd.setName("Vente de CDs aux concurrents");
+		sdSellCd.setOwnership(this.getName());
+		
+		/* Creation d'une decription du service : Production de Dvds */
+		ServiceDescription sdSellDvd = new ServiceDescription();
+		sdSellDvd.setType("HCK_VenteDVD");
+		sdSellDvd.setName("vente de DVDs aux concurrents");
+		sdSellDvd.setOwnership(this.getName());
+		
+		/* Enregistrement des services aupres du DF Agent */
+		dfd.addServices(sdSellCd);
+		dfd.addServices(sdSellDvd);
+		
 		try {
 
 			DFService.register(this, dfd);
 
 		} catch (FIPAException e) {
+			
 			e.printStackTrace();
 		}
 	}

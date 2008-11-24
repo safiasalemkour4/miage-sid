@@ -1,9 +1,5 @@
 package agentCompany;
-import protege.VentecdOntology;
 import jade.content.ContentManager;
-import jade.content.lang.Codec;
-import jade.content.lang.sl.SLCodec;
-import jade.content.onto.Ontology;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -44,10 +40,28 @@ public class CommercialAgent extends Agent {
 	    
 		/* Ajout du comportement d'achat */
 		this.addBehaviour(new CommercialBehaviour(this));
-	    
+
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
+		
+		/* Creation d'une decription du service : Production de Cds */
+		ServiceDescription sdBusiness = new ServiceDescription();
+		sdBusiness.setType("HCK_Business");
+		sdBusiness.setName("Business de CDs et de Dvds aupres du client");
+		sdBusiness.setOwnership(this.getName());
+		
+		/* Enregistrement du service aupres du DF Agent */
+		dfd.addServices(sdBusiness);
+		
+		try {
 
+			DFService.register(this, dfd);
+
+		} catch (FIPAException e) {
+			
+			e.printStackTrace();
+		}
+		
 	}
 }

@@ -1,5 +1,5 @@
 package agentFreedom;
-import protege.VentecdOntology;
+import protege.OntoCDOntology;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
@@ -43,5 +43,23 @@ public class StockManagerAgent extends Agent {
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
+		
+		/* Creation d'une decription du service */
+		ServiceDescription sdStock = new ServiceDescription();
+		sdStock.setType("HCK_Stock");
+		sdStock.setName("Gestion des Stocks");
+		sdStock.setOwnership(this.getName());
+		
+		/* Enregistrement du service aupres du DF Agent */
+		dfd.addServices(sdStock);
+
+		try {
+
+			DFService.register(this, dfd);
+
+		} catch (FIPAException e) {
+			
+			e.printStackTrace();
+		}
 	}
 }

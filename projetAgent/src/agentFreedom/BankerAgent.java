@@ -1,5 +1,5 @@
 package agentFreedom;
-import protege.VentecdOntology;
+import protege.OntoCDOntology;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
@@ -48,5 +48,23 @@ public class BankerAgent extends Agent {
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
+		
+		/* Creation d'une decription du service */
+		ServiceDescription sdBank = new ServiceDescription();
+		sdBank.setType("HCK_Banque");
+		sdBank.setName("Gestion de la Banque");
+		sdBank.setOwnership(this.getName());
+		
+		/* Enregistrement du service aupres du DF Agent */
+		dfd.addServices(sdBank);
+
+		try {
+
+			DFService.register(this, dfd);
+
+		} catch (FIPAException e) {
+			
+			e.printStackTrace();
+		}
 	}
 }
