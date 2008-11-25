@@ -1,18 +1,28 @@
 package agentIntern;
 
-import agentExtern.BuyBehaviour;
 import jade.content.ContentManager;
-import jade.content.lang.Codec;
-import jade.content.lang.sl.SLCodec;
-import jade.content.onto.Ontology;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import agentExtern.BuyBehaviour;
 
 
 
+/*****************************************************************************************************
+ *   					           ~ Projet Agent Powered Miage SID ~			         			 *
+ *****************************************************************************************************
+ *    CLASS  	******		LogAgent.java															 *
+ *****************************************************************************************************
+ *    			******															 					 *
+ * DESCRIPTION  ******		Agent Log : va logguer toutes les actions (banque et stock)				 *
+ * 				******																				 *
+ *****************************************************************************************************
+ * 	 @author 	******   	Simon Hasne, Arnaud Knobloch, Florian Collignon							 *										 *
+ * ***************************************************************************************************
+ *   @version 	******  	1.0																		 *
+ *****************************************************************************************************/
 
 public class LogAgent extends Agent {
 

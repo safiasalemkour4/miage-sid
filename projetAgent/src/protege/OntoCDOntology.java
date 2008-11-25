@@ -2,11 +2,14 @@
 package protege;
 
 
-import jade.content.onto.*;
-import jade.content.schema.*;
-import jade.util.leap.HashMap;
-import jade.content.lang.Codec;
-import jade.core.CaseInsensitiveString;
+import jade.content.onto.BasicOntology;
+import jade.content.onto.Ontology;
+import jade.content.onto.ReflectiveIntrospector;
+import jade.content.schema.AgentActionSchema;
+import jade.content.schema.ConceptSchema;
+import jade.content.schema.ObjectSchema;
+import jade.content.schema.PredicateSchema;
+import jade.content.schema.TermSchema;
 
 /** file: protegeOntology.java
  * @author ontology bean generator

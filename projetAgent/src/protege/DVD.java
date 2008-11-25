@@ -1,7 +1,4 @@
 package protege;
-import jade.content.*;
-import jade.util.leap.*;
-import jade.core.*;
 
 /**
 * Protege name: DVD

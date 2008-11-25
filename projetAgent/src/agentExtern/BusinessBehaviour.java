@@ -13,13 +13,21 @@ import java.util.Iterator;
 
 import protege.OntoCDOntology;
 
-/**
- * Class BuyBehaviour
- * @author Arnaud Knobloch
- * Represente un comportement de l'Agent d'Achat
- */
+/*****************************************************************************************************
+ *   					           ~ Projet Agent Powered Miage SID ~			         			 *
+ *****************************************************************************************************
+ *    CLASS  	******		BusinessBehaviour.java													 *
+ *****************************************************************************************************
+ *    			******															 					 *
+ * DESCRIPTION  ******		Comportement Commercial													 *
+ * 				******																				 *
+ *****************************************************************************************************
+ * 	 @author 	******   	Simon Hasne, Arnaud Knobloch, Florian Collignon							 *										 *
+ * ***************************************************************************************************
+ *   @version 	******  	1.0																		 *
+ *****************************************************************************************************/
 
-public class CommercialBehaviour extends SimpleBehaviour {
+public class BusinessBehaviour extends SimpleBehaviour {
 
 	private Codec codec = new SLCodec();
 	private OntoCDOntology ontology = (OntoCDOntology) OntoCDOntology.getInstance();
@@ -33,7 +41,7 @@ public class CommercialBehaviour extends SimpleBehaviour {
 	 * Construit le comportement Achat
 	 */
 
-	public CommercialBehaviour(Agent agent) {
+	public BusinessBehaviour(Agent agent) {
 
 		super(agent);
 	}

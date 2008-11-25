@@ -1,18 +1,27 @@
 package agentIntern;
-import agentExtern.BuyBehaviour;
-import protege.OntoCDOntology;
 import jade.content.ContentManager;
-import jade.content.lang.Codec;
-import jade.content.lang.sl.SLCodec;
-import jade.content.onto.Ontology;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import agentExtern.BuyBehaviour;
 
 
 
+/*****************************************************************************************************
+ *   					           ~ Projet Agent Powered Miage SID ~			         			 *
+ *****************************************************************************************************
+ *    CLASS  	******		StrategyAgent.java														 *
+ *****************************************************************************************************
+ *    			******															 					 *
+ * DESCRIPTION  ******		Agent Strategie															 *
+ * 				******																				 *
+ *****************************************************************************************************
+ * 	 @author 	******   	Simon Hasne, Arnaud Knobloch, Florian Collignon							 *										 *
+ * ***************************************************************************************************
+ *   @version 	******  	1.0																		 *
+ *****************************************************************************************************/
 
 public class StrategyAgent extends Agent {
 

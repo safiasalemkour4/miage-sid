@@ -1,21 +1,28 @@
 package agentExtern;
 
-import protege.OntoCDOntology;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
-import jade.content.onto.Ontology;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import protege.OntoCDOntology;
 
-/**
- * Class SellAgent
- * @author Arnaud Knobloch
- * Represente un Agent de Vente
- */
+/*****************************************************************************************************
+ *   					           ~ Projet Agent Powered Miage SID ~			         			 *
+ *****************************************************************************************************
+ *    CLASS  	******		SellAgent.java															 *
+ *****************************************************************************************************
+ *    			******															 					 *
+ * DESCRIPTION  ******		Agent Vendeur (CDs et DVDs)												 *
+ * 				******																				 *
+ *****************************************************************************************************
+ * 	 @author 	******   	Simon Hasne, Arnaud Knobloch, Florian Collignon							 *										 *
+ * ***************************************************************************************************
+ *   @version 	******  	1.0																		 *
+ *****************************************************************************************************/
 
 /**
  * Agent qui recoit des requetes venant des acheteurs des autres entrepises

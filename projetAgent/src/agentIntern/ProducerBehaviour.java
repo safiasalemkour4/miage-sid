@@ -1,26 +1,24 @@
 package agentIntern;
 
-import protege.CD;
-import protege.OntoCDOntology;
-
-import jade.content.ContentManager;
 import jade.content.lang.Codec;
-import jade.content.lang.Codec.CodecException;
 import jade.content.lang.sl.SLCodec;
-import jade.content.onto.Ontology;
-import jade.content.onto.OntologyException;
-import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
-import jade.domain.FIPANames;
-import jade.domain.JADEAgentManagement.JADEManagementOntology;
-import jade.lang.acl.ACLMessage;
+import protege.OntoCDOntology;
 
-/**
- * Class BuyBehaviour
- * @author Arnaud Knobloch
- * Represente un comportement de l'Agent d'Achat
- */
+/*****************************************************************************************************
+ *   					           ~ Projet Agent Powered Miage SID ~			         			 *
+ *****************************************************************************************************
+ *    CLASS  	******		ProducerBehaviour.java													 *
+ *****************************************************************************************************
+ *    			******															 					 *
+ * DESCRIPTION  ******		Comportement Producteur													 *
+ * 				******																				 *
+ *****************************************************************************************************
+ * 	 @author 	******   	Simon Hasne, Arnaud Knobloch, Florian Collignon							 *										 *
+ * ***************************************************************************************************
+ *   @version 	******  	1.0																		 *
+ *****************************************************************************************************/
 
 public class ProducerBehaviour extends SimpleBehaviour {
 

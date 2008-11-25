@@ -1,9 +1,7 @@
 package protege;
 
 
-import jade.content.*;
-import jade.util.leap.*;
-import jade.core.*;
+import jade.content.Predicate;
 
 /**
 * Protege name: validerAchat

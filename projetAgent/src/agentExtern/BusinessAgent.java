@@ -6,11 +6,19 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 
-/**
- * Class BuyAgent
- * @author Arnaud Knobloch
- * Represente un Agent d'Achat
- */
+/*****************************************************************************************************
+ *   					           ~ Projet Agent Powered Miage SID ~			         			 *
+ *****************************************************************************************************
+ *    CLASS  	******		BusinessAgent.java														 *
+ *****************************************************************************************************
+ *    			******															 					 *
+ * DESCRIPTION  ******		Agent Commercial (CDs et DVDs)											 *
+ * 				******																				 *
+ *****************************************************************************************************
+ * 	 @author 	******   	Simon Hasne, Arnaud Knobloch, Florian Collignon							 *										 *
+ * ***************************************************************************************************
+ *   @version 	******  	1.0																		 *
+ *****************************************************************************************************/
 
 /**
  * Recoit "nouvellePhase" venant du client.
@@ -23,7 +31,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
  * 
  */
 
-public class CommercialAgent extends Agent {
+public class BusinessAgent extends Agent {
 
 	private ContentManager manager = (ContentManager)this.getContentManager();
 
@@ -39,7 +47,7 @@ public class CommercialAgent extends Agent {
 	public void setup() {
 	    
 		/* Ajout du comportement d'achat */
-		this.addBehaviour(new CommercialBehaviour(this));
+		this.addBehaviour(new BusinessBehaviour(this));
 
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();

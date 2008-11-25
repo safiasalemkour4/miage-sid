@@ -1,13 +1,8 @@
 package agentExtern;
 
 
-import protege.OntoCDOntology;
 import jade.content.ContentElement;
-import jade.content.ContentManager;
-import jade.content.lang.Codec;
 import jade.content.lang.Codec.CodecException;
-import jade.content.lang.sl.SLCodec;
-import jade.content.onto.Ontology;
 import jade.content.onto.OntologyException;
 import jade.content.onto.UngroundedException;
 import jade.core.Agent;
@@ -15,11 +10,19 @@ import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-/**
- * Class SellBehaviour
- * @author Arnaud Knobloch
- * Represente un comportement de l'Agent d Vente
- */
+/*****************************************************************************************************
+ *   					           ~ Projet Agent Powered Miage SID ~			         			 *
+ *****************************************************************************************************
+ *    CLASS  	******		SellBehaviour.java														 *
+ *****************************************************************************************************
+ *    			******															 					 *
+ * DESCRIPTION  ******		Comportement Vente														 *
+ * 				******																				 *
+ *****************************************************************************************************
+ * 	 @author 	******   	Simon Hasne, Arnaud Knobloch, Florian Collignon							 *										 *
+ * ***************************************************************************************************
+ *   @version 	******  	1.0																		 *
+ *****************************************************************************************************/
 
 public class SellBehaviour extends SimpleBehaviour {
 

@@ -1,20 +1,23 @@
 package agentFreedom;
-import protege.OntoCDOntology;
 import jade.content.ContentManager;
-import jade.content.lang.Codec;
-import jade.content.lang.sl.SLCodec;
-import jade.content.onto.Ontology;
 import jade.core.Agent;
-import jade.domain.DFService;
-import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
 
-/**
- * Class BuyAgent
- * @author Arnaud Knobloch
- * Represente un Agent d'Achat
- */
+
+/*****************************************************************************************************
+ *   					           ~ Projet Agent Powered Miage SID ~			         			 *
+ *****************************************************************************************************
+ *    CLASS  	******		ClientAgent.java														 *
+ *****************************************************************************************************
+ *    			******															 					 *
+ * DESCRIPTION  ******		Agent Client (CDs et DVDs)												 *
+ * 				******																				 *
+ *****************************************************************************************************
+ * 	 @author 	******   	Simon Hasne, Arnaud Knobloch, Florian Collignon							 *										 *
+ * ***************************************************************************************************
+ *   @version 	******  	1.0																		 *
+ *****************************************************************************************************/
+
 /**
  * Un tour de jeu a 2 phases : 
  * 1) client envoi "nouvellePhase(1)" au commerciale
