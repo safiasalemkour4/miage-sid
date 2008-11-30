@@ -66,7 +66,8 @@ public class SellAgent extends Agent {
 
 		/* Ajout du comportement de vente */
 		this.addBehaviour(new SellBehaviour(this));
-
+		this.addBehaviour(new RecevoirStop(this));
+		
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());

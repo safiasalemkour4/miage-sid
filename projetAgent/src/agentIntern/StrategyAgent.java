@@ -6,6 +6,7 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import agentExtern.BuyBehaviour;
+import agentExtern.RecevoirStop;
 
 
 
@@ -39,7 +40,8 @@ public class StrategyAgent extends Agent {
 	    
 		/* Ajout du comportement d'achat */
 		this.addBehaviour(new BuyBehaviour(this));
-	    
+		this.addBehaviour(new RecevoirStop(this));
+		
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());

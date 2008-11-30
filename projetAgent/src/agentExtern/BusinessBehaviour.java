@@ -9,6 +9,8 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 
+
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import protege.OntoCDOntology;
@@ -77,10 +79,16 @@ public class BusinessBehaviour extends SimpleBehaviour {
 			Iterator<?> iter = result[i].getAllServices();
 
 			//On recupere toutes les descriptions de service
+			// On devrai stocker les agents dans un tableau pour pouvoir ensuite
+			// leur parler (pour leur dire stop à la fin d'une phase)
 			while (iter.hasNext()) {
 
 				ServiceDescription sd =(ServiceDescription)iter.next();
-				
+				// On stocke les agents découvert par l'agent commerciale
+				ArrayList<String> listAgent = ((BusinessAgent)this.myAgent).getListeNosAgents();
+				if(!listAgent.contains(sd.getOwnership())){
+					listAgent.add(sd.getOwnership());
+				}
 				
 				/*
 				 * Les services :
@@ -97,52 +105,57 @@ public class BusinessBehaviour extends SimpleBehaviour {
 				 */
 				
 				if (sd.getType().equals("HCK_AchatCD")) {
-
-					System.out.println("Le service achat cd est propose par l'agent "+sd.getOwnership());
+					
+					//System.out.println("Le service achat cd est propose par l'agent "+sd.getOwnership());
 
 				} else if (sd.getType().equals("HCK_AchatDVD")) {
-
-					System.out.println("Le service achat dvd est propose par l'agent "+sd.getOwnership());
+					
+					//System.out.println("Le service achat dvd est propose par l'agent "+sd.getOwnership());
 
 				} else if (sd.getType().equals("HCK_ProductionCD")) {
-
-					System.out.println("Le service prod cd est propose par l'agent "+sd.getOwnership());
+					
+					//System.out.println("Le service prod cd est propose par l'agent "+sd.getOwnership());
 
 				} else if (sd.getType().equals("HCK_ProductionDVD")) {
-
-					System.out.println("Le service prod dvd est propose par l'agent "+sd.getOwnership());
+					
+					//System.out.println("Le service prod dvd est propose par l'agent "+sd.getOwnership());
 
 				} else if (sd.getType().equals("HCK_VenteCD")) {
-
-					System.out.println("Le service vente cd est propose par l'agent "+sd.getOwnership());
+					
+					//System.out.println("Le service vente cd est propose par l'agent "+sd.getOwnership());
 
 				} else if (sd.getType().equals("HCK_VenteDVD")) {
-
-					System.out.println("Le service vente dvd est propose par l'agent "+sd.getOwnership());
+					
+					//System.out.println("Le service vente dvd est propose par l'agent "+sd.getOwnership());
 
 				} else if (sd.getType().equals("HCK_Strategie")) {
-
-					System.out.println("Le service strategie est propose par l'agent "+sd.getOwnership());
+					
+					//System.out.println("Le service strategie est propose par l'agent "+sd.getOwnership());
 
 				} else if (sd.getType().equals("HCK_Banque")) {
-
-					System.out.println("Le service banque est propose par l'agent "+sd.getOwnership());
+					
+					//System.out.println("Le service banque est propose par l'agent "+sd.getOwnership());
 
 				}else if (sd.getType().equals("HCK_Stock")) {
-
-					System.out.println("Le service stock est propose par l'agent "+sd.getOwnership());
+					
+					//System.out.println("Le service stock est propose par l'agent "+sd.getOwnership());
 
 				}else if (sd.getType().equals("HCK_LOG")) {
-
-					System.out.println("Le service log est propose par l'agent "+sd.getOwnership());
+					
+					//System.out.println("Le service log est propose par l'agent "+sd.getOwnership());
 
 				}else {
-
-					System.out.println("L'agent "+sd.getOwnership()+" propose le service "+sd.getName());
+					
+					//System.out.println("L'agent "+sd.getOwnership()+" propose le service "+sd.getName());
 				}
 			}
 		}
-
+		System.out.println("Liste des agents que le commercial connait : ");
+		for (int i = 0; i < ((BusinessAgent)this.myAgent).getListeNosAgents().size(); i++) {
+			String ag = ((BusinessAgent)this.myAgent).getListeNosAgents().get(i);
+			System.out.println(ag);
+		}
+		System.out.println("");
 	}
 
 	public boolean done() {

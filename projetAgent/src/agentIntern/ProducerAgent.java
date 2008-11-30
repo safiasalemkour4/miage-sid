@@ -1,4 +1,5 @@
 package agentIntern;
+import agentExtern.RecevoirStop;
 import jade.content.ContentManager;
 import jade.core.Agent;
 import jade.domain.DFService;
@@ -49,7 +50,8 @@ public class ProducerAgent extends Agent {
 	    
 		/* Ajout du comportement d'achat */
 		this.addBehaviour(new ProducerBehaviour(this));
-	    
+		this.addBehaviour(new RecevoirStop(this));
+		
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());

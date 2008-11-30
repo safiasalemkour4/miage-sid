@@ -1,8 +1,13 @@
 package agentExtern;
 
 
+import java.util.ArrayList;
+
+
 import protege.NouvellePhase;
+import protege.OK;
 import protege.OntoCDOntology;
+import protege.StopEverybody;
 import jade.content.ContentElement;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
@@ -10,6 +15,7 @@ import jade.content.lang.Codec.CodecException;
 import jade.content.lang.sl.SLCodec;
 import jade.content.onto.OntologyException;
 import jade.content.onto.UngroundedException;
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
@@ -31,7 +37,7 @@ public class RecevoirNvPhase extends CyclicBehaviour {
 	
 	public RecevoirNvPhase(Agent a) {
 		super(a);
-		System.out.println("Demarrage du behaviour RecevoirNvPhase par "+this.myAgent.getName());
+		
 		manager.registerLanguage(codec);
 	    manager.registerOntology(onto);
 		
@@ -54,12 +60,36 @@ public class RecevoirNvPhase extends CyclicBehaviour {
 				ce = manager.extractContent(msg);
 				if (ce instanceof NouvellePhase) {
 					int numPhase = ((NouvellePhase)ce).getNumeroPhase();
-					System.out.println("J'ai recu l'ordre de demarrer phase "+numPhase);
+					System.out.println(this.myAgent.getName()+ " a recu l'ordre de demarrer phase "+numPhase);
 					
-					if(numPhase == 1){
+					if(numPhase == 2){
 						
+						// Nous devons envoyer a tous nos agent qu'ils doivent s'arreter
+						ACLMessage msgArret = new ACLMessage(ACLMessage.INFORM);
+						msgArret.setLanguage(codec.getName());
+						msgArret.setOntology(onto.getName());
+						StopEverybody stop = new StopEverybody();
+
+						ArrayList<String> listAgent = ((BusinessAgent)this.myAgent).getListeNosAgents();
+						System.out.println("listeAgent size : "+listAgent.size());
+						for(int i = 0;i<listAgent.size();i++){
+							System.out.println("Envoi de l'ordre de s'arreter à "+listAgent.get(i));
+							msgArret.addReceiver(new AID(listAgent.get(i),AID.ISGUID));
+						}
+						
+						try {
+							manager.fillContent(msgArret, stop);
+							myAgent.send(msgArret);
+						} catch (CodecException e) {
+							e.printStackTrace();
+						} catch (OntologyException e) {
+							e.printStackTrace();
+						}
+						
+											
 					}
 					else{
+												
 						
 					}
 					

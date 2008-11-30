@@ -1,4 +1,6 @@
 package agentExtern;
+import java.util.ArrayList;
+
 import jade.content.ContentManager;
 import jade.core.Agent;
 import jade.domain.DFService;
@@ -38,6 +40,7 @@ public class BusinessAgent extends Agent {
 	
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
+	private ArrayList<String> listeNosAgents;
 	  
 	/**
 	 * Methode setup
@@ -46,13 +49,17 @@ public class BusinessAgent extends Agent {
 	
 	public void setup() {
 	    
+		/*Déclaration du tableau contenant la liste de nos agents*/
+		listeNosAgents = new ArrayList<String>();
 		/* Ajout du comportement d'achat */
-		//this.addBehaviour(new BusinessBehaviour(this));
+		this.addBehaviour(new BusinessBehaviour(this));
+		this.addBehaviour(new RecevoirNvPhase(this));
+		
 
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
-		this.addBehaviour(new RecevoirNvPhase(this));
+		
 		/* Creation d'une decription du service : Production de Cds */
 		ServiceDescription sdStart = new ServiceDescription();
 		sdStart.setType("Start");
@@ -89,4 +96,10 @@ public class BusinessAgent extends Agent {
 		
 		
 	}
+
+	public ArrayList<String> getListeNosAgents() {
+		return listeNosAgents;
+	}
+	
+	
 }
