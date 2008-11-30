@@ -42,6 +42,7 @@ public class ReceptionPrixBehaviour extends OneShotBehaviour {
 		Codec codec = new SLCodec();
 		OntoCDOntology onto = (OntoCDOntology)OntoCDOntology.getInstance();
 		
+		
 		MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 		ContentElement ce;
 		

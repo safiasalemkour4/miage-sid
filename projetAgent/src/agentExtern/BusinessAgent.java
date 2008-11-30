@@ -47,12 +47,12 @@ public class BusinessAgent extends Agent {
 	public void setup() {
 	    
 		/* Ajout du comportement d'achat */
-		this.addBehaviour(new BusinessBehaviour(this));
+		//this.addBehaviour(new BusinessBehaviour(this));
 
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
-
+		this.addBehaviour(new RecevoirNvPhase(this));
 		/* Creation d'une decription du service : Production de Cds */
 		ServiceDescription sdStart = new ServiceDescription();
 		sdStart.setType("Start");
@@ -84,6 +84,9 @@ public class BusinessAgent extends Agent {
 			
 			e.printStackTrace();
 		}
+		
+		
+		
 		
 	}
 }

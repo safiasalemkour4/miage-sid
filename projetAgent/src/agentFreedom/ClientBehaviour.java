@@ -41,8 +41,7 @@ import protege.OntoCDOntology;
 
 public class ClientBehaviour extends SimpleBehaviour {
 
-	private Codec codec = new SLCodec();
-	private OntoCDOntology ontology = (OntoCDOntology) OntoCDOntology.getInstance();
+	
 
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
@@ -64,22 +63,26 @@ public class ClientBehaviour extends SimpleBehaviour {
 	 */
 	public void action() {
 		int num_phase = 0;
-		JOptionPane.showConfirmDialog(null, "DÃ©buter ?", "DÃ©but", JOptionPane.OK_CANCEL_OPTION);
+		JOptionPane.showConfirmDialog(null, "Debuter ?", "Debut", JOptionPane.OK_CANCEL_OPTION);
 		
 
-		System.out.println("DÃ©marrage du client ... ");
+		System.out.println("Demarrage du client ... ");
 		
 		ContentManager manager = myAgent.getContentManager();
 		Codec codec = new SLCodec();
+		
 		OntoCDOntology onto = (OntoCDOntology)OntoCDOntology.getInstance();
 
+		manager.registerLanguage(codec);
+	    manager.registerOntology(onto);
+	    
 		/* Demander le nombre d'agents et leur nom au DF */
 		DFAgentDescription dfd = new DFAgentDescription();
 
 		/* Retrouver les agents dans un tableau */
 		DFAgentDescription[] result = null;
 		
-		System.out.println("Recherche des services proposÃ©s par les diffÃ©rents agents ... ");
+		System.out.println("Recherche des services proposes par les differents agents ... ");
 		try {
 			result = DFService.search(this.myAgent, dfd);
 		} catch (FIPAException e) {
@@ -96,32 +99,36 @@ public class ClientBehaviour extends SimpleBehaviour {
 			while (iter.hasNext()) {
 				ServiceDescription sd = (ServiceDescription) iter.next();
 				if (sd.getType().compareTo(ClientAgent.SERVICE_VENTE_CD_CLIENT) == 0) {
-					System.out.println("Le service vente de CDs est proposÃ© par l'agent " + sd.getOwnership());
+					System.out.println("Le service vente de CDs est propose par l'agent " + sd.getOwnership());
 					vendeurs_cd.add(sd.getOwnership());
 				} else if (sd.getType().compareTo(ClientAgent.SERVICE_VENTE_DVD_CLIENT) == 0){
-					System.out.println("Le service vente de DVDs est proposÃ© par l'agent " + sd.getOwnership());
+					System.out.println("Le service vente de DVDs est propose par l'agent " + sd.getOwnership());
 					vendeurs_dvd.add(sd.getOwnership());
 				} else if (sd.getType().compareTo(ClientAgent.SERVICE_START) == 0){
-					System.out.println("Le service de dÃ©marrage est proposÃ© par l'agent " + sd.getOwnership());
+					System.out.println("Le service de demarrage est propose par l'agent " + sd.getOwnership());
 					commerciaux.add(sd.getOwnership());
 				} else {
-					System.out.println("L'agent " + sd.getOwnership() + " propose le service " + sd.getName());
+					//System.out.println("L'agent " + sd.getOwnership() + " propose le service " + sd.getName());
 				}
 			}
 		}
 		/* Stockage de la liste du cÃ´tÃ© du client */
 		((ClientAgent)(this.myAgent)).setListe_vendeursCD(vendeurs_cd);
 		((ClientAgent)(this.myAgent)).setListe_vendeursDVD(vendeurs_dvd);
-
-		while (JOptionPane.showConfirmDialog(null, "Voulez-vous faire un tour supplÃ©mentaire ?", "Fin du tour", JOptionPane.OK_CANCEL_OPTION) == 0){
+		
+		while (JOptionPane.showConfirmDialog(null, "Voulez-vous faire un tour supplementaire ?", "Fin du tour", JOptionPane.OK_CANCEL_OPTION) == 0){
 			num_phase++;
 			/* Envoi d'un message Ã  tous les commerciaux pour leur signaler le dÃ©but de la phase de production */
 			for(String s : commerciaux){
+				ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+				msg.setLanguage(codec.getName());
+				msg.setOntology(onto.getName());
 				try {
-					ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-					msg.addReceiver(new AID(s, AID.ISLOCALNAME));
+					System.out.println("Le client va envoyer un mesg a "+s);
+					msg.addReceiver(new AID(s,AID.ISGUID));
 					NouvellePhase nph = new NouvellePhase();
 					nph.setNumeroPhase(NouvellePhase.PHASE_PROD);
+					
 					manager.fillContent(msg, nph);
 					myAgent.send(msg);
 				} catch (OntologyException e) {
@@ -141,18 +148,23 @@ public class ClientBehaviour extends SimpleBehaviour {
 
 			/* Envoi Ã  tous les commerciaux du message leur indiquant d'arrÃªter leur production et leurs achats */
 			for(String com : commerciaux){
+				ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+				msg.setLanguage(codec.getName());
+				msg.setOntology(onto.getName());
 				try {
-					ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+					
 					msg.addReceiver(new AID(com, AID.ISLOCALNAME));
 					NouvellePhase nph = new NouvellePhase();
 					nph.setNumeroPhase(NouvellePhase.PHASE_ACHAT);
+					
 					manager.fillContent(msg, nph);
 					myAgent.send(msg);
-				} catch (jade.content.lang.Codec.CodecException e) {
-					e.printStackTrace();
 				} catch (OntologyException e) {
 					e.printStackTrace();
-				}
+				} catch (jade.content.lang.Codec.CodecException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
 			}
 
 			/* RÃ©ception tous les messages "OK" */
