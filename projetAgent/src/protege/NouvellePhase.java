@@ -14,6 +14,8 @@ public class NouvellePhase implements Predicate {
    /**
 * Protege name: numeroPhase
    */
+	public final static int PHASE_PROD = 1;
+	public final static int PHASE_ACHAT = 2;
    private int numeroPhase;
    public void setNumeroPhase(int value) { 
     this.numeroPhase=value;
