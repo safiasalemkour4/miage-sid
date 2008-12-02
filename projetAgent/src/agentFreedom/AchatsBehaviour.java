@@ -32,9 +32,12 @@ public class AchatsBehaviour extends SimpleBehaviour {
 	public AchatsBehaviour(Agent a) {
 		super(a);
 	}
+	
+	
 
 	@Override
 	public void action() {
+		System.out.println("action de achat behaviour");
 		CD mon_cd = new CD();
 		DVD mon_dvd = new DVD();
 		
@@ -44,7 +47,9 @@ public class AchatsBehaviour extends SimpleBehaviour {
 		ContentManager manager = myAgent.getContentManager();
 		Codec codec = new SLCodec();
 		OntoCDOntology onto = (OntoCDOntology)OntoCDOntology.getInstance();
-		
+		manager.registerLanguage(codec);
+	    manager.registerOntology(onto);
+	    
 		ArrayList<String> liste_vendeurs_cd = ((ClientAgent)this.myAgent).getListe_vendeursCD();
 		ArrayList<String> liste_vendeurs_dvd = ((ClientAgent)this.myAgent).getListe_vendeursDVD();
 		/* On crÃ©Ã© une HashMap avec les numÃ©ros de phase et le tableau de quantitÃ©s de CDs et DVDs Ã  acheter correspondant */
@@ -62,13 +67,15 @@ public class AchatsBehaviour extends SimpleBehaviour {
 			for(String vendeur : ((ClientAgent)this.myAgent).getListe_vendeursCD()){
 				try {
 					ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+					msg.setLanguage(codec.getName());
+					msg.setOntology(onto.getName());
 					msg.addReceiver(new AID(vendeur, AID.ISLOCALNAME));
 					Disponible dispo = new Disponible();
 					dispo.setQte(quantiteMap.get(i)[0]);
 					dispo.setDisque(mon_cd);
 					manager.fillContent(msg, dispo);
 					myAgent.send(msg);
-					this.myAgent.addBehaviour(new ReceptionPrixBehaviour(this.myAgent));
+					//this.myAgent.addBehaviour(new ReceptionPrixBehaviour(this.myAgent));
 				} catch (CodecException e) {
 					e.printStackTrace();
 				} catch (OntologyException e) {

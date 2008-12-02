@@ -46,7 +46,7 @@ public class ReceptionPrixBehaviour extends OneShotBehaviour {
 		MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 		ContentElement ce;
 		
-		/* Si aucun message n'est reÃ§u en 300ms, le client est bloquÃ© ici */
+		/* Si aucun message n'est recu en 300ms, le client est bloquÃ© ici */
 		try {
 			ACLMessage msg_recu = myAgent.blockingReceive(mt, 300);
 			ce = manager.extractContent(msg_recu);

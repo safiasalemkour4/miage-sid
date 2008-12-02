@@ -52,7 +52,7 @@ public class RecevoirStop extends CyclicBehaviour {
 
 				if (ce instanceof StopEverybody) {
 
-					System.out.println(this.myAgent.getName()+ " a recu l'ordre s'arreter");
+					System.out.println(this.myAgent.getName()+ " a recu l'ordre de s'arreter");
 					// mettre la variable arret a true
 				}
 			} catch (CodecException e) {

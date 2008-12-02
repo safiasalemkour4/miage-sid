@@ -1,6 +1,8 @@
 package agentExtern;
 import java.util.ArrayList;
 
+import protege.OntoCDOntology;
+
 import jade.content.ContentManager;
 import jade.core.Agent;
 import jade.domain.DFService;
@@ -68,7 +70,7 @@ public class BusinessAgent extends Agent {
 		
 		/* Creation d'une decription du service : Production de Cds */
 		ServiceDescription sdSellCDToClient = new ServiceDescription();
-		sdSellCDToClient.setType("VenteCD_Client");
+		sdSellCDToClient.setType(OntoCDOntology.SERVICE_VENTE_CD_CLIENT);
 		sdSellCDToClient.setName("VenteCD_Client Business");
 		sdSellCDToClient.setOwnership(this.getName());
 		

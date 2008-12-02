@@ -38,6 +38,11 @@ public class OntoCDOntology extends jade.content.onto.Ontology  {
     public static final String DVD="DVD";
     public static final String DISQUE="Disque";
     public static final String CD="CD";
+    public static final String SERVICE_VENTE_CD_CLIENT = "VenteCD_Client";
+	public static final String SERVICE_VENTE_DVD_CLIENT = "VenteDVD_Client";
+	public static final String SERVICE_START = "Start";
+	public static final String SERVICE_VENTE_CD_ENT = "VenteDVD_Ent";
+	public static final String SERVICE_VENTE_DVD_ENT = "VenteCD_Ent";
 
   /**
    * Constructor

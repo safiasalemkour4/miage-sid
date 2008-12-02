@@ -2,6 +2,8 @@ package agentFreedom;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 import jade.content.ContentManager;
 import jade.core.Agent;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -52,11 +54,7 @@ public class ClientAgent extends Agent {
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
 	  
-	public static final String SERVICE_VENTE_CD_CLIENT = "VenteCD_Client";
-	public static final String SERVICE_VENTE_DVD_CLIENT = "VenteDVD_Client";
-	public static final String SERVICE_START = "Start";
-	public static final String SERVICE_VENTE_CD_ENT = "VenteDVD_Ent";
-	public static final String SERVICE_VENTE_DVD_ENT = "VenteCD_Ent";
+	
 	
 	private ArrayList<String> liste_vendeursCD = new ArrayList<String>();
 	private ArrayList<String> liste_vendeursDVD = new ArrayList<String>();
@@ -65,6 +63,9 @@ public class ClientAgent extends Agent {
 	private HashMap<String, Integer> prix_dvds = new HashMap<String, Integer>();
 
 	
+	
+	static ArrayList<String> commerciaux = new ArrayList<String>();
+	
 	/**
 	 * Methode setup
 	 * Utile et necessaire pour l'initialisation de l'agent
@@ -72,7 +73,19 @@ public class ClientAgent extends Agent {
 	public void setup() {
 	    
 		/* Ajout du comportement d'achat */
-		this.addBehaviour(new ClientBehaviour(this));
+		int num_phase = 0;
+		JOptionPane.showConfirmDialog(null, "Debuter ?", "Debut", JOptionPane.OK_CANCEL_OPTION);
+		this.addBehaviour(new ClientDecouvreService(this));
+
+		System.out.println("Demarrage du client ... ");
+				
+		while (JOptionPane.showConfirmDialog(null, "Voulez-vous faire un tour supplementaire ?", "Fin du tour", JOptionPane.OK_CANCEL_OPTION) == 0){
+			num_phase++;
+			this.addBehaviour(new ClientBehaviour(this));
+			System.out.println("Le client a termine ses achats pour la phase " + num_phase);
+		}
+		/* Fin */
+		System.out.println("Le client a termine ses achats ! (il y a eu " + num_phase + " phases)");
 	    
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
