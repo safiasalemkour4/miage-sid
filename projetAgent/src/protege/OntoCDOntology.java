@@ -9,7 +9,7 @@ import jade.core.CaseInsensitiveString;
 
 /** file: OntoCDOntology.java
  * @author ontology bean generator
- * @version 2008/12/2, 15:03:05
+ * @version 2008/12/2, 15:24:06
  */
 public class OntoCDOntology extends jade.content.onto.Ontology  {
   //NAME
@@ -23,6 +23,7 @@ public class OntoCDOntology extends jade.content.onto.Ontology  {
 
 
    // VOCABULARY
+    public static final String STOPEVERYBODY="StopEverybody";
     public static final String OK="OK";
     public static final String VALIDERACHAT_REPONSE="reponse";
     public static final String VALIDERACHAT="ValiderAchat";
@@ -31,8 +32,8 @@ public class OntoCDOntology extends jade.content.onto.Ontology  {
     public static final String DISPONIBLE="Disponible";
     public static final String NOUVELLEPHASE_NUMEROPHASE="numeroPhase";
     public static final String NOUVELLEPHASE="NouvellePhase";
-    public static final String REPONSEDISPONIBILITE_PRIX="prix";
     public static final String REPONSEDISPONIBILITE_DISQUE="disque";
+    public static final String REPONSEDISPONIBILITE_PRIX="prix";
     public static final String REPONSEDISPONIBILITE="ReponseDisponibilite";
     public static final String DVD="DVD";
     public static final String DISQUE="Disque";
@@ -68,11 +69,13 @@ public class OntoCDOntology extends jade.content.onto.Ontology  {
     add(validerAchatSchema, protege.ValiderAchat.class);
     PredicateSchema okSchema = new PredicateSchema(OK);
     add(okSchema, protege.OK.class);
+    PredicateSchema stopEverybodySchema = new PredicateSchema(STOPEVERYBODY);
+    add(stopEverybodySchema, protege.StopEverybody.class);
 
 
     // adding fields
-    reponseDisponibiliteSchema.add(REPONSEDISPONIBILITE_DISQUE, disqueSchema, ObjectSchema.OPTIONAL);
     reponseDisponibiliteSchema.add(REPONSEDISPONIBILITE_PRIX, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
+    reponseDisponibiliteSchema.add(REPONSEDISPONIBILITE_DISQUE, disqueSchema, ObjectSchema.OPTIONAL);
     nouvellePhaseSchema.add(NOUVELLEPHASE_NUMEROPHASE, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
     disponibleSchema.add(DISPONIBLE_DISQUE, disqueSchema, ObjectSchema.OPTIONAL);
     disponibleSchema.add(DISPONIBLE_QTE, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
