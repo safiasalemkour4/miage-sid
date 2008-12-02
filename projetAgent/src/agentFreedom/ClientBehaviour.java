@@ -45,7 +45,7 @@ public class ClientBehaviour extends SimpleBehaviour {
 
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
-	public static final int SLEEPING = 10000;
+	public static final int SLEEPING = 100;
 	/**
 	 * Construteur
 	 * @param agent l'agent lie a ce comportement
@@ -124,17 +124,17 @@ public class ClientBehaviour extends SimpleBehaviour {
 				msg.setLanguage(codec.getName());
 				msg.setOntology(onto.getName());
 				try {
-					System.out.println("Le client va envoyer un mesg a "+s);
+					System.out.println("Le client va envoyer un mesg de phase 1 a "+s);
 					msg.addReceiver(new AID(s,AID.ISGUID));
 					NouvellePhase nph = new NouvellePhase();
 					nph.setNumeroPhase(NouvellePhase.PHASE_PROD);
 					
 					manager.fillContent(msg, nph);
 					myAgent.send(msg);
+					
 				} catch (OntologyException e) {
 					e.printStackTrace();
 				} catch (jade.content.lang.Codec.CodecException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -146,23 +146,23 @@ public class ClientBehaviour extends SimpleBehaviour {
 				e1.printStackTrace();
 			}
 
-			/* Envoi Ã  tous les commerciaux du message leur indiquant d'arrÃªter leur production et leurs achats */
+			/* Envoi Ã  tous les commerciaux du message leur indiquant d'arreter leur production et leurs achats */
 			for(String com : commerciaux){
 				ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 				msg.setLanguage(codec.getName());
 				msg.setOntology(onto.getName());
 				try {
-					
-					msg.addReceiver(new AID(com, AID.ISLOCALNAME));
+					System.out.println("Le client va envoyer un mesg de phase 2 a "+com);
+					msg.addReceiver(new AID(com, AID.ISGUID));
 					NouvellePhase nph = new NouvellePhase();
 					nph.setNumeroPhase(NouvellePhase.PHASE_ACHAT);
 					
 					manager.fillContent(msg, nph);
 					myAgent.send(msg);
+					
 				} catch (OntologyException e) {
 					e.printStackTrace();
 				} catch (jade.content.lang.Codec.CodecException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
 			}
@@ -174,7 +174,7 @@ public class ClientBehaviour extends SimpleBehaviour {
 			int ok_recus = 0;
 			while(ok_recus < commerciaux.size()){
 				try {
-					/* Si aucun message n'est reÃ§u, le client est bloquÃ© ici */
+					/* Si aucun message n'est recu, le client est bloque ici */
 					ACLMessage msg_recu = myAgent.blockingReceive(mt);
 					ce = manager.extractContent(msg_recu);
 					if(ce instanceof OK){

@@ -36,7 +36,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 public class BankerAgent extends Agent {
 
 	private ContentManager manager = (ContentManager)this.getContentManager();
-
+	private boolean arret;
 	
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
@@ -51,6 +51,7 @@ public class BankerAgent extends Agent {
 		/* Ajout du comportement d'achat */
 		this.addBehaviour(new BankerBehaviour(this));
 		this.addBehaviour(new RecevoirStop(this));
+		arret = true;
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
@@ -73,4 +74,15 @@ public class BankerAgent extends Agent {
 			e.printStackTrace();
 		}
 	}
+
+	public boolean isArret() {
+		return arret;
+	}
+
+	public void setArret(boolean arret) {
+		this.arret = arret;
+	}
+	
+	
+	
 }

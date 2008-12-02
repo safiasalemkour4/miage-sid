@@ -48,7 +48,7 @@ public class RecevoirNvPhase extends CyclicBehaviour {
 	@Override
 	public void action() {
 		
-		
+		//System.out.println(myAgent.getName()+ " est en attente de recevoir un message de phase");
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
 		
 		ContentManager manager = myAgent.getContentManager();
@@ -71,7 +71,7 @@ public class RecevoirNvPhase extends CyclicBehaviour {
 						StopEverybody stop = new StopEverybody();
 
 						ArrayList<String> listAgent = ((BusinessAgent)this.myAgent).getListeNosAgents();
-						System.out.println("listeAgent size : "+listAgent.size());
+						
 						for(int i = 0;i<listAgent.size();i++){
 							System.out.println("Envoi de l'ordre de s'arreter à "+listAgent.get(i));
 							msgArret.addReceiver(new AID(listAgent.get(i),AID.ISGUID));
@@ -89,7 +89,10 @@ public class RecevoirNvPhase extends CyclicBehaviour {
 											
 					}
 					else{
-												
+						//TODO démarrer le travail des agent. Peut etre avec une variable
+						//boolean dont chaque agent vérifirai sa valeur avant de se lancer dans
+						//un cycle de travail. Pour les stoper on pourra mettre à false. Cela laissera
+						//le temps a l'agent de finir son travail et de s'arreter puis d'envoyer STOP
 						
 					}
 					
