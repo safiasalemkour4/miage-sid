@@ -22,25 +22,16 @@ import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-public class RecevoirNvPhase extends CyclicBehaviour {
+public class RecevoirNvPhase extends SimpleBehaviour {
 
 	
 	private static final long serialVersionUID = 1L;
 	private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
-	ContentManager manager = myAgent.getContentManager();
-	Codec codec = new SLCodec();
-	OntoCDOntology onto = (OntoCDOntology)OntoCDOntology.getInstance();
-	
-
-	
 	
 	
 	public RecevoirNvPhase(Agent a) {
 		super(a);
-		
-		manager.registerLanguage(codec);
-	    manager.registerOntology(onto);
-		
+					
 	}
 
 	
@@ -51,23 +42,22 @@ public class RecevoirNvPhase extends CyclicBehaviour {
 		//System.out.println(myAgent.getName()+ " est en attente de recevoir un message de phase");
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
 		
-		ContentManager manager = myAgent.getContentManager();
+		
 		if (msg != null) {
 
 			ContentElement ce;
 			try {
 				
-				ce = manager.extractContent(msg);
+				ce = BusinessBehaviour.manager.extractContent(msg);
 				if (ce instanceof NouvellePhase) {
 					int numPhase = ((NouvellePhase)ce).getNumeroPhase();
-					System.out.println(this.myAgent.getName()+ " a recu l'ordre de demarrer phase "+numPhase);
-					
+										
 					if(numPhase == 2){
-						
+						System.out.println(this.myAgent.getName()+ " a recu l'ordre de demarrer phase 2");
 						// Nous devons envoyer a tous nos agent qu'ils doivent s'arreter
 						ACLMessage msgArret = new ACLMessage(ACLMessage.INFORM);
-						msgArret.setLanguage(codec.getName());
-						msgArret.setOntology(onto.getName());
+						msgArret.setLanguage(BusinessBehaviour.codec.getName());
+						msgArret.setOntology(BusinessBehaviour.onto.getName());
 						StopEverybody stop = new StopEverybody();
 
 						ArrayList<String> listAgent = ((BusinessAgent)this.myAgent).getListeNosAgents();
@@ -78,7 +68,7 @@ public class RecevoirNvPhase extends CyclicBehaviour {
 						}
 						
 						try {
-							manager.fillContent(msgArret, stop);
+							BusinessBehaviour.manager.fillContent(msgArret, stop);
 							myAgent.send(msgArret);
 						} catch (CodecException e) {
 							e.printStackTrace();
@@ -89,6 +79,7 @@ public class RecevoirNvPhase extends CyclicBehaviour {
 											
 					}
 					else{
+						System.out.println(this.myAgent.getName()+ " a recu l'ordre de demarrer phase 1");
 						//TODO démarrer le travail des agent. Peut etre avec une variable
 						//boolean dont chaque agent vérifirai sa valeur avant de se lancer dans
 						//un cycle de travail. Pour les stoper on pourra mettre à false. Cela laissera
@@ -113,6 +104,14 @@ public class RecevoirNvPhase extends CyclicBehaviour {
 		}
 		
 		
+	}
+
+
+
+	@Override
+	public boolean done() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	

@@ -37,18 +37,15 @@ public class AchatsBehaviour extends SimpleBehaviour {
 
 	@Override
 	public void action() {
-		System.out.println("action de achat behaviour");
+		
 		CD mon_cd = new CD();
 		DVD mon_dvd = new DVD();
 		
 		((ClientAgent)myAgent).emptyPrixCd();
 		((ClientAgent)myAgent).emptyPrixDvd();
 		
-		ContentManager manager = myAgent.getContentManager();
-		Codec codec = new SLCodec();
-		OntoCDOntology onto = (OntoCDOntology)OntoCDOntology.getInstance();
-		manager.registerLanguage(codec);
-	    manager.registerOntology(onto);
+		
+		
 	    
 		ArrayList<String> liste_vendeurs_cd = ((ClientAgent)this.myAgent).getListe_vendeursCD();
 		ArrayList<String> liste_vendeurs_dvd = ((ClientAgent)this.myAgent).getListe_vendeursDVD();
@@ -67,13 +64,14 @@ public class AchatsBehaviour extends SimpleBehaviour {
 			for(String vendeur : ((ClientAgent)this.myAgent).getListe_vendeursCD()){
 				try {
 					ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-					msg.setLanguage(codec.getName());
-					msg.setOntology(onto.getName());
+					msg.setLanguage(ClientBehaviour.codec.getName());
+					msg.setOntology(ClientBehaviour.onto.getName());
 					msg.addReceiver(new AID(vendeur, AID.ISLOCALNAME));
 					Disponible dispo = new Disponible();
 					dispo.setQte(quantiteMap.get(i)[0]);
 					dispo.setDisque(mon_cd);
-					manager.fillContent(msg, dispo);
+					ClientBehaviour.manager.fillContent(msg, dispo);
+					System.out.println("Envoi de la demande de prix a commercial");
 					myAgent.send(msg);
 					//this.myAgent.addBehaviour(new ReceptionPrixBehaviour(this.myAgent));
 				} catch (CodecException e) {

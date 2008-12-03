@@ -81,7 +81,10 @@ public class ClientAgent extends Agent {
 				
 		while (JOptionPane.showConfirmDialog(null, "Voulez-vous faire un tour supplementaire ?", "Fin du tour", JOptionPane.OK_CANCEL_OPTION) == 0){
 			num_phase++;
+			
 			this.addBehaviour(new ClientBehaviour(this));
+						
+			
 			System.out.println("Le client a termine ses achats pour la phase " + num_phase);
 		}
 		/* Fin */

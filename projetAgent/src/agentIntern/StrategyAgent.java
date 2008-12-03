@@ -30,6 +30,7 @@ public class StrategyAgent extends Agent {
 	private static final long serialVersionUID = 1L;
 	
 	private ContentManager manager = (ContentManager)this.getContentManager();
+	public static int prixCD;
 
 	/**
 	 * Methode setup

@@ -38,18 +38,15 @@ public class ReceptionPrixBehaviour extends OneShotBehaviour {
 	 */
 	@Override
 	public void action() {
-		ContentManager manager = myAgent.getContentManager();
-		Codec codec = new SLCodec();
-		OntoCDOntology onto = (OntoCDOntology)OntoCDOntology.getInstance();
-		
+				
 		
 		MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 		ContentElement ce;
 		
 		/* Si aucun message n'est recu en 300ms, le client est bloquÃ© ici */
 		try {
-			ACLMessage msg_recu = myAgent.blockingReceive(mt, 300);
-			ce = manager.extractContent(msg_recu);
+			ACLMessage msg_recu = myAgent.blockingReceive(mt);
+			ce = ClientBehaviour.manager.extractContent(msg_recu);
 			if(ce != null){
 				if(ce instanceof ReponseDisponibilite){
 					if(((ReponseDisponibilite)ce).getDisque() instanceof CD){

@@ -33,7 +33,9 @@ public class ClientBehaviour extends SequentialBehaviour {
 		this.addSubBehaviour(new ClientEnvoiPhase2(this.myAgent));
 		this.addSubBehaviour(new ClientAttenteOK(this.myAgent));
 		System.out.println("Le client commence ses achats ...");
-		this.addSubBehaviour(new AchatsBehaviour(this.myAgent));
+		
+			this.addSubBehaviour(new AchatsBehaviour(this.myAgent));
+		
 		this.addSubBehaviour(new ReceptionPrixBehaviour(this.myAgent));
 	}
 

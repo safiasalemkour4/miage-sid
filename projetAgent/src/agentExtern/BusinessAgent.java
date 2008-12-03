@@ -54,8 +54,8 @@ public class BusinessAgent extends Agent {
 		/*Déclaration du tableau contenant la liste de nos agents*/
 		listeNosAgents = new ArrayList<String>();
 		/* Ajout du comportement d'achat */
-		this.addBehaviour(new BusinessBehaviour(this));
-		this.addBehaviour(new RecevoirNvPhase(this));
+		
+		
 		
 
 		/* Creation d'une description du DF Agent */
@@ -94,6 +94,7 @@ public class BusinessAgent extends Agent {
 			e.printStackTrace();
 		}
 		
+		this.addBehaviour(new BusinessBehaviour(this));
 		
 		
 		
