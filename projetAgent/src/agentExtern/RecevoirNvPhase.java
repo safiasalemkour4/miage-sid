@@ -13,6 +13,8 @@ import jade.lang.acl.MessageTemplate;
 
 import java.util.ArrayList;
 
+import agentFreedom.ClientAgent;
+
 import protege.NouvellePhase;
 import protege.OK;
 import protege.StopEverybody;
@@ -58,7 +60,7 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 					if(!clientpresent) listagent.add(msg.getSender().getName());
 					
 					if(numPhase == 2){
-						System.out.println(this.myAgent.getName()+ " a recu l'ordre de demarrer phase 2");
+						ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer phase 2");
 						// Nous devons envoyer a tous nos agent qu'ils doivent s'arreter
 						ACLMessage msgArret = new ACLMessage(ACLMessage.INFORM);
 						msgArret.setLanguage(BusinessBehaviour.codec.getName());
@@ -69,7 +71,7 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 
 						for(int i = 0;i<listAgent.size();i++){
 							if(!listAgent.get(i).contains("hck_business_agent") && !listAgent.get(i).contains("client") ){
-								System.out.println("Envoi de l'ordre de s'arreter à "+listAgent.get(i));
+								ClientAgent.log.addText("Envoi de l'ordre de s'arreter à "+listAgent.get(i));
 								msgArret.addReceiver(new AID(listAgent.get(i),AID.ISGUID));
 							}
 						}
@@ -90,11 +92,11 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 						BusinessBehaviour.manager.fillContent(msgOK, ok);
 						msgOK.addReceiver(new AID(msg.getSender().getName(),AID.ISGUID));
 						myAgent.send(msgOK);
-						System.out.println("Le commerciale a envoyé OK a "+msg.getSender().getName());
+						ClientAgent.log.addText("Le commerciale a envoyé OK a "+msg.getSender().getName());
 
 					}
 					else{
-						System.out.println(this.myAgent.getName()+ " a recu l'ordre de demarrer phase 1");
+						ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer phase 1");
 						//TODO démarrer le travail des agent. Peut etre avec une variable
 						//boolean dont chaque agent vérifirai sa valeur avant de se lancer dans
 						//un cycle de travail. Pour les stoper on pourra mettre à false. Cela laissera

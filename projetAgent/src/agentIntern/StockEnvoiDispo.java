@@ -14,6 +14,7 @@ import protege.Disponible;
 import protege.Disque;
 import protege.ReponseDisponibilite;
 import agentExtern.BusinessBehaviour;
+import agentFreedom.ClientAgent;
 
 public class StockEnvoiDispo extends CyclicBehaviour {
 
@@ -46,7 +47,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 
 				ce = BusinessBehaviour.manager.extractContent(msg);
 				if (ce instanceof Disponible) {
-					System.out.println("Le stock manager a recu une dmd de dispo");
+					ClientAgent.log.addText("Le stock manager a recu une dmd de dispo");
 					int qté = ((Disponible)ce).getQte();
 					Disque disc = ((Disponible)ce).getDisque();
 
@@ -83,7 +84,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 					repDispo.setPrix(notrePrix);
 
 					msgRepStock.addReceiver(new AID(msg.getSender().getName(),AID.ISGUID));
-					System.out.println("Le stock envoi réponse a "+msg.getSender().getName());
+					ClientAgent.log.addText("Le stock envoi réponse a "+msg.getSender().getName());
 
 
 					BusinessBehaviour.manager.fillContent(msgRepStock, repDispo);

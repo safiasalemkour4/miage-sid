@@ -33,7 +33,7 @@ public class ClientEnvoiPhase2 extends SimpleBehaviour{
 			msg.setLanguage(ClientBehaviour.codec.getName());
 			msg.setOntology(ClientBehaviour.onto.getName());
 			try {
-				System.out.println("Le client va envoyer un mesg de phase 2 a "+com);
+				ClientAgent.log.addText("Le client va envoyer un mesg de phase 2 a "+com);
 				msg.addReceiver(new AID(com, AID.ISGUID));
 				NouvellePhase nph = new NouvellePhase();
 				nph.setNumeroPhase(NouvellePhase.PHASE_ACHAT);

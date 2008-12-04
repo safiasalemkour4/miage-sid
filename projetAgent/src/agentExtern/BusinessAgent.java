@@ -55,7 +55,7 @@ public class BusinessAgent extends Agent {
 		listeNosAgents = new ArrayList<String>();
 		/* Ajout du comportement d'achat */
 		
-		
+		this.addBehaviour(new BusinessDecouvreService(this));
 		
 
 		/* Creation d'une description du DF Agent */

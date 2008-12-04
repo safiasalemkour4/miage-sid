@@ -27,11 +27,12 @@ public class BusinessBehaviour extends SequentialBehaviour {
 		manager.registerLanguage(codec);
 	    manager.registerOntology(onto);
 		
-		this.addSubBehaviour(new BusinessDecouvreService(this.myAgent));
+		
 		this.addSubBehaviour(new RecevoirNvPhase(this.myAgent));
 		this.addSubBehaviour(new RecevoirNvPhase(this.myAgent));
 		this.addSubBehaviour(new BusinessReceptionDmdDispo(this.myAgent));
 		this.addSubBehaviour(new BusinessReceptionStock(this.myAgent));
+		
 		
 		
 	}

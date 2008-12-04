@@ -31,7 +31,7 @@ public class ClientDecouvreService extends SimpleBehaviour{
 		/* Retrouver les agents dans un tableau */
 		DFAgentDescription[] result = null;
 		
-		System.out.println("Recherche des services proposes par les differents agents ... ");
+		ClientAgent.log.addText("Recherche des services proposes par les differents agents ... ");
 		try {
 			result = DFService.search(this.myAgent, dfd);
 		} catch (FIPAException e) {
@@ -47,13 +47,13 @@ public class ClientDecouvreService extends SimpleBehaviour{
 			while (iter.hasNext()) {
 				ServiceDescription sd = (ServiceDescription) iter.next();
 				if (sd.getType().compareTo(OntoCDOntology.SERVICE_VENTE_CD_CLIENT) == 0) {
-					System.out.println("Le service vente de CDs est propose par l'agent " + sd.getOwnership());
+					ClientAgent.log.addText("Le service vente de CDs est propose par l'agent " + sd.getOwnership());
 					vendeurs_cd.add(sd.getOwnership());
 				} else if (sd.getType().compareTo(OntoCDOntology.SERVICE_VENTE_DVD_CLIENT) == 0){
-					System.out.println("Le service vente de DVDs est propose par l'agent " + sd.getOwnership());
+					ClientAgent.log.addText("Le service vente de DVDs est propose par l'agent " + sd.getOwnership());
 					vendeurs_dvd.add(sd.getOwnership());
 				} else if (sd.getType().compareTo(OntoCDOntology.SERVICE_START) == 0){
-					System.out.println("Le service de demarrage est propose par l'agent " + sd.getOwnership());
+					ClientAgent.log.addText("Le service de demarrage est propose par l'agent " + sd.getOwnership());
 					ClientAgent.commerciaux.add(sd.getOwnership());
 				} else {
 					//System.out.println("L'agent " + sd.getOwnership() + " propose le service " + sd.getName());

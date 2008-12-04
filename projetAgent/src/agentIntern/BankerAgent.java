@@ -49,8 +49,8 @@ public class BankerAgent extends Agent {
 	public void setup() {
 	    
 		/* Ajout du comportement d'achat */
-		this.addBehaviour(new BankerBehaviour(this));
-		this.addBehaviour(new RecevoirStop(this));
+		
+		
 		arret = true;
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
@@ -73,6 +73,10 @@ public class BankerAgent extends Agent {
 			
 			e.printStackTrace();
 		}
+		
+			this.addBehaviour(new BankerBehaviour(this));
+			this.addBehaviour(new RecevoirStop(this));
+		
 	}
 
 	public boolean isArret() {

@@ -59,7 +59,7 @@ public class ClientAgent extends Agent {
 	private HashMap<String, Integer> prix_cds = new HashMap<String, Integer>();
 	private HashMap<String, Integer> prix_dvds = new HashMap<String, Integer>();
 
-	
+	public static LogUI log;
 	
 	static ArrayList<String> commerciaux = new ArrayList<String>();
 	
@@ -69,22 +69,25 @@ public class ClientAgent extends Agent {
 	 */
 	public void setup() {
 	    
+		/* creation de l'interface "log" */
+		log = new LogUI(this);
 		/* Ajout du comportement d'achat */
 		int num_phase = 0;
-		JOptionPane.showConfirmDialog(null, "Debuter ?", "Debut", JOptionPane.OK_CANCEL_OPTION);
+		
 		this.addBehaviour(new ClientDecouvreService(this));
 
-		System.out.println("Demarrage du client ... ");
+		ClientAgent.log.addText("Demarrage du client ... ");
+
 		
 		// A chaque fin de tour on demande si on veut en faire un autre
-		while (JOptionPane.showConfirmDialog(null, "Voulez-vous faire un tour supplementaire ?", "Fin du tour", JOptionPane.OK_CANCEL_OPTION) == 0){
-			num_phase++;
-			// On ajoute le SequentialBehaviour qui va effectuer toutes les phases du tour
-			this.addBehaviour(new ClientBehaviour(this));
-						
-			
-			System.out.println("Le client a termine ses achats pour la phase " + num_phase);
-		}
+//		while (JOptionPane.showConfirmDialog(null, "Voulez-vous faire un tour supplementaire ?", "Fin du tour", JOptionPane.OK_CANCEL_OPTION) == 0){
+//			num_phase++;
+//			// On ajoute le SequentialBehaviour qui va effectuer toutes les phases du tour
+//			this.addBehaviour(new ClientBehaviour(this));
+//						
+//			
+//			System.out.println("Le client a termine ses achats pour la phase " + num_phase);
+//		}
 		/* Fin */
 		System.out.println("Le client a termine ses achats ! (il y a eu " + num_phase + " phases)");
 	    
@@ -101,6 +104,14 @@ public class ClientAgent extends Agent {
 		dfd.addServices(sdClient);
 
 
+	}
+	
+	/**
+	 * DÃ©clenche une nouvelle phase
+	 */
+	public void nouvellePhase(){
+		// On ajoute le SequentialBehaviour qui va effectuer toutes les phases du tour
+		this.addBehaviour(new ClientBehaviour(this));
 	}
 	
 	public ArrayList<String> getListe_vendeursCD() {
@@ -144,5 +155,8 @@ public class ClientAgent extends Agent {
 	public HashMap<String, Integer> getPrix_dvds() {
 		return prix_dvds;
 	}
+	
+	
+
 
 }

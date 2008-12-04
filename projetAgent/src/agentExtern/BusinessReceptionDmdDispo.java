@@ -3,6 +3,7 @@ package agentExtern;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import agentFreedom.ClientAgent;
 import agentIntern.StrategyAgent;
 
 import protege.Disponible;
@@ -47,7 +48,7 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 
 				ce = BusinessBehaviour.manager.extractContent(msg);
 				if (ce instanceof Disponible) {
-					System.out.println("Le commerciale a recu une dmd de dispo");
+					ClientAgent.log.addText("Le commerciale a recu une dmd de dispo");
 					int qté = ((Disponible)ce).getQte();
 					Disque disc = ((Disponible)ce).getDisque();
 
@@ -80,7 +81,7 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 							if(sd.getType().equals("HCK_Stock")){
 
 								msgDmdStock.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
-								System.out.println("Le commerciale envoi dispo? a "+sd.getOwnership());
+								ClientAgent.log.addText("Le commerciale envoi dispo? a "+sd.getOwnership());
 							}
 
 						}

@@ -32,7 +32,7 @@ public class ClientAttenteOK extends SimpleBehaviour{
 
 
 		/* Reception tous les messages "OK" */
-		System.out.println("Attente des messages 'OK' des commerciaux ...");
+		ClientAgent.log.addText("Attente des messages 'OK' des commerciaux ...");
 		MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 		ContentElement ce;
 		int ok_recus = 0;
@@ -45,7 +45,7 @@ public class ClientAttenteOK extends SimpleBehaviour{
 				ce = ClientBehaviour.manager.extractContent(msg_recu);
 				
 				if(ce instanceof OK){
-					System.out.println("Le client a recu un OK");
+					ClientAgent.log.addText("Le client a recu un OK");
 					ok_recus++;
 				}
 			} catch (UngroundedException e) {

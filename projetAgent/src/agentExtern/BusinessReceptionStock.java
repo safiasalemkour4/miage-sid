@@ -6,6 +6,7 @@ import protege.CD;
 import protege.Disponible;
 import protege.Disque;
 import protege.ReponseDisponibilite;
+import agentFreedom.ClientAgent;
 import agentIntern.StockManagerAgent;
 import agentIntern.StrategyAgent;
 import jade.content.ContentElement;
@@ -49,7 +50,7 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 				
 				if (ce instanceof ReponseDisponibilite) {
 					
-					System.out.println("Le commercial a recu une réponse de stock");
+					ClientAgent.log.addText("Le commercial a recu une réponse de stock");
 					int prix = ((ReponseDisponibilite)ce).getPrix();
 					Disque disc = ((ReponseDisponibilite)ce).getDisque();
 
@@ -71,7 +72,7 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 					}
 					
 					msgRepStock.addReceiver(new AID(nomClient,AID.ISGUID));
-					System.out.println("Le commerciale envoi le prix a "+nomClient);
+					ClientAgent.log.addText("Le commerciale envoi le prix a "+nomClient);
 
 
 					BusinessBehaviour.manager.fillContent(msgRepStock, repDispo);

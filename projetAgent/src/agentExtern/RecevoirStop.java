@@ -2,6 +2,8 @@ package agentExtern;
 
 import java.util.ArrayList;
 
+import agentFreedom.ClientAgent;
+
 import protege.NouvellePhase;
 import protege.OntoCDOntology;
 import protege.StopEverybody;
@@ -52,7 +54,7 @@ public class RecevoirStop extends CyclicBehaviour {
 
 				if (ce instanceof StopEverybody) {
 
-					System.out.println(this.myAgent.getName()+ " a recu l'ordre de s'arreter");
+					ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de s'arreter");
 					// mettre la variable arret a true
 				}
 			} catch (CodecException e) {
