@@ -31,6 +31,7 @@ public class StrategyAgent extends Agent {
 	
 	private ContentManager manager = (ContentManager)this.getContentManager();
 	public static int prixCD;
+	public static int prixDVD;
 
 	/**
 	 * Methode setup

@@ -1,12 +1,25 @@
 package agentFreedom;
 
+import protege.OK;
 import jade.content.ContentElement;
+import jade.content.onto.OntologyException;
+import jade.content.onto.UngroundedException;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
+/**
+ * Comportement qui attend de recevoir tous les messages OK venant des commerciaux
+ * @author Simon
+ *
+ */
 public class ClientAttenteOK extends SimpleBehaviour{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public ClientAttenteOK(Agent myAgent) {
 		super(myAgent);
@@ -18,28 +31,30 @@ public class ClientAttenteOK extends SimpleBehaviour{
 	public void action() {
 
 
-		/* RÃ©ception tous les messages "OK" */
+		/* Reception tous les messages "OK" */
 		System.out.println("Attente des messages 'OK' des commerciaux ...");
 		MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 		ContentElement ce;
 		int ok_recus = 0;
 		while(ok_recus < ClientAgent.commerciaux.size()){
 			ok_recus++;
-//			try {
-//				/* Si aucun message n'est recu, le client est bloque ici */
-//				ACLMessage msg_recu = myAgent.receive(mt);
-//				
-//				ce = manager.extractContent(msg_recu);
-//				if(ce instanceof OK){
-//					ok_recus++;
-//				}
-//			} catch (UngroundedException e) {
-//				e.printStackTrace();
-//			} catch (jade.content.lang.Codec.CodecException e) {
-//				e.printStackTrace();
-//			} catch (OntologyException e) {
-//				e.printStackTrace();
-//			}
+			try {
+				/* Si aucun message n'est recu, le client est bloque ici */
+				ACLMessage msg_recu = myAgent.blockingReceive(mt);
+				
+				ce = ClientBehaviour.manager.extractContent(msg_recu);
+				
+				if(ce instanceof OK){
+					System.out.println("Le client a recu un OK");
+					ok_recus++;
+				}
+			} catch (UngroundedException e) {
+				e.printStackTrace();
+			} catch (jade.content.lang.Codec.CodecException e) {
+				e.printStackTrace();
+			} catch (OntologyException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}

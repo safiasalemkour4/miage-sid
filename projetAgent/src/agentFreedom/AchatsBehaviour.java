@@ -1,25 +1,22 @@
 package agentFreedom;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import protege.CD;
-import protege.DVD;
-import protege.Disponible;
-import protege.NouvellePhase;
-import protege.OntoCDOntology;
-
-import jade.content.ContentManager;
-import jade.content.lang.Codec;
 import jade.content.lang.Codec.CodecException;
-import jade.content.lang.sl.SLCodec;
 import jade.content.onto.OntologyException;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import protege.CD;
+import protege.DVD;
+import protege.Disponible;
+
 /**
+ * Comportement d'achat. Va envoyer une demande de prix à chacun des commerciaux connus
+ * par le client
  * @author Maxime HOEFFEL
  *
  */
@@ -66,14 +63,14 @@ public class AchatsBehaviour extends SimpleBehaviour {
 					ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
 					msg.setLanguage(ClientBehaviour.codec.getName());
 					msg.setOntology(ClientBehaviour.onto.getName());
-					msg.addReceiver(new AID(vendeur, AID.ISLOCALNAME));
+					msg.addReceiver(new AID(vendeur, AID.ISGUID));
 					Disponible dispo = new Disponible();
 					dispo.setQte(quantiteMap.get(i)[0]);
 					dispo.setDisque(mon_cd);
 					ClientBehaviour.manager.fillContent(msg, dispo);
-					System.out.println("Envoi de la demande de prix a commercial");
+					System.out.println("Envoi de la demande de prix a "+vendeur);
 					myAgent.send(msg);
-					//this.myAgent.addBehaviour(new ReceptionPrixBehaviour(this.myAgent));
+					
 				} catch (CodecException e) {
 					e.printStackTrace();
 				} catch (OntologyException e) {

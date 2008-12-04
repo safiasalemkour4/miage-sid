@@ -15,6 +15,11 @@ import protege.OntoCDOntology;
 public class ClientDecouvreService extends SimpleBehaviour{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ClientDecouvreService(Agent myAgent) {
 		super(myAgent);
 	}

@@ -1,30 +1,24 @@
 package agentFreedom;
 
-import protege.CD;
-import protege.DVD;
-import protege.Disponible;
-import protege.OK;
-import protege.OntoCDOntology;
-import protege.ReponseDisponibilite;
 import jade.content.ContentElement;
-import jade.content.ContentManager;
-import jade.content.lang.Codec;
 import jade.content.lang.Codec.CodecException;
-import jade.content.lang.sl.SLCodec;
 import jade.content.onto.OntologyException;
 import jade.content.onto.UngroundedException;
 import jade.core.Agent;
-import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import protege.CD;
+import protege.DVD;
+import protege.ReponseDisponibilite;
 
 /**
  * @author Maxime HOEFFEL
  *
  */
 @SuppressWarnings("serial")
-public class ReceptionPrixBehaviour extends OneShotBehaviour {
+public class ReceptionPrixBehaviour extends SimpleBehaviour {
 
 	/**
 	 * @param a L'agent exÃ©cutant ce comportement
@@ -32,34 +26,46 @@ public class ReceptionPrixBehaviour extends OneShotBehaviour {
 	public ReceptionPrixBehaviour(Agent a) {
 		super(a);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see jade.core.behaviours.Behaviour#action()
 	 */
 	@Override
 	public void action() {
-				
-		
-		MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
+
+
+		MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 		ContentElement ce;
-		
+
 		/* Si aucun message n'est recu en 300ms, le client est bloquÃ© ici */
 		try {
-			ACLMessage msg_recu = myAgent.blockingReceive(mt);
-			ce = ClientBehaviour.manager.extractContent(msg_recu);
-			if(ce != null){
-				if(ce instanceof ReponseDisponibilite){
-					if(((ReponseDisponibilite)ce).getDisque() instanceof CD){
-						int prix = ((ReponseDisponibilite)ce).getPrix();
-						((ClientAgent)myAgent).addPrixCd(msg_recu.getSender().getName(), prix);
-					}else if(((ReponseDisponibilite)ce).getDisque() instanceof DVD){
-						int prix = ((ReponseDisponibilite)ce).getPrix();
-						((ClientAgent)myAgent).addPrixDvd(msg_recu.getSender().getName(), prix);
+
+			int prix_recus = 0;
+			while(prix_recus < ClientAgent.commerciaux.size()){
+				
+				ACLMessage msg_recu = myAgent.blockingReceive(mt);
+				
+				ce = ClientBehaviour.manager.extractContent(msg_recu);
+				System.out.println(ce);
+				if(ce != null){
+					if(ce instanceof ReponseDisponibilite){
+						prix_recus++;
+
+						if(((ReponseDisponibilite)ce).getDisque() instanceof CD){
+							int prix = ((ReponseDisponibilite)ce).getPrix();
+							System.out.println("Le client a recu le prix "+prix+" venant de "+msg_recu.getSender().getName());
+							((ClientAgent)myAgent).addPrixCd(msg_recu.getSender().getName(), prix);
+						}else if(((ReponseDisponibilite)ce).getDisque() instanceof DVD){
+							int prix = ((ReponseDisponibilite)ce).getPrix();
+							System.out.println("Le client a recu le prix "+prix+" venant de "+msg_recu.getSender().getName());
+							((ClientAgent)myAgent).addPrixDvd(msg_recu.getSender().getName(), prix);
+						}
 					}
+				}else{
+					((ClientAgent)myAgent).addPrixDvd(msg_recu.getSender().getName(), -1);
 				}
-			}else{
-				((ClientAgent)myAgent).addPrixDvd(msg_recu.getSender().getName(), -1);
 			}
+			System.out.println("Le client a recu tous les prix");
 		} catch (UngroundedException e) {
 			e.printStackTrace();
 		} catch (CodecException e) {
@@ -67,6 +73,13 @@ public class ReceptionPrixBehaviour extends OneShotBehaviour {
 		} catch (OntologyException e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	@Override
+	public boolean done() {
+		
+		return true;
 	}
 
 }

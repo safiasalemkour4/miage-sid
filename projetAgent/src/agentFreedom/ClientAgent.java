@@ -1,12 +1,12 @@
 package agentFreedom;
+import jade.core.Agent;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JOptionPane;
-
-import jade.content.ContentManager;
-import jade.core.Agent;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
 
 
 /*****************************************************************************************************
@@ -48,9 +48,6 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 
 public class ClientAgent extends Agent {
 
-	private ContentManager manager = (ContentManager)this.getContentManager();
-
-	
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
 	  
@@ -78,10 +75,11 @@ public class ClientAgent extends Agent {
 		this.addBehaviour(new ClientDecouvreService(this));
 
 		System.out.println("Demarrage du client ... ");
-				
+		
+		// A chaque fin de tour on demande si on veut en faire un autre
 		while (JOptionPane.showConfirmDialog(null, "Voulez-vous faire un tour supplementaire ?", "Fin du tour", JOptionPane.OK_CANCEL_OPTION) == 0){
 			num_phase++;
-			
+			// On ajoute le SequentialBehaviour qui va effectuer toutes les phases du tour
 			this.addBehaviour(new ClientBehaviour(this));
 						
 			
@@ -93,7 +91,14 @@ public class ClientAgent extends Agent {
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
-		;
+		
+		ServiceDescription sdClient = new ServiceDescription();
+		sdClient.setType("Client");
+		sdClient.setName("Client");
+		sdClient.setOwnership(this.getName());
+		
+		/* Enregistrement des services aupres du DF Agent */
+		dfd.addServices(sdClient);
 
 
 	}

@@ -34,6 +34,9 @@ public class StockManagerAgent extends Agent {
 	
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
+	
+	private int nosStockCD;
+	private int nosStockDVD;
 	  
 	/**
 	 * Methode setup
@@ -43,7 +46,7 @@ public class StockManagerAgent extends Agent {
 	public void setup() {
 	    
 		/* Ajout du comportement d'achat */
-		this.addBehaviour(new StockManagerBehaviour(this));
+		this.addBehaviour(new StockEnvoiDispo(this));
 		this.addBehaviour(new RecevoirStop(this));
 		
 		/* Creation d'une description du DF Agent */
@@ -58,6 +61,9 @@ public class StockManagerAgent extends Agent {
 		
 		/* Enregistrement du service aupres du DF Agent */
 		dfd.addServices(sdStock);
+		
+		nosStockCD = 1000;
+		nosStockDVD = 1000;
 
 		try {
 
@@ -67,5 +73,13 @@ public class StockManagerAgent extends Agent {
 			
 			e.printStackTrace();
 		}
+	}
+
+	protected int getNosStockDVD() {
+		return nosStockDVD;
+	}
+	
+	protected int getNosStockCD() {
+		return nosStockCD;
 	}
 }

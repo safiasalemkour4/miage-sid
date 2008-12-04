@@ -7,7 +7,17 @@ import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 
+/**
+ * Comportement Envoyant l'avis de phase 1 aux commerciaux
+ * @author Simon
+ *
+ */
 public class ClientEnvoiPhase1 extends SimpleBehaviour{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public ClientEnvoiPhase1(Agent myAgent) {
 		super(myAgent);

@@ -13,9 +13,9 @@ public class BusinessBehaviour extends SequentialBehaviour {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	static ContentManager manager;
-	static Codec codec;
-	static OntoCDOntology onto;
+	public static ContentManager manager;
+	public static Codec codec;
+	public static OntoCDOntology onto;
 	
 	
 	public BusinessBehaviour(Agent a) {
@@ -30,7 +30,8 @@ public class BusinessBehaviour extends SequentialBehaviour {
 		this.addSubBehaviour(new BusinessDecouvreService(this.myAgent));
 		this.addSubBehaviour(new RecevoirNvPhase(this.myAgent));
 		this.addSubBehaviour(new RecevoirNvPhase(this.myAgent));
-		this.addSubBehaviour(new BusinessReceptionDisponibilite(this.myAgent));
+		this.addSubBehaviour(new BusinessReceptionDmdDispo(this.myAgent));
+		this.addSubBehaviour(new BusinessReceptionStock(this.myAgent));
 		
 		
 	}

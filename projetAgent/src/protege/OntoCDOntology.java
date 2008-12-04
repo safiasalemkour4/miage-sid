@@ -60,7 +60,7 @@ public class OntoCDOntology extends jade.content.onto.Ontology  {
     add(dvdSchema, protege.DVD.class);
 
     // adding AgentAction(s)
-    AgentActionSchema reponseDisponibiliteSchema = new AgentActionSchema(REPONSEDISPONIBILITE);
+    PredicateSchema reponseDisponibiliteSchema = new PredicateSchema(REPONSEDISPONIBILITE);
     add(reponseDisponibiliteSchema, protege.ReponseDisponibilite.class);
 
     // adding AID(s)

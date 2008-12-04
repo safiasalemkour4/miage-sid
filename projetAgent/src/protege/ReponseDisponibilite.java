@@ -10,7 +10,11 @@ import jade.core.*;
  * @author ontology bean generator
  * @version 2008/11/24, 08:32:32
  */
-public class ReponseDisponibilite implements AgentAction {
+public class ReponseDisponibilite implements Predicate {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int prix;
 	private Disque disque;
 
