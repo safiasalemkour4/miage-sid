@@ -34,6 +34,9 @@ public class StrategyAgent extends Agent {
 	public static int prixDVD;
 	public static int currentRound = 0;
 
+	/* SIMON : met a jour ici qd on a remporter la vente avec un lastroundWin = currentRound */
+	public static int lastRoundWin = -1;
+
 	/**
 	 * Methode setup
 	 * Utile et necessaire pour l'initialisation de l'agent
