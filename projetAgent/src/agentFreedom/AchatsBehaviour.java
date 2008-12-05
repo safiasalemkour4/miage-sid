@@ -47,15 +47,15 @@ public class AchatsBehaviour extends SimpleBehaviour {
 		ArrayList<String> liste_vendeurs_cd = ((ClientAgent)this.myAgent).getListe_vendeursCD();
 		ArrayList<String> liste_vendeurs_dvd = ((ClientAgent)this.myAgent).getListe_vendeursDVD();
 		/* On crÃ©Ã© une HashMap avec les numÃ©ros de phase et le tableau de quantitÃ©s de CDs et DVDs Ã  acheter correspondant */
-		HashMap<Integer, Integer[]> quantiteMap = new HashMap<Integer, Integer[]>(); 
+		
 		Integer[] achatUn = { 5000, 4000 };
-		quantiteMap.put(0, achatUn);
+		ClientAgent.quantiteMap.put(0, achatUn);
 		Integer[] achatDeux = { 2000, 1500 };
-		quantiteMap.put(1, achatDeux);
+		ClientAgent.quantiteMap.put(1, achatDeux);
 		Integer[] achatTrois = { 1000, 800 };
-		quantiteMap.put(2, achatTrois);
+		ClientAgent.quantiteMap.put(2, achatTrois);
 
-		for (int i = 0; i < quantiteMap.size(); i++) {
+		for (int i = 0; i < ClientAgent.quantiteMap.size(); i++) {
 			/* --- phase d'achat --- */
 			/* Envoyer Ã  chaque commercial de la liste des vendeurs CD */
 			for(String vendeur : ((ClientAgent)this.myAgent).getListe_vendeursCD()){
@@ -65,7 +65,7 @@ public class AchatsBehaviour extends SimpleBehaviour {
 					msg.setOntology(ClientBehaviour.onto.getName());
 					msg.addReceiver(new AID(vendeur, AID.ISGUID));
 					Disponible dispo = new Disponible();
-					dispo.setQte(quantiteMap.get(i)[0]);
+					dispo.setQte(ClientAgent.quantiteMap.get(i)[0]);
 					dispo.setDisque(mon_cd);
 					ClientBehaviour.manager.fillContent(msg, dispo);
 					ClientAgent.log.addText("Envoi de la demande de prix a "+vendeur);

@@ -76,7 +76,7 @@ public class BusinessAgent extends Agent {
 		
 		/* Creation d'une decription du service : Production de Cds */
 		ServiceDescription sdSellDVDToClient = new ServiceDescription();
-		sdSellDVDToClient.setType("VenteDVD_Client");
+		sdSellDVDToClient.setType(OntoCDOntology.SERVICE_VENTE_DVD_CLIENT);
 		sdSellDVDToClient.setName("VenteDVD Client Business");
 		sdSellDVDToClient.setOwnership(this.getName());
 		

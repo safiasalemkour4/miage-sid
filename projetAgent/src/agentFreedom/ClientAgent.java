@@ -51,8 +51,8 @@ public class ClientAgent extends Agent {
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
 	  
-	
-	
+	public static String commercialElu;
+	public static HashMap<Integer, Integer[]> quantiteMap = new HashMap<Integer, Integer[]>(); 
 	private ArrayList<String> liste_vendeursCD = new ArrayList<String>();
 	private ArrayList<String> liste_vendeursDVD = new ArrayList<String>();
 	

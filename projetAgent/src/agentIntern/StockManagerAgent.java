@@ -62,8 +62,8 @@ public class StockManagerAgent extends Agent {
 		/* Enregistrement du service aupres du DF Agent */
 		dfd.addServices(sdStock);
 		
-		nosStockCD = 1000;
-		nosStockDVD = 1000;
+		nosStockCD = 10000;
+		nosStockDVD = 10000;
 
 		try {
 

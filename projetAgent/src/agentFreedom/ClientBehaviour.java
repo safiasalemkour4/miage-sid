@@ -50,6 +50,8 @@ public class ClientBehaviour extends SequentialBehaviour {
 		this.addSubBehaviour(new ReceptionPrixBehaviour(this.myAgent));
 		// On compare les prix
 		this.addSubBehaviour(new ClientComparatif(this.myAgent));
+		// On envoi valider au commercial élu
+		this.addSubBehaviour(new ClientEnvoiValider(this.myAgent));
 		
 	}
 
