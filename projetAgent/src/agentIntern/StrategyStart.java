@@ -64,7 +64,7 @@ public class StrategyStart extends SimpleBehaviour {
 					int stockCD = StockManagerAgent.nosStockCD;
 					int stockDVD = StockManagerAgent.nosStockDVD;
 				
-					int nbCDForClient = ClientAgent.quantiteMap.get("0")[0];
+					int nbCDForClient = ClientAgent.quantiteMap.get(0)[0];
 					
 					// Si on a pas assez de CD
 					if (stockCD<nbCDForClient) {

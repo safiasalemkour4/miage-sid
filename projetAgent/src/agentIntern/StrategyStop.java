@@ -54,32 +54,9 @@ public class StrategyStop extends SimpleBehaviour {
 					ce = BusinessBehaviour.manager.extractContent(msg);
 					
 					if (ce instanceof StopEverybody) {
-						ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer la strategie !");
-					
-					}
-					
-					/* Pardon pr ca */
-					int stockCD = StockManagerAgent.nosStockCD;
-					int stockDVD = StockManagerAgent.nosStockDVD;
+						ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de stoper la strategie !");
 				
-					int nbCDForClient = ClientAgent.quantiteMap.get("0")[0];
 					
-					// Si on a pas assez de CD
-					if (stockCD<nbCDForClient) {
-						
-						// Send msg to produceur pour nbCDForClient-stockCD + 1000
-					} 
-					
-					// Si on a tout juste ce qui faut 
-					else if (stockCD>=nbCDForClient && stockCD<nbCDForClient+1000){
-						
-						// Send msg to produceur pr 1000
-						
-					}
-					
-					// Sinon
-					else {
-						
 					}
 					
 					/*
