@@ -25,20 +25,20 @@ public class ClientComparatif extends SimpleBehaviour {
 	public void action() {
 		
 		HashMap<String, Integer> listprix = ((ClientAgent)this.myAgent).getPrix_cds();
-		Collection<Integer> ens_prix = listprix.values();
-		Iterator<Integer> iter = ens_prix.iterator();
-		int prixTemp = Integer.MIN_VALUE;
-		int index_prixmax = 0;
-		int index_temp = -1;
-		while (iter.hasNext()){
-			index_temp++;
-			int prixcourant = iter.next();
-			if(prixTemp < prixcourant) {
-				prixTemp = prixcourant;
-				index_prixmax = index_temp;
-			}
-		}
-		System.out.println("max des prix : "+prixTemp);
+
+        int prixMax = Integer.MIN_VALUE;
+        String agentMax = "";
+       
+        /* pour tous les agents */
+        for(String nomAgent : listprix.keySet()){
+            int prixcourant = (listprix.get(nomAgent)).intValue();
+            if(prixcourant > prixMax) {
+                prixMax = prixcourant;
+                agentMax = nomAgent;
+            }           
+        }       
+       
+        System.out.println("max des prix : " + prixMax + " pour l'agent '" + agentMax + "'");
 		
 	
 		

@@ -1,1 +1,1 @@
-http://myvaio.home:7778/acc
+http://192.168.61.92:7778/acc

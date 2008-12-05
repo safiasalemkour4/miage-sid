@@ -64,6 +64,7 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 					ArrayList<String> listeAgent = ((BusinessAgent)this.myAgent).getListeNosAgents();
 					String nomClient ="";
 					
+					// On recherche l'agent client parmi notre annuaire
 					for(String agent : listeAgent){
 						System.out.println(agent);
 						if(agent.contains("client")){
