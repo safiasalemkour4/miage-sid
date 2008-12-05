@@ -43,7 +43,7 @@ public class StrategyAgent extends Agent {
 		/* Ajout du comportement d'achat */
 		this.addBehaviour(new StrategyBehaviour(this));
 
-		
+		prixCD = 10;
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
