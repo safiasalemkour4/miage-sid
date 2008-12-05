@@ -89,7 +89,7 @@ public class ClientAgent extends Agent {
 //			System.out.println("Le client a termine ses achats pour la phase " + num_phase);
 //		}
 		/* Fin */
-		System.out.println("Le client a termine ses achats ! (il y a eu " + num_phase + " phases)");
+		//System.out.println("Le client a termine ses achats ! (il y a eu " + num_phase + " phases)");
 	    
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();

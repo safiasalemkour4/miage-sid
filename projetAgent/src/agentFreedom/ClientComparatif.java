@@ -38,7 +38,7 @@ public class ClientComparatif extends SimpleBehaviour {
             }           
         }       
        
-        System.out.println("max des prix : " + prixMax + " pour l'agent '" + agentMax + "'");
+        ClientAgent.log.addText("max des prix : " + prixMax + " pour l'agent '" + agentMax + "'");
 		
 	
 		
