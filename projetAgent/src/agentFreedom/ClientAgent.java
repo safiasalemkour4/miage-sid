@@ -103,7 +103,13 @@ public class ClientAgent extends Agent {
 		/* Enregistrement des services aupres du DF Agent */
 		dfd.addServices(sdClient);
 
-
+		Integer[] achatUn = { 5000, 4000 };
+		ClientAgent.quantiteMap.put(0, achatUn);
+		Integer[] achatDeux = { 2000, 1500 };
+		ClientAgent.quantiteMap.put(1, achatDeux);
+		Integer[] achatTrois = { 1000, 800 };
+		ClientAgent.quantiteMap.put(2, achatTrois);
+		
 	}
 	
 	/**
