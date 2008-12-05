@@ -28,14 +28,14 @@ import protege.NouvellePhase;
 import protege.OK;
 import protege.StopEverybody;
 
-public class StrategyStart extends SimpleBehaviour {
+public class StrategyStop extends SimpleBehaviour {
 
 
 	private static final long serialVersionUID = 1L;
 	private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 
 
-	public StrategyStart(Agent a) {
+	public StrategyStop(Agent a) {
 		super(a);
 
 	}
@@ -44,18 +44,16 @@ public class StrategyStart extends SimpleBehaviour {
 
 		//System.out.println(myAgent.getName()+ " est en attente de recevoir un message de phase");
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
-
-		System.out.println("ok");
 		
 		if (msg != null) {
 
 			ContentElement ce;
 
-			System.out.println("ok 2");
-			
 				try {
+					
 					ce = BusinessBehaviour.manager.extractContent(msg);
-					if (ce instanceof OK) {
+					
+					if (ce instanceof StopEverybody) {
 						ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer la strategie !");
 					
 					}

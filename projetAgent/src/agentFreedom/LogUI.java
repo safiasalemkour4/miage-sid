@@ -119,7 +119,7 @@ public class LogUI extends javax.swing.JFrame {
 		addText("Fin de la simulation. (TODO: affichage des stats?)");
 	}
 
-	public void addText(String text){
+	public synchronized void addText(String text){
 		if(console.getText().length()>0)
 			console.setText(console.getText() + "\n" + text);
 		else
