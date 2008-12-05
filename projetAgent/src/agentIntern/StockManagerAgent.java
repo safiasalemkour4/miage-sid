@@ -35,8 +35,8 @@ public class StockManagerAgent extends Agent {
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
 	
-	private int nosStockCD;
-	private int nosStockDVD;
+	public static int nosStockCD;
+	public static int nosStockDVD;
 	  
 	/**
 	 * Methode setup
