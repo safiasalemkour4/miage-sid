@@ -32,6 +32,7 @@ public class BusinessBehaviour extends SequentialBehaviour {
 		this.addSubBehaviour(new RecevoirNvPhase(this.myAgent));
 		this.addSubBehaviour(new BusinessReceptionDmdDispo(this.myAgent));
 		this.addSubBehaviour(new BusinessReceptionStock(this.myAgent));
+		this.addSubBehaviour(new BusinessReceptionValider(this.myAgent));
 		
 		
 		

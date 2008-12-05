@@ -46,6 +46,7 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 			try {
 
 				ce = BusinessBehaviour.manager.extractContent(msg);
+				
 				if (ce instanceof NouvellePhase) {
 					int numPhase = ((NouvellePhase)ce).getNumeroPhase();
 					// On ajoute le client a notre annuaire si il n'y est pas deja

@@ -38,7 +38,7 @@ public class ClientEnvoiPhase1 extends SimpleBehaviour{
 				
 				ClientBehaviour.manager.fillContent(msg, nph);
 				myAgent.send(msg);
-				
+			
 			} catch (OntologyException e) {
 				e.printStackTrace();
 			} catch (jade.content.lang.Codec.CodecException e) {

@@ -48,7 +48,7 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 			try {
 				
 				ce = BusinessBehaviour.manager.extractContent(msg);
-				System.out.println("ce : "+ce);
+				
 				if (ce instanceof ReponseDisponibilite) {
 					
 					ClientAgent.log.addText("Le commercial a recu une réponse de stock");
@@ -85,7 +85,7 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (CodecException e) {
-				// TODO Auto-generated catch block
+				ClientAgent.log.addText("Erreur de codec dans BusinessReceptionStock");
 				e.printStackTrace();
 			} catch (OntologyException e) {
 				// TODO Auto-generated catch block

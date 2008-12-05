@@ -76,8 +76,8 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 
 
 					ACLMessage msgRepStock = new ACLMessage(ACLMessage.INFORM);
-					msgRepStock.setLanguage(BusinessBehaviour.codec.getName());
-					msgRepStock.setOntology(BusinessBehaviour.onto.getName());
+					msgRepStock.setLanguage(StockManagerAgent.codec.getName());
+					msgRepStock.setOntology(StockManagerAgent.onto.getName());
 
 					ReponseDisponibilite repDispo = new ReponseDisponibilite();
 					repDispo.setDisque(disc);
@@ -85,7 +85,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 
 					msgRepStock.addReceiver(new AID(msg.getSender().getName(),AID.ISGUID));
 					ClientAgent.log.addText("Le stock envoi réponse a "+msg.getSender().getName());
-
+					
 
 					StockManagerAgent.manager.fillContent(msgRepStock, repDispo);
 

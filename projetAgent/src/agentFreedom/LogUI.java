@@ -119,12 +119,14 @@ public class LogUI extends javax.swing.JFrame {
 		addText("Fin de la simulation. (TODO: affichage des stats?)");
 	}
 
-	public synchronized void addText(String text){
-		if(console.getText().length()>0)
-			console.setText(console.getText() + "\n" + text);
-		else
-			console.setText(console.getText() + text);
-	}
+	public void addText(String text){
+        synchronized(console){
+            if(console.getText().length()>0)
+                console.setText(console.getText() + "\n" + text);
+            else
+                console.setText(console.getText() + text);
+        }       
+}
 	
 	public void setNumeroPhase(int numeroPhase){
 		labelNumeroPhase.setText(String.valueOf(numeroPhase));

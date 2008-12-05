@@ -50,9 +50,7 @@ public class StockManagerAgent extends Agent {
 	
 	public void setup() {
 	    
-		/* Ajout du comportement d'achat */
-		this.addBehaviour(new StockEnvoiDispo(this));
-		this.addBehaviour(new RecevoirStop(this));
+		
 		
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
@@ -85,6 +83,10 @@ public class StockManagerAgent extends Agent {
 		manager = this.getContentManager();
 		manager.registerLanguage(codec);
 	    manager.registerOntology(onto);
+	    
+	    /* Ajout du comportement d'envoi de dispo et de recevoir stop */
+		this.addBehaviour(new StockEnvoiDispo(this));
+		//this.addBehaviour(new RecevoirStop(this));
 		
 		
 	}
