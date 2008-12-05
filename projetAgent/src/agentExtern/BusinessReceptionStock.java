@@ -7,6 +7,7 @@ import protege.Disponible;
 import protege.Disque;
 import protege.ReponseDisponibilite;
 import agentFreedom.ClientAgent;
+import agentFreedom.ClientBehaviour;
 import agentIntern.StockManagerAgent;
 import agentIntern.StrategyAgent;
 import jade.content.ContentElement;
@@ -47,7 +48,7 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 			try {
 				
 				ce = BusinessBehaviour.manager.extractContent(msg);
-				
+				System.out.println("ce : "+ce);
 				if (ce instanceof ReponseDisponibilite) {
 					
 					ClientAgent.log.addText("Le commercial a recu une réponse de stock");

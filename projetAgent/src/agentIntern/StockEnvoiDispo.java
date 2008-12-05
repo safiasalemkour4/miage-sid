@@ -52,7 +52,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 					Disque disc = ((Disponible)ce).getDisque();
 
 					if(disc instanceof CD){
-						int nosStockCD = ((StockManagerAgent)this.myAgent).getNosStockCD();
+						int nosStockCD = StockManagerAgent.nosStockCD;
 						if(nosStockCD < qté){
 							notrePrix = -1;
 
@@ -63,7 +63,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 						}
 					}
 					else{
-						int nosStockDVD = ((StockManagerAgent)this.myAgent).getNosStockDVD();
+						int nosStockDVD = StockManagerAgent.nosStockCD;
 						if(nosStockDVD < qté){
 
 							notrePrix = -1;
@@ -87,7 +87,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 					ClientAgent.log.addText("Le stock envoi réponse a "+msg.getSender().getName());
 
 
-					BusinessBehaviour.manager.fillContent(msgRepStock, repDispo);
+					StockManagerAgent.manager.fillContent(msgRepStock, repDispo);
 
 					myAgent.send(msgRepStock);
 				}

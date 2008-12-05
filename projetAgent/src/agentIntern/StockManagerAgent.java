@@ -1,6 +1,9 @@
 package agentIntern;
+import protege.OntoCDOntology;
 import agentExtern.RecevoirStop;
 import jade.content.ContentManager;
+import jade.content.lang.Codec;
+import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -29,14 +32,16 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 
 public class StockManagerAgent extends Agent {
 
-	private ContentManager manager = (ContentManager)this.getContentManager();
-
+	
 	
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
 	
 	public static int nosStockCD;
 	public static int nosStockDVD;
+	public static ContentManager manager;
+	public static Codec codec;
+	public static OntoCDOntology onto;
 	  
 	/**
 	 * Methode setup
@@ -73,6 +78,15 @@ public class StockManagerAgent extends Agent {
 			
 			e.printStackTrace();
 		}
+		
+		
+		codec = new SLCodec();
+		onto = (OntoCDOntology)OntoCDOntology.getInstance();
+		manager = this.getContentManager();
+		manager.registerLanguage(codec);
+	    manager.registerOntology(onto);
+		
+		
 	}
 
 	protected int getNosStockDVD() {
