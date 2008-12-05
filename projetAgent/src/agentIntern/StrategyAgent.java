@@ -41,8 +41,8 @@ public class StrategyAgent extends Agent {
 	public void setup() {
 	    
 		/* Ajout du comportement d'achat */
-		this.addBehaviour(new BuyBehaviour(this));
-		this.addBehaviour(new RecevoirStop(this));
+		this.addBehaviour(new StrategyBehaviour(this));
+
 		
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();

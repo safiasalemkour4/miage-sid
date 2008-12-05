@@ -42,9 +42,12 @@ public class ClientDecouvreService extends SimpleBehaviour{
 		
 
 		for (int i = 0; i < result.length; i++) {
+			
+			
 			Iterator<?> iter = result[i].getAllServices();
 			/* On rÃ©cupÃ¨re toutes les descriptions de service */
 			while (iter.hasNext()) {
+
 				ServiceDescription sd = (ServiceDescription) iter.next();
 				if (sd.getType().compareTo(OntoCDOntology.SERVICE_VENTE_CD_CLIENT) == 0) {
 					ClientAgent.log.addText("Le service vente de CDs est propose par l'agent " + sd.getOwnership());
@@ -56,7 +59,7 @@ public class ClientDecouvreService extends SimpleBehaviour{
 					ClientAgent.log.addText("Le service de demarrage est propose par l'agent " + sd.getOwnership());
 					ClientAgent.commerciaux.add(sd.getOwnership());
 				} else {
-					//System.out.println("L'agent " + sd.getOwnership() + " propose le service " + sd.getName());
+					System.out.println("L'agent " + sd.getOwnership() + " propose le service " + sd.getName()+ "de type : "+sd.getType());
 				}
 			}
 		}

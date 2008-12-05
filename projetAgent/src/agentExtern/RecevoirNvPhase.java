@@ -96,14 +96,33 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 
 					}
 					else{
+						
+						/* Si numPhase = 1 */
 						ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer phase 1");
-						//TODO démarrer le travail des agent. Peut etre avec une variable
-						//boolean dont chaque agent vérifirai sa valeur avant de se lancer dans
-						//un cycle de travail. Pour les stoper on pourra mettre à false. Cela laissera
-						//le temps a l'agent de finir son travail et de s'arreter puis d'envoyer STOP
+
+						ACLMessage msgOK = new ACLMessage(ACLMessage.INFORM);
+						msgOK.setLanguage(BusinessBehaviour.codec.getName());
+						msgOK.setOntology(BusinessBehaviour.onto.getName());
+						OK ok = new OK();
+						
+						BusinessBehaviour.manager.fillContent(msgOK, ok);
+						
+						ArrayList<String> listeAgent = ((BusinessAgent)this.myAgent).getListeNosAgents();
+						String nomClient ="";
+						
+						// On recherche l'agent client parmi notre annuaire
+						for(String agent : listeAgent){
+							System.out.println(agent);
+							if(agent.contains("strategy")){
+								nomClient = agent;
+							}
+						}
+						
+						msgOK.addReceiver(new AID(nomClient,AID.ISGUID));
+						myAgent.send(msgOK);
+						ClientAgent.log.addText("Le commerciale a envoyé OK a "+nomClient);
 
 					}
-
 
 				}
 			} catch (UngroundedException e) {
