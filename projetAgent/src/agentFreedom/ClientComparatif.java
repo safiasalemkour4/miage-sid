@@ -38,7 +38,7 @@ public class ClientComparatif extends SimpleBehaviour {
             }           
         }       
        
-        ClientAgent.log.addText("Min des prix : " + prixMin + " pour l'agent '" + agentMin + "'");
+        ClientAgent.log.addText("			[CLIENT] Min des prix : " + prixMin + " pour l'agent '" + agentMin + "'");
 		ClientAgent.commercialElu = agentMin;
 	
 		

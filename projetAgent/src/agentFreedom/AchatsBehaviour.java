@@ -63,7 +63,7 @@ public class AchatsBehaviour extends SimpleBehaviour {
 					dispo.setQte(ClientAgent.quantiteMap.get(i)[0]);
 					dispo.setDisque(mon_cd);
 					ClientBehaviour.manager.fillContent(msg, dispo);
-					ClientAgent.log.addText("Envoi de la demande de prix a "+vendeur);
+					ClientAgent.log.addText("			[CLIENT] Envoi de la demande de prix a "+vendeur);
 					myAgent.send(msg);
 					
 				} catch (CodecException e) {

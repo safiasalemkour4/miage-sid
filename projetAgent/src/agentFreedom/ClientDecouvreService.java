@@ -63,6 +63,7 @@ public class ClientDecouvreService extends SimpleBehaviour{
 				}
 			}
 		}
+		ClientAgent.log.addText("------------------------------------------------------------------------");
 		/* Stockage de la liste du cÃ´tÃ© du client */
 		((ClientAgent)(this.myAgent)).setListe_vendeursCD(vendeurs_cd);
 		((ClientAgent)(this.myAgent)).setListe_vendeursDVD(vendeurs_dvd);

@@ -53,11 +53,11 @@ public class ReceptionPrixBehaviour extends SimpleBehaviour {
 
 						if(((ReponseDisponibilite)ce).getDisque() instanceof CD){
 							int prix = ((ReponseDisponibilite)ce).getPrix();
-							ClientAgent.log.addText("Le client a recu le prix "+prix+" venant de "+msg_recu.getSender().getName());
+							ClientAgent.log.addText("			[CLIENT] Le client a recu le prix "+prix+" venant de "+msg_recu.getSender().getName());
 							((ClientAgent)myAgent).addPrixCd(msg_recu.getSender().getName(), prix);
 						}else if(((ReponseDisponibilite)ce).getDisque() instanceof DVD){
 							int prix = ((ReponseDisponibilite)ce).getPrix();
-							ClientAgent.log.addText("Le client a recu le prix "+prix+" venant de "+msg_recu.getSender().getName());
+							ClientAgent.log.addText("			[CLIENT] Le client a recu le prix "+prix+" venant de "+msg_recu.getSender().getName());
 							((ClientAgent)myAgent).addPrixDvd(msg_recu.getSender().getName(), prix);
 						}
 					}
@@ -65,7 +65,7 @@ public class ReceptionPrixBehaviour extends SimpleBehaviour {
 					((ClientAgent)myAgent).addPrixDvd(msg_recu.getSender().getName(), -1);
 				}
 			}
-			ClientAgent.log.addText("Le client a recu tous les prix");
+			ClientAgent.log.addText("			[CLIENT] Le client a recu tous les prix");
 		} catch (UngroundedException e) {
 			e.printStackTrace();
 		} catch (CodecException e) {
