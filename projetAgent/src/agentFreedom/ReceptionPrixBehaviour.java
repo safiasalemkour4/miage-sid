@@ -46,7 +46,7 @@ public class ReceptionPrixBehaviour extends SimpleBehaviour {
 				ACLMessage msg_recu = myAgent.blockingReceive(mt);
 				
 				ce = ClientBehaviour.manager.extractContent(msg_recu);
-				System.out.println(ce);
+				
 				if(ce != null){
 					if(ce instanceof ReponseDisponibilite){
 						prix_recus++;

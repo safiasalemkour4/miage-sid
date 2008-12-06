@@ -40,8 +40,6 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 
 	public void action() {
 
-		// On boucle 3 fois pour recevoir les 3 dmd du client
-		for(int cpt = 0;cpt<3;cpt++){
 
 			ACLMessage msg = this.myAgent.blockingReceive(mt);
 
@@ -93,7 +91,7 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 						}
 
 						BusinessBehaviour.manager.fillContent(msgDmdStock, dispo);
-						System.out.println("msg dmd stock : "+msgDmdStock);
+						
 						myAgent.send(msgDmdStock);
 					}
 				} catch (UngroundedException e) {
@@ -108,8 +106,9 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 				}
 
 			}
-		}
+		
 	}
+
 
 
 	@Override

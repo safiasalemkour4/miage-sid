@@ -25,23 +25,27 @@ public class ClientEnvoiValider extends SimpleBehaviour{
 	@Override
 	public void action() {
 
-		ACLMessage msgOui = new ACLMessage(ACLMessage.INFORM);
-		msgOui.setLanguage(ClientBehaviour.codec.getName());
-		msgOui.setOntology(ClientBehaviour.onto.getName());
-		ClientAgent.log.addText("Le client va acheter a "+ClientAgent.commercialElu);
+		try {
+			ACLMessage msgOui = new ACLMessage(ACLMessage.REQUEST);
+			msgOui.setLanguage(ClientBehaviour.codec.getName());
+			msgOui.setOntology(ClientBehaviour.onto.getName());
+			ClientAgent.log.addText("Le client va acheter a "+ClientAgent.commercialElu);
 
-		msgOui.addReceiver(new AID(ClientAgent.commercialElu,AID.ISGUID));
-		ValiderAchat val = new ValiderAchat();
-		val.setReponse(true);
-		this.myAgent.send(msgOui);
+			msgOui.addReceiver(new AID(ClientAgent.commercialElu,AID.ISGUID));
+			ValiderAchat val = new ValiderAchat();
+			val.setReponse(true);
+			ClientBehaviour.manager.fillContent(msgOui, val);
+			this.myAgent.send(msgOui);
+			
 
-		ACLMessage msgNon = new ACLMessage(ACLMessage.INFORM);
-		msgNon.setLanguage(ClientBehaviour.codec.getName());
-		msgNon.setOntology(ClientBehaviour.onto.getName());
 
-		for(String s : ClientAgent.commerciaux){
+			ACLMessage msgNon = new ACLMessage(ACLMessage.REQUEST);
+			msgNon.setLanguage(ClientBehaviour.codec.getName());
+			msgNon.setOntology(ClientBehaviour.onto.getName());
 
-			try {
+			for(String s : ClientAgent.commerciaux){
+
+
 				if(!s.equals(ClientAgent.commercialElu)){
 					ClientAgent.log.addText("Le client n'achete pas a "+s);
 					msgNon.addReceiver(new AID(s,AID.ISGUID));
@@ -52,14 +56,14 @@ public class ClientEnvoiValider extends SimpleBehaviour{
 				}
 
 
-			} catch (OntologyException e) {
-				e.printStackTrace();
-			} catch (jade.content.lang.Codec.CodecException e) {
-				e.printStackTrace();
-			}
-		}
-		myAgent.send(msgNon);
 
+			}
+			myAgent.send(msgNon);
+		} catch (OntologyException e) {
+			e.printStackTrace();
+		} catch (jade.content.lang.Codec.CodecException e) {
+			e.printStackTrace();
+		}
 
 	}
 
