@@ -27,7 +27,7 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
+	private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 
 
 	public BusinessReceptionStock(Agent a) {

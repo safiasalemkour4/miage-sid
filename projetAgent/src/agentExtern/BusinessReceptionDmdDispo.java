@@ -89,7 +89,7 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 					}
 
 					BusinessBehaviour.manager.fillContent(msgDmdStock, dispo);
-					
+					System.out.println("msg dmd stock : "+msgDmdStock);
 					myAgent.send(msgDmdStock);
 				}
 			} catch (UngroundedException e) {

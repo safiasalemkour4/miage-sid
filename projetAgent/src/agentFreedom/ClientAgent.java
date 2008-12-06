@@ -79,17 +79,7 @@ public class ClientAgent extends Agent {
 		ClientAgent.log.addText("Demarrage du client ... ");
 
 		
-		// A chaque fin de tour on demande si on veut en faire un autre
-//		while (JOptionPane.showConfirmDialog(null, "Voulez-vous faire un tour supplementaire ?", "Fin du tour", JOptionPane.OK_CANCEL_OPTION) == 0){
-//			num_phase++;
-//			// On ajoute le SequentialBehaviour qui va effectuer toutes les phases du tour
-//			this.addBehaviour(new ClientBehaviour(this));
-//						
-//			
-//			System.out.println("Le client a termine ses achats pour la phase " + num_phase);
-//		}
-		/* Fin */
-		//System.out.println("Le client a termine ses achats ! (il y a eu " + num_phase + " phases)");
+		
 	    
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();

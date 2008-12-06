@@ -75,7 +75,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 					}
 
 
-					ACLMessage msgRepStock = new ACLMessage(ACLMessage.INFORM);
+					ACLMessage msgRepStock = new ACLMessage(ACLMessage.REQUEST);
 					msgRepStock.setLanguage(StockManagerAgent.codec.getName());
 					msgRepStock.setOntology(StockManagerAgent.onto.getName());
 
@@ -89,6 +89,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 
 					StockManagerAgent.manager.fillContent(msgRepStock, repDispo);
 					System.out.println("msg stock : "+msgRepStock);
+					msgRepStock.setSender(this.myAgent.getAID());
 					myAgent.send(msgRepStock);
 				}
 			} catch (UngroundedException e) {
