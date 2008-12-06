@@ -107,7 +107,7 @@ public class ClientAgent extends Agent {
 	 */
 	public void nouvellePhase(){
 		// On ajoute le SequentialBehaviour qui va effectuer toutes les phases du tour
-		ClientAgent.log.addText("------------------NOUVELLE PHASE");
+		
 		this.addBehaviour(new ClientBehaviour(this));
 	}
 	

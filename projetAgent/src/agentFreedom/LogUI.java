@@ -111,6 +111,7 @@ public class LogUI extends javax.swing.JFrame {
 	private void NouvellePhaseActionPerformed(java.awt.event.ActionEvent evt) {
 		// on lance une nouvelle phase
 		numeroPhase.setText(String.valueOf(Integer.valueOf(numeroPhase.getText()) + 1));
+		ClientAgent.log.addText("------------------NOUVELLE PHASE: "+numeroPhase.getText());
 		agentFreedom.nouvellePhase();
 	}
 
