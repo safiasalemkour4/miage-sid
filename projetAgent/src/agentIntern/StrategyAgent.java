@@ -35,6 +35,7 @@ public class StrategyAgent extends Agent {
 	public static int currentRound = 0;
 
 	/* SIMON : met a jour ici qd on a remporter la vente avec un lastroundWin = currentRound */
+	/*C'est fait, voir classe BusinessReceptionValider*/
 	public static int lastRoundWin = -1;
 
 	/**

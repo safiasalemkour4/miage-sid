@@ -9,6 +9,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import protege.ValiderAchat;
 import agentFreedom.ClientAgent;
+import agentIntern.StrategyAgent;
 
 public class BusinessReceptionValider extends SimpleBehaviour {
 
@@ -45,6 +46,7 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 					ValiderAchat val = (ValiderAchat)ce;
 					if(val.getReponse()){
 						ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse positive du client");
+						StrategyAgent.lastRoundWin = StrategyAgent.currentRound;
 					}
 					else{
 						ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse négative du client");
