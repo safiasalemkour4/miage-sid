@@ -16,6 +16,7 @@ import jade.content.onto.OntologyException;
 import jade.content.onto.UngroundedException;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -36,86 +37,91 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 		super(myAgent);
 	}
 
-	@Override
+
 	public void action() {
 
-		ACLMessage msg = this.myAgent.blockingReceive(mt);
+		for(int cpt = 0;cpt<3;cpt++){
 
-		if (msg != null) {
+			ACLMessage msg = this.myAgent.blockingReceive(mt);
 
-			ContentElement ce;
-			try {
+			if (msg != null) {
 
-				ce = BusinessBehaviour.manager.extractContent(msg);
-				if (ce instanceof Disponible) {
-					ClientAgent.log.addText("Le commerciale a recu une dmd de dispo");
-					int qté = ((Disponible)ce).getQte();
-					Disque disc = ((Disponible)ce).getDisque();
+				ContentElement ce;
+				try {
 
-
-					ACLMessage msgDmdStock = new ACLMessage(ACLMessage.REQUEST);
-					msgDmdStock.setLanguage(BusinessBehaviour.codec.getName());
-					msgDmdStock.setOntology(BusinessBehaviour.onto.getName());
-
-					Disponible dispo = new Disponible();
-					dispo.setDisque(disc);
-					dispo.setQte(qté);
-
-					ArrayList<String> listAgent = ((BusinessAgent)this.myAgent).getListeNosAgents();
+					ce = BusinessBehaviour.manager.extractContent(msg);
+					if (ce instanceof Disponible) {
+						ClientAgent.log.addText("Le commerciale a recu une dmd de dispo");
+						int qté = ((Disponible)ce).getQte();
+						Disque disc = ((Disponible)ce).getDisque();
 
 
-					DFAgentDescription dfd = new DFAgentDescription();
-					DFAgentDescription[] result = null;
-					try {
-						result = DFService.search(this.myAgent, dfd);
-					} catch (FIPAException e) {
-						e.printStackTrace();
-					}
-					for (int i=0; i<result.length; i++) {
-						Iterator<Object> iter = result[i].getAllServices();
+						ACLMessage msgDmdStock = new ACLMessage(ACLMessage.REQUEST);
+						msgDmdStock.setLanguage(BusinessBehaviour.codec.getName());
+						msgDmdStock.setOntology(BusinessBehaviour.onto.getName());
 
-						while (iter.hasNext()) {
+						Disponible dispo = new Disponible();
+						dispo.setDisque(disc);
+						dispo.setQte(qté);
 
-							ServiceDescription sd =(ServiceDescription)iter.next();
+						ArrayList<String> listAgent = ((BusinessAgent)this.myAgent).getListeNosAgents();
 
-							if(sd.getType().equals("HCK_Stock")){
 
-								msgDmdStock.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
-								ClientAgent.log.addText("Le commerciale envoi dispo? a "+sd.getOwnership());
+						DFAgentDescription dfd = new DFAgentDescription();
+						DFAgentDescription[] result = null;
+						try {
+							result = DFService.search(this.myAgent, dfd);
+						} catch (FIPAException e) {
+							e.printStackTrace();
+						}
+						for (int i = 0; i<result.length; i++) {
+							Iterator<Object> iter = result[i].getAllServices();
+
+							while (iter.hasNext()) {
+
+								ServiceDescription sd =(ServiceDescription)iter.next();
+
+								if(sd.getType().equals("HCK_Stock")){
+
+									msgDmdStock.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
+									ClientAgent.log.addText("Le commerciale envoi dispo? a "+sd.getOwnership());
+								}
+
 							}
 
 						}
 
+						BusinessBehaviour.manager.fillContent(msgDmdStock, dispo);
+						System.out.println("msg dmd stock : "+msgDmdStock);
+						myAgent.send(msgDmdStock);
 					}
-
-					BusinessBehaviour.manager.fillContent(msgDmdStock, dispo);
-					System.out.println("msg dmd stock : "+msgDmdStock);
-					myAgent.send(msgDmdStock);
+				} catch (UngroundedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (CodecException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (OntologyException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			} catch (UngroundedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (CodecException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (OntologyException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
 			}
-
-
 		}
 	}
 
 
-
-
-
-
 	@Override
 	public boolean done() {
-
+		// TODO Auto-generated method stub
 		return true;
 	}
+
+
+
+
+
+
+
 
 }

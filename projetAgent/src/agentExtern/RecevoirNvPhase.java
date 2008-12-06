@@ -7,6 +7,7 @@ import jade.content.onto.OntologyException;
 import jade.content.onto.UngroundedException;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -33,7 +34,7 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 
 
 
-	@Override
+	
 	public void action() {
 
 		//System.out.println(myAgent.getName()+ " est en attente de recevoir un message de phase");
@@ -145,11 +146,16 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 
 
 
+
 	@Override
 	public boolean done() {
-		// TODO Auto-generated method stub
+		
 		return true;
 	}
+
+
+
+	
 
 
 

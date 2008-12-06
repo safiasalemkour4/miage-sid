@@ -94,6 +94,7 @@ public class BusinessAgent extends Agent {
 			e.printStackTrace();
 		}
 		
+		
 		this.addBehaviour(new BusinessBehaviour(this));
 		
 		
