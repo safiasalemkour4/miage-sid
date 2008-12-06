@@ -85,7 +85,7 @@ public class StockManagerAgent extends Agent {
 	    manager.registerOntology(onto);
 	    
 	    /* Ajout du comportement d'envoi de dispo et de recevoir stop */
-	    this.addBehaviour(new RecevoirStop(this));
+	    //this.addBehaviour(new RecevoirStop(this));
 		this.addBehaviour(new StockEnvoiDispo(this));
 		
 		

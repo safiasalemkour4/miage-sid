@@ -1,5 +1,7 @@
 package agentExtern;
 
+import java.text.Normalizer.Form;
+
 import protege.OntoCDOntology;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
@@ -16,32 +18,33 @@ public class BusinessBehaviour extends SequentialBehaviour {
 	public static ContentManager manager;
 	public static Codec codec;
 	public static OntoCDOntology onto;
-	
-	
+
+
 	public BusinessBehaviour(Agent a) {
 		super(a);
-		
+
 		manager = myAgent.getContentManager();
 		codec = new SLCodec();
 		onto = (OntoCDOntology)OntoCDOntology.getInstance();
 		manager.registerLanguage(codec);
-	    manager.registerOntology(onto);
+		manager.registerOntology(onto);
+
 		
-		
-		this.addSubBehaviour(new RecevoirNvPhase(this.myAgent));
-		this.addSubBehaviour(new RecevoirNvPhase(this.myAgent));
-		this.addSubBehaviour(new BusinessReceptionDmdDispo(this.myAgent));
-		this.addSubBehaviour(new BusinessReceptionStock(this.myAgent));
-		this.addSubBehaviour(new BusinessReceptionValider(this.myAgent));
-		
-		
-		
-		
+		//for(int i = 0; i< 2 ;i++){
+			this.addSubBehaviour(new RecevoirNvPhase(this.myAgent));
+			this.addSubBehaviour(new RecevoirNvPhase(this.myAgent));
+			this.addSubBehaviour(new BusinessReceptionDmdDispo(this.myAgent));
+			this.addSubBehaviour(new BusinessReceptionStock(this.myAgent));
+			this.addSubBehaviour(new BusinessReceptionValider(this.myAgent));
+
+		//}
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 }

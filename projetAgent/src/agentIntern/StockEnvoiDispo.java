@@ -35,8 +35,9 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 
 	@Override
 	public void action() {
+		
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
-
+		
 		if (msg != null) {
 
 			ContentElement ce;
@@ -44,10 +45,10 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 			int notrePrix = StrategyAgent.prixCD;
 
 			try {
-
+				
 				ce = BusinessBehaviour.manager.extractContent(msg);
 				if (ce instanceof Disponible) {
-					ClientAgent.log.addText("Le stock manager a recu une dmd de dispo");
+					ClientAgent.log.addText(this.myAgent.getLocalName()+" a recu une dmd de dispo");
 					int qté = ((Disponible)ce).getQte();
 					Disque disc = ((Disponible)ce).getDisque();
 
@@ -84,7 +85,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 					repDispo.setPrix(notrePrix);
 
 					msgRepStock.addReceiver(new AID(msg.getSender().getName(),AID.ISGUID));
-					ClientAgent.log.addText("Le stock envoi réponse a "+msg.getSender().getName());
+					ClientAgent.log.addText(this.myAgent.getLocalName()+" envoi réponse a "+msg.getSender().getLocalName());
 					
 
 					StockManagerAgent.manager.fillContent(msgRepStock, repDispo);

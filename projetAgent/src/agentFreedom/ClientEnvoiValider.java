@@ -47,7 +47,7 @@ public class ClientEnvoiValider extends SimpleBehaviour{
 
 
 				if(!s.equals(ClientAgent.commercialElu)){
-					ClientAgent.log.addText("[CLIENT] Le client n'achete pas a "+s);
+					ClientAgent.log.addText("			[CLIENT] Le client n'achete pas a "+s);
 					msgNon.addReceiver(new AID(s,AID.ISGUID));
 					ValiderAchat val2 = new ValiderAchat();
 					val2.setReponse(false);

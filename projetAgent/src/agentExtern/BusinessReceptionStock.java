@@ -47,7 +47,7 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 					
 					if (ce instanceof ReponseDisponibilite) {
 
-						ClientAgent.log.addText("Le commercial a recu une réponse de stock");
+						ClientAgent.log.addText(this.myAgent.getLocalName()+" a recu une réponse de stock");
 						int prix = ((ReponseDisponibilite)ce).getPrix();
 						Disque disc = ((ReponseDisponibilite)ce).getDisque();
 
@@ -70,7 +70,7 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 						}
 
 						msgRepStock.addReceiver(new AID(nomClient,AID.ISGUID));
-						ClientAgent.log.addText("Le commerciale envoi le prix a "+nomClient);
+						ClientAgent.log.addText(this.myAgent.getLocalName()+" envoi le prix a "+nomClient);
 
 
 						BusinessBehaviour.manager.fillContent(msgRepStock, repDispo);

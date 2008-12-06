@@ -47,10 +47,11 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 					if(val.getReponse()){
 						ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse positive du client");
 						StrategyAgent.lastRoundWin = StrategyAgent.currentRound;
+						this.myAgent.addBehaviour(new BusinessBehaviour(this.myAgent));
 					}
 					else{
 						ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse négative du client");
-
+						this.myAgent.addBehaviour(new BusinessBehaviour(this.myAgent));
 					}
 					
 					

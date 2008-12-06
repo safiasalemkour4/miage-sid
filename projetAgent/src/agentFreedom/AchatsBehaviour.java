@@ -46,7 +46,7 @@ public class AchatsBehaviour extends SimpleBehaviour {
 	    
 		ArrayList<String> liste_vendeurs_cd = ((ClientAgent)this.myAgent).getListe_vendeursCD();
 		ArrayList<String> liste_vendeurs_dvd = ((ClientAgent)this.myAgent).getListe_vendeursDVD();
-		/* On crÃ©Ã© une HashMap avec les numÃ©ros de phase et le tableau de quantitÃ©s de CDs et DVDs Ã  acheter correspondant */
+		
 		
 		
 
