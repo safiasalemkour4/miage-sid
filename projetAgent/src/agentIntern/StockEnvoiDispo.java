@@ -88,7 +88,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 					
 
 					StockManagerAgent.manager.fillContent(msgRepStock, repDispo);
-
+					System.out.println("msg stock : "+msgRepStock);
 					myAgent.send(msgRepStock);
 				}
 			} catch (UngroundedException e) {

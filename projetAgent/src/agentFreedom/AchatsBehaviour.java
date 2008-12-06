@@ -65,7 +65,7 @@ public class AchatsBehaviour extends SimpleBehaviour {
 					ClientBehaviour.manager.fillContent(msg, dispo);
 					ClientAgent.log.addText("Envoi de la demande de prix a "+vendeur);
 					myAgent.send(msg);
-					
+					System.out.println("msg achat : "+msg);
 				} catch (CodecException e) {
 					e.printStackTrace();
 				} catch (OntologyException e) {
