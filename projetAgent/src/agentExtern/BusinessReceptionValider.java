@@ -17,7 +17,7 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
+	private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 	
 
 	public BusinessReceptionValider(Agent a) {
@@ -47,11 +47,11 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 					if(val.getReponse()){
 						ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse positive du client");
 						StrategyAgent.lastRoundWin = StrategyAgent.currentRound;
-						this.myAgent.addBehaviour(new BusinessBehaviour(this.myAgent));
+					
 					}
 					else{
 						ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse négative du client");
-						this.myAgent.addBehaviour(new BusinessBehaviour(this.myAgent));
+						
 					}
 					
 					
@@ -64,6 +64,7 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 
 
 		}
+		
 
 	}
 

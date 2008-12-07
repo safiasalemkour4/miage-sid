@@ -14,6 +14,7 @@ public class Achat extends SequentialBehaviour {
 	public Achat(Agent a, String disque, int quantite){
 		super(a);
 		
+		
 		// On commence le processus d'achat
 		this.addSubBehaviour(new AchatsBehaviour(this.myAgent, disque, quantite));
 		// On recoit les prix envoyés par les commerciaux		

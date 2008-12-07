@@ -1,13 +1,11 @@
 package agentExtern;
 
-import java.text.Normalizer.Form;
-
-import protege.OntoCDOntology;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
 import jade.core.behaviours.SequentialBehaviour;
+import protege.OntoCDOntology;
 
 public class BusinessBehaviour extends SequentialBehaviour {
 
@@ -28,16 +26,29 @@ public class BusinessBehaviour extends SequentialBehaviour {
 		onto = (OntoCDOntology)OntoCDOntology.getInstance();
 		manager.registerLanguage(codec);
 		manager.registerOntology(onto);
-
 		
-		//for(int i = 0; i< 2 ;i++){
-			this.addSubBehaviour(new RecevoirNvPhase(this.myAgent));
-			this.addSubBehaviour(new RecevoirNvPhase(this.myAgent));
-			this.addSubBehaviour(new BusinessReceptionDmdDispo(this.myAgent));
-			this.addSubBehaviour(new BusinessReceptionStock(this.myAgent));
-			this.addSubBehaviour(new BusinessReceptionValider(this.myAgent));
-
-		//}
+		// Démarrage du processus qui démarre de attente de nouvelle phase
+		// en parallele
+		this.addSubBehaviour(new BusinessRecepNvPhaseParallele(this.myAgent));
+		
+		// Vente de 5000 CD
+		this.addSubBehaviour(new BusinessVente(this.myAgent));
+		// Vente de 2000 CD
+		this.addSubBehaviour(new BusinessVente(this.myAgent));
+		// Vente de 1000 CD
+		this.addSubBehaviour(new BusinessVente(this.myAgent));
+		// Vente de 5000 DVD
+		this.addSubBehaviour(new BusinessVente(this.myAgent));
+		// Vente de 2000 DVD
+		this.addSubBehaviour(new BusinessVente(this.myAgent));
+		// Vente de 1000 DVD
+		this.addSubBehaviour(new BusinessVente(this.myAgent));
+		
+		
+			
+			
+			
+		
 
 
 	}

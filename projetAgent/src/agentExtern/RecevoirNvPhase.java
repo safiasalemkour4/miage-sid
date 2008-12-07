@@ -37,8 +37,10 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 	
 	public void action() {
 
-		//System.out.println(myAgent.getName()+ " est en attente de recevoir un message de phase");
+		System.out.println(myAgent.getName()+ " est en attente de recevoir un message de phase");
+		
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
+		ClientAgent.log.addText("msg phase recu");
 		
 		if (msg != null) {
 
@@ -109,26 +111,24 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 						BusinessBehaviour.manager.fillContent(msgOK, ok);
 						
 						ArrayList<String> listeAgent = ((BusinessAgent)this.myAgent).getListeNosAgents();
-						String nomClient ="";
+						String nomStrat ="";
 						
-						// On recherche l'agent client parmi notre annuaire
+						// On recherche l'agent strategy parmi notre annuaire
 						for(String agent : listeAgent){
 							System.out.println(agent);
 							if(agent.contains("strategy")){
-								nomClient = agent;
+								nomStrat = agent;
 							}
 						}
 						
-						msgOK.addReceiver(new AID(nomClient,AID.ISGUID));
+						msgOK.addReceiver(new AID(nomStrat,AID.ISGUID));
 						myAgent.send(msgOK);
-						ClientAgent.log.addText("Le commerciale a envoyé OK a "+nomClient);
+						ClientAgent.log.addText("Le commerciale a envoyé OK a "+nomStrat);
 
 					}
 
 				}
-				else{
-					this.action();
-				}
+				
 			} catch (UngroundedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -143,7 +143,6 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 
 		}
 
-
 	}
 
 
@@ -151,9 +150,14 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 
 	@Override
 	public boolean done() {
-		
+		// TODO Auto-generated method stub
 		return true;
 	}
+
+
+
+
+	
 
 
 

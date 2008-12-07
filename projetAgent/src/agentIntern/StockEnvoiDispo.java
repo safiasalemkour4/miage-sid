@@ -92,6 +92,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 					
 					msgRepStock.setSender(this.myAgent.getAID());
 					myAgent.send(msgRepStock);
+					
 				}
 			} catch (UngroundedException e) {
 				// TODO Auto-generated catch block

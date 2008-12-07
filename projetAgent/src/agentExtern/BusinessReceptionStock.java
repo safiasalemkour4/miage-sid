@@ -92,7 +92,8 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 				}
 
 			}
-		
+			
+
 
 	}
 

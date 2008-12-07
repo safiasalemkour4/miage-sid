@@ -40,7 +40,7 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 
 	public void action() {
 
-		
+			
 			ACLMessage msg = this.myAgent.blockingReceive(mt);
 			
 			if (msg != null) {
@@ -107,9 +107,9 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 				}
 
 			}
-		
-	}
+			
 
+	}
 
 
 	@Override
@@ -117,6 +117,12 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+
+	
+
+
+	
 
 
 
