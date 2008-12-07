@@ -62,7 +62,8 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 						Disponible dispo = new Disponible();
 						dispo.setDisque(disc);
 						dispo.setQte(qté);
-
+						BusinessAgent.discCourant = disc;
+						BusinessAgent.qteCourante = qté;
 						ArrayList<String> listAgent = ((BusinessAgent)this.myAgent).getListeNosAgents();
 
 

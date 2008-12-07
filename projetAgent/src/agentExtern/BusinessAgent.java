@@ -1,6 +1,7 @@
 package agentExtern;
 import java.util.ArrayList;
 
+import protege.Disque;
 import protege.OntoCDOntology;
 
 import jade.content.ContentManager;
@@ -43,6 +44,8 @@ public class BusinessAgent extends Agent {
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<String> listeNosAgents;
+	public static int qteCourante;
+	public static Disque discCourant;
 	  
 	/**
 	 * Methode setup

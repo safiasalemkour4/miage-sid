@@ -7,6 +7,7 @@ import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import protege.CD;
 import protege.ValiderAchat;
 import agentFreedom.ClientAgent;
 import agentIntern.StrategyAgent;
@@ -45,8 +46,17 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 
 					ValiderAchat val = (ValiderAchat)ce;
 					if(val.getReponse()){
-						ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse positive du client");
-						StrategyAgent.lastRoundWin = StrategyAgent.currentRound;
+						
+						if(BusinessAgent.discCourant instanceof CD){
+							ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse positive du client pour les CD");
+							StrategyAgent.lastRoundWinForCD = StrategyAgent.currentRound;
+						}
+						else{
+							ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse positive du client pour les DVD");
+							StrategyAgent.lastRoundWinForDVD = StrategyAgent.currentRound;
+						}
+						
+						
 					
 					}
 					else{
