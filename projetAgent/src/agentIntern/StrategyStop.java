@@ -63,7 +63,9 @@ public class StrategyStop extends SimpleBehaviour {
 						} 
 						// Si ca fait 5 rounds qu'on a rien vendu alors on baisse le prix (un peu : -10%)
 						else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWin && StrategyAgent.currentRound < StrategyAgent.lastRoundWin + 5){
+							
 							StrategyAgent.prixCD -= StrategyAgent.prixCD*0.1;
+							
 						}
 						// Si ca fait 10 rounds qu'on a rien vendu alors on baisse le prix (moyennement : -25%)
 						else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWin && StrategyAgent.currentRound < StrategyAgent.lastRoundWin + 10){
@@ -72,6 +74,11 @@ public class StrategyStop extends SimpleBehaviour {
 						// Si ca fait plus de 10 round qu'on a rien vendu alors on baisse le prix (fortement : -50%)
 						else {
 							StrategyAgent.prixCD -= StrategyAgent.prixCD*0.50;
+						}
+						
+						// permet de ne pas vendre a perte
+						if (StrategyAgent.prixCD<=ProducerAgent.CD_HIGHT_PRICE) {
+							StrategyAgent.prixCD = ProducerAgent.CD_HIGHT_PRICE + 1.0;
 						}
 					}
 					
