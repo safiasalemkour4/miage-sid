@@ -10,6 +10,8 @@ import jade.lang.acl.MessageTemplate;
 import protege.CD;
 import protege.ValiderAchat;
 import agentFreedom.ClientAgent;
+import agentIntern.BankerAgent;
+import agentIntern.StockManagerAgent;
 import agentIntern.StrategyAgent;
 
 public class BusinessReceptionValider extends SimpleBehaviour {
@@ -50,10 +52,16 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 						if(val.getDisc() instanceof CD){
 							ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse positive du client pour les CD");
 							StrategyAgent.lastRoundWinForCD = StrategyAgent.currentRound;
+							
+							BankerAgent.setMoney(BankerAgent.getMoney() + val.getQté()*StrategyAgent.prixCD);
+							StockManagerAgent.nosStockCD -= val.getQté();
 						}
 						else{
 							ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse positive du client pour les DVD");
 							StrategyAgent.lastRoundWinForDVD = StrategyAgent.currentRound;
+							
+							BankerAgent.setMoney(BankerAgent.getMoney() + val.getQté()*StrategyAgent.prixDVD);
+							StockManagerAgent.nosStockDVD -= val.getQté();
 						}
 						
 						

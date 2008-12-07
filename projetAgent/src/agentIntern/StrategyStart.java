@@ -238,6 +238,7 @@ public class StrategyStart extends SimpleBehaviour {
 						myAgent.send(msgProduceDVD);
 					}
 
+					/* Important : On met a jour le  round */
 					StrategyAgent.currentRound++;
 				}
 			} catch (UngroundedException e) {
