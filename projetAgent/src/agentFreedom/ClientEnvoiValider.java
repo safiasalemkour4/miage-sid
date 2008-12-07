@@ -26,10 +26,10 @@ public class ClientEnvoiValider extends SimpleBehaviour{
 	public void action() {
 
 		try {
-			ACLMessage msgOui = new ACLMessage(ACLMessage.REQUEST);
+			ACLMessage msgOui = new ACLMessage(ACLMessage.INFORM);
 			msgOui.setLanguage(ClientBehaviour.codec.getName());
 			msgOui.setOntology(ClientBehaviour.onto.getName());
-			ClientAgent.log.addText("			[CLIENT] Le client va acheter a "+ClientAgent.commercialElu);
+			ClientAgent.log.addText("			[CLIENT] Le client va acheter a " + ClientAgent.commercialElu);
 
 			msgOui.addReceiver(new AID(ClientAgent.commercialElu,AID.ISGUID));
 			ValiderAchat val = new ValiderAchat();
@@ -39,15 +39,14 @@ public class ClientEnvoiValider extends SimpleBehaviour{
 			
 
 
-			ACLMessage msgNon = new ACLMessage(ACLMessage.REQUEST);
+			ACLMessage msgNon = new ACLMessage(ACLMessage.INFORM);
 			msgNon.setLanguage(ClientBehaviour.codec.getName());
 			msgNon.setOntology(ClientBehaviour.onto.getName());
 
 			for(String s : ClientAgent.commerciaux){
 
-
 				if(!s.equals(ClientAgent.commercialElu)){
-					ClientAgent.log.addText("			[CLIENT] Le client n'achete pas a "+s);
+					ClientAgent.log.addText("			[CLIENT] Le client n'achete pas a " + s);
 					msgNon.addReceiver(new AID(s,AID.ISGUID));
 					ValiderAchat val2 = new ValiderAchat();
 					val2.setReponse(false);

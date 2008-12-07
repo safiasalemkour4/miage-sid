@@ -64,7 +64,7 @@ public class ClientDecouvreService extends SimpleBehaviour{
 			}
 		}
 		ClientAgent.log.addText("------------------------------------------------------------------------");
-		/* Stockage de la liste du cÃ´tÃ© du client */
+		/* Stockage de la liste du commercial du client */
 		((ClientAgent)(this.myAgent)).setListe_vendeursCD(vendeurs_cd);
 		((ClientAgent)(this.myAgent)).setListe_vendeursDVD(vendeurs_dvd);
 		
@@ -72,8 +72,7 @@ public class ClientDecouvreService extends SimpleBehaviour{
 	}
 
 	@Override
-	public boolean done() {
-		
+	public boolean done() {		
 		return true;
 	}
 	

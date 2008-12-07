@@ -51,12 +51,18 @@ public class StrategyStart extends SimpleBehaviour {
 
 					ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer la strategie !");
 
-					/* TODO : Pardon pr ca = msg demande informations */
+					/* Demande d'informations sur les stocks */
 					int stockCD = StockManagerAgent.nosStockCD;
 					int stockDVD = StockManagerAgent.nosStockDVD;
 
 					int nbCDForClient = ClientAgent.quantiteMap.get(0)[0]; //5000
 					int nbDVDForClient = ClientAgent.quantiteMap.get(0)[1]; //4000
+
+
+					/************************************** ZONE CD ***************************************/
+
+					/* Le nombre de Cds que lon peut produire (au maximu et au pire) */
+					int nbCDCanWeProduce = (int) (BankerAgent.money / ProducerAgent.CD_HIGHT_PRICE);
 
 					ACLMessage msgProduceCD = new ACLMessage(ACLMessage.INFORM);
 					msgProduceCD.setLanguage(StrategyBehaviour.codec.getName());
@@ -68,17 +74,38 @@ public class StrategyStart extends SimpleBehaviour {
 					// Si on a pas assez de CD
 					if (stockCD<nbCDForClient) {
 
-						// Send msg to produceur pour nbCDForClient-stockCD + 1000
-						dispoCD.setDisque(new CD());
-						dispoCD.setQte(nbCDForClient-stockCD+1000);
+						if (nbCDForClient-stockCD+1000>nbCDCanWeProduce) {
+
+							/* On produit moins que prévu (a cause de la banque) */
+							dispoCD.setDisque(new CD());
+							dispoCD.setQte(nbCDCanWeProduce);
+
+						} else {
+
+							/* On produit */
+							dispoCD.setDisque(new CD());
+							dispoCD.setQte(nbCDForClient-stockCD+1000);
+						}
+
+
 					} 
 
-					// Si on a tout juste ce qui faut 
+					// Si on a tout juste ce qu'il faut 
 					else if (stockCD>=nbCDForClient && stockCD<nbCDForClient+1000){
 
-						// Send msg to produceur pr 1000
-						dispoCD.setDisque(new CD());
-						dispoCD.setQte(1000);
+						if (1000>nbCDCanWeProduce) {
+
+							/* On produit moins que prévu (a cause de la banque) */
+							dispoCD.setDisque(new CD());
+							dispoCD.setQte(nbCDCanWeProduce);
+
+						} else {
+
+							/* On produit 1000 */
+							dispoCD.setDisque(new CD());
+							dispoCD.setQte(1000);
+						}
+
 					}
 
 					// Sinon on ne fait rien
@@ -86,12 +113,11 @@ public class StrategyStart extends SimpleBehaviour {
 						produceCD = false;
 					}
 
-					
+
 					if (produceCD) {
-						
+
 						/* On recherche l'agent producteur et on lui envoit le message */
 
-						
 						DFAgentDescription dfd = new DFAgentDescription();
 						DFAgentDescription[] result = null;
 						try {
@@ -115,33 +141,57 @@ public class StrategyStart extends SimpleBehaviour {
 
 							}
 						}
-						
+
 						StrategyBehaviour.manager.fillContent(msgProduceCD, dispoCD);
 
 						myAgent.send(msgProduceCD);
 					}
-					
+
+					/************************************** ZONE DVD ***************************************/
+
+					/* Le nombre de Cds que lon peut produire (au maximu et au pire) */
+					int nbDVDCanWeProduce = (int) (BankerAgent.money / ProducerAgent.DVD_HIGHT_PRICE);
+
 					ACLMessage msgProduceDVD = new ACLMessage(ACLMessage.INFORM);
 					msgProduceDVD.setLanguage(StrategyBehaviour.codec.getName());
 					msgProduceDVD.setOntology(StrategyBehaviour.onto.getName());
 
 					Disponible dispoDVD = new Disponible();
 					Boolean produceDVD = true;
-					
+
 					// Si on a pas assez de DVD
 					if (stockDVD<nbDVDForClient) {
 
-						// Send msg to produceur pour nbDVDForClient-stockDVD + 1000
-						dispoDVD.setDisque(new DVD());
-						dispoDVD.setQte(nbDVDForClient-stockDVD+1000);
+						if (nbDVDForClient-stockDVD+1000>nbDVDCanWeProduce) {
+
+							/* On produit moins que prévu (a cause de la banque) */
+							dispoDVD.setDisque(new DVD());
+							dispoDVD.setQte(nbDVDCanWeProduce);
+
+						} else {
+
+							/* On produit */
+							dispoDVD.setDisque(new DVD());
+							dispoDVD.setQte(nbDVDForClient-stockDVD+1000);
+						}
 					} 
 
 					// Si on a tout juste ce qui faut 
 					else if (stockDVD>=nbDVDForClient && stockDVD<nbDVDForClient+1000){
 
-						// Send msg to produceur pr 1000
-						dispoDVD.setDisque(new DVD());
-						dispoDVD.setQte(1000);
+						
+						if (1000>nbDVDCanWeProduce) {
+
+							/* On produit moins que prévu (a cause de la banque) */
+							dispoDVD.setDisque(new DVD());
+							dispoDVD.setQte(nbDVDCanWeProduce);
+
+						} else {
+
+							/* On produit 1000 */
+							dispoDVD.setDisque(new DVD());
+							dispoDVD.setQte(1000);
+						}
 					}
 
 					// Sinon on ne fait rien
@@ -176,7 +226,7 @@ public class StrategyStart extends SimpleBehaviour {
 
 							}
 						}
-						
+
 						StrategyBehaviour.manager.fillContent(msgProduceDVD, dispoDVD);
 
 						myAgent.send(msgProduceDVD);

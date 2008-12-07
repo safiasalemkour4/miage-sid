@@ -21,7 +21,7 @@ import protege.ReponseDisponibilite;
 public class ReceptionPrixBehaviour extends SimpleBehaviour {
 
 	/**
-	 * @param a L'agent exÃ©cutant ce comportement
+	 * @param a L'agent executant ce comportement
 	 */
 	public ReceptionPrixBehaviour(Agent a) {
 		super(a);
@@ -37,7 +37,7 @@ public class ReceptionPrixBehaviour extends SimpleBehaviour {
 		MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 		ContentElement ce;
 
-		/* Si aucun message n'est recu en 300ms, le client est bloquÃ© ici */
+		/* Si aucun message n'est recu en 300ms, le client est bloque ici */
 		try {
 
 			int prix_recus = 0;

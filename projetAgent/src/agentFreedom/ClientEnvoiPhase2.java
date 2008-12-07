@@ -27,6 +27,7 @@ public class ClientEnvoiPhase2 extends SimpleBehaviour{
 	@Override
 	public void action() {
 		
+	
 		/* Envoi Ã  tous les commerciaux du message leur indiquant d'arreter leur production et leurs achats */
 		for(String com : ClientAgent.commerciaux){
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);

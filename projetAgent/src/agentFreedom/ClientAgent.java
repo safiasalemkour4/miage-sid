@@ -103,11 +103,10 @@ public class ClientAgent extends Agent {
 	}
 	
 	/**
-	 * DÃ©clenche une nouvelle phase
+	 * Declenche une nouvelle phase
 	 */
 	public void nouvellePhase(){
 		// On ajoute le SequentialBehaviour qui va effectuer toutes les phases du tour
-		
 		this.addBehaviour(new ClientBehaviour(this));
 	}
 	

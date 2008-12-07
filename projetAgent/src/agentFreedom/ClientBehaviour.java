@@ -44,14 +44,19 @@ public class ClientBehaviour extends SequentialBehaviour {
 		// On attend les messages de OK des commerciaux
 		this.addSubBehaviour(new ClientAttenteOK(this.myAgent));
 		
-		// On commence le processus d'achat
-		this.addSubBehaviour(new AchatsBehaviour(this.myAgent));
-		// On recoit les prix envoyés par les commerciaux		
-		this.addSubBehaviour(new ReceptionPrixBehaviour(this.myAgent));
-		// On compare les prix
-		this.addSubBehaviour(new ClientComparatif(this.myAgent));
-		// On envoi valider au commercial élu
-		this.addSubBehaviour(new ClientEnvoiValider(this.myAgent));
+		// Achat de 5000 CDs
+		this.addSubBehaviour(new Achat(this.myAgent, "CD", 5000));		
+		// Achat de 2000 CDs
+		//this.addSubBehaviour(new Achat(this.myAgent,"CD", 2000));
+		// Achat de 1000 CDs
+		//this.addSubBehaviour(new Achat(this.myAgent,"CD", 1000));
+		
+		// Achat de 4000 DVDs
+		//this.addSubBehaviour(new Achat(this.myAgent, "DVD", 4000));		
+		// Achat de 1500 DVDs
+		//this.addSubBehaviour(new Achat(this.myAgent,"DVD", 1500));
+		// Achat de 800 DVDs
+		//this.addSubBehaviour(new Achat(this.myAgent,"DVD", 800));
 		
 	}
 

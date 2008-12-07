@@ -1,11 +1,9 @@
 package agentFreedom;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
+
+import java.util.HashMap;
 
 public class ClientComparatif extends SimpleBehaviour {
 
@@ -26,12 +24,12 @@ public class ClientComparatif extends SimpleBehaviour {
 		
 		HashMap<String, Double> listprix = ((ClientAgent)this.myAgent).getPrix_cds();
 
-        Double prixMin = Double.MAX_VALUE;
+        int prixMin = Integer.MAX_VALUE;
         String agentMin = "";
        
         /* pour tous les agents */
         for(String nomAgent : listprix.keySet()){
-            double prixcourant = (listprix.get(nomAgent)).doubleValue();
+            int prixcourant = (listprix.get(nomAgent)).intValue();
             if(prixcourant < prixMin && prixcourant > 0) {
             	prixMin = prixcourant;
                 agentMin = nomAgent;

@@ -1,8 +1,14 @@
 package agentFreedom;
 
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
 
 
 /**
@@ -10,7 +16,7 @@ import java.awt.Toolkit;
  * @author  Romain
  */
 public class LogUI extends javax.swing.JFrame {
-	
+
 	private ClientAgent agentFreedom;
 
 	/** Creates new form Log */
@@ -100,7 +106,28 @@ public class LogUI extends javax.swing.JFrame {
 		numeroPhase.getAccessibleContext().setAccessibleName("numeroPhase");
 
 		pack();
-		this.setTitle("Log | MIAGe SID 2008");		
+		this.setTitle("Log | MIAGe SID 2008");
+		this.console.setEditable(false);
+
+		// CONSOLE
+
+		/* on créait un document, c'est grâce à celui ci que l'on va pouvoir écrire dans le JtextPane */
+		this.doc = new DefaultStyledDocument();
+		/* Associer le Document au JTextPane */
+		this.console.setDocument(doc); 
+
+		/* styles associés au document */
+		Style clientStyle = this.doc.addStyle("ClientStyle", null);
+		StyleConstants.setFontSize(clientStyle, 12);
+		StyleConstants.setForeground(clientStyle, new Color(135,13,233));
+		StyleConstants.setBold(clientStyle, true);
+
+
+		/* styles associés au document */
+		Style normalStyle = this.doc.addStyle("NormalStyle", null);
+		StyleConstants.setFontSize(clientStyle, 12);		
+
+
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (int) (screenSize.getWidth() / 2 - getWidth() / 2);
 		int y = (int) (screenSize.getHeight() / 2 - getHeight() / 2);
@@ -111,7 +138,7 @@ public class LogUI extends javax.swing.JFrame {
 	private void NouvellePhaseActionPerformed(java.awt.event.ActionEvent evt) {
 		// on lance une nouvelle phase
 		numeroPhase.setText(String.valueOf(Integer.valueOf(numeroPhase.getText()) + 1));
-		ClientAgent.log.addText("------------------NOUVELLE PHASE: "+numeroPhase.getText());
+		addText("-------------------------- [PHASE n° " + numeroPhase.getText() + "]------------------------------");
 		agentFreedom.nouvellePhase();
 	}
 
@@ -121,18 +148,34 @@ public class LogUI extends javax.swing.JFrame {
 	}
 
 	public void addText(String text){
-        synchronized(console){
-            if(console.getText().length()>0)
-                console.setText(console.getText() + "\n" + text);
-            else
-                console.setText(console.getText() + text);
-        }       
-}
-	
+		synchronized(console){
+			try{
+				if(console.getText().length()>0){
+					if(text.contains("[CLIENT]"))
+						doc.insertString(doc.getLength(), ("\n" + text), doc.getStyle("ClientStyle"));
+					else
+						doc.insertString(doc.getLength(), ("\n" + text), doc.getStyle("NormalStyle"));
+				}else{
+					if(text.contains("[CLIENT]"))
+						doc.insertString(doc.getLength(), (text), doc.getStyle("ClientStyle"));
+					else
+						doc.insertString(doc.getLength(), (text), doc.getStyle("NormalStyle"));
+				}
+
+				/* force le scroll du ScrollPane */
+				this.console.setCaretPosition(doc.getLength());
+
+			}catch(BadLocationException ble){
+				ble.printStackTrace();
+			}
+		}
+	}
+
 	public void setNumeroPhase(int numeroPhase){
 		labelNumeroPhase.setText(String.valueOf(numeroPhase));
 	}
 
+	private DefaultStyledDocument doc; /* Document permettant d'écrire dans le JTextPane */
 
 	// Variables declaration - do not modify
 	private javax.swing.JButton FinSimulation;
