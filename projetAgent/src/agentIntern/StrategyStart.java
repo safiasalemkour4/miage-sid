@@ -62,7 +62,7 @@ public class StrategyStart extends SimpleBehaviour {
 					/************************************** ZONE CD ***************************************/
 
 					/* Le nombre de Cds que lon peut produire (au maximu et au pire) */
-					int nbCDCanWeProduce = (int) (BankerAgent.money / ProducerAgent.CD_HIGHT_PRICE);
+					int nbCDCanWeProduce = (int) (BankerAgent.MONEY / ProducerAgent.CD_HIGHT_PRICE);
 
 					ACLMessage msgProduceCD = new ACLMessage(ACLMessage.INFORM);
 					msgProduceCD.setLanguage(StrategyBehaviour.codec.getName());
@@ -149,7 +149,7 @@ public class StrategyStart extends SimpleBehaviour {
 					/************************************** ZONE DVD ***************************************/
 
 					/* Le nombre de Cds que lon peut produire (au maximum et au pire) */
-					int nbDVDCanWeProduce = (int) (BankerAgent.money / ProducerAgent.DVD_HIGHT_PRICE);
+					int nbDVDCanWeProduce = (int) (BankerAgent.MONEY / ProducerAgent.DVD_HIGHT_PRICE);
 
 					ACLMessage msgProduceDVD = new ACLMessage(ACLMessage.INFORM);
 					msgProduceDVD.setLanguage(StrategyBehaviour.codec.getName());
