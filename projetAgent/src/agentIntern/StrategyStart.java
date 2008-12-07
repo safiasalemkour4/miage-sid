@@ -104,7 +104,7 @@ public class StrategyStart extends SimpleBehaviour {
 					
 					/* On recherche l'agent producteur et on lui envoit le message */
 
-
+					
 					DFAgentDescription dfd = new DFAgentDescription();
 					DFAgentDescription[] result = null;
 					try {
@@ -113,6 +113,7 @@ public class StrategyStart extends SimpleBehaviour {
 						e.printStackTrace();
 					}
 					for (int i = 0; i<result.length; i++) {
+						
 						Iterator<Object> iter = result[i].getAllServices();
 
 						while (iter.hasNext()) {

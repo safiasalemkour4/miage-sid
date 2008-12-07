@@ -49,7 +49,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 				ce = BusinessBehaviour.manager.extractContent(msg);
 				if (ce instanceof Disponible) {
 					ClientAgent.log.addText(this.myAgent.getLocalName()+" a recu une dmd de dispo");
-					int qté = ((Disponible)ce).getQte();
+					double qté = ((Disponible)ce).getQte();
 					Disque disc = ((Disponible)ce).getDisque();
 
 					if(disc instanceof CD){
