@@ -35,8 +35,8 @@ public class StrategyAgent extends Agent {
 
 	/* SIMON : met a jour ici qd on a remporter la vente avec un lastroundWin = currentRound */
 	/*C'est fait, voir classe BusinessReceptionValider*/
-	public static int lastRoundWin = -1;
-
+	public static int lastRoundWinForCD = -1;
+	public static int lastRoundWinForDVD = -1;
 	/**
 	 * Methode setup
 	 * Utile et necessaire pour l'initialisation de l'agent
