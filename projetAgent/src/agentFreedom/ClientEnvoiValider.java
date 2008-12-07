@@ -5,11 +5,15 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
+import protege.CD;
+import protege.DVD;
+import protege.Disque;
 import protege.ValiderAchat;
 
 public class ClientEnvoiValider extends SimpleBehaviour{
 
-
+	private int qté;
+	private String disc;
 
 
 	/**
@@ -17,8 +21,11 @@ public class ClientEnvoiValider extends SimpleBehaviour{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ClientEnvoiValider(Agent a) {
+	public ClientEnvoiValider(Agent a, String disque, int quantite) {
 		super(a);
+		
+		this.disc = disque;
+		this.qté = quantite;
 
 	}
 
@@ -34,6 +41,12 @@ public class ClientEnvoiValider extends SimpleBehaviour{
 			msgOui.addReceiver(new AID(ClientAgent.commercialElu,AID.ISGUID));
 			ValiderAchat val = new ValiderAchat();
 			val.setReponse(true);
+			if(this.disc.compareTo("DVD")==0){
+				val.setDisc(new DVD());
+			}
+			else{
+				val.setDisc(new CD());
+			}
 			ClientBehaviour.manager.fillContent(msgOui, val);
 			this.myAgent.send(msgOui);
 			
@@ -50,6 +63,12 @@ public class ClientEnvoiValider extends SimpleBehaviour{
 					msgNon.addReceiver(new AID(s,AID.ISGUID));
 					ValiderAchat val2 = new ValiderAchat();
 					val2.setReponse(false);
+					if(this.disc.compareTo("DVD")==0){
+						val.setDisc(new DVD());
+					}
+					else{
+						val.setDisc(new CD());
+					}
 
 					ClientBehaviour.manager.fillContent(msgNon, val2);
 				}

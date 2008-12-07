@@ -27,7 +27,7 @@ public class Achat extends SequentialBehaviour {
             this.addSubBehaviour(new ClientComparatifDVD(this.myAgent));
         }
 		// On envoi valider au commercial élu
-		this.addSubBehaviour(new ClientEnvoiValider(this.myAgent));
+		this.addSubBehaviour(new ClientEnvoiValider(this.myAgent, disque, quantite));
 
 	}
 

@@ -47,7 +47,7 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 					ValiderAchat val = (ValiderAchat)ce;
 					if(val.getReponse()){
 						
-						if(BusinessAgent.discCourant instanceof CD){
+						if(val.getDisc() instanceof CD){
 							ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse positive du client pour les CD");
 							StrategyAgent.lastRoundWinForCD = StrategyAgent.currentRound;
 						}

@@ -26,6 +26,8 @@ public class OntoCDOntology extends jade.content.onto.Ontology  {
     public static final String STOPEVERYBODY="StopEverybody";
     public static final String OK="OK";
     public static final String VALIDERACHAT_REPONSE="reponse";
+    public static final String VALIDERACHAT_QTE="qté";
+    public static final String VALIDERACHAT_DISC="disc";
     public static final String VALIDERACHAT="ValiderAchat";
     public static final String DISPONIBLE_QTE="qte";
     public static final String DISPONIBLE_DISQUE="disque";
@@ -84,7 +86,10 @@ public class OntoCDOntology extends jade.content.onto.Ontology  {
     nouvellePhaseSchema.add(NOUVELLEPHASE_NUMEROPHASE, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
     disponibleSchema.add(DISPONIBLE_DISQUE, disqueSchema, ObjectSchema.OPTIONAL);
     disponibleSchema.add(DISPONIBLE_QTE, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
+    
     validerAchatSchema.add(VALIDERACHAT_REPONSE, (TermSchema)getSchema(BasicOntology.BOOLEAN), ObjectSchema.OPTIONAL);
+    validerAchatSchema.add(VALIDERACHAT_QTE, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
+    validerAchatSchema.add(VALIDERACHAT_DISC, disqueSchema, ObjectSchema.OPTIONAL);
 
     // adding name mappings
 
