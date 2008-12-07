@@ -31,7 +31,7 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
+	private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 
 	public BusinessReceptionDmdDispo(Agent myAgent) {
 		super(myAgent);
@@ -40,9 +40,9 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 
 	public void action() {
 
-
+		
 			ACLMessage msg = this.myAgent.blockingReceive(mt);
-
+			
 			if (msg != null) {
 
 				ContentElement ce;
