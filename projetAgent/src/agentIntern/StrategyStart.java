@@ -7,6 +7,7 @@ import jade.content.onto.OntologyException;
 import jade.content.onto.UngroundedException;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -23,7 +24,7 @@ import protege.Disponible;
 import protege.OK;
 import agentFreedom.ClientAgent;
 
-public class StrategyStart extends SimpleBehaviour {
+public class StrategyStart extends CyclicBehaviour {
 
 
 	private static final long serialVersionUID = 1L;
@@ -112,7 +113,7 @@ public class StrategyStart extends SimpleBehaviour {
 						produceCD = false;
 					}
 
-
+					
 					if (produceCD) {
 
 						/* On recherche l'agent producteur et on lui envoit le message */
@@ -253,10 +254,7 @@ public class StrategyStart extends SimpleBehaviour {
 
 	}
 
-	public boolean done() {
-
-		return true;
-	}
+	
 
 
 }

@@ -6,6 +6,7 @@ import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
 import jade.content.onto.UngroundedException;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -14,7 +15,7 @@ import protege.Disponible;
 import protege.Disque;
 import agentFreedom.ClientAgent;
 
-public class ProduceDisc extends SimpleBehaviour {
+public class ProduceDisc extends CyclicBehaviour {
 
 
 	private static final long serialVersionUID = 1L;
@@ -27,9 +28,9 @@ public class ProduceDisc extends SimpleBehaviour {
 	}
 
 	public void action() {
-
+		
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
-
+		//ClientAgent.log.addText("msg recu par producer : "+msg);
 		if (msg != null) {
 
 			ContentElement ce;
@@ -104,10 +105,7 @@ public class ProduceDisc extends SimpleBehaviour {
 
 	}
 
-	public boolean done() {
-
-		return true;
-	}
+	
 
 
 }
