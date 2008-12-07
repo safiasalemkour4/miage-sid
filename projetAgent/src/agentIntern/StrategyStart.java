@@ -55,61 +55,103 @@ public class StrategyStart extends SimpleBehaviour {
 					int stockCD = StockManagerAgent.nosStockCD;
 					int stockDVD = StockManagerAgent.nosStockDVD;
 
-					int nbCDForClient = ClientAgent.quantiteMap.get(0)[0];
-					int nbDVDForClient = 0; // TODO ClientAgent.quantiteMap.get(0)[0];
+					int nbCDForClient = ClientAgent.quantiteMap.get(0)[0]; //5000
+					int nbDVDForClient = ClientAgent.quantiteMap.get(0)[1]; //4000
 
-					ACLMessage msgProduce = new ACLMessage(ACLMessage.INFORM);
-					msgProduce.setLanguage(StrategyBehaviour.codec.getName());
-					msgProduce.setOntology(StrategyBehaviour.onto.getName());
+					ACLMessage msgProduceCD = new ACLMessage(ACLMessage.INFORM);
+					msgProduceCD.setLanguage(StrategyBehaviour.codec.getName());
+					msgProduceCD.setOntology(StrategyBehaviour.onto.getName());
 
-					Disponible dispo = new Disponible();
-					Boolean produce = true;
+					Disponible dispoCD = new Disponible();
+					Boolean produceCD = true;
 
 					// Si on a pas assez de CD
 					if (stockCD<nbCDForClient) {
 
 						// Send msg to produceur pour nbCDForClient-stockCD + 1000
-						dispo.setDisque(new CD());
-						dispo.setQte(nbCDForClient-stockCD+1000);
+						dispoCD.setDisque(new CD());
+						dispoCD.setQte(nbCDForClient-stockCD+1000);
 					} 
 
 					// Si on a tout juste ce qui faut 
 					else if (stockCD>=nbCDForClient && stockCD<nbCDForClient+1000){
 
 						// Send msg to produceur pr 1000
-						dispo.setDisque(new CD());
-						dispo.setQte(1000);
+						dispoCD.setDisque(new CD());
+						dispoCD.setQte(1000);
 					}
 
 					// Sinon on ne fait rien
 					else {
-						produce = false;
+						produceCD = false;
 					}
 
+					
+					if (produceCD) {
+						
+						/* On recherche l'agent producteur et on lui envoit le message */
+						System.out.println("MESSAGE PR LES CD !!!!!!!");
+						
+						DFAgentDescription dfd = new DFAgentDescription();
+						DFAgentDescription[] result = null;
+						try {
+							result = DFService.search(this.myAgent, dfd);
+						} catch (FIPAException e) {
+							e.printStackTrace();
+						}
+						for (int i = 0; i<result.length; i++) {
+
+							Iterator<Object> iter = result[i].getAllServices();
+
+							while (iter.hasNext()) {
+
+								ServiceDescription sd =(ServiceDescription)iter.next();
+
+								if(sd.getType().equals("HCK_ProductionCD")){
+
+									msgProduceCD.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
+									ClientAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production a "+sd.getOwnership());
+								}
+
+							}
+						}
+						
+						StrategyBehaviour.manager.fillContent(msgProduceCD, dispoCD);
+
+						myAgent.send(msgProduceCD);
+					}
+					
+					ACLMessage msgProduceDVD = new ACLMessage(ACLMessage.INFORM);
+					msgProduceDVD.setLanguage(StrategyBehaviour.codec.getName());
+					msgProduceDVD.setOntology(StrategyBehaviour.onto.getName());
+
+					Disponible dispoDVD = new Disponible();
+					Boolean produceDVD = true;
+					
 					// Si on a pas assez de DVD
 					if (stockDVD<nbDVDForClient) {
 
 						// Send msg to produceur pour nbCDForClient-stockDVD + 1000
-						dispo.setDisque(new DVD());
-						dispo.setQte(nbDVDForClient-stockDVD+1000);
+						dispoDVD.setDisque(new DVD());
+						dispoDVD.setQte(nbDVDForClient-stockDVD+1000);
 					} 
 
 					// Si on a tout juste ce qui faut 
 					else if (stockCD>=nbDVDForClient && stockDVD<nbCDForClient+1000){
 
 						// Send msg to produceur pr 1000
-						dispo.setDisque(new DVD());
-						dispo.setQte(1000);
+						dispoDVD.setDisque(new DVD());
+						dispoDVD.setQte(1000);
 					}
 
 					// Sinon on ne fait rien
 					else {
-						produce = false;
+						produceDVD = false;
 					}
 
-					if (produce) {
+					if (produceDVD) {
 						/* On recherche l'agent producteur et on lui envoit le message */
-
+						System.out.println("MESSAGE PR LES DVD !!!!!!!");
 
 						DFAgentDescription dfd = new DFAgentDescription();
 						DFAgentDescription[] result = null;
@@ -128,17 +170,16 @@ public class StrategyStart extends SimpleBehaviour {
 
 								if(sd.getType().equals("HCK_ProductionCD")){
 
-									System.out.println("a");
-									msgProduce.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
+									msgProduceDVD.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
 									ClientAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production a "+sd.getOwnership());
 								}
 
 							}
 						}
 						
-						StrategyBehaviour.manager.fillContent(msgProduce, dispo);
+						StrategyBehaviour.manager.fillContent(msgProduceDVD, dispoDVD);
 
-						myAgent.send(msgProduce);
+						myAgent.send(msgProduceDVD);
 					}
 
 					StrategyAgent.currentRound++;

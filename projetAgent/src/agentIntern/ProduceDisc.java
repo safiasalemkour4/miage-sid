@@ -54,17 +54,17 @@ public class ProduceDisc extends SimpleBehaviour {
 
 							ClientAgent.log.addText(this.myAgent.getName()+ " produit "+nbDisc+" CDs a "+ProducerAgent.CD_HIGHT_PRICE+" euro piece.");
 							
-							BankerAgent.money -= ProducerAgent.CD_HIGHT_PRICE;
+							BankerAgent.money -= ProducerAgent.CD_HIGHT_PRICE * nbDisc;
 
 						} else if (nbDisc>=100 & nbDisc<1000) {
 
 							ClientAgent.log.addText(this.myAgent.getName()+ " produit "+nbDisc+" CDs a "+ProducerAgent.CD_MEDIUM_PRICE+" euro piece.");
-							BankerAgent.money -= ProducerAgent.CD_MEDIUM_PRICE;
+							BankerAgent.money -= ProducerAgent.CD_MEDIUM_PRICE * nbDisc;
 
 						} else if (nbDisc>=1000) {
 
 							ClientAgent.log.addText(this.myAgent.getName()+ " produit "+nbDisc+" CDs a "+ProducerAgent.CD_LOW_PRICE+" euro piece.");
-							BankerAgent.money -= ProducerAgent.CD_LOW_PRICE;
+							BankerAgent.money -= ProducerAgent.CD_LOW_PRICE * nbDisc;
 						}
 						
 					} 
@@ -77,16 +77,16 @@ public class ProduceDisc extends SimpleBehaviour {
 						if (nbDisc<100) {
 
 							ClientAgent.log.addText(this.myAgent.getName()+ " produit "+nbDisc+" DVDs a "+ProducerAgent.DVD_HIGHT_PRICE+" euro piece.");
-							BankerAgent.money -= ProducerAgent.DVD_HIGHT_PRICE;
+							BankerAgent.money -= ProducerAgent.DVD_HIGHT_PRICE * nbDisc;
 
 						} else if (nbDisc>=100 & nbDisc<1000) {
 
 							ClientAgent.log.addText(this.myAgent.getName()+ " produit "+nbDisc+" DVDs a "+ProducerAgent.DVD_MEDIUM_PRICE+" euro piece.");
-							BankerAgent.money -= ProducerAgent.DVD_MEDIUM_PRICE;
+							BankerAgent.money -= ProducerAgent.DVD_MEDIUM_PRICE * nbDisc;
 
 						} else if (nbDisc>=1000) {
 							ClientAgent.log.addText(this.myAgent.getName()+ " produit "+nbDisc+" DVDs a "+ProducerAgent.DVD_LOW_PRICE+" euro piece.");
-							BankerAgent.money -= ProducerAgent.DVD_LOW_PRICE;
+							BankerAgent.money -= ProducerAgent.DVD_LOW_PRICE * nbDisc;
 						}
 					}
 

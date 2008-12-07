@@ -4,6 +4,7 @@ import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
+import jade.core.behaviours.ParallelBehaviour;
 import jade.core.behaviours.SequentialBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -24,7 +25,7 @@ import protege.OntoCDOntology;
  *   @version 	******  	1.0																		 *
  *****************************************************************************************************/
 
-public class ProducerBehaviour extends SequentialBehaviour {
+public class ProducerBehaviour extends ParallelBehaviour {
 
 	private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 
@@ -43,7 +44,7 @@ public class ProducerBehaviour extends SequentialBehaviour {
 
 	public ProducerBehaviour(Agent agent) {
 
-		super(agent);
+		super(agent, ParallelBehaviour.WHEN_ALL);
 		
 		manager = myAgent.getContentManager();
 		codec = new SLCodec();
@@ -52,7 +53,7 @@ public class ProducerBehaviour extends SequentialBehaviour {
 	    manager.registerOntology(onto);
 		
 		this.addSubBehaviour(new ProduceDisc(this.myAgent));
-		
+		this.addSubBehaviour(new ProduceDisc(this.myAgent));
 	}
 
 
