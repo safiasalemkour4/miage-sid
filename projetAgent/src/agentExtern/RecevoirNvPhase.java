@@ -37,10 +37,10 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 	
 	public void action() {
 
-		System.out.println(myAgent.getName()+ " est en attente de recevoir un message de phase");
+		//System.out.println(myAgent.getName()+ " est en attente de recevoir un message de phase");
 		
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
-		ClientAgent.log.addText("msg phase recu");
+		
 		
 		if (msg != null) {
 

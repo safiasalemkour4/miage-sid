@@ -44,7 +44,6 @@ public class BusinessBehaviour extends SequentialBehaviour {
 		// Vente de 1000 DVD
 		this.addSubBehaviour(new BusinessVente(this.myAgent));
 		
-		
 			
 			
 			
