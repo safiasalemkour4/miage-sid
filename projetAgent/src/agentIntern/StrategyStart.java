@@ -63,7 +63,9 @@ public class StrategyStart extends SimpleBehaviour {
 
 					/* Le nombre de Cds que lon peut produire (au maximu et au pire) */
 					int nbCDCanWeProduce = (int) (BankerAgent.MONEY / ProducerAgent.CD_HIGHT_PRICE);
-
+					
+					System.out.println("On a "+BankerAgent.MONEY+" e et on peut produit "+nbCDCanWeProduce+" u a "+ProducerAgent.CD_HIGHT_PRICE+"e");
+					
 					ACLMessage msgProduceCD = new ACLMessage(ACLMessage.INFORM);
 					msgProduceCD.setLanguage(StrategyBehaviour.codec.getName());
 					msgProduceCD.setOntology(StrategyBehaviour.onto.getName());
@@ -151,6 +153,8 @@ public class StrategyStart extends SimpleBehaviour {
 					/* Le nombre de Cds que lon peut produire (au maximum et au pire) */
 					int nbDVDCanWeProduce = (int) (BankerAgent.MONEY / ProducerAgent.DVD_HIGHT_PRICE);
 
+					System.out.println("On a "+BankerAgent.MONEY+" e et on peut produit "+nbDVDCanWeProduce+" u a "+ProducerAgent.DVD_HIGHT_PRICE+"e");
+					
 					ACLMessage msgProduceDVD = new ACLMessage(ACLMessage.INFORM);
 					msgProduceDVD.setLanguage(StrategyBehaviour.codec.getName());
 					msgProduceDVD.setOntology(StrategyBehaviour.onto.getName());

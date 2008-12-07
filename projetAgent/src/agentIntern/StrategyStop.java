@@ -78,6 +78,10 @@ public class StrategyStop extends SimpleBehaviour {
 							StrategyAgent.prixCD -= StrategyAgent.prixCD*0.50;
 						}
 						
+						// Permet de ne pas vendre a perte
+						if (StrategyAgent.prixCD<=ProducerAgent.CD_HIGHT_PRICE) {
+							StrategyAgent.prixCD = ProducerAgent.CD_HIGHT_PRICE + 1.0;
+						}
 						
 						/************************************** ZONE DVD ***************************************/
 						
@@ -99,6 +103,7 @@ public class StrategyStop extends SimpleBehaviour {
 						else {
 							StrategyAgent.prixDVD -= StrategyAgent.prixDVD*0.50;
 						}
+						
 						// Permet de ne pas vendre a perte
 						if (StrategyAgent.prixDVD<=ProducerAgent.DVD_HIGHT_PRICE) {
 							StrategyAgent.prixDVD = ProducerAgent.DVD_HIGHT_PRICE + 1.0;
