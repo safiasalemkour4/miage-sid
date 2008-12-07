@@ -24,7 +24,7 @@ public class ClientComparatif extends SimpleBehaviour {
 	@Override
 	public void action() {
 		
-		HashMap<String, Integer> listprix = ((ClientAgent)this.myAgent).getPrix_cds();
+		HashMap<String, Double> listprix = ((ClientAgent)this.myAgent).getPrix_cds();
 
         int prixMin = Integer.MAX_VALUE;
         String agentMin = "";

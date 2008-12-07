@@ -42,7 +42,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 
 			ContentElement ce;
 
-			int notrePrix = StrategyAgent.prixCD;
+			double notrePrix = StrategyAgent.prixCD;
 
 			try {
 				

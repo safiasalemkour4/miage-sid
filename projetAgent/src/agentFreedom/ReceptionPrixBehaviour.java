@@ -52,11 +52,11 @@ public class ReceptionPrixBehaviour extends SimpleBehaviour {
 						prix_recus++;
 
 						if(((ReponseDisponibilite)ce).getDisque() instanceof CD){
-							int prix = ((ReponseDisponibilite)ce).getPrix();
+							double prix = ((ReponseDisponibilite)ce).getPrix();
 							ClientAgent.log.addText("			[CLIENT] Le client a recu le prix "+prix+" venant de "+msg_recu.getSender().getName());
 							((ClientAgent)myAgent).addPrixCd(msg_recu.getSender().getName(), prix);
 						}else if(((ReponseDisponibilite)ce).getDisque() instanceof DVD){
-							int prix = ((ReponseDisponibilite)ce).getPrix();
+							double prix = ((ReponseDisponibilite)ce).getPrix();
 							ClientAgent.log.addText("			[CLIENT] Le client a recu le prix "+prix+" venant de "+msg_recu.getSender().getName());
 							((ClientAgent)myAgent).addPrixDvd(msg_recu.getSender().getName(), prix);
 						}

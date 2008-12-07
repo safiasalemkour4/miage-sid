@@ -56,8 +56,8 @@ public class ClientAgent extends Agent {
 	private ArrayList<String> liste_vendeursCD = new ArrayList<String>();
 	private ArrayList<String> liste_vendeursDVD = new ArrayList<String>();
 	
-	private HashMap<String, Integer> prix_cds = new HashMap<String, Integer>();
-	private HashMap<String, Integer> prix_dvds = new HashMap<String, Integer>();
+	private HashMap<String, Double> prix_cds = new HashMap<String, Double>();
+	private HashMap<String, Double> prix_dvds = new HashMap<String, Double>();
 
 	public static LogUI log;
 	
@@ -127,11 +127,11 @@ public class ClientAgent extends Agent {
 		this.liste_vendeursDVD = liste_vendeursDVD;
 	}
 	
-	public synchronized void addPrixCd(String commercial, int prix){
+	public synchronized void addPrixCd(String commercial, double prix){
 		this.prix_cds.put(commercial, prix);
 	}
 	
-	public synchronized void addPrixDvd(String commercial, int prix){
+	public synchronized void addPrixDvd(String commercial, double prix){
 		this.prix_dvds.put(commercial, prix);
 	}
 	
@@ -144,12 +144,12 @@ public class ClientAgent extends Agent {
 	}
 
 
-	public HashMap<String, Integer> getPrix_cds() {
+	public HashMap<String, Double> getPrix_cds() {
 		return prix_cds;
 	}
 
 
-	public HashMap<String, Integer> getPrix_dvds() {
+	public HashMap<String, Double> getPrix_dvds() {
 		return prix_dvds;
 	}
 	

@@ -48,7 +48,7 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 					if (ce instanceof ReponseDisponibilite) {
 
 						ClientAgent.log.addText(this.myAgent.getLocalName()+" a recu une réponse de stock");
-						int prix = ((ReponseDisponibilite)ce).getPrix();
+						double prix = ((ReponseDisponibilite)ce).getPrix();
 						Disque disc = ((ReponseDisponibilite)ce).getDisque();
 
 						ACLMessage msgRepStock = new ACLMessage(ACLMessage.INFORM);

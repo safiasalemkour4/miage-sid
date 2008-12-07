@@ -53,6 +53,7 @@ public class BusinessAgent extends Agent {
 	    
 		/*Déclaration du tableau contenant la liste de nos agents*/
 		listeNosAgents = new ArrayList<String>();
+		
 		/* Ajout du comportement d'achat */
 		
 		this.addBehaviour(new BusinessDecouvreService(this));

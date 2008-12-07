@@ -30,8 +30,8 @@ public class StrategyAgent extends Agent {
 	private static final long serialVersionUID = 1L;
 	
 	private ContentManager manager = (ContentManager)this.getContentManager();
-	public static int prixCD;
-	public static int prixDVD;
+	public static double prixCD = ProducerAgent.CD_HIGHT_PRICE + ((int)(Math.random()*10));
+	public static double prixDVD = ProducerAgent.DVD_HIGHT_PRICE + ((int)(Math.random()*10));
 	public static int currentRound = 0;
 
 	/* SIMON : met a jour ici qd on a remporter la vente avec un lastroundWin = currentRound */
@@ -48,7 +48,6 @@ public class StrategyAgent extends Agent {
 		/* Ajout du comportement d'achat */
 		this.addBehaviour(new StrategyBehaviour(this));
 
-		prixCD = 10;
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());

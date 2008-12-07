@@ -43,7 +43,6 @@ public class ProduceDisc extends SimpleBehaviour {
 
 	public void action() {
 
-		//System.out.println(myAgent.getName()+ " est en attente de recevoir un message de phase");
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
 
 		if (msg != null) {
@@ -51,7 +50,9 @@ public class ProduceDisc extends SimpleBehaviour {
 			ContentElement ce;
 
 			try {
+				
 				ce = BusinessBehaviour.manager.extractContent(msg);
+				
 				if (ce instanceof Disponible) {
 
 					ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de produire des disques !");
@@ -79,6 +80,7 @@ public class ProduceDisc extends SimpleBehaviour {
 							ClientAgent.log.addText(this.myAgent.getName()+ " produit "+nbDisc+" CDs a "+ProducerAgent.CD_LOW_PRICE+" euro piece.");
 							BankerAgent.money -= ProducerAgent.CD_LOW_PRICE;
 						}
+						
 					} 
 
 					else {
@@ -102,7 +104,8 @@ public class ProduceDisc extends SimpleBehaviour {
 						}
 					}
 
-
+					ClientAgent.log.addText("Nos stock finaux sont desormais de : "+StockManagerAgent.nosStockCD+" CDs & "+StockManagerAgent.nosStockDVD+" DVDs.\n"+
+							"Et nous possedons "+BankerAgent.money+" en banque.");
 				}
 
 			} catch (UngroundedException e) {

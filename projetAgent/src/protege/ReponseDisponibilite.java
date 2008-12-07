@@ -15,14 +15,14 @@ public class ReponseDisponibilite implements Predicate {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int prix;
+	private double prix;
 	private Disque disque;
 
-	public void setPrix(int value) { 
+	public void setPrix(double value) { 
 		this.prix = value;
 	}
 
-	public int getPrix() {
+	public double getPrix() {
 		return this.prix;
 	}
 
