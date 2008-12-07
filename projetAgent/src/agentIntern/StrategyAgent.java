@@ -29,7 +29,6 @@ public class StrategyAgent extends Agent {
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
 	
-	private ContentManager manager = (ContentManager)this.getContentManager();
 	public static double prixCD = ProducerAgent.CD_HIGHT_PRICE + ((int)(Math.random()*10));
 	public static double prixDVD = ProducerAgent.DVD_HIGHT_PRICE + ((int)(Math.random()*10));
 	public static int currentRound = 0;

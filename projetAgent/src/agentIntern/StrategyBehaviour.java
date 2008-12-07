@@ -39,10 +39,11 @@ import jade.lang.acl.MessageTemplate;
 public class StrategyBehaviour extends SequentialBehaviour {
 
 	/** Serial par defaut */
-
+	private static final long serialVersionUID = 1L;
+	
 	private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 
-	private static final long serialVersionUID = 1L;
+
 	public static ContentManager manager;
 	public static Codec codec;
 	public static OntoCDOntology onto;
@@ -62,7 +63,6 @@ public class StrategyBehaviour extends SequentialBehaviour {
 		onto = (OntoCDOntology)OntoCDOntology.getInstance();
 		manager.registerLanguage(codec);
 	    manager.registerOntology(onto);
-		
 		
 		this.addSubBehaviour(new StrategyStart(this.myAgent));
 		

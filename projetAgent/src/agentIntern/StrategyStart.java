@@ -15,20 +15,13 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-
-import agentExtern.BusinessAgent;
-import agentExtern.BusinessBehaviour;
-import agentFreedom.ClientAgent;
 
 import protege.CD;
 import protege.DVD;
 import protege.Disponible;
-import protege.Disque;
-import protege.NouvellePhase;
 import protege.OK;
-import protege.StopEverybody;
+import agentFreedom.ClientAgent;
 
 public class StrategyStart extends SimpleBehaviour {
 
@@ -44,34 +37,30 @@ public class StrategyStart extends SimpleBehaviour {
 
 	public void action() {
 
-		//System.out.println(myAgent.getName()+ " est en attente de recevoir un message de phase");
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
-
-		System.out.println("ok");
 
 		if (msg != null) {
 
 			ContentElement ce;
 
-			System.out.println("ok 2");
-
 			try {
-				ce = BusinessBehaviour.manager.extractContent(msg);
+				
+				ce = StrategyBehaviour.manager.extractContent(msg);
+				
 				if (ce instanceof OK) {
+					
 					ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer la strategie !");
-
-
 
 					/* TODO : Pardon pr ca = msg demande informations */
 					int stockCD = StockManagerAgent.nosStockCD;
 					int stockDVD = StockManagerAgent.nosStockDVD;
 
 					int nbCDForClient = ClientAgent.quantiteMap.get(0)[0];
-					int nbDVDForClient = 10000; // TODO ClientAgent.quantiteMap.get(0)[0];
+					int nbDVDForClient = 0; // TODO ClientAgent.quantiteMap.get(0)[0];
 
 					ACLMessage msgDmdStock = new ACLMessage(ACLMessage.REQUEST);
-					msgDmdStock.setLanguage(BusinessBehaviour.codec.getName());
-					msgDmdStock.setOntology(BusinessBehaviour.onto.getName());
+					msgDmdStock.setLanguage(StrategyBehaviour.codec.getName());
+					msgDmdStock.setOntology(StrategyBehaviour.onto.getName());
 
 					Disponible dispo = new Disponible();
 
@@ -94,8 +83,8 @@ public class StrategyStart extends SimpleBehaviour {
 					// Sinon on ne fait rien
 					else {}
 
-					// Si on a pas assez de CD
-					if (stockDVD<nbCDForClient) {
+					// Si on a pas assez de DVD
+					if (stockDVD<nbDVDForClient) {
 
 						// Send msg to produceur pour nbCDForClient-stockDVD + 1000
 						dispo.setDisque(new DVD());
@@ -130,7 +119,7 @@ public class StrategyStart extends SimpleBehaviour {
 
 							ServiceDescription sd =(ServiceDescription)iter.next();
 
-							if(sd.getType().equals("HCK_Produceur")){
+							if(sd.getType().equals("HCK_ProductionCD")){
 
 								msgDmdStock.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
 								ClientAgent.log.addText(this.myAgent.getLocalName()+" envoi dispo a "+sd.getOwnership());
