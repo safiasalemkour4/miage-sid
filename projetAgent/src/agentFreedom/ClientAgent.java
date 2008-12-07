@@ -62,6 +62,8 @@ public class ClientAgent extends Agent {
 	public static LogUI log;
 	
 	static ArrayList<String> commerciaux = new ArrayList<String>();
+    static ArrayList<String> deja_achete_cds=new ArrayList<String>();
+    static ArrayList<String> deja_achete_dvds=new ArrayList<String>();
 	
 	/**
 	 * Methode setup
@@ -107,6 +109,8 @@ public class ClientAgent extends Agent {
 	 */
 	public void nouvellePhase(){
 		// On ajoute le SequentialBehaviour qui va effectuer toutes les phases du tour
+		deja_achete_cds.clear();
+	    deja_achete_dvds.clear();
 		this.addBehaviour(new ClientBehaviour(this));
 	}
 	

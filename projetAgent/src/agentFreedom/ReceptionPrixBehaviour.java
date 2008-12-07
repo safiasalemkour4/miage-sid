@@ -51,18 +51,15 @@ public class ReceptionPrixBehaviour extends SimpleBehaviour {
 					if(ce instanceof ReponseDisponibilite){
 						prix_recus++;
 
-//						if(((ReponseDisponibilite)ce).getDisque() instanceof CD){
-//							double prix = ((ReponseDisponibilite)ce).getPrix();
-//							ClientAgent.log.addText("			[CLIENT] Le client a recu le prix "+prix+" venant de "+msg_recu.getSender().getName());
-//							((ClientAgent)myAgent).addPrixCd(msg_recu.getSender().getName(), prix);
-//						}else if(((ReponseDisponibilite)ce).getDisque() instanceof DVD){
-//							double prix = ((ReponseDisponibilite)ce).getPrix();
-//							ClientAgent.log.addText("			[CLIENT] Le client a recu le prix "+prix+" venant de "+msg_recu.getSender().getName());
-//							((ClientAgent)myAgent).addPrixDvd(msg_recu.getSender().getName(), prix);
-//						}
-						double prix = ((ReponseDisponibilite)ce).getPrix();
-						((ClientAgent)myAgent).addPrixCd(msg_recu.getSender().getName(), prix);
-						
+						if(((ReponseDisponibilite)ce).getDisque() instanceof CD){
+							double prix = ((ReponseDisponibilite)ce).getPrix();
+							ClientAgent.log.addText("			[CLIENT] Le client a recu le prix "+prix+" venant de "+msg_recu.getSender().getName());
+							((ClientAgent)myAgent).addPrixCd(msg_recu.getSender().getName(), prix);
+						}else if(((ReponseDisponibilite)ce).getDisque() instanceof DVD){
+							double prix = ((ReponseDisponibilite)ce).getPrix();
+							ClientAgent.log.addText("			[CLIENT] Le client a recu le prix "+prix+" venant de "+msg_recu.getSender().getName());
+							((ClientAgent)myAgent).addPrixDvd(msg_recu.getSender().getName(), prix);
+						}
 					}
 				}else{
 					((ClientAgent)myAgent).addPrixDvd(msg_recu.getSender().getName(), -1);
