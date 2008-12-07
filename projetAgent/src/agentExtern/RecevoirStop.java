@@ -1,24 +1,18 @@
 package agentExtern;
 
-import java.util.ArrayList;
-
-import agentFreedom.ClientAgent;
-
-import protege.NouvellePhase;
-import protege.OntoCDOntology;
-import protege.StopEverybody;
 import jade.content.ContentElement;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.Codec.CodecException;
 import jade.content.lang.sl.SLCodec;
 import jade.content.onto.OntologyException;
-import jade.content.onto.UngroundedException;
-import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import protege.OntoCDOntology;
+import protege.StopEverybody;
+import agentFreedom.ClientAgent;
 
 public class RecevoirStop extends CyclicBehaviour {
 

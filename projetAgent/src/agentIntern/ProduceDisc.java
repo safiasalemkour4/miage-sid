@@ -28,9 +28,9 @@ public class ProduceDisc extends CyclicBehaviour {
 	}
 
 	public void action() {
-		
+
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
-		//ClientAgent.log.addText("msg recu par producer : "+msg);
+
 		if (msg != null) {
 
 			ContentElement ce;
