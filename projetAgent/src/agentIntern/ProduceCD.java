@@ -28,14 +28,14 @@ import protege.NouvellePhase;
 import protege.OK;
 import protege.StopEverybody;
 
-public class StrategyStart extends SimpleBehaviour {
+public class ProduceCD extends SimpleBehaviour {
 
 
 	private static final long serialVersionUID = 1L;
 	private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 
 
-	public StrategyStart(Agent a) {
+	public ProduceCD(Agent a) {
 		super(a);
 
 	}
@@ -44,47 +44,34 @@ public class StrategyStart extends SimpleBehaviour {
 
 		//System.out.println(myAgent.getName()+ " est en attente de recevoir un message de phase");
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
-
-		System.out.println("ok");
 		
 		if (msg != null) {
 
 			ContentElement ce;
-
-			System.out.println("ok 2");
 			
 				try {
 					ce = BusinessBehaviour.manager.extractContent(msg);
 					if (ce instanceof OK) {
-						ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer la strategie !");
+						ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de produire des cds !");
 					
 					}
 					
-					/* TODO : Pardon pr ca = msg demande informations */
-					int stockCD = StockManagerAgent.nosStockCD;
-					int stockDVD = StockManagerAgent.nosStockDVD;
-				
-					int nbCDForClient = ClientAgent.quantiteMap.get(0)[0];
-					
-					// Si on a pas assez de CD
-					if (stockCD<nbCDForClient) {
+					if (nbCds<100) {
 						
-						// Send msg to produceur pour nbCDForClient-stockCD + 1000
-					} 
-					
-					// Si on a tout juste ce qui faut 
-					else if (stockCD>=nbCDForClient && stockCD<nbCDForClient+1000){
+						BankerAgent.money -= ProducerAgent.CD_HIGHT_PRICE;
 						
-						// Send msg to produceur pr 1000
+					} else if (nbCds>=100 & nbCds<1000) {
 						
+						BankerAgent.money -= ProducerAgent.CD_MEDIUM_PRICE;
+						
+					} else if (nbCds>=1000) {
+						
+						BankerAgent.money -= ProducerAgent.CD_LOW_PRICE;
 					}
 					
-					// Sinon
-					else {
-						
-					}
-							
-					StrategyAgent.currentRound++;
+
+	
+	
 					
 				} catch (UngroundedException e) {
 					e.printStackTrace();

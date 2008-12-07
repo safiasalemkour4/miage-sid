@@ -35,6 +35,12 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 
 public class ProducerAgent extends Agent {
 
+		
+	public static final double CD_HIGHT_PRICE = 3.0, CD_MEDIUM_PRICE = 2.5, CD_LOW_PRICE = 2.0;
+
+	public static final double DVD_HIGHT_PRICE = 6.0, DVD_MEDIUM_PRICE = 5.0, DVD_LOW_PRICE = 4.0;
+
+	
 	private ContentManager manager = (ContentManager)this.getContentManager();
 
 	

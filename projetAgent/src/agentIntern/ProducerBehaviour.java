@@ -1,9 +1,13 @@
 package agentIntern;
 
+import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
+import jade.core.behaviours.SequentialBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 import protege.OntoCDOntology;
 
 /*****************************************************************************************************
@@ -20,13 +24,16 @@ import protege.OntoCDOntology;
  *   @version 	******  	1.0																		 *
  *****************************************************************************************************/
 
-public class ProducerBehaviour extends SimpleBehaviour {
+public class ProducerBehaviour extends SequentialBehaviour {
 
-	private Codec codec = new SLCodec();
-	private OntoCDOntology ontology = (OntoCDOntology) OntoCDOntology.getInstance();
+	private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
+
+	private static final long serialVersionUID = 1L;
+	public static ContentManager manager;
+	public static Codec codec;
+	public static OntoCDOntology onto;
 
 	/** Serial par defaut */
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Construteur
@@ -37,15 +44,17 @@ public class ProducerBehaviour extends SimpleBehaviour {
 	public ProducerBehaviour(Agent agent) {
 
 		super(agent);
+		
+		manager = myAgent.getContentManager();
+		codec = new SLCodec();
+		onto = (OntoCDOntology)OntoCDOntology.getInstance();
+		manager.registerLanguage(codec);
+	    manager.registerOntology(onto);
+		
+		this.addSubBehaviour(new ProduceCD(this.myAgent));
+		this.addSubBehaviour(new ProduceDVD(this.myAgent));
+		
 	}
 
-	public void action() {
-
-
-	}
-
-	public boolean done() {
-		return true;
-	}
 
 }
