@@ -87,7 +87,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 					msgRepStock.addReceiver(new AID(msg.getSender().getName(),AID.ISGUID));
 					ClientAgent.log.addText(this.myAgent.getLocalName()+" envoi réponse a "+msg.getSender().getLocalName());
 					
-
+					
 					StockManagerAgent.manager.fillContent(msgRepStock, repDispo);
 					
 					msgRepStock.setSender(this.myAgent.getAID());

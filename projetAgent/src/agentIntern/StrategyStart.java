@@ -128,8 +128,9 @@ public class StrategyStart extends SimpleBehaviour {
 						}
 
 					}
-
+					
 					StrategyBehaviour.manager.fillContent(msgDmdStock, dispo);
+					
 					myAgent.send(msgDmdStock);
 
 

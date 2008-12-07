@@ -80,7 +80,7 @@ public class OntoCDOntology extends jade.content.onto.Ontology  {
 
     // adding fields
     reponseDisponibiliteSchema.add(REPONSEDISPONIBILITE_DISQUE, disqueSchema, ObjectSchema.OPTIONAL);
-    reponseDisponibiliteSchema.add(REPONSEDISPONIBILITE_PRIX, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
+    reponseDisponibiliteSchema.add(REPONSEDISPONIBILITE_PRIX, (TermSchema)getSchema(BasicOntology.FLOAT), ObjectSchema.OPTIONAL);
     nouvellePhaseSchema.add(NOUVELLEPHASE_NUMEROPHASE, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
     disponibleSchema.add(DISPONIBLE_DISQUE, disqueSchema, ObjectSchema.OPTIONAL);
     disponibleSchema.add(DISPONIBLE_QTE, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.OPTIONAL);
