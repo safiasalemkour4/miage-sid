@@ -69,6 +69,7 @@ public class StrategyAgent extends Agent {
 		}
 		/* Ajout du comportement d'achat */
 		this.addBehaviour(new StrategyBehaviour(this));
+		this.addBehaviour(new StrategyStop(this));
 	}
 	
 	

@@ -58,13 +58,10 @@ public class StrategyStart extends SimpleBehaviour {
 					int nbCDForClient = ClientAgent.quantiteMap.get(0)[0]; //5000
 					int nbDVDForClient = ClientAgent.quantiteMap.get(0)[1]; //4000
 
-
 					/************************************** ZONE CD ***************************************/
 
 					/* Le nombre de Cds que lon peut produire (au maximu et au pire) */
-					int nbCDCanWeProduce = (int) (BankerAgent.MONEY / ProducerAgent.CD_HIGHT_PRICE);
-					
-					System.out.println("On a "+BankerAgent.MONEY+" e et on peut produit "+nbCDCanWeProduce+" u a "+ProducerAgent.CD_HIGHT_PRICE+"e");
+					int nbCDCanWeProduce = (int) (BankerAgent.getMoney() / ProducerAgent.CD_HIGHT_PRICE);
 					
 					ACLMessage msgProduceCD = new ACLMessage(ACLMessage.INFORM);
 					msgProduceCD.setLanguage(StrategyBehaviour.codec.getName());
@@ -148,13 +145,19 @@ public class StrategyStart extends SimpleBehaviour {
 						myAgent.send(msgProduceCD);
 					}
 
+					
+					/* On attend la mis a jour de la banque */
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+					
 					/************************************** ZONE DVD ***************************************/
 
 					/* Le nombre de Cds que lon peut produire (au maximum et au pire) */
-					int nbDVDCanWeProduce = (int) (BankerAgent.MONEY / ProducerAgent.DVD_HIGHT_PRICE);
+					int nbDVDCanWeProduce = (int) (BankerAgent.getMoney() / ProducerAgent.DVD_HIGHT_PRICE);
 
-					System.out.println("On a "+BankerAgent.MONEY+" e et on peut produit "+nbDVDCanWeProduce+" u a "+ProducerAgent.DVD_HIGHT_PRICE+"e");
-					
 					ACLMessage msgProduceDVD = new ACLMessage(ACLMessage.INFORM);
 					msgProduceDVD.setLanguage(StrategyBehaviour.codec.getName());
 					msgProduceDVD.setOntology(StrategyBehaviour.onto.getName());
@@ -181,7 +184,7 @@ public class StrategyStart extends SimpleBehaviour {
 
 					// Si on a tout juste ce qui faut 
 					else if (stockDVD>=nbDVDForClient && stockDVD<nbDVDForClient+1000){
-
+						System.out.println("4");
 						
 						if (1000>nbDVDCanWeProduce) {
 

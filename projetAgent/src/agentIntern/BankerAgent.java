@@ -35,7 +35,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
  */
 public class BankerAgent extends Agent {
 
-	public static double MONEY = 25000;
+	private static double money = 25000;
 	
 	private ContentManager manager = (ContentManager)this.getContentManager();
 	private boolean arret;
@@ -88,7 +88,13 @@ public class BankerAgent extends Agent {
 	public void setArret(boolean arret) {
 		this.arret = arret;
 	}
-	
-	
+
+	public synchronized static double getMoney() {
+		return money;
+	}
+
+	public synchronized static void setMoney(double m) {
+		money = m;
+	}
 	
 }

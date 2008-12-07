@@ -12,7 +12,6 @@ import jade.lang.acl.MessageTemplate;
 import protege.CD;
 import protege.Disponible;
 import protege.Disque;
-import agentExtern.BusinessBehaviour;
 import agentFreedom.ClientAgent;
 
 public class ProduceDisc extends SimpleBehaviour {
@@ -37,13 +36,9 @@ public class ProduceDisc extends SimpleBehaviour {
 
 			try {
 				
-				System.out.println("RECEPTION DU PRODUCTEUR !!!");
-				
 				ce = ProducerBehaviour.manager.extractContent(msg);
 				
 				if (ce instanceof Disponible) {
-
-					System.out.println("RECEPTION DU PRODUCTEUR  : DISPO OK ");
 					
 					ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de produire des disques !");
 
@@ -51,8 +46,6 @@ public class ProduceDisc extends SimpleBehaviour {
 					Disque disc = ((Disponible)ce).getDisque();
 
 					if (disc instanceof CD) {
-
-						System.out.println("RECEPTION DU PRODUCTEUR  : CD ");
 						
 						StockManagerAgent.nosStockCD += nbDisc;
 						
@@ -60,44 +53,43 @@ public class ProduceDisc extends SimpleBehaviour {
 
 							ClientAgent.log.addText(this.myAgent.getName()+ " produit "+nbDisc+" CDs a "+ProducerAgent.CD_HIGHT_PRICE+" euro piece.");
 							
-							BankerAgent.MONEY -= ProducerAgent.CD_HIGHT_PRICE * nbDisc;
+							BankerAgent.setMoney(BankerAgent.getMoney() - ProducerAgent.CD_HIGHT_PRICE * nbDisc);
 
 						} else if (nbDisc>=100 & nbDisc<1000) {
 
 							ClientAgent.log.addText(this.myAgent.getName()+ " produit "+nbDisc+" CDs a "+ProducerAgent.CD_MEDIUM_PRICE+" euro piece.");
-							BankerAgent.MONEY -= ProducerAgent.CD_MEDIUM_PRICE * nbDisc;
+							BankerAgent.setMoney(BankerAgent.getMoney() - ProducerAgent.CD_MEDIUM_PRICE * nbDisc);
 
 						} else if (nbDisc>=1000) {
 
 							ClientAgent.log.addText(this.myAgent.getName()+ " produit "+nbDisc+" CDs a "+ProducerAgent.CD_LOW_PRICE+" euro piece.");
-							BankerAgent.MONEY -= ProducerAgent.CD_LOW_PRICE * nbDisc;
+							BankerAgent.setMoney(BankerAgent.getMoney() - ProducerAgent.CD_LOW_PRICE * nbDisc);
 						}
 						
 					} 
 
 					else {
 
-						System.out.println("RECEPTION DU PRODUCTEUR  : DVD ");
 						StockManagerAgent.nosStockDVD += nbDisc;
 						
 						if (nbDisc<100) {
 
 							ClientAgent.log.addText(this.myAgent.getName()+ " produit "+nbDisc+" DVDs a "+ProducerAgent.DVD_HIGHT_PRICE+" euro piece.");
-							BankerAgent.MONEY -= ProducerAgent.DVD_HIGHT_PRICE * nbDisc;
+							BankerAgent.setMoney(BankerAgent.getMoney() - ProducerAgent.DVD_HIGHT_PRICE * nbDisc);
 
 						} else if (nbDisc>=100 & nbDisc<1000) {
 
 							ClientAgent.log.addText(this.myAgent.getName()+ " produit "+nbDisc+" DVDs a "+ProducerAgent.DVD_MEDIUM_PRICE+" euro piece.");
-							BankerAgent.MONEY -= ProducerAgent.DVD_MEDIUM_PRICE * nbDisc;
+							BankerAgent.setMoney(BankerAgent.getMoney() - ProducerAgent.DVD_MEDIUM_PRICE * nbDisc);
 
 						} else if (nbDisc>=1000) {
 							ClientAgent.log.addText(this.myAgent.getName()+ " produit "+nbDisc+" DVDs a "+ProducerAgent.DVD_LOW_PRICE+" euro piece.");
-							BankerAgent.MONEY -= ProducerAgent.DVD_LOW_PRICE * nbDisc;
+							BankerAgent.setMoney(BankerAgent.getMoney() - ProducerAgent.DVD_LOW_PRICE * nbDisc);
 						}
 					}
 
 					ClientAgent.log.addText("Nos stock finaux sont desormais de : "+StockManagerAgent.nosStockCD+" CDs & "+StockManagerAgent.nosStockDVD+" DVDs.\n"+
-							"Et nous possedons "+BankerAgent.MONEY+" en banque.");
+							"Et nous possedons "+BankerAgent.getMoney()+" en banque.");
 				}
 
 			} catch (UngroundedException e) {

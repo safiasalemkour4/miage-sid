@@ -7,6 +7,7 @@ import jade.content.onto.OntologyException;
 import jade.content.onto.UngroundedException;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -28,7 +29,7 @@ import protege.NouvellePhase;
 import protege.OK;
 import protege.StopEverybody;
 
-public class StrategyStop extends SimpleBehaviour {
+public class StrategyStop extends CyclicBehaviour {
 
 
 	private static final long serialVersionUID = 1L;
@@ -108,6 +109,9 @@ public class StrategyStop extends SimpleBehaviour {
 						if (StrategyAgent.prixDVD<=ProducerAgent.DVD_HIGHT_PRICE) {
 							StrategyAgent.prixDVD = ProducerAgent.DVD_HIGHT_PRICE + 1.0;
 						}
+						
+						ClientAgent.log.addText("Nos prix finaux sont desormais de : "+StrategyAgent.prixCD+"e pr les CDs & "+StrategyAgent.prixDVD+"e pr les DVDs.\n"+
+								"Et nous possedons "+BankerAgent.getMoney()+" en banque.");
 					}
 					
 				} catch (UngroundedException e) {
@@ -121,11 +125,5 @@ public class StrategyStop extends SimpleBehaviour {
 		}
 
 	}
-
-	public boolean done() {
-
-		return true;
-	}
-
 
 }
