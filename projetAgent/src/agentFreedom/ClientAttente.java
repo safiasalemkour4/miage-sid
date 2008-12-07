@@ -7,12 +7,8 @@ import jade.core.behaviours.SimpleBehaviour;
  * @author Simon
  *
  */
+@SuppressWarnings("serial")
 public class ClientAttente extends SimpleBehaviour{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public ClientAttente(Agent myAgent) {
 		super(myAgent);
@@ -26,7 +22,7 @@ public class ClientAttente extends SimpleBehaviour{
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		
+
 	}
 
 	@Override

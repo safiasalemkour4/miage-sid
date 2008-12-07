@@ -12,12 +12,8 @@ import jade.lang.acl.ACLMessage;
  * @author Simon
  *
  */
+@SuppressWarnings("serial")
 public class ClientEnvoiPhase1 extends SimpleBehaviour{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public ClientEnvoiPhase1(Agent myAgent) {
 		super(myAgent);
@@ -35,17 +31,16 @@ public class ClientEnvoiPhase1 extends SimpleBehaviour{
 				msg.addReceiver(new AID(s,AID.ISGUID));
 				NouvellePhase nph = new NouvellePhase();
 				nph.setNumeroPhase(NouvellePhase.PHASE_PROD);
-				
+
 				ClientBehaviour.manager.fillContent(msg, nph);
 				myAgent.send(msg);
-			
+
 			} catch (OntologyException e) {
 				e.printStackTrace();
 			} catch (jade.content.lang.Codec.CodecException e) {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 
 	@Override

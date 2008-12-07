@@ -6,8 +6,6 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.JOptionPane;
-
 
 /*****************************************************************************************************
  *   					           ~ Projet Agent Powered Miage SID ~			         			 *
@@ -45,12 +43,8 @@ import javax.swing.JOptionPane;
  * 
  */
 
-
+@SuppressWarnings("serial")
 public class ClientAgent extends Agent {
-
-	/** Serial par defaut */
-	private static final long serialVersionUID = 1L;
-	  
 	public static String commercialElu;
 	public static HashMap<Integer, Integer[]> quantiteMap = new HashMap<Integer, Integer[]>(); 
 	private ArrayList<String> liste_vendeursCD = new ArrayList<String>();
@@ -74,8 +68,6 @@ public class ClientAgent extends Agent {
 		/* creation de l'interface "log" */
 		log = new LogUI(this);
 		/* Ajout du comportement d'achat */
-		int num_phase = 0;
-		
 		this.addBehaviour(new ClientDecouvreService(this));
 
 		ClientAgent.log.addText("Demarrage du client ... ");

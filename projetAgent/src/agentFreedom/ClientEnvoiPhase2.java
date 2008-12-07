@@ -11,14 +11,9 @@ import jade.lang.acl.ACLMessage;
 /**
  * Comportement Envoyant l'avis de phase 2 aux commerciaux
  * @author Simon
- * *
  */
+@SuppressWarnings("serial")
 public class ClientEnvoiPhase2 extends SimpleBehaviour{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public ClientEnvoiPhase2(Agent myAgent) {
 		super(myAgent);
@@ -26,8 +21,6 @@ public class ClientEnvoiPhase2 extends SimpleBehaviour{
 
 	@Override
 	public void action() {
-		
-	
 		/* Envoi Ã  tous les commerciaux du message leur indiquant d'arreter leur production et leurs achats */
 		for(String com : ClientAgent.commerciaux){
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
@@ -47,14 +40,11 @@ public class ClientEnvoiPhase2 extends SimpleBehaviour{
 			} catch (jade.content.lang.Codec.CodecException e) {
 				e.printStackTrace();
 			} 
-		}
-		
+		}	
 	}
 
 	@Override
 	public boolean done() {
-		// TODO Auto-generated method stub
 		return true;
 	}
-
 }

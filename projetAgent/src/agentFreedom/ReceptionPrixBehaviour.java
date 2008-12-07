@@ -5,7 +5,6 @@ import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
 import jade.content.onto.UngroundedException;
 import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -32,14 +31,11 @@ public class ReceptionPrixBehaviour extends SimpleBehaviour {
 	 */
 	@Override
 	public void action() {
-
-
 		MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 		ContentElement ce;
 
 		/* Si aucun message n'est recu en 300ms, le client est bloque ici */
 		try {
-
 			int prix_recus = 0;
 			while(prix_recus < ClientAgent.commerciaux.size()){
 				
@@ -73,13 +69,10 @@ public class ReceptionPrixBehaviour extends SimpleBehaviour {
 		} catch (OntologyException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
 	public boolean done() {
-		
 		return true;
 	}
-
 }

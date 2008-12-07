@@ -14,12 +14,8 @@ import jade.lang.acl.MessageTemplate;
  * @author Simon
  *
  */
+@SuppressWarnings("serial")
 public class ClientAttenteOK extends SimpleBehaviour{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public ClientAttenteOK(Agent myAgent) {
 		super(myAgent);

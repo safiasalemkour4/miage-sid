@@ -12,20 +12,14 @@ import java.util.Iterator;
 
 import protege.OntoCDOntology;
 
+@SuppressWarnings("serial")
 public class ClientDecouvreService extends SimpleBehaviour{
-
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public ClientDecouvreService(Agent myAgent) {
 		super(myAgent);
 	}
 
 	public void action(){
-		
 		/* Demander le nombre d'agents et leur nom au DF */
 		DFAgentDescription dfd = new DFAgentDescription();
 		/* Retrouver les agents dans un tableau */
@@ -40,10 +34,7 @@ public class ClientDecouvreService extends SimpleBehaviour{
 		ArrayList<String> vendeurs_cd = new ArrayList<String>();
 		ArrayList<String> vendeurs_dvd = new ArrayList<String>();
 		
-
 		for (int i = 0; i < result.length; i++) {
-			
-			
 			Iterator<?> iter = result[i].getAllServices();
 			/* On rÃ©cupÃ¨re toutes les descriptions de service */
 			while (iter.hasNext()) {
@@ -67,8 +58,6 @@ public class ClientDecouvreService extends SimpleBehaviour{
 		/* Stockage de la liste du commercial du client */
 		((ClientAgent)(this.myAgent)).setListe_vendeursCD(vendeurs_cd);
 		((ClientAgent)(this.myAgent)).setListe_vendeursDVD(vendeurs_dvd);
-		
-		
 	}
 
 	@Override
