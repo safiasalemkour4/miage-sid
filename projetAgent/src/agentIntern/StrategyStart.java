@@ -44,11 +44,11 @@ public class StrategyStart extends SimpleBehaviour {
 			ContentElement ce;
 
 			try {
-				
+
 				ce = StrategyBehaviour.manager.extractContent(msg);
-				
+
 				if (ce instanceof OK) {
-					
+
 					ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer la strategie !");
 
 					/* TODO : Pardon pr ca = msg demande informations */
@@ -63,6 +63,7 @@ public class StrategyStart extends SimpleBehaviour {
 					msgProduce.setOntology(StrategyBehaviour.onto.getName());
 
 					Disponible dispo = new Disponible();
+					Boolean produce = true;
 
 					// Si on a pas assez de CD
 					if (stockCD<nbCDForClient) {
@@ -81,7 +82,9 @@ public class StrategyStart extends SimpleBehaviour {
 					}
 
 					// Sinon on ne fait rien
-					else {}
+					else {
+						produce = false;
+					}
 
 					// Si on a pas assez de DVD
 					if (stockDVD<nbDVDForClient) {
@@ -100,44 +103,45 @@ public class StrategyStart extends SimpleBehaviour {
 					}
 
 					// Sinon on ne fait rien
-					else {}
-					
-					/* On recherche l'agent producteur et on lui envoit le message */
-
-					
-					DFAgentDescription dfd = new DFAgentDescription();
-					DFAgentDescription[] result = null;
-					try {
-						result = DFService.search(this.myAgent, dfd);
-					} catch (FIPAException e) {
-						e.printStackTrace();
+					else {
+						produce = false;
 					}
-					for (int i = 0; i<result.length; i++) {
-						
-						Iterator<Object> iter = result[i].getAllServices();
 
-						while (iter.hasNext()) {
+					if (produce) {
+						/* On recherche l'agent producteur et on lui envoit le message */
 
-							ServiceDescription sd =(ServiceDescription)iter.next();
 
-							if(sd.getType().equals("HCK_ProductionCD")){
-
-								System.out.println("a");
-								msgProduce.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
-								ClientAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production a "+sd.getOwnership());
-							}
-
+						DFAgentDescription dfd = new DFAgentDescription();
+						DFAgentDescription[] result = null;
+						try {
+							result = DFService.search(this.myAgent, dfd);
+						} catch (FIPAException e) {
+							e.printStackTrace();
 						}
+						for (int i = 0; i<result.length; i++) {
 
+							Iterator<Object> iter = result[i].getAllServices();
+
+							while (iter.hasNext()) {
+
+								ServiceDescription sd =(ServiceDescription)iter.next();
+
+								if(sd.getType().equals("HCK_ProductionCD")){
+
+									System.out.println("a");
+									msgProduce.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
+									ClientAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production a "+sd.getOwnership());
+								}
+
+							}
+						}
+						
+						StrategyBehaviour.manager.fillContent(msgProduce, dispo);
+
+						myAgent.send(msgProduce);
 					}
-					
-					StrategyBehaviour.manager.fillContent(msgProduce, dispo);
-					
-					myAgent.send(msgProduce);
-
 
 					StrategyAgent.currentRound++;
-
 				}
 			} catch (UngroundedException e) {
 				e.printStackTrace();
