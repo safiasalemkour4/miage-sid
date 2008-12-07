@@ -51,7 +51,7 @@ public class ProducerBehaviour extends SequentialBehaviour {
 		manager.registerLanguage(codec);
 	    manager.registerOntology(onto);
 		
-		this.addSubBehaviour(new ProduceCD(this.myAgent));
+		this.addSubBehaviour(new ProduceDisc(this.myAgent));
 		this.addSubBehaviour(new ProduceDVD(this.myAgent));
 		
 	}
