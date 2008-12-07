@@ -35,7 +35,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
  */
 public class BankerAgent extends Agent {
 
-	public static double money = 25000;
+	public static double MONEY = 25000;
 	
 	private ContentManager manager = (ContentManager)this.getContentManager();
 	private boolean arret;

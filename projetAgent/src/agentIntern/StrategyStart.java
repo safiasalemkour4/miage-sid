@@ -134,9 +134,8 @@ public class StrategyStart extends SimpleBehaviour {
 								ServiceDescription sd =(ServiceDescription)iter.next();
 
 								if(sd.getType().equals("HCK_ProductionCD")){
-									System.out.println("MESSAGE PR LES CD !!!!!!!");
 									msgProduceCD.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
-									ClientAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production a "+sd.getOwnership());
+									ClientAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production de CD a "+sd.getOwnership());
 								}
 
 							}
@@ -149,7 +148,7 @@ public class StrategyStart extends SimpleBehaviour {
 
 					/************************************** ZONE DVD ***************************************/
 
-					/* Le nombre de Cds que lon peut produire (au maximu et au pire) */
+					/* Le nombre de Cds que lon peut produire (au maximum et au pire) */
 					int nbDVDCanWeProduce = (int) (BankerAgent.money / ProducerAgent.DVD_HIGHT_PRICE);
 
 					ACLMessage msgProduceDVD = new ACLMessage(ACLMessage.INFORM);
@@ -219,9 +218,9 @@ public class StrategyStart extends SimpleBehaviour {
 								ServiceDescription sd =(ServiceDescription)iter.next();
 
 								if(sd.getType().equals("HCK_ProductionDVD")){
-									System.out.println("MESSAGE PR LES DVD !!!!!!!");
+
 									msgProduceDVD.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
-									ClientAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production a "+sd.getOwnership());
+									ClientAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production de DVD a "+sd.getOwnership());
 								}
 
 							}
