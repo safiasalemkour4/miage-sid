@@ -37,8 +37,8 @@ public class StockManagerAgent extends Agent {
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
 	
-	public static int nosStockCD;
-	public static int nosStockDVD;
+	public static int nosStockCD = 0;
+	public static int nosStockDVD = 0;
 	public static ContentManager manager;
 	public static Codec codec;
 	public static OntoCDOntology onto;
@@ -64,9 +64,6 @@ public class StockManagerAgent extends Agent {
 		
 		/* Enregistrement du service aupres du DF Agent */
 		dfd.addServices(sdStock);
-		
-		nosStockCD = 10000;
-		nosStockDVD = 10000;
 
 		try {
 
