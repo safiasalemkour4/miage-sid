@@ -15,9 +15,11 @@ public class BusinessVente extends SequentialBehaviour {
 		
 		// La vente est composée:
 		
-		//du processus de reception de demande de dispo et de requete au stock
-		this.addSubBehaviour(new BusinessReceptionDmdPara(this.myAgent));
-		// du processus de reception de la validation
+		// De la reception de demande de dispo et de requete au stock
+		this.addSubBehaviour(new BusinessReceptionDmdDispo(a));
+		// La reception de la réponse sur les stocks
+		this.addSubBehaviour(new BusinessReceptionStock(a));
+		// Du processus de reception de la validation
 		this.addSubBehaviour(new BusinessReceptionValider(this.myAgent));
 		
 	}
