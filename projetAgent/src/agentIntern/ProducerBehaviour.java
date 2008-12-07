@@ -53,7 +53,6 @@ public class ProducerBehaviour extends ParallelBehaviour {
 	    manager.registerOntology(onto);
 		
 		this.addSubBehaviour(new ProduceDisc(this.myAgent));
-		this.addSubBehaviour(new ProduceDisc(this.myAgent));
 	}
 
 

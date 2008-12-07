@@ -37,10 +37,14 @@ public class ProduceDisc extends SimpleBehaviour {
 
 			try {
 				
+				System.out.println("RECEPTION DU PRODUCTEUR !!!");
+				
 				ce = ProducerBehaviour.manager.extractContent(msg);
 				
 				if (ce instanceof Disponible) {
 
+					System.out.println("RECEPTION DU PRODUCTEUR  : DISPO OK ");
+					
 					ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de produire des disques !");
 
 					int nbDisc = ((Disponible)ce).getQte();
@@ -48,6 +52,8 @@ public class ProduceDisc extends SimpleBehaviour {
 
 					if (disc instanceof CD) {
 
+						System.out.println("RECEPTION DU PRODUCTEUR  : CD ");
+						
 						StockManagerAgent.nosStockCD += nbDisc;
 						
 						if (nbDisc<100) {
@@ -71,7 +77,7 @@ public class ProduceDisc extends SimpleBehaviour {
 
 					else {
 
-						
+						System.out.println("RECEPTION DU PRODUCTEUR  : DVD ");
 						StockManagerAgent.nosStockDVD += nbDisc;
 						
 						if (nbDisc<100) {

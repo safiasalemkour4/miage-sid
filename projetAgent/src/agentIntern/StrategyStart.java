@@ -90,7 +90,7 @@ public class StrategyStart extends SimpleBehaviour {
 					if (produceCD) {
 						
 						/* On recherche l'agent producteur et on lui envoit le message */
-						System.out.println("MESSAGE PR LES CD !!!!!!!");
+
 						
 						DFAgentDescription dfd = new DFAgentDescription();
 						DFAgentDescription[] result = null;
@@ -108,7 +108,7 @@ public class StrategyStart extends SimpleBehaviour {
 								ServiceDescription sd =(ServiceDescription)iter.next();
 
 								if(sd.getType().equals("HCK_ProductionCD")){
-
+									System.out.println("MESSAGE PR LES CD !!!!!!!");
 									msgProduceCD.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
 									ClientAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production a "+sd.getOwnership());
 								}
@@ -131,13 +131,13 @@ public class StrategyStart extends SimpleBehaviour {
 					// Si on a pas assez de DVD
 					if (stockDVD<nbDVDForClient) {
 
-						// Send msg to produceur pour nbCDForClient-stockDVD + 1000
+						// Send msg to produceur pour nbDVDForClient-stockDVD + 1000
 						dispoDVD.setDisque(new DVD());
 						dispoDVD.setQte(nbDVDForClient-stockDVD+1000);
 					} 
 
 					// Si on a tout juste ce qui faut 
-					else if (stockCD>=nbDVDForClient && stockDVD<nbCDForClient+1000){
+					else if (stockDVD>=nbDVDForClient && stockDVD<nbDVDForClient+1000){
 
 						// Send msg to produceur pr 1000
 						dispoDVD.setDisque(new DVD());
@@ -151,7 +151,7 @@ public class StrategyStart extends SimpleBehaviour {
 
 					if (produceDVD) {
 						/* On recherche l'agent producteur et on lui envoit le message */
-						System.out.println("MESSAGE PR LES DVD !!!!!!!");
+
 
 						DFAgentDescription dfd = new DFAgentDescription();
 						DFAgentDescription[] result = null;
@@ -168,8 +168,8 @@ public class StrategyStart extends SimpleBehaviour {
 
 								ServiceDescription sd =(ServiceDescription)iter.next();
 
-								if(sd.getType().equals("HCK_ProductionCD")){
-
+								if(sd.getType().equals("HCK_ProductionDVD")){
+									System.out.println("MESSAGE PR LES DVD !!!!!!!");
 									msgProduceDVD.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
 									ClientAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production a "+sd.getOwnership());
 								}
