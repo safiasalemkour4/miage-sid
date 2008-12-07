@@ -75,20 +75,6 @@ public class StrategyStop extends SimpleBehaviour {
 						}
 					}
 					
-					/*
-					•	La production d’un CD coute :
-						o	3€ pour moins de 100 unités.
-						o	2,5€ pour moins de 1000.
-						o	2€ pour 1000 et plus.
-						
-						•	La production d’un DVD coute 
-						o	6€ pour moins de 100 unités.
-						o	5€ pour moins de 1000.
-						o	4€ pour 1000 et plus.
-*/
-				
-					StrategyAgent.currentRound++;
-					
 				} catch (UngroundedException e) {
 					e.printStackTrace();
 				} catch (CodecException e) {
