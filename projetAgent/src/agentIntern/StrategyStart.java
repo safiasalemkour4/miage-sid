@@ -58,9 +58,9 @@ public class StrategyStart extends SimpleBehaviour {
 					int nbCDForClient = ClientAgent.quantiteMap.get(0)[0];
 					int nbDVDForClient = 0; // TODO ClientAgent.quantiteMap.get(0)[0];
 
-					ACLMessage msgDmdStock = new ACLMessage(ACLMessage.REQUEST);
-					msgDmdStock.setLanguage(StrategyBehaviour.codec.getName());
-					msgDmdStock.setOntology(StrategyBehaviour.onto.getName());
+					ACLMessage msgProduce = new ACLMessage(ACLMessage.INFORM);
+					msgProduce.setLanguage(StrategyBehaviour.codec.getName());
+					msgProduce.setOntology(StrategyBehaviour.onto.getName());
 
 					Disponible dispo = new Disponible();
 
@@ -122,17 +122,18 @@ public class StrategyStart extends SimpleBehaviour {
 
 							if(sd.getType().equals("HCK_ProductionCD")){
 
-								msgDmdStock.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
-								ClientAgent.log.addText(this.myAgent.getLocalName()+" envoi dispo a "+sd.getOwnership());
+								System.out.println("a");
+								msgProduce.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
+								ClientAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production a "+sd.getOwnership());
 							}
 
 						}
 
 					}
 					
-					StrategyBehaviour.manager.fillContent(msgDmdStock, dispo);
+					StrategyBehaviour.manager.fillContent(msgProduce, dispo);
 					
-					myAgent.send(msgDmdStock);
+					myAgent.send(msgProduce);
 
 
 					StrategyAgent.currentRound++;

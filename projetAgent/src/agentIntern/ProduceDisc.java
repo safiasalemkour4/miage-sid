@@ -5,29 +5,15 @@ import jade.content.ContentElement;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
 import jade.content.onto.UngroundedException;
-import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
-import jade.domain.DFService;
-import jade.domain.FIPAException;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import agentExtern.BusinessAgent;
-import agentExtern.BusinessBehaviour;
-import agentFreedom.ClientAgent;
-
 import protege.CD;
 import protege.Disponible;
 import protege.Disque;
-import protege.NouvellePhase;
-import protege.OK;
-import protege.StopEverybody;
+import agentExtern.BusinessBehaviour;
+import agentFreedom.ClientAgent;
 
 public class ProduceDisc extends SimpleBehaviour {
 
