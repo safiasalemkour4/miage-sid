@@ -37,7 +37,7 @@ public class ProduceDisc extends SimpleBehaviour {
 
 			try {
 				
-				ce = BusinessBehaviour.manager.extractContent(msg);
+				ce = ProducerBehaviour.manager.extractContent(msg);
 				
 				if (ce instanceof Disponible) {
 
