@@ -39,7 +39,6 @@ public class LogBehaviour extends SimpleBehaviour {
 
 	public void action() {
 
-
 	}
 
 	public boolean done() {

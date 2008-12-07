@@ -23,7 +23,4 @@ public class BusinessVente extends SequentialBehaviour {
 		this.addSubBehaviour(new BusinessReceptionValider(this.myAgent));
 		
 	}
-	
-	
-
 }

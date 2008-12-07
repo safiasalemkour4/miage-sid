@@ -7,7 +7,6 @@ import jade.content.onto.OntologyException;
 import jade.content.onto.UngroundedException;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import protege.CD;
@@ -104,8 +103,4 @@ public class ProduceDisc extends CyclicBehaviour {
 		}
 
 	}
-
-	
-
-
 }

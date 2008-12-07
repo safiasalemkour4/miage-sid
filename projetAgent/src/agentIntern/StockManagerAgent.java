@@ -1,6 +1,4 @@
 package agentIntern;
-import protege.OntoCDOntology;
-import agentExtern.RecevoirStop;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
@@ -9,6 +7,7 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import protege.OntoCDOntology;
 
 /*****************************************************************************************************
  *   					           ~ Projet Agent Powered Miage SID ~			         			 *
@@ -50,8 +49,6 @@ public class StockManagerAgent extends Agent {
 	
 	public void setup() {
 	    
-		
-		
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
@@ -84,8 +81,6 @@ public class StockManagerAgent extends Agent {
 	    /* Ajout du comportement d'envoi de dispo et de recevoir stop */
 	    //this.addBehaviour(new RecevoirStop(this));
 		this.addBehaviour(new StockEnvoiDispo(this));
-		
-		
 		
 	}
 

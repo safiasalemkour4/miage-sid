@@ -1,26 +1,14 @@
 package agentIntern;
 
 
-import protege.NouvellePhase;
-import protege.OK;
-import protege.OntoCDOntology;
-import agentExtern.BusinessBehaviour;
-import agentExtern.BusinessReceptionDmdDispo;
-import agentExtern.BusinessReceptionStock;
-import agentExtern.RecevoirNvPhase;
-import agentFreedom.ClientAgent;
-import jade.content.ContentElement;
 import jade.content.ContentManager;
 import jade.content.lang.Codec;
-import jade.content.lang.Codec.CodecException;
 import jade.content.lang.sl.SLCodec;
-import jade.content.onto.OntologyException;
-import jade.content.onto.UngroundedException;
 import jade.core.Agent;
 import jade.core.behaviours.SequentialBehaviour;
-import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import protege.OntoCDOntology;
 
 /*****************************************************************************************************
  *   					           ~ Projet Agent Powered Miage SID ~			         			 *
@@ -68,7 +56,4 @@ public class StrategyBehaviour extends SequentialBehaviour {
 		
 
 	}
-
-	
-
 }

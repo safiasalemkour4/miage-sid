@@ -24,14 +24,10 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 	private static final long serialVersionUID = 1L;
 	private static final MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 
-
-
 	public StockEnvoiDispo(Agent a) {
 		super(a);
 
 	}
-
-
 
 	@Override
 	public void action() {
@@ -105,9 +101,6 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 				e.printStackTrace();
 			}
 
-
 		}
-
 	}
-
 }

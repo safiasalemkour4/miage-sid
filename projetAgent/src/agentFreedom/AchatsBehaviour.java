@@ -14,9 +14,9 @@ import protege.Disque;
 /**
  * Comportement d'achat. Va envoyer une demande de prix à chacun des commerciaux connus
  * par le client
- * @author Maxime HOEFFEL
  *
  */
+
 @SuppressWarnings("serial")
 public class AchatsBehaviour extends SimpleBehaviour {
 	private Disque disque;

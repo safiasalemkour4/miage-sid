@@ -13,6 +13,7 @@ public class BusinessBehaviour extends SequentialBehaviour {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	public static ContentManager manager;
 	public static Codec codec;
 	public static OntoCDOntology onto;
@@ -44,17 +45,6 @@ public class BusinessBehaviour extends SequentialBehaviour {
 		// Vente de 1000 DVD
 		this.addSubBehaviour(new BusinessVente(this.myAgent));
 		
-			
-			
-			
-		
-
-
 	}
-
-
-
-
-
 
 }

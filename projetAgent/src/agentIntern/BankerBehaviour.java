@@ -41,7 +41,6 @@ public class BankerBehaviour extends SimpleBehaviour {
 
 	public void action() {
 
-
 	}
 
 	public boolean done() {

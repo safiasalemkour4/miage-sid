@@ -54,9 +54,5 @@ public class ClientBehaviour extends SequentialBehaviour {
 		// Achat de 800 DVDs
 		this.addSubBehaviour(new Achat(this.myAgent, new DVD(), 800));
 		
-	}
-
-	
-	
-	
+	}	
 }

@@ -32,8 +32,6 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
  * Recoit une demande de dispo de CD de la part du client
  * Renvoit ses disponibilite (le prix)
  * Si il recoit une validationAchat du client - > met a jour agentBDD
- * 
- * 
  */
 
 public class BusinessAgent extends Agent {
@@ -43,6 +41,7 @@ public class BusinessAgent extends Agent {
 	
 	/** Serial par defaut */
 	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<String> listeNosAgents;
 	public static int qteCourante;
 	public static Disque discCourant;
@@ -57,7 +56,7 @@ public class BusinessAgent extends Agent {
 		/*Déclaration du tableau contenant la liste de nos agents*/
 		listeNosAgents = new ArrayList<String>();
 		
-		/* Ajout du comportement d'achat */
+		/* Ajout du comportement */
 		
 		this.addBehaviour(new BusinessDecouvreService(this));
 		
@@ -100,16 +99,10 @@ public class BusinessAgent extends Agent {
 		
 		this.addBehaviour(new BusinessRoot(this));
 		
-	
-		
-		
-		
-		
 	}
 
 	public ArrayList<String> getListeNosAgents() {
 		return listeNosAgents;
 	}
-	
 	
 }

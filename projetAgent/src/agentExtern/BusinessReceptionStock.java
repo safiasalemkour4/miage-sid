@@ -33,7 +33,6 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 	@Override
 	public void action() {
 
-		
 			ACLMessage msg = this.myAgent.blockingReceive(mt);
 			
 			if (msg != null) {
@@ -90,20 +89,12 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 			}
-			
-
-
 	}
 
 	@Override
 	public boolean done() {
-		// TODO Auto-generated method stub
+		
 		return true;
 	}
-
-
-
-
 }

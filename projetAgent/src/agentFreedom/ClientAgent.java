@@ -71,10 +71,7 @@ public class ClientAgent extends Agent {
 		this.addBehaviour(new ClientDecouvreService(this));
 
 		ClientAgent.log.addText("Demarrage du client ... ");
-
-		
-		
-	    
+  
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(this.getAID());
@@ -147,8 +144,5 @@ public class ClientAgent extends Agent {
 	public HashMap<String, Double> getPrix_dvds() {
 		return prix_dvds;
 	}
-	
-	
-
 
 }

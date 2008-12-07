@@ -32,15 +32,11 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 
 	}
 
-
-
-	
 	public void action() {
 
 		//System.out.println(myAgent.getName()+ " est en attente de recevoir un message de phase");
 		
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
-		
 		
 		if (msg != null) {
 
@@ -130,39 +126,19 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 				}
 				
 			} catch (UngroundedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (CodecException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (OntologyException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-
 		}
-
 	}
-
-
-
 
 	@Override
 	public boolean done() {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
-
-
-
-	
-
-
-
-	
-
-
-
 }

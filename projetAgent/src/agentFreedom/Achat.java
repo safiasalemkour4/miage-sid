@@ -8,6 +8,7 @@ import jade.core.behaviours.SequentialBehaviour;
 
 @SuppressWarnings("serial")
 public class Achat extends SequentialBehaviour {
+	
 	/**
 	 * Constructeur
 	 * @param a agent

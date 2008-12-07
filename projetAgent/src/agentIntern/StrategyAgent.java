@@ -1,12 +1,9 @@
 package agentIntern;
-import jade.content.ContentManager;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import agentExtern.BuyBehaviour;
-import agentExtern.RecevoirStop;
 
 
 
@@ -71,9 +68,5 @@ public class StrategyAgent extends Agent {
 		this.addBehaviour(new StrategyBehaviour(this));
 		this.addBehaviour(new StrategyStop(this));
 	}
-	
-	
-
-	
 	
 }

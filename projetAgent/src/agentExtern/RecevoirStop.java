@@ -31,7 +31,6 @@ public class RecevoirStop extends CyclicBehaviour {
 
 	}
 
-
 	@Override
 	public void action() {
 
@@ -41,7 +40,6 @@ public class RecevoirStop extends CyclicBehaviour {
 		if (msg != null) {
 
 			ContentElement ce;
-
 
 			try {
 				ce = manager.extractContent(msg);
@@ -56,22 +54,9 @@ public class RecevoirStop extends CyclicBehaviour {
 			} catch (OntologyException e) {
 				e.printStackTrace();
 			}
-
-
 		}
 
-
-
-
-
-
-
-
 	}
-
-
-
-
 
 }
 

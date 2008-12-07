@@ -63,7 +63,4 @@ public class ClientEnvoiValider extends SimpleBehaviour{
 	public boolean done() {
 		return true;
 	}
-
-
-
 }

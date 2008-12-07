@@ -5,8 +5,6 @@ import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
 import jade.core.behaviours.ParallelBehaviour;
-import jade.core.behaviours.SequentialBehaviour;
-import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import protege.OntoCDOntology;
@@ -54,6 +52,5 @@ public class ProducerBehaviour extends ParallelBehaviour {
 		
 		this.addSubBehaviour(new ProduceDisc(this.myAgent));
 	}
-
 
 }

@@ -8,7 +8,6 @@ import jade.content.onto.UngroundedException;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.SimpleBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -86,8 +85,6 @@ public class StrategyStart extends CyclicBehaviour {
 							dispoCD.setDisque(new CD());
 							dispoCD.setQte(nbCDForClient-stockCD+1000);
 						}
-
-
 					} 
 
 					// Si on a tout juste ce qu'il faut 
@@ -253,8 +250,5 @@ public class StrategyStart extends CyclicBehaviour {
 		}
 
 	}
-
-	
-
 
 }

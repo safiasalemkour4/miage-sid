@@ -21,8 +21,6 @@ public class ClientAttenteOK extends SimpleBehaviour{
 		super(myAgent);
 	}
 
-	
-
 	@Override
 	public void action() {
 

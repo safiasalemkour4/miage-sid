@@ -1,7 +1,5 @@
 package agentExtern;
 
-import jade.content.lang.Codec;
-import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.domain.DFService;
@@ -9,11 +7,8 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import protege.OntoCDOntology;
 
 /*****************************************************************************************************
  *   					           ~ Projet Agent Powered Miage SID ~			         			 *
@@ -149,6 +144,7 @@ public class BusinessDecouvreService extends SimpleBehaviour {
 				}
 			}
 		}
+		
 		System.out.println("Liste des agents que le commercial connait : ");
 		for (int i = 0; i < ((BusinessAgent)this.myAgent).getListeNosAgents().size(); i++) {
 			String ag = ((BusinessAgent)this.myAgent).getListeNosAgents().get(i);

@@ -74,7 +74,7 @@ public class SellBehaviour extends SimpleBehaviour {
 			}
 
 		}
-		//System.out.println("Message recut : "+msg.getContent());
+
 	}
 
 	public boolean done() {

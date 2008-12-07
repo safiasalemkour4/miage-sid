@@ -20,8 +20,5 @@ public class BusinessRecepNvPhaseParallele extends ParallelBehaviour {
 		this.addSubBehaviour(new RecevoirNvPhase(a));
 		
 	}
-	
-	
-	
 
 }

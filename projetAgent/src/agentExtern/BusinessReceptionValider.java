@@ -31,15 +31,12 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 	@Override
 	public void action() {
 		
-		
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
-		
 		
 		if (msg != null) {
 
 			ContentElement ce;
 			
-
 			try {
 				
 				ce = BusinessBehaviour.manager.extractContent(msg);
@@ -63,16 +60,12 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 							BankerAgent.setMoney(BankerAgent.getMoney() + val.getQté()*StrategyAgent.prixDVD);
 							StockManagerAgent.nosStockDVD -= val.getQté();
 						}
-						
-						
-					
+
 					}
 					else{
 						ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse négative du client");
 						
-					}
-					
-					
+					}	
 				}
 			} catch (CodecException e) {
 				e.printStackTrace();
@@ -80,10 +73,8 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 				e.printStackTrace();
 			}
 
-
 		}
 		
-
 	}
 
 	@Override

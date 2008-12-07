@@ -5,8 +5,6 @@ import jade.core.behaviours.SequentialBehaviour;
 
 public class BusinessRoot extends SequentialBehaviour{
 
-	
-	
 	/**
 	 * 
 	 */
@@ -19,14 +17,7 @@ public class BusinessRoot extends SequentialBehaviour{
 			this.addSubBehaviour(new BusinessBehaviour(this.myAgent));
 		
 		}
-		
-		
 
-		
 	}
 
-	
-
-	
-	
 }
