@@ -48,18 +48,18 @@ public class StrategyStop extends CyclicBehaviour {
 						if (StrategyAgent.currentRound == StrategyAgent.lastRoundWinForCD) {
 							
 						} 
-						// Si ca fait 5 rounds qu'on a rien vendu alors on baisse le prix (un peu : -10%)
+						// Si ca fait 1 rounds qu'on a rien vendu alors on baisse le prix (un peu : -10%)
 						else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForCD && StrategyAgent.currentRound < StrategyAgent.lastRoundWinForCD + 5){
 							
 							StrategyAgent.prixCD -= StrategyAgent.prixCD*0.1;
 							
 						}
-						// Si ca fait 10 rounds qu'on a rien vendu alors on baisse le prix (moyennement : -25%)
-						else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForCD && StrategyAgent.currentRound < StrategyAgent.lastRoundWinForCD + 10){
+						// Si ca fait 5 rounds qu'on a rien vendu alors on baisse le prix (moyennement : -25%)
+						else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForCD +5 && StrategyAgent.currentRound < StrategyAgent.lastRoundWinForCD + 10){
 							StrategyAgent.prixCD -= StrategyAgent.prixCD*0.25;
 						} 
 						// Si ca fait plus de 10 round qu'on a rien vendu alors on baisse le prix (fortement : -50%)
-						else {
+						else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForCD + 10) {
 							StrategyAgent.prixCD -= StrategyAgent.prixCD*0.50;
 						}
 						
@@ -74,18 +74,18 @@ public class StrategyStop extends CyclicBehaviour {
 						if (StrategyAgent.currentRound == StrategyAgent.lastRoundWinForDVD) {
 							
 						} 
-						// Si ca fait 5 rounds qu'on a rien vendu alors on baisse le prix (un peu : -10%)
+						// Si ca fait 1 rounds qu'on a rien vendu alors on baisse le prix (un peu : -10%)
 						else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForDVD && StrategyAgent.currentRound < StrategyAgent.lastRoundWinForDVD + 5){
 							
 							StrategyAgent.prixDVD -= StrategyAgent.prixDVD*0.1;
 							
 						}
 						// Si ca fait 10 rounds qu'on a rien vendu alors on baisse le prix (moyennement : -25%)
-						else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForCD && StrategyAgent.currentRound < StrategyAgent.lastRoundWinForDVD + 10){
+						else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForDVD +5 && StrategyAgent.currentRound < StrategyAgent.lastRoundWinForDVD + 10){
 							StrategyAgent.prixDVD -= StrategyAgent.prixDVD*0.25;
 						} 
 						// Si ca fait plus de 10 round qu'on a rien vendu alors on baisse le prix (fortement : -50%)
-						else {
+						else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForDVD + 10) {
 							StrategyAgent.prixDVD -= StrategyAgent.prixDVD*0.50;
 						}
 						
