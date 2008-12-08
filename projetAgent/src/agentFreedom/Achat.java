@@ -22,11 +22,11 @@ public class Achat extends SequentialBehaviour {
 		this.addSubBehaviour(new ReceptionPrixBehaviour(this.myAgent));
         if (disque instanceof CD) {
             // On compare les prix des CDs
-            this.addSubBehaviour(new ClientComparatifCD(this.myAgent));
+            this.addSubBehaviour(new ClientComparatifCDa(this.myAgent));
         }
         else if (disque instanceof DVD) {
             // On compare les prix des DVDs
-            this.addSubBehaviour(new ClientComparatifDVD(this.myAgent));
+            this.addSubBehaviour(new ClientComparatifDVDa(this.myAgent));
         }
 		// On envoi valider au commercial élu
 		this.addSubBehaviour(new ClientEnvoiValider(this.myAgent, disque, quantite));
