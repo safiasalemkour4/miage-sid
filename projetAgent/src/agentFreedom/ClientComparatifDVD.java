@@ -6,9 +6,9 @@ import jade.core.behaviours.SimpleBehaviour;
 import java.util.HashMap;
 
 @SuppressWarnings("serial")
-public class ClientComparatifDVDa extends SimpleBehaviour {
+public class ClientComparatifDVD extends SimpleBehaviour {
 
-	public ClientComparatifDVDa(Agent a) {
+	public ClientComparatifDVD(Agent a) {
 		super(a);
 	}
 
