@@ -13,6 +13,7 @@ import protege.CD;
 import protege.Disponible;
 import protege.Disque;
 import protege.ReponseDisponibilite;
+import agentExtern.BusinessAgent;
 import agentExtern.BusinessBehaviour;
 import agentFreedom.ClientAgent;
 
@@ -44,7 +45,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 				
 				ce = BusinessBehaviour.manager.extractContent(msg);
 				if (ce instanceof Disponible) {
-					ClientAgent.log.addText(this.myAgent.getLocalName()+" a recu une dmd de dispo");
+					BusinessAgent.log.addText(this.myAgent.getLocalName()+" a recu une dmd de dispo");
 					double qté = ((Disponible)ce).getQte();
 					Disque disc = ((Disponible)ce).getDisque();
 
@@ -60,7 +61,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 						}
 					}
 					else{
-						int nosStockDVD = StockManagerAgent.nosStockCD;
+						int nosStockDVD = StockManagerAgent.nosStockDVD;
 						if(nosStockDVD < qté){
 
 							notrePrix = -1;
@@ -81,7 +82,7 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 					repDispo.setPrix(notrePrix);
 
 					msgRepStock.addReceiver(new AID(msg.getSender().getName(),AID.ISGUID));
-					ClientAgent.log.addText(this.myAgent.getLocalName()+" envoi réponse a "+msg.getSender().getLocalName());
+					BusinessAgent.log.addText(this.myAgent.getLocalName()+" envoi réponse a "+msg.getSender().getLocalName());
 					
 					
 					StockManagerAgent.manager.fillContent(msgRepStock, repDispo);
@@ -91,13 +92,13 @@ public class StockEnvoiDispo extends CyclicBehaviour {
 					
 				}
 			} catch (UngroundedException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			} catch (CodecException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			} catch (OntologyException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 

@@ -21,6 +21,7 @@ import protege.CD;
 import protege.DVD;
 import protege.Disponible;
 import protege.OK;
+import agentExtern.BusinessAgent;
 import agentFreedom.ClientAgent;
 
 public class StrategyStart extends CyclicBehaviour {
@@ -40,7 +41,7 @@ public class StrategyStart extends CyclicBehaviour {
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
 
 		if (msg != null) {
-
+			
 			ContentElement ce;
 
 			try {
@@ -48,15 +49,15 @@ public class StrategyStart extends CyclicBehaviour {
 				ce = StrategyBehaviour.manager.extractContent(msg);
 
 				if (ce instanceof OK) {
-
-					ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer la strategie !");
+					
+					BusinessAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer la strategie !");
 
 					/* Demande d'informations sur les stocks */
 					int stockCD = StockManagerAgent.nosStockCD;
 					int stockDVD = StockManagerAgent.nosStockDVD;
 
-					int nbCDForClient = ClientAgent.quantiteMap.get(0)[0]; //5000
-					int nbDVDForClient = ClientAgent.quantiteMap.get(0)[1]; //4000
+					int nbCDForClient = 5000; //ClientAgent.quantiteMap.get(0)[0]; //5000
+					int nbDVDForClient = 4000; //ClientAgent.quantiteMap.get(0)[1]; //4000
 
 					/************************************** ZONE CD ***************************************/
 
@@ -131,8 +132,9 @@ public class StrategyStart extends CyclicBehaviour {
 								ServiceDescription sd =(ServiceDescription)iter.next();
 
 								if(sd.getType().equals("HCK_ProductionCD")){
+				
 									msgProduceCD.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
-									ClientAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production de CD a "+sd.getOwnership());
+									BusinessAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production de CD a "+sd.getOwnership());
 								}
 
 							}
@@ -182,7 +184,7 @@ public class StrategyStart extends CyclicBehaviour {
 
 					// Si on a tout juste ce qui faut 
 					else if (stockDVD>=nbDVDForClient && stockDVD<nbDVDForClient+1000){
-						System.out.println("4");
+
 						
 						if (1000>nbDVDCanWeProduce) {
 
@@ -223,9 +225,9 @@ public class StrategyStart extends CyclicBehaviour {
 								ServiceDescription sd =(ServiceDescription)iter.next();
 
 								if(sd.getType().equals("HCK_ProductionDVD")){
-
+								
 									msgProduceDVD.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
-									ClientAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production de DVD a "+sd.getOwnership());
+									BusinessAgent.log.addText(this.myAgent.getLocalName()+" envoie une demande de production de DVD a "+sd.getOwnership());
 								}
 
 							}
@@ -238,6 +240,63 @@ public class StrategyStart extends CyclicBehaviour {
 
 					/* Important : On met a jour le  round */
 					StrategyAgent.currentRound++;
+					
+					BusinessAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de stoper la strategie !");
+					
+					/************************************** ZONE CD ***************************************/
+					
+					// Si on a reussit a vendre a ce prix alors on continu
+					if (StrategyAgent.currentRound == StrategyAgent.lastRoundWinForCD) {
+						
+					} 
+					// Si ca fait 1 rounds qu'on a rien vendu alors on baisse le prix (un peu : -10%)
+					else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForCD && StrategyAgent.currentRound < StrategyAgent.lastRoundWinForCD + 5){
+						
+						StrategyAgent.prixCD -= StrategyAgent.prixCD*0.1;
+						
+					}
+					// Si ca fait 5 rounds qu'on a rien vendu alors on baisse le prix (moyennement : -25%)
+					else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForCD +5 && StrategyAgent.currentRound < StrategyAgent.lastRoundWinForCD + 10){
+						StrategyAgent.prixCD -= StrategyAgent.prixCD*0.25;
+					} 
+					// Si ca fait plus de 10 round qu'on a rien vendu alors on baisse le prix (fortement : -50%)
+					else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForCD + 10) {
+						StrategyAgent.prixCD -= StrategyAgent.prixCD*0.50;
+					}
+					
+					// Permet de ne pas vendre a perte
+					if (StrategyAgent.prixCD<=ProducerAgent.CD_HIGHT_PRICE) {
+						StrategyAgent.prixCD = ProducerAgent.CD_HIGHT_PRICE + 1.0;
+					}
+					
+					/************************************** ZONE DVD ***************************************/
+					
+					// Si on a reussit a vendre a ce prix alors on continu
+					if (StrategyAgent.currentRound == StrategyAgent.lastRoundWinForDVD) {
+						
+					} 
+					// Si ca fait 1 rounds qu'on a rien vendu alors on baisse le prix (un peu : -10%)
+					else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForDVD && StrategyAgent.currentRound < StrategyAgent.lastRoundWinForDVD + 5){
+						
+						StrategyAgent.prixDVD -= StrategyAgent.prixDVD*0.1;
+						
+					}
+					// Si ca fait 10 rounds qu'on a rien vendu alors on baisse le prix (moyennement : -25%)
+					else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForDVD +5 && StrategyAgent.currentRound < StrategyAgent.lastRoundWinForDVD + 10){
+						StrategyAgent.prixDVD -= StrategyAgent.prixDVD*0.25;
+					} 
+					// Si ca fait plus de 10 round qu'on a rien vendu alors on baisse le prix (fortement : -50%)
+					else if (StrategyAgent.currentRound > StrategyAgent.lastRoundWinForDVD + 10) {
+						StrategyAgent.prixDVD -= StrategyAgent.prixDVD*0.50;
+					}
+					
+					// Permet de ne pas vendre a perte
+					if (StrategyAgent.prixDVD<=ProducerAgent.DVD_HIGHT_PRICE) {
+						StrategyAgent.prixDVD = ProducerAgent.DVD_HIGHT_PRICE + 1.0;
+					}
+					
+					BusinessAgent.log.addText("Nos prix finaux sont desormais de : "+StrategyAgent.prixCD+"e pr les CDs & "+StrategyAgent.prixDVD+"e pr les DVDs.\n"+
+							"Et nous possedons "+BankerAgent.getMoney()+" en banque.");
 				}
 			} catch (UngroundedException e) {
 				e.printStackTrace();

@@ -7,18 +7,19 @@ import jade.content.onto.OntologyException;
 import jade.content.onto.UngroundedException;
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
+import jade.domain.DFService;
+import jade.domain.FIPAException;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 import java.util.ArrayList;
-
-import agentFreedom.ClientAgent;
+import java.util.Iterator;
 
 import protege.NouvellePhase;
 import protege.OK;
-import protege.StopEverybody;
 
 public class RecevoirNvPhase extends SimpleBehaviour {
 
@@ -33,8 +34,6 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 	}
 
 	public void action() {
-
-		//System.out.println(myAgent.getName()+ " est en attente de recevoir un message de phase");
 		
 		ACLMessage msg = this.myAgent.blockingReceive(mt);
 		
@@ -59,31 +58,9 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 					if(!clientpresent) listagent.add(msg.getSender().getName());
 					
 					if(numPhase == 2){
-						ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer phase 2");
-						// Nous devons envoyer a tous nos agent qu'ils doivent s'arreter
-						ACLMessage msgArret = new ACLMessage(ACLMessage.INFORM);
-						msgArret.setLanguage(BusinessBehaviour.codec.getName());
-						msgArret.setOntology(BusinessBehaviour.onto.getName());
-						StopEverybody stop = new StopEverybody();
-
-						ArrayList<String> listAgent = ((BusinessAgent)this.myAgent).getListeNosAgents();
-
-						for(int i = 0;i<listAgent.size();i++){
-							if(!listAgent.get(i).contains("hck_business_agent") && !listAgent.get(i).contains("client") ){
-								ClientAgent.log.addText("Envoi de l'ordre de s'arreter à "+listAgent.get(i));
-								msgArret.addReceiver(new AID(listAgent.get(i),AID.ISGUID));
-							}
-						}
-
-						try {
-							BusinessBehaviour.manager.fillContent(msgArret, stop);
-							myAgent.send(msgArret);
-						} catch (CodecException e) {
-							e.printStackTrace();
-						} catch (OntologyException e) {
-							e.printStackTrace();
-						}
-
+						BusinessAgent.log.addText("------------> Phase 2");
+						BusinessAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer phase 2");
+			
 						ACLMessage msgOK = new ACLMessage(ACLMessage.INFORM);
 						msgOK.setLanguage(BusinessBehaviour.codec.getName());
 						msgOK.setOntology(BusinessBehaviour.onto.getName());
@@ -91,13 +68,13 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 						BusinessBehaviour.manager.fillContent(msgOK, ok);
 						msgOK.addReceiver(new AID(msg.getSender().getName(),AID.ISGUID));
 						myAgent.send(msgOK);
-						ClientAgent.log.addText("Le commerciale a envoyé OK a "+msg.getSender().getName());
+						BusinessAgent.log.addText("Le commerciale a envoyé OK a "+msg.getSender().getName());
 
 					}
 					else{
-						
+						BusinessAgent.log.addText("------------> Phase 1");
 						/* Si numPhase = 1 */
-						ClientAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer phase 1");
+						BusinessAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer phase 1");
 
 						ACLMessage msgOK = new ACLMessage(ACLMessage.INFORM);
 						msgOK.setLanguage(BusinessBehaviour.codec.getName());
@@ -105,24 +82,31 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 						OK ok = new OK();
 						
 						BusinessBehaviour.manager.fillContent(msgOK, ok);
-						
-						ArrayList<String> listeAgent = ((BusinessAgent)this.myAgent).getListeNosAgents();
-						String nomStrat ="";
-						
+												
 						// On recherche l'agent strategy parmi notre annuaire
-						for(String agent : listeAgent){
-							System.out.println(agent);
-							if(agent.contains("strategy")){
-								nomStrat = agent;
+						DFAgentDescription dfd = new DFAgentDescription();
+						DFAgentDescription[] result = null;
+						try {
+							result = DFService.search(this.myAgent, dfd);
+						} catch (FIPAException e) {
+							e.printStackTrace();
+						}
+						for (int i = 0; i<result.length; i++) {
+							Iterator<Object> iter = result[i].getAllServices();
+
+							while (iter.hasNext()) {
+
+								ServiceDescription sd =(ServiceDescription)iter.next();
+
+								if(sd.getType().equals("HCK_Strategie")){
+
+									msgOK.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
+									BusinessAgent.log.addText("Le commerciale a envoyé OK a "+sd.getOwnership());
+								}
 							}
 						}
-						
-						msgOK.addReceiver(new AID(nomStrat,AID.ISGUID));
 						myAgent.send(msgOK);
-						ClientAgent.log.addText("Le commerciale a envoyé OK a "+nomStrat);
-
 					}
-
 				}
 				
 			} catch (UngroundedException e) {
@@ -132,13 +116,12 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 			} catch (OntologyException e) {
 				e.printStackTrace();
 			}
-
 		}
 	}
 
 	@Override
 	public boolean done() {
-		// TODO Auto-generated method stub
+
 		return true;
 	}
 }

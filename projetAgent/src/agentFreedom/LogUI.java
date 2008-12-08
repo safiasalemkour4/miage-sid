@@ -10,6 +10,8 @@ import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 
+import agentExtern.BusinessAgent;
+
 
 /**
  *
@@ -18,13 +20,15 @@ import javax.swing.text.StyleConstants;
 @SuppressWarnings("serial")
 public class LogUI extends javax.swing.JFrame {
 
-	private ClientAgent agentFreedom;
+	private BusinessAgent agentFreedom;
 
 	/** Creates new form Log */
-	public LogUI(ClientAgent agentFreedom) {
+	public LogUI(BusinessAgent agentFreedom) {
 		this.agentFreedom = agentFreedom;
 		initComponents();
+	
 	}
+
 
 	/** This method is called from within the constructor to
 	 * initialize the form.
@@ -43,6 +47,7 @@ public class LogUI extends javax.swing.JFrame {
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
 		NouvellePhase.setText("Lancer un nouvelle phase");
+		NouvellePhase.setEnabled(false);
 		NouvellePhase.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				NouvellePhaseActionPerformed(evt);
@@ -50,6 +55,7 @@ public class LogUI extends javax.swing.JFrame {
 		});
 
 		FinSimulation.setText("Fin de la simulation");
+		FinSimulation.setEnabled(false);
 		FinSimulation.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				FinSimulationActionPerformed(evt);
@@ -59,10 +65,12 @@ public class LogUI extends javax.swing.JFrame {
 		jScrollPane1.setViewportView(console);
 
 		labelNumeroPhase.setText("numero de phase");
-
+		labelNumeroPhase.setEnabled(false);
+		
 		numeroPhase.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 		numeroPhase.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		numeroPhase.setText("0");
+		numeroPhase.setEnabled(false);
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -137,9 +145,7 @@ public class LogUI extends javax.swing.JFrame {
 
 	private void NouvellePhaseActionPerformed(java.awt.event.ActionEvent evt) {
 		// on lance une nouvelle phase
-		numeroPhase.setText(String.valueOf(Integer.valueOf(numeroPhase.getText()) + 1));
-		addText("-------------------------- [PHASE n° " + numeroPhase.getText() + "]------------------------------");
-		agentFreedom.nouvellePhase();
+	
 	}
 
 	private void FinSimulationActionPerformed(java.awt.event.ActionEvent evt) {                                         

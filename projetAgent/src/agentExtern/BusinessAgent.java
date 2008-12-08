@@ -1,6 +1,8 @@
 package agentExtern;
 import java.util.ArrayList;
 
+import agentFreedom.LogUI;
+
 import protege.Disque;
 import protege.OntoCDOntology;
 
@@ -36,6 +38,8 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 
 public class BusinessAgent extends Agent {
 
+	public static LogUI log;
+	
 	private ContentManager manager = (ContentManager)this.getContentManager();
 
 	
@@ -53,6 +57,9 @@ public class BusinessAgent extends Agent {
 	
 	public void setup() {
 	    
+		/* creation de l'interface "log" */
+		log = new LogUI(this);
+		
 		/*Déclaration du tableau contenant la liste de nos agents*/
 		listeNosAgents = new ArrayList<String>();
 		

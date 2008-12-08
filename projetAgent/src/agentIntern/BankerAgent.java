@@ -1,5 +1,4 @@
 package agentIntern;
-import agentExtern.RecevoirStop;
 import jade.content.ContentManager;
 import jade.core.Agent;
 import jade.domain.DFService;
@@ -77,7 +76,6 @@ public class BankerAgent extends Agent {
 		}
 		
 			this.addBehaviour(new BankerBehaviour(this));
-			this.addBehaviour(new RecevoirStop(this));
 		
 	}
 

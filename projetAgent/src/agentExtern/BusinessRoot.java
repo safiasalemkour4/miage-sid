@@ -13,7 +13,7 @@ public class BusinessRoot extends SequentialBehaviour{
 	public BusinessRoot(Agent a) {
 		super(a);
 		
-		for(int i = 0; i<15;i++){
+		for(int i = 0; i<35;i++){
 			this.addSubBehaviour(new BusinessBehaviour(this.myAgent));
 		
 		}

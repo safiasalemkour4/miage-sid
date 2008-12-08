@@ -43,10 +43,11 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 
 				ContentElement ce;
 				try {
-
+	
 					ce = BusinessBehaviour.manager.extractContent(msg);
 					if (ce instanceof Disponible) {
-						ClientAgent.log.addText(this.myAgent.getLocalName()+" a recu une dmd de dispo");
+			
+						BusinessAgent.log.addText(this.myAgent.getLocalName()+" a recu une dmd de dispo");
 						int qté = ((Disponible)ce).getQte();
 						Disque disc = ((Disponible)ce).getDisque();
 
@@ -80,7 +81,7 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 								if(sd.getType().equals("HCK_Stock")){
 
 									msgDmdStock.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
-									ClientAgent.log.addText(this.myAgent.getLocalName()+" envoi dispo? a "+sd.getOwnership());
+									BusinessAgent.log.addText(this.myAgent.getLocalName()+" envoi dispo? a "+sd.getOwnership());
 								}
 
 							}

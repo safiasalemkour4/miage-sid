@@ -53,8 +53,8 @@ public class AchatsBehaviour extends SimpleBehaviour {
 					dispo.setQte(quantite);
 					dispo.setDisque(mon_cd);
 					ClientBehaviour.manager.fillContent(msg, dispo);
-					ClientAgent.log.addText("			[CLIENT] Envoi de la demande de prix a " 
-							+ vendeur + " pour une quantite de " + quantite + " CDs.");
+					//ClientAgent.log.addText("			[CLIENT] Envoi de la demande de prix a " 
+					//		+ vendeur + " pour une quantite de " + quantite + " CDs.");
 					myAgent.send(msg);
 				} catch (CodecException e) {
 					e.printStackTrace();
@@ -75,8 +75,8 @@ public class AchatsBehaviour extends SimpleBehaviour {
 					dispo.setQte(quantite);
 					dispo.setDisque(mon_dvd);
 					ClientBehaviour.manager.fillContent(msg, dispo);
-					ClientAgent.log.addText("			[CLIENT] Envoi de la demande de prix a " 
-							+ vendeur + " pour une quantite de " + quantite + " DVDs.");
+					//ClientAgent.log.addText("			[CLIENT] Envoi de la demande de prix a " 
+					//		+ vendeur + " pour une quantite de " + quantite + " DVDs.");
 					myAgent.send(msg);
 				} catch (CodecException e) {
 					e.printStackTrace();

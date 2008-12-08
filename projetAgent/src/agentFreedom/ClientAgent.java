@@ -66,11 +66,11 @@ public class ClientAgent extends Agent {
 	public void setup() {
 	    
 		/* creation de l'interface "log" */
-		log = new LogUI(this);
+		//log = new LogUI(this);
 		/* Ajout du comportement d'achat */
 		this.addBehaviour(new ClientDecouvreService(this));
 
-		ClientAgent.log.addText("Demarrage du client ... ");
+		//ClientAgent.log.addText("Demarrage du client ... ");
   
 		/* Creation d'une description du DF Agent */
 		DFAgentDescription dfd = new DFAgentDescription();

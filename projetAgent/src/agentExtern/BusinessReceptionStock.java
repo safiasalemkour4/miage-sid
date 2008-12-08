@@ -7,14 +7,20 @@ import jade.content.onto.UngroundedException;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
+import jade.domain.DFService;
+import jade.domain.FIPAException;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import protege.Disque;
 import protege.ReponseDisponibilite;
 import agentFreedom.ClientAgent;
+import agentIntern.StrategyBehaviour;
 
 public class BusinessReceptionStock extends SimpleBehaviour {
 
@@ -46,7 +52,7 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 					
 					if (ce instanceof ReponseDisponibilite) {
 
-						ClientAgent.log.addText(this.myAgent.getLocalName()+" a recu une réponse de stock");
+						BusinessAgent.log.addText(this.myAgent.getLocalName()+" a recu une réponse de stock");
 						double prix = ((ReponseDisponibilite)ce).getPrix();
 						Disque disc = ((ReponseDisponibilite)ce).getDisque();
 
@@ -57,21 +63,19 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 						ReponseDisponibilite repDispo = new ReponseDisponibilite();
 						repDispo.setDisque(disc);
 						repDispo.setPrix(prix);
-						ArrayList<String> listeAgent = ((BusinessAgent)this.myAgent).getListeNosAgents();
-						String nomClient ="";
+		
 
 						// On recherche l'agent client parmi notre annuaire
-						for(String agent : listeAgent){
-							System.out.println(agent);
-							if(agent.contains("client")){
-								nomClient = agent;
-							}
+						DFAgentDescription dfd = new DFAgentDescription();
+						DFAgentDescription[] result = null;
+						try {
+							result = DFService.search(this.myAgent, dfd);
+						} catch (FIPAException e) {
+							e.printStackTrace();
 						}
-
-						msgRepStock.addReceiver(new AID(nomClient,AID.ISGUID));
-						ClientAgent.log.addText(this.myAgent.getLocalName()+" envoi le prix a "+nomClient);
-
-
+						
+						msgRepStock.addReceiver(new AID("Client",AID.ISLOCALNAME));
+	
 						BusinessBehaviour.manager.fillContent(msgRepStock, repDispo);
 
 						myAgent.send(msgRepStock);
@@ -80,13 +84,12 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 						this.action();
 					}
 				} catch (UngroundedException e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				} catch (CodecException e) {
-					ClientAgent.log.addText("Erreur de codec dans BusinessReceptionStock");
 					e.printStackTrace();
 				} catch (OntologyException e) {
-					// TODO Auto-generated catch block
+	
 					e.printStackTrace();
 				}
 			}

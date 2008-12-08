@@ -47,14 +47,14 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 					if(val.getReponse()){
 						
 						if(val.getDisc() instanceof CD){
-							ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse positive du client pour les CD");
+							BusinessAgent.log.addText(this.myAgent.getName()+ " a recu une reponse positive du client pour les CD");
 							StrategyAgent.lastRoundWinForCD = StrategyAgent.currentRound;
 							
 							BankerAgent.setMoney(BankerAgent.getMoney() + val.getQté()*StrategyAgent.prixCD);
 							StockManagerAgent.nosStockCD -= val.getQté();
 						}
 						else{
-							ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse positive du client pour les DVD");
+							BusinessAgent.log.addText(this.myAgent.getName()+ " a recu une reponse positive du client pour les DVD");
 							StrategyAgent.lastRoundWinForDVD = StrategyAgent.currentRound;
 							
 							BankerAgent.setMoney(BankerAgent.getMoney() + val.getQté()*StrategyAgent.prixDVD);
@@ -63,7 +63,7 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 
 					}
 					else{
-						ClientAgent.log.addText(this.myAgent.getName()+ " a recu une reponse négative du client");
+						BusinessAgent.log.addText(this.myAgent.getName()+ " a recu une reponse négative du client");
 						
 					}	
 				}
