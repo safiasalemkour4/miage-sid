@@ -66,7 +66,8 @@ public class ClientAgent extends Agent {
 	public void setup() {
 	    
 		/* creation de l'interface "log" */
-		//log = new LogUI(this);
+		log = new LogUI(this);
+		
 		/* Ajout du comportement d'achat */
 		this.addBehaviour(new ClientDecouvreService(this));
 

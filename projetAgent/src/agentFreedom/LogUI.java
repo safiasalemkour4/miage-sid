@@ -1,6 +1,8 @@
 package agentFreedom;
 
 
+import jade.core.Agent;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -10,8 +12,6 @@ import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 
-import agentExtern.BusinessAgent;
-
 
 /**
  *
@@ -20,11 +20,13 @@ import agentExtern.BusinessAgent;
 @SuppressWarnings("serial")
 public class LogUI extends javax.swing.JFrame {
 
-	private BusinessAgent agentFreedom;
+	private Agent agentFreedom;
 
 	/** Creates new form Log */
-	public LogUI(BusinessAgent agentFreedom) {
+	public LogUI(Agent agentFreedom) {
+		
 		this.agentFreedom = agentFreedom;
+		
 		initComponents();
 	
 	}
@@ -47,7 +49,12 @@ public class LogUI extends javax.swing.JFrame {
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
 		NouvellePhase.setText("Lancer un nouvelle phase");
-		NouvellePhase.setEnabled(false);
+		if (this.agentFreedom instanceof ClientAgent) {
+			NouvellePhase.setEnabled(true);
+		} else {
+			NouvellePhase.setEnabled(false);
+		}
+
 		NouvellePhase.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				NouvellePhaseActionPerformed(evt);
@@ -55,7 +62,11 @@ public class LogUI extends javax.swing.JFrame {
 		});
 
 		FinSimulation.setText("Fin de la simulation");
-		FinSimulation.setEnabled(false);
+		if (this.agentFreedom instanceof ClientAgent) {
+			FinSimulation.setEnabled(true);
+		} else {
+			FinSimulation.setEnabled(false);
+		}
 		FinSimulation.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				FinSimulationActionPerformed(evt);
@@ -145,6 +156,12 @@ public class LogUI extends javax.swing.JFrame {
 
 	private void NouvellePhaseActionPerformed(java.awt.event.ActionEvent evt) {
 		// on lance une nouvelle phase
+
+		numeroPhase.setText(String.valueOf(Integer.valueOf(numeroPhase.getText()) + 1));
+
+		addText("-------------------------- [PHASE n° " + numeroPhase.getText() + "]------------------------------");
+
+		((ClientAgent)agentFreedom).nouvellePhase();
 	
 	}
 
