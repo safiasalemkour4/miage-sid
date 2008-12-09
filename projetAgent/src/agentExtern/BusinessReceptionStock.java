@@ -45,7 +45,6 @@ public class BusinessReceptionStock extends SimpleBehaviour {
 
 				ContentElement ce;
 
-
 				try {
 
 					ce = BusinessBehaviour.manager.extractContent(msg);

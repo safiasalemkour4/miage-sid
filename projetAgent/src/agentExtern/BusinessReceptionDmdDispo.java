@@ -19,7 +19,6 @@ import java.util.Iterator;
 
 import protege.Disponible;
 import protege.Disque;
-import agentFreedom.ClientAgent;
 
 public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 
@@ -83,50 +82,26 @@ public class BusinessReceptionDmdDispo extends SimpleBehaviour {
 									msgDmdStock.addReceiver(new AID(sd.getOwnership(),AID.ISGUID));
 									BusinessAgent.log.addText(this.myAgent.getLocalName()+" envoi dispo? a "+sd.getOwnership());
 								}
-
 							}
-
 						}
 
 						BusinessBehaviour.manager.fillContent(msgDmdStock, dispo);
-
-						
 						myAgent.send(msgDmdStock);
 					}
 				} catch (UngroundedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (CodecException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (OntologyException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
 			}
-			
-
 	}
-
 
 	@Override
 	public boolean done() {
-		// TODO Auto-generated method stub
+
 		return true;
 	}
-
-
-	
-
-
-	
-
-
-
-
-
-
-
-
 }

@@ -65,7 +65,14 @@ public class BusinessReceptionValider extends SimpleBehaviour {
 					else{
 						BusinessAgent.log.addText(this.myAgent.getName()+ " a recu une reponse négative du client");
 						
-					}	
+					}
+					BusinessAgent.log.addText("---------------------------------------------------------------");
+					BusinessAgent.log.addText("------------------------Apres la vente-------------------------");
+					BusinessAgent.log.addText("---------------------------------------------------------------");
+					BusinessAgent.log.addText("--> Nos prix sont desormais de : "+StrategyAgent.prixCD+"e pr les CDs & "+StrategyAgent.prixDVD+"e pr les DVDs.\n");
+					BusinessAgent.log.addText("--> Nos stock sont desormais de : "+StockManagerAgent.nosStockCD+" CDs & "+StockManagerAgent.nosStockDVD+" DVDs.\n");
+					BusinessAgent.log.addText("--> Notre argent en banque est desormais de : "+BankerAgent.getMoney());
+					BusinessAgent.log.addText("---------------------------------------------------------------");
 				}
 			} catch (CodecException e) {
 				e.printStackTrace();

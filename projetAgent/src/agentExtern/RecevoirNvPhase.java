@@ -18,6 +18,10 @@ import jade.lang.acl.MessageTemplate;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import agentIntern.BankerAgent;
+import agentIntern.StockManagerAgent;
+import agentIntern.StrategyAgent;
+
 import protege.NouvellePhase;
 import protege.OK;
 
@@ -58,7 +62,7 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 					if(!clientpresent) listagent.add(msg.getSender().getName());
 					
 					if(numPhase == 2){
-						BusinessAgent.log.addText("------------> Phase 2");
+						BusinessAgent.log.addText("------------> Phase 2 <------------");
 						BusinessAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer phase 2");
 			
 						ACLMessage msgOK = new ACLMessage(ACLMessage.INFORM);
@@ -72,7 +76,16 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 
 					}
 					else{
-						BusinessAgent.log.addText("------------> Phase 1");
+						
+						BusinessAgent.log.addText("---------------------------------------------------------------");
+						BusinessAgent.log.addText("------------------------Avant la vente-------------------------");
+						BusinessAgent.log.addText("---------------------------------------------------------------");
+						BusinessAgent.log.addText("--> Nos prix sont desormais de : "+StrategyAgent.prixCD+"e pr les CDs & "+StrategyAgent.prixDVD+"e pr les DVDs.\n");
+						BusinessAgent.log.addText("--> Nos stock sont desormais de : "+StockManagerAgent.nosStockCD+" CDs & "+StockManagerAgent.nosStockDVD+" DVDs.\n");
+						BusinessAgent.log.addText("--> Notre argent en banque est desormais de : "+BankerAgent.getMoney());
+						BusinessAgent.log.addText("---------------------------------------------------------------");
+						
+						BusinessAgent.log.addText("------------> Phase 1 <------------");
 						/* Si numPhase = 1 */
 						BusinessAgent.log.addText(this.myAgent.getName()+ " a recu l'ordre de demarrer phase 1");
 
