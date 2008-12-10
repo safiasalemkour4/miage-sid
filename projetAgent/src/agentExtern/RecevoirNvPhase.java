@@ -84,6 +84,7 @@ public class RecevoirNvPhase extends SimpleBehaviour {
 						BusinessAgent.log.addText("--> Nos stock sont desormais de : "+StockManagerAgent.nosStockCD+" CDs & "+StockManagerAgent.nosStockDVD+" DVDs.\n");
 						BusinessAgent.log.addText("--> Notre argent en banque est desormais de : "+BankerAgent.getMoney());
 						BusinessAgent.log.addText("---------------------------------------------------------------");
+						BusinessAgent.infos.update();
 						
 						BusinessAgent.log.addText("------------> Phase 1 <------------");
 						/* Si numPhase = 1 */
