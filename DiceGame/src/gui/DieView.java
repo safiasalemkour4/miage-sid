@@ -31,12 +31,14 @@ public class DieView extends JPanel implements Observer {
         
         this.setLayout(new GridLayout(3,2));
         this.die = new Die();
+        
+        updateContent();
     }
     
-    public void updateGUI() {
+    public void updateContent() {
         
         this.removeAll();
-        this.updateGUI();
+        this.updateUI();
         
         this.labelDie_1 = new JLabel("Die 1 :");
         this.labelDie_2 = new JLabel("Die 2 :");
@@ -51,12 +53,12 @@ public class DieView extends JPanel implements Observer {
         this.add(new JLabel());
                 
         this.add(this.labelDie_2);
-        this.add(this.textField_1);
+        this.add(this.textField_2);
 
     }
     
     public void update(Observable o, Object arg) {
-        this.updateGUI();
+        this.updateContent();
     }
     
     public void startAction() {

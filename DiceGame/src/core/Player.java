@@ -19,6 +19,6 @@ public class Player extends Observable {
     }
     
     public void addObserver(Observer observer) {
-        this.addObserver(observer);
+        //this.addObserver(observer);
     }
 }

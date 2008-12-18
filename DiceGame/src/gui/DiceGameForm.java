@@ -31,6 +31,8 @@ public class DiceGameForm extends JFrame {
 
     public DiceGameForm(DieView dieView, PlayerView playerView) {
         
+        super();
+        
         this.dieView = dieView;
         this.playerView = playerView;
         
@@ -48,6 +50,10 @@ public class DiceGameForm extends JFrame {
         this.content.add(actionPanel, BorderLayout.SOUTH);
         
         this.setContentPane(content);
+        
+        this.pack();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setVisible(true);
         
     }
     
