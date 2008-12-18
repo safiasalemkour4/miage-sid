@@ -5,7 +5,11 @@
 
 package dicegame;
 
-import gui.DiceGameView;
+import core.Die;
+import core.Player;
+import gui.DiceGameForm;
+import gui.DieView;
+import gui.PlayerView;
 
 /**
  *
@@ -18,7 +22,16 @@ public class Main {
      */
     public static void main(String[] args) {
        
-        new DiceGameView();
+        Die die = new Die();
+        Player player = new Player();
+        
+        DieView dieView = new DieView();
+        PlayerView playerView = new PlayerView();
+        
+        die.addObserver(dieView);
+        player.addObserver(playerView);
+                
+        new DiceGameForm(dieView, playerView);
     }
 
 }

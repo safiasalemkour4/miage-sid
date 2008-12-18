@@ -6,6 +6,7 @@
 package core;
 
 import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
@@ -13,4 +14,11 @@ import java.util.Observable;
  */
 public class Player extends Observable {
 
+    public void display() {
+        
+    }
+    
+    public void addObserver(Observer observer) {
+        this.addObserver(observer);
+    }
 }
