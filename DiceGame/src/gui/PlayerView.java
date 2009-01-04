@@ -4,6 +4,7 @@
  */
 package gui;
 
+import core.Player;
 import java.awt.BorderLayout;
 import java.awt.BorderLayout;
 import java.util.Observable;
@@ -17,15 +18,23 @@ import javax.swing.JPanel;
  */
 public class PlayerView extends JPanel implements Observer {
 
+    private static int turn = 0;
+    
+    private DiceGameForm diceGameForm;
+    
+    private Player player;
     private JLabel labelTurn;
     private JLabel labelTurnValue;
     private JLabel labelScore;
     private JLabel labelScoreValue;
 
-    public PlayerView() {
+    public PlayerView(DiceGameForm diceGameForm) {
 
-        this.setLayout(new BorderLayout());
+        this.diceGameForm = diceGameForm;
         
+        this.setLayout(new BorderLayout());
+        this.player = new Player();
+                player.addObserver(this);
         updateContent();
     }
 
@@ -36,7 +45,7 @@ public class PlayerView extends JPanel implements Observer {
 
         JPanel turnPanel = new JPanel();
         
-        this.labelTurn = new JLabel("Turn :");
+        this.labelTurn = new JLabel("Turn :"+turn++);
         this.labelTurnValue = new JLabel();
 
         turnPanel.add(this.labelTurn);
@@ -44,7 +53,7 @@ public class PlayerView extends JPanel implements Observer {
         
         JPanel scorePanel = new JPanel();
                 
-        this.labelScore = new JLabel("Score :");
+        this.labelScore = new JLabel("Score :"+this.player.getScore());
         this.labelScoreValue = new JLabel();
 
         scorePanel.add(this.labelScore);
@@ -56,10 +65,17 @@ public class PlayerView extends JPanel implements Observer {
     }
 
     public void update(Observable o, Object arg) {
+        
+        if (this.diceGameForm.getDieView().getDie_1().getFaceValue()+this.diceGameForm.getDieView().getDie_2().getFaceValue()==7) {
+            this.player.setScore(this.player.getScore()+10);
+        }
         this.updateContent();
     }
 
     public void startAction() {
-        //this.die.
+        
+        this.player.display();
     }
+    
+
 }
