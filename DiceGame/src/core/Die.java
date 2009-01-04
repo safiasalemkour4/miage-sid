@@ -6,7 +6,6 @@
 package core;
 
 import java.util.Observable;
-import java.util.Observer;
 
 /**
  *
@@ -16,17 +15,22 @@ public class Die extends Observable {
 
     private int faceValue = -1;
     
-    public int roll() {
+    public void roll() {
         
         Integer a;
-        return 1;
+        this.faceValue = (int)(Math.random()*10);
+        
     }
     
     public void display() {
-        
+
+               this.setChanged();
+       this.notifyObservers();
+    }
+
+    public int getFaceValue() {
+        return faceValue;
     }
     
-    public void addObserver(Observer observer) {
-        //this.addObserver(observer);
-    }
+    
 }
