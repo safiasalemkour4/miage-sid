@@ -5,11 +5,7 @@
 
 package dicegame;
 
-import core.Die;
-import core.Player;
 import gui.DiceGameForm;
-import gui.DieView;
-import gui.PlayerView;
 
 /**
  *
@@ -21,12 +17,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       
-        //Die die = new Die();
-        //Player player = new Player();
-        
-
-                
+           
         new DiceGameForm();
     }
 
