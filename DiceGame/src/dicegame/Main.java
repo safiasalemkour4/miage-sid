@@ -22,16 +22,12 @@ public class Main {
      */
     public static void main(String[] args) {
        
-        Die die = new Die();
-        Player player = new Player();
+        //Die die = new Die();
+        //Player player = new Player();
         
-        DieView dieView = new DieView();
-        PlayerView playerView = new PlayerView();
-        
-        die.addObserver(dieView);
-        player.addObserver(playerView);
+
                 
-        new DiceGameForm(dieView, playerView);
+        new DiceGameForm();
     }
 
 }
