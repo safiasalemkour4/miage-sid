@@ -12,4 +12,5 @@ package persist;
 public abstract class PersistKit {
 
     public abstract void makeKit();
+    
 }
