@@ -13,8 +13,10 @@ import java.util.HashMap;
  */
 public class DataInfos {
     
+    public static final int T_STRING = 1, T_NUMERIC = 2, T_BOOL = 3;
+    
     private int id;
-    private String type;
+    private int type;
     
     /* Si variable cible */
     private boolean targetVar;
@@ -25,5 +27,12 @@ public class DataInfos {
     
     /* A une valeur, on associe le nombre d'occurence */
     private HashMap<?,Integer> listValues;
+    
+    public DataInfos(int id, int type, boolean targetVar) {
+        
+        this.id = id;
+        this.type = type;
+        this.targetVar = targetVar;
+    }
 
 }

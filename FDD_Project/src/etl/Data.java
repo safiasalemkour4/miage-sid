@@ -12,7 +12,7 @@ public class Data {
          * - 2ème dimension [][] la colonne
 	 */
     
-        public String [] tabDataValues;
+        public String [][] tabDataValues;
         
     	/**
 	 * Tableau donnant les informations sur les données
@@ -26,5 +26,10 @@ public class Data {
         public DataInfos[] tabDataInfos;
 
 
+        public Data (String [][] tabDataValues, DataInfos[] tabDataInfos) {
+            
+            this.tabDataValues = tabDataValues;
+            this.tabDataInfos = tabDataInfos;
+        }
 
 }

@@ -4,12 +4,18 @@
  */
 package etl;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -19,13 +25,18 @@ import javax.swing.JTextField;
  */
 public class DisplayETL extends JFrame implements ActionListener {
 
+    private String pathFile;
     private JTextField textFieldInput;
-    private JButton buttonInput;
+    private JButton buttonInput,  buttonOk,  buttonLoad;
     private JFileChooser fileChooserInput;
+    JPanel content;
 
     public DisplayETL() {
 
-        JPanel content = new JPanel();
+        content = new JPanel();
+        content.setLayout(new BorderLayout());
+
+        JPanel input = new JPanel();
 
         this.textFieldInput = new JTextField();
         this.textFieldInput.setColumns(10);
@@ -34,11 +45,20 @@ public class DisplayETL extends JFrame implements ActionListener {
         this.buttonInput = new JButton("Browse");
         this.buttonInput.addActionListener(this);
 
+        this.buttonOk = new JButton("Ok");
+        this.buttonOk.addActionListener(this);
+
         this.fileChooserInput = new JFileChooser();
         this.fileChooserInput.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-        content.add(textFieldInput);
-        content.add(buttonInput);
+        this.buttonLoad = new JButton("Load");
+        this.buttonLoad.addActionListener(this);
+
+        input.add(textFieldInput);
+        input.add(buttonInput);
+        input.add(buttonOk);
+
+        content.add(input, BorderLayout.NORTH);
 
         this.setTitle("ETL - Loading Data");
 
@@ -61,8 +81,42 @@ public class DisplayETL extends JFrame implements ActionListener {
                 File file = this.fileChooserInput.getSelectedFile();
 
                 this.textFieldInput.setText(file.getName());
-
+                this.pathFile = file.getPath();
             }
+        }
+
+        if (e.getSource() == buttonOk) {
+
+            try {
+                LoadCSV.LoadCSVHeader(this.pathFile);
+            } catch (IOException ex) {
+                Logger.getLogger(DisplayETL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+            JPanel header = new JPanel();
+
+            JComboBox comboHeader = new JComboBox(LoadCSV.header);
+            comboHeader.addActionListener(this);
+
+            header.add(comboHeader);
+            header.add(buttonLoad);
+
+            content.add(header, BorderLayout.CENTER);
+
+            this.pack();
+
+        }
+
+        if (e.getSource() == buttonLoad) {
+
+            try {
+                LoadCSV.LoadCSVData(this.pathFile);
+            } catch (IOException ex) {
+                Logger.getLogger(DisplayETL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
         }
     }
 
