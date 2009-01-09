@@ -30,6 +30,7 @@ public class DisplayETL extends JFrame implements ActionListener {
     private JButton buttonInput,  buttonOk,  buttonLoad;
     private JFileChooser fileChooserInput;
     JPanel content;
+    JComboBox comboHeader;
 
     public DisplayETL() {
 
@@ -96,7 +97,7 @@ public class DisplayETL extends JFrame implements ActionListener {
 
             JPanel header = new JPanel();
 
-            JComboBox comboHeader = new JComboBox(LoadCSV.header);
+            comboHeader = new JComboBox(LoadCSV.header);
             comboHeader.addActionListener(this);
 
             header.add(comboHeader);
@@ -110,14 +111,36 @@ public class DisplayETL extends JFrame implements ActionListener {
 
         if (e.getSource() == buttonLoad) {
 
+
             try {
-                LoadCSV.LoadCSVData(this.pathFile);
+                LoadCSV.LoadCSVData(this.pathFile, comboHeader.getSelectedIndex());
             } catch (IOException ex) {
                 Logger.getLogger(DisplayETL.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+             System.out.println("");
+            System.out.println("--------- Header --------- ");
 
+            DataInfos[] tabDataInfos = LoadCSV.data.getTabDataInfos();
+
+            for (int i = 0; i < tabDataInfos.length; i++) {
+
+                System.out.println("- " + tabDataInfos[i]);
+
+            }
+                         System.out.println("");
+            System.out.println("--------- DATA --------- ");
+            
+            String [][] tabDataValues = LoadCSV.data.getTabDataValues();
+            
+            for (int i = 0; i < tabDataValues.length; i++) {
+                    for (int j = 0; j < tabDataValues[0].length; j++) {
+                        System.out.print(tabDataValues[i][j]+", ");
+                    }
+                    System.out.println("");
+            }
         }
+        
     }
 
     public static void main(String[] args) {

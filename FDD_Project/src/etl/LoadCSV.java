@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.StringTokenizer;
 
 /**
@@ -14,9 +15,11 @@ import java.util.StringTokenizer;
  */
 public class LoadCSV {
 
+    private static final String SEPARATOR = ",";
     public static String[] header;
     public static String[][] tabDataValues;
     public static DataInfos[] tabDataInfos;
+    public static Data data;
     
     public LoadCSV() {
     }
@@ -43,42 +46,97 @@ public class LoadCSV {
         System.out.println("Nombre de ligne : " + nbLine);
         System.out.println("Nombre de colonne : " + header.length);
 
-    //DataInfos(int id, int type, boolean targetVar)
+        //DataInfos(int id, int type, boolean targetVar)
 
-    // ICI AFFICHER la premiere lecture (avec le hearder) pr le choix de la var cible !
+        // ICI AFFICHER la premiere lecture (avec le hearder) pr le choix de la var cible !
 
         tabDataValues = new String[nbLine][header.length];
         tabDataInfos = new DataInfos[header.length];
     }
 
-    public static void LoadCSVData(String filePath) throws IOException {
+    public static void LoadCSVData(String filePath, int targetColumn) throws IOException {
 
         BufferedReader lastReader = new BufferedReader(new FileReader(filePath));
-                
 
+        //InputStreamReader isr = new InputStreamReader(new FileInputStream("test"), Charset.forName("ISO-8859-1"));
         String line;
-        
+
         // Le header (on le passe)
         lastReader.readLine();
         int l = 0;
 
-        // ICI IL FAUT REGARDER LA LIGNE 1 AFIN DE REPERER LES TYPES
-        
+
+
         while ((line = lastReader.readLine()) != null) {
 
-            System.out.println("Ligne :");
+            if (l == 0) {
 
-            String[] result = line.split(",");
+                String firstLine = line;
 
-            for (int i = 0; i < result.length; i++) {
-                System.out.println("- " + result[i]);
+                // ICI IL FAUT REGARDER LA LIGNE 1 AFIN DE REPERER LES TYPES 
 
-                // On charge les donnees 
-                tabDataValues[l][i] = result[i];
+                String[] result = line.split(SEPARATOR);
+
+                for (int i = 0; i < result.length; i++) {
+
+                    // On test le type
+                    DataInfos dataInfo = null;
+
+                    if (isANumber(result[i])) {
+
+                        if (targetColumn == i) {
+                            dataInfo = new DataInfos(i, DataInfos.T_NUMERIC, true);
+                        } else {
+                            dataInfo = new DataInfos(i, DataInfos.T_NUMERIC, false);
+                        }
+
+                    } else {
+                        if (targetColumn == i) {
+                            dataInfo = new DataInfos(i, DataInfos.T_STRING, true);
+                        } else {
+                            dataInfo = new DataInfos(i, DataInfos.T_STRING, false);
+                        }
+                    }
+
+                    tabDataInfos[i]=dataInfo;
+                    
+                    // TODO IL FAUDRAIT TESTER SI C BINAIRE !
+
+                    /* On oubli pas d'ajouter la premiere ligne quand m'm */
+                    tabDataValues[l][i] = result[i];
+
+                }
+
+            } /* Si ce n'est pas la premiere ligne */ else {
+
+                String[] result = line.split(SEPARATOR);
+
+                for (int i = 0; i < result.length; i++) {
+
+                    // On charge les donnees 
+                    tabDataValues[l][i] = result[i];
+
+                }
 
             }
+
+            l++;
         }
 
+        data = new Data(tabDataValues, tabDataInfos);
+        
         lastReader.close();
+    }
+
+    public static boolean isANumber(String s) {
+        if (s == null) {
+            return false;
+        }
+        try {
+            new java.math.BigDecimal(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

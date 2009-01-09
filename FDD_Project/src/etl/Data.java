@@ -32,4 +32,14 @@ public class Data {
             this.tabDataInfos = tabDataInfos;
         }
 
+    public DataInfos[] getTabDataInfos() {
+        return tabDataInfos;
+    }
+
+    public String[][] getTabDataValues() {
+        return tabDataValues;
+    }
+        
+        
+
 }

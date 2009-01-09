@@ -15,7 +15,7 @@ public class DataInfos {
     
     public static final int T_STRING = 1, T_NUMERIC = 2, T_BOOL = 3;
     
-    private int id;
+    private int id; // = le num de la colone (commence a 0)
     private int type;
     
     /* Si variable cible */
@@ -35,4 +35,49 @@ public class DataInfos {
         this.targetVar = targetVar;
     }
 
+    public String toString() {
+        
+        String res = "La colonne "+this.id;
+        
+        switch(this.type) {
+            case T_STRING: res+=" est de type String";break;
+            case T_NUMERIC: res+=" est de type Numeric (min:"+this.minValue+", max:"+this.maxValue+")";break;
+            case T_BOOL: res+=" est de type Binaire";break;
+        }
+        
+        if (this.targetVar) {
+                    res +=" et elle est la variable cible";
+        } else {
+            res +=" et elle n'est pas la variable cible";
+        }
+
+        
+        return res;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public HashMap<?, Integer> getListValues() {
+        return listValues;
+    }
+
+    public int getMaxValue() {
+        return maxValue;
+    }
+
+    public int getMinValue() {
+        return minValue;
+    }
+
+    public boolean isTargetVar() {
+        return targetVar;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    
 }
