@@ -15,6 +15,7 @@ public class DataInfos {
     
     public static final int T_STRING = 1, T_NUMERIC = 2, T_BOOL = 3;
     
+    
     private int id; // = le num de la colone (commence a 0)
     private int type;
     
