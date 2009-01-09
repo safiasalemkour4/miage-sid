@@ -1,13 +1,8 @@
 package etl;
 
-import etl.DataInfos;
-import etl.DataInfos;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.StringTokenizer;
 
 /**
  *
@@ -85,16 +80,16 @@ public class LoadCSV {
                     if (isANumber(result[i])) {
 
                         if (targetColumn == i) {
-                            dataInfo = new DataInfos(i, DataInfos.T_NUMERIC, true);
+                            dataInfo = new DataInfos(i, header[i], DataInfos.T_NUMERIC, true);
                         } else {
-                            dataInfo = new DataInfos(i, DataInfos.T_NUMERIC, false);
+                            dataInfo = new DataInfos(i, header[i], DataInfos.T_NUMERIC, false);
                         }
 
                     } else {
                         if (targetColumn == i) {
-                            dataInfo = new DataInfos(i, DataInfos.T_STRING, true);
+                            dataInfo = new DataInfos(i, header[i], DataInfos.T_STRING, true);
                         } else {
-                            dataInfo = new DataInfos(i, DataInfos.T_STRING, false);
+                            dataInfo = new DataInfos(i, header[i], DataInfos.T_STRING, false);
                         }
                     }
 
@@ -107,7 +102,10 @@ public class LoadCSV {
 
                 }
 
-            } /* Si ce n'est pas la premiere ligne */ else {
+            } 
+            
+            /* Si ce n'est pas la premiere ligne */ 
+            else {
 
                 String[] result = line.split(SEPARATOR);
 

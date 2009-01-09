@@ -13,10 +13,13 @@ import java.util.HashMap;
  */
 public class DataInfos {
     
-    public static final int T_STRING = 1, T_NUMERIC = 2, T_BOOL = 3;
+    public static final int T_STRING = 1, T_NUMERIC = 2, T_BINARY = 3;
     
     
     private int id; // = le num de la colone (commence a 0)
+    
+    private String name;
+    
     private int type;
     
     /* Si variable cible */
@@ -29,9 +32,10 @@ public class DataInfos {
     /* A une valeur, on associe le nombre d'occurence */
     private HashMap<?,Integer> listValues;
     
-    public DataInfos(int id, int type, boolean targetVar) {
+    public DataInfos(int id, String name, int type, boolean targetVar) {
         
         this.id = id;
+        this.name = name;
         this.type = type;
         this.targetVar = targetVar;
     }
@@ -43,7 +47,7 @@ public class DataInfos {
         switch(this.type) {
             case T_STRING: res+=" est de type String";break;
             case T_NUMERIC: res+=" est de type Numeric (min:"+this.minValue+", max:"+this.maxValue+")";break;
-            case T_BOOL: res+=" est de type Binaire";break;
+            case T_BINARY: res+=" est de type Binaire";break;
         }
         
         if (this.targetVar) {
@@ -51,11 +55,15 @@ public class DataInfos {
         } else {
             res +=" et elle n'est pas la variable cible";
         }
-
         
         return res;
     }
     
+    public int getNbOccurence(String value) {
+        
+        return this.listValues.get(value);
+    }
+        
     public int getId() {
         return id;
     }
@@ -72,13 +80,37 @@ public class DataInfos {
         return minValue;
     }
 
+    public int getType() {
+        return type;
+    }
+        
     public boolean isTargetVar() {
         return targetVar;
     }
 
-    public int getType() {
-        return type;
+    public boolean isNumeric() {
+        return (this.type==T_NUMERIC);
     }
 
+    public boolean isString() {
+        return (this.type==T_STRING);
+    }
+        
+    public boolean isBinary() {
+        return (this.type==T_BINARY);
+    }
+
+    public void setListValues(HashMap<?, Integer> listValues) {
+        this.listValues = listValues;
+    }
+
+    public void setMaxValue(int maxValue) {
+        this.maxValue = maxValue;
+    }
+
+    public void setMinValue(int minValue) {
+        this.minValue = minValue;
+    }
+    
     
 }

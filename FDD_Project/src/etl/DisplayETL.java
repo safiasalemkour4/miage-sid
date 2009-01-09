@@ -119,27 +119,9 @@ public class DisplayETL extends JFrame implements ActionListener {
                 Logger.getLogger(DisplayETL.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-             System.out.println("");
-            System.out.println("--------- Header --------- ");
+           System.out.println(LoadCSV.data);
 
-            DataInfos[] tabDataInfos = LoadCSV.data.getTabDataInfos();
-
-            for (int i = 0; i < tabDataInfos.length; i++) {
-
-                System.out.println("- " + tabDataInfos[i]);
-
-            }
-                         System.out.println("");
-            System.out.println("--------- DATA --------- ");
-            
-            String [][] tabDataValues = LoadCSV.data.getTabDataValues();
-            
-            for (int i = 0; i < tabDataValues.length; i++) {
-                    for (int j = 0; j < tabDataValues[0].length; j++) {
-                        System.out.print(tabDataValues[i][j]+", ");
-                    }
-                    System.out.println("");
-            }
+ 
         }
         
     }
