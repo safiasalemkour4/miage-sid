@@ -11,7 +11,7 @@ import core.HightScore;
  *
  * @author arnaud
  */
-public class HightScoreScreen extends HightScore {
+public class HightScoreSerializable extends HightScore {
     
     public void HightScoreJDBC() {
         

@@ -11,14 +11,14 @@ import core.PersistKit;
  *
  * @author arnaud
  */
-public class ScreenKit extends PersistKit {
+public class SerializableKit extends PersistKit {
 
-    private HightScoreScreen hightScoreScreen;
+    private HightScoreSerializable hightScoreScreen;
     
     @Override
     public void makeKit() {
         
-        this.hightScoreScreen = new HightScoreScreen();
+        this.hightScoreScreen = new HightScoreSerializable();
     }
 
 }
