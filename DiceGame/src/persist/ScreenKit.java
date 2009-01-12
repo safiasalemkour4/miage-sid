@@ -5,6 +5,8 @@
 
 package persist;
 
+import core.PersistKit;
+
 /**
  *
  * @author arnaud
