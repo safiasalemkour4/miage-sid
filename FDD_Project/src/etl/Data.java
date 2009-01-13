@@ -81,7 +81,7 @@ public class Data {
 
     }
 
-    public int getNbCOlumn() {
+    public int getNbColumn() {
         return this.tabDataInfos.length;
     }
 
