@@ -82,10 +82,11 @@ public class Cart {
                         possibleScissions.add(scission);
 
                     }
-                    {
-                    }
+
 
                 } else {
+                    // Si la colonne est numerique
+
                 }
 
             }
