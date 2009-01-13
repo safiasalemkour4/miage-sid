@@ -91,6 +91,11 @@ public class Data {
         return this.tabDataValues.length;
     }
 
+    public String getValue(int row, int column) {
+
+        return this.tabDataValues[row][column];
+    }
+    
     public String getTargetVar() {
 
        for (int i = 0; i < tabDataInfos.length; i++) {

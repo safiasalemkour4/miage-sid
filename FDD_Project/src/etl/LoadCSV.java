@@ -101,8 +101,6 @@ public class LoadCSV {
 
                     tabDataInfos[i] = dataInfo;
 
-                    // TODO IL FAUDRAIT TESTER SI C BINAIRE !
-
 
                     /* On oubli pas d'ajouter la premiere ligne quand m'm */
 
@@ -118,7 +116,7 @@ public class LoadCSV {
 
                 for (int i = 0; i < result.length; i++) {
 
-                    /* DU TRAVAIL A FAIRE ICI !!!!!!! */
+                    /* on fait les couples */
                     if (tabListValues[i].containsKey(result[i])) {
 
                         Integer nbOccurence = (Integer) tabListValues[i].get(result[i]);
@@ -137,6 +135,17 @@ public class LoadCSV {
             }
 
             l++;
+        }
+
+        // On test si la colonne est de type binaire
+        for (int i=0;i<tabDataInfos.length;i++) {
+
+            if (tabDataInfos[i].getListValues().keySet().size()==2) {
+                
+            } else {
+                
+            }
+            tabDataInfos[i].setListValues(tabListValues[i]);
         }
 
         /* On met les nb d'occurence */
