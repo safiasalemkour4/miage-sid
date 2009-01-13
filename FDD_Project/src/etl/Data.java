@@ -20,13 +20,11 @@ public class Data {
      * - La liste de valeurs possible pour cette colonne
      */
     private DataInfos[] tabDataInfos;
-
+    
     public Data(String[][] tabDataValues, DataInfos[] tabDataInfos) {
 
         this.tabDataValues = tabDataValues;
         this.tabDataInfos = tabDataInfos;
-
-        System.out.println("vcxvcv");
     }
 
     public boolean isTargetVar(int column) {
@@ -95,6 +93,19 @@ public class Data {
 
         return this.tabDataValues[row][column];
     }
+
+    public int getTargetVarId() {
+
+       for (int i = 0; i < tabDataInfos.length; i++) {
+
+           if (tabDataInfos[i].isTargetVar()) {
+               return i;
+           }
+        }
+
+       return -1;
+              
+    }
     
     public String getTargetVar() {
 
@@ -107,6 +118,10 @@ public class Data {
         }
 
        return "";
+    }
+
+    public DataInfos[] getTabDataInfos() {
+        return tabDataInfos;
     }
 
     public String toString() {
