@@ -54,7 +54,7 @@ public class LoadCSV {
         /* Tableau : A une valeur, on associe le nombre d'occurence */
         HashMap tabListValues[] = new HashMap[header.length];
 
-        for (int i=0;i<tabListValues.length;i++) {
+        for (int i = 0; i < tabListValues.length; i++) {
             tabListValues[i] = new HashMap();
         }
 
@@ -106,6 +106,11 @@ public class LoadCSV {
 
                     tabListValues[i].put(result[i], 1);
 
+                    if (tabDataInfos[i].isNumeric()) {
+                        tabDataInfos[i].setMinValue(new Integer(result[i]).intValue());
+                        tabDataInfos[i].setMaxValue(new Integer(result[i]).intValue());
+                    }
+
                     tabDataValues[l][i] = result[i];
 
                 }
@@ -116,6 +121,18 @@ public class LoadCSV {
 
                 for (int i = 0; i < result.length; i++) {
 
+                   if (tabDataInfos[i].isNumeric()) {
+
+                       if (tabDataInfos[i].getMinValue()>new Integer(result[i]).intValue()) {
+                                                   tabDataInfos[i].setMinValue(new Integer(result[i]).intValue());
+                       }
+
+                       if (tabDataInfos[i].getMaxValue()<new Integer(result[i]).intValue()) {
+                        tabDataInfos[i].setMaxValue(new Integer(result[i]).intValue());
+                       }
+
+                    }
+                                      
                     /* on fait les couples */
                     if (tabListValues[i].containsKey(result[i])) {
 
@@ -137,22 +154,20 @@ public class LoadCSV {
             l++;
         }
 
-
-
         /* On met les nb d'occurence */
-        for (int i=0;i<tabDataInfos.length;i++) {
+        for (int i = 0; i < tabDataInfos.length; i++) {
             tabDataInfos[i].setListValues(tabListValues[i]);
         }
 
-                // On test si la colonne est de type binaire
-        for (int i=0;i<tabDataInfos.length;i++) {
+        // On test si la colonne est de type binaire
 
-            if (tabDataInfos[i].getListValues().keySet().size()==2) {
+        for (int i = 0; i < tabDataInfos.length; i++) {
+
+            if (tabDataInfos[i].getListValues().keySet().size() == 2) {
                 tabDataInfos[i].setType(DataInfos.T_BINARY);
             }
-
         }
-        
+
         data = new Data(tabDataValues, tabDataInfos);
 
         lastReader.close();
