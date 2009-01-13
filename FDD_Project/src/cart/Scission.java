@@ -54,12 +54,14 @@ public class Scission {
             // Si donnée corespond au critère gauche mettre dans le tableau Data[0] sinon Data[1]
             if ( criteriaLeft.compareTo(data.getValue(row, column)) == 0) {
                 leftData[i] = tempData[row];
+                i++;
             }
             else {
                 rightData[j] = tempData[row];
+                j++;
             }
         }
-        // Verification des données data
+        // Verification des données data (à faire)
         
 
 		// TODO Separer un tableau en deux tableaux dapres le critere
