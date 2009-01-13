@@ -42,7 +42,7 @@ public class DataInfos {
 
     public String toString() {
         
-        String res = "La colonne "+this.id;
+        String res = "\nLa colonne "+this.id;
         
         switch(this.type) {
             case T_STRING: res+=" est de type String";break;
@@ -56,8 +56,8 @@ public class DataInfos {
             res +=" et elle n'est pas la variable cible";
         }
 
-        res +="\nCette variable possede :";
-        
+        res +="\nCette variable possede :\n"+this.listValues;
+
         return res;
     }
     
@@ -68,6 +68,10 @@ public class DataInfos {
         
     public int getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public HashMap<?, Integer> getListValues() {

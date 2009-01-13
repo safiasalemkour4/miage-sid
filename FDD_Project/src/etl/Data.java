@@ -91,13 +91,18 @@ public class Data {
         return this.tabDataValues.length;
     }
 
-    /*public DataInfos[] getTabDataInfos() {
-        return tabDataInfos;
-    }*/
+    public String getTargetVar() {
 
-    /*public String[][] getTabDataValues() {
-        return tabDataValues;
-    }*/
+       for (int i = 0; i < tabDataInfos.length; i++) {
+
+           if (tabDataInfos[i].isTargetVar()) {
+               return tabDataInfos[i].getName();
+           }
+ 
+        }
+
+       return "";
+    }
 
     public String toString() {
 
