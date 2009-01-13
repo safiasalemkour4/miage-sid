@@ -1,19 +1,20 @@
 package cart;
 
 import etl.Data;
+import java.util.ArrayList;
 
 public class Scission {
 
 	public static final int T_STRING = 1, T_NUMERIC = 2, T_BINARY = 3;
 
-	// L'id de la colonne qui est utilisé par la scission
+	// L'id de la colonne qui est utilisï¿½ par la scission
 	private int idColumnCriteria;
 	// S'il s'agit d'une scission numeric ou string
 	private int typeScission;
-	// Si le critere est sur un String qu'elle sont les criteres pour les fils
+	// Si le critere est sur un String quels sont les criteres pour les fils
 	// droit et gauche
-	private String[] criteriaLeft;
-	private String[] criteriaRight;
+	private String criteriaLeft;
+	private ArrayList<String> criteriaRight;
 	// Si le critere est numeric on defini la valeur discriminatoire
 	private int criteriaInterval;
 
@@ -31,7 +32,10 @@ public class Scission {
 	public Data[] discriminate(Data data) {
 
 		Data[] tabNode = new Data[2];
-		// TODO Separer les un tableau en deux tableaux dapres le critere
+        Data leftData;
+        Object [] tab = data.getListOccurence(idColumnCriteria);
+        
+		// TODO Separer un tableau en deux tableaux dapres le critere
 		return tabNode;
 
 	}
@@ -52,19 +56,19 @@ public class Scission {
 		this.typeScission = typeScission;
 	}
 
-	public String[] getCriteriaLeft() {
+	public String getCriteriaLeft() {
 		return this.criteriaLeft;
 	}
 
-	public void setCriteriaLeft(String[] criteriaLeft) {
+	public void setCriteriaLeft(String criteriaLeft) {
 		this.criteriaLeft = criteriaLeft;
 	}
 
-	public String[] getCriteriaRight() {
+	public ArrayList<String> getCriteriaRight() {
 		return this.criteriaRight;
 	}
 
-	public void setCriteriaRight(String[] criteriaRight) {
+	public void setCriteriaRight(ArrayList<String> criteriaRight) {
 		this.criteriaRight = criteriaRight;
 	}
 
