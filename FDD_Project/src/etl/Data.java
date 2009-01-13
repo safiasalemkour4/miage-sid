@@ -120,6 +120,11 @@ public class Data {
        return "";
     }
 
+    public String[][] getTabDataValues() {
+        return tabDataValues;
+    }
+
+    
     public DataInfos[] getTabDataInfos() {
         return tabDataInfos;
     }
