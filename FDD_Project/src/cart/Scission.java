@@ -1,6 +1,7 @@
 package cart;
 
 import etl.Data;
+import java.lang.String;
 import java.util.ArrayList;
 
 public class Scission {
@@ -30,11 +31,37 @@ public class Scission {
 	 * @param node
 	 */
 	public Data[] discriminate(Data data) {
-
+        // 2 tableau à renvoyer : Scission gauche (données avec crière) et Scission droite (autres données)
 		Data[] tabNode = new Data[2];
-        Data leftData;
+        //Donnée contenu à gauche
+        String[][] leftData, rightData;
+        // Toutes les données possible de la colonne ciblée
         Object [] tab = data.getListOccurence(idColumnCriteria);
+        // La colonne à tester
+        int column = idColumnCriteria;
+
+        int i = 0;
+        int j = 0;
+        //Tableau temporaire contenant les données à traiter
+        String[][] tempData = data.getTabDataValues();
+
+        //construction des tableaux
+        leftData = new String[data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
+        rightData = new String[data.getNbRow()-data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
+
+        // Séparation des données
+        for(int row = 0; row <data.getNbRow(); row++) {
+            // Si donnée corespond au critère gauche mettre dans le tableau Data[0] sinon Data[1]
+            if ( criteriaLeft.compareTo(data.getValue(row, column)) == 0) {
+                leftData[i] = tempData[row];
+            }
+            else {
+                rightData[j] = tempData[row];
+            }
+        }
+        // Verification des données data
         
+
 		// TODO Separer un tableau en deux tableaux dapres le critere
 		return tabNode;
 
