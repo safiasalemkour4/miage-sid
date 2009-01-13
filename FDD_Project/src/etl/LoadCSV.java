@@ -137,20 +137,20 @@ public class LoadCSV {
             l++;
         }
 
-        // On test si la colonne est de type binaire
-        for (int i=0;i<tabDataInfos.length;i++) {
 
-            if (tabDataInfos[i].getListValues().keySet().size()==2) {
-                
-            } else {
-                
-            }
-            tabDataInfos[i].setListValues(tabListValues[i]);
-        }
 
         /* On met les nb d'occurence */
         for (int i=0;i<tabDataInfos.length;i++) {
             tabDataInfos[i].setListValues(tabListValues[i]);
+        }
+
+                // On test si la colonne est de type binaire
+        for (int i=0;i<tabDataInfos.length;i++) {
+
+            if (tabDataInfos[i].getListValues().keySet().size()==2) {
+                tabDataInfos[i].setType(DataInfos.T_BINARY);
+            }
+
         }
         
         data = new Data(tabDataValues, tabDataInfos);

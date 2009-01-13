@@ -106,6 +106,10 @@ public class DataInfos {
         return (this.type==T_BINARY);
     }
 
+    public void setType(int type) {
+        this.type = type;
+    }
+
     public void setListValues(HashMap<?, Integer> listValues) {
         this.listValues = listValues;
     }
