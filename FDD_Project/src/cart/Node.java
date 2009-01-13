@@ -42,7 +42,7 @@ public class Node {
 		this.developped = false;
 		this.level = level;
 		this.finalNode = this.isFinalNode();
-		// On ajoute le nouveau noeud à l'arbre
+		// On ajoute le nouveau noeud ï¿½ l'arbre
 		Cart.tree.add(this);
 	}
 
@@ -70,10 +70,10 @@ public class Node {
 
 		// On divise le nombre de ligne des donnees obtenues par le nombre de
 		// ligne des donnees totales du noeud
-		double rateNbLeft = possibleDataLeft.getTabDataValues().length
-				/ this.data.getTabDataValues().length;
-		double rateNbRight = possibleDataRight.getTabDataValues().length
-				/ this.data.getTabDataValues().length;
+		double rateNbLeft = possibleDataLeft.getNbRow()
+				/ this.data.getNbRow();
+		double rateNbRight = possibleDataRight.getNbRow()
+				/ this.data.getNbRow();
 
 		double rateTargetLeft;
 		double rateTargetRight;

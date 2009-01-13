@@ -3,8 +3,6 @@ package cart;
 import java.util.ArrayList;
 
 import etl.Data;
-import etl.DataInfos;
-import java.util.Iterator;
 
 public class Cart {
 
@@ -50,16 +48,14 @@ public class Cart {
 
         // On parcours la liste des colonnes
         for (int i = 0; i < data.getNbCOlumn(); i++) {
-
-            data.
-            DataInfos currentColumn ;
-
+            
             // On ne s'interesse qu'aux variables non-cibles
-            if (!currentColumn.isTargetVar()) {
+            if (!data.isTargetVar(i)) {
 
                 // Si la variable est de type string les scissions sont les
-                // combinaisons entre les occurences
-                if (currentColumn.isString()) {
+                // combinaisons entre les occurences avec d'un cote une valeur
+                // et de l'autre le reste des valeurs
+                if (data.isString(i)) {
                     String[] listValue = (String[]) data.getListOccurence(i);
 
                     // On boucle sur chaque valeur de la liste pour l'isoler afin de créer
