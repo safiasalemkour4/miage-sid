@@ -36,6 +36,7 @@ public class MyFrame extends javax.swing.JFrame {
         jmi_quit = new javax.swing.JMenuItem();
         jm_about = new javax.swing.JMenu();
         jmi_about = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +83,9 @@ public class MyFrame extends javax.swing.JFrame {
 
         jmb.add(jm_about);
 
+        jMenu1.setText("Menu");
+        jmb.add(jMenu1);
+
         setJMenuBar(jmb);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -126,6 +130,7 @@ private void jmi_aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu jm_about;
     private javax.swing.JMenu jm_file;
