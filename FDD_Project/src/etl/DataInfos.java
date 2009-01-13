@@ -55,6 +55,8 @@ public class DataInfos {
         } else {
             res +=" et elle n'est pas la variable cible";
         }
+
+        res +="\nCette variable possede :";
         
         return res;
     }

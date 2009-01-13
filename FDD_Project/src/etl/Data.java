@@ -1,5 +1,8 @@
 package etl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Data {
 
     /**
@@ -22,7 +25,7 @@ public class Data {
 
         this.tabDataValues = tabDataValues;
         this.tabDataInfos = tabDataInfos;
-        
+
         System.out.println("vcxvcv");
     }
 
@@ -72,43 +75,56 @@ public class Data {
         } else {
             return -1;
         }
+    }
+
+    public Object[] getListOccurence(int column) {
+        
+        return this.tabDataInfos[column].getListValues().keySet().toArray();
 
     }
 
-    public DataInfos[] getTabDataInfos() {
+    public int getNbCOlumn() {
+        return this.tabDataInfos.length;
+    }
+
+    public int getNbRow() {
+        return this.tabDataValues.length;
+    }
+
+    /*public DataInfos[] getTabDataInfos() {
         return tabDataInfos;
-    }
+    }*/
 
-    public String[][] getTabDataValues() {
+    /*public String[][] getTabDataValues() {
         return tabDataValues;
-    }
-    
+    }*/
+
     public String toString() {
-        
-            String res = "";
 
-          System.out.println("\n--------- Header ---------\n");
+        String res = "";
 
-           DataInfos[] tabDataInfos = LoadCSV.data.getTabDataInfos();
+        System.out.println("\n--------- Header ---------\n");
 
-            for (int i = 0; i < tabDataInfos.length; i++) {
+        //DataInfos[] tabDataInfos = LoadCSV.data.getTabDataInfos();
 
-               System.out.println("- " + tabDataInfos[i]);
+        for (int i = 0; i < tabDataInfos.length; i++) {
 
+            System.out.println("- " + tabDataInfos[i]);
+
+        }
+
+        System.out.println("\n--------- DATA ---------\n");
+
+        //String[][] tabDataValues = LoadCSV.data.getTabDataValues();
+
+        for (int i = 0; i < tabDataValues.length; i++) {
+            for (int j = 0; j < tabDataValues[0].length; j++) {
+                System.out.print(tabDataValues[i][j] + ", ");
             }
-        
-            System.out.println("\n--------- DATA ---------\n");
-            
-            String [][] tabDataValues = LoadCSV.data.getTabDataValues();
-            
-            for (int i = 0; i < tabDataValues.length; i++) {
-                    for (int j = 0; j < tabDataValues[0].length; j++) {
-                        System.out.print(tabDataValues[i][j]+", ");
-                    }
-                    System.out.println();
-            }
-            System.out.println(res);
-            
-            return res;
+            System.out.println();
+        }
+       
+
+        return res;
     }
 }

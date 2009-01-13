@@ -3,6 +3,7 @@ package etl;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  *
@@ -15,7 +16,7 @@ public class LoadCSV {
     public static String[][] tabDataValues;
     public static DataInfos[] tabDataInfos;
     public static Data data;
-    
+
     public LoadCSV() {
     }
 
@@ -38,9 +39,6 @@ public class LoadCSV {
 
         firstReader.close();
 
-        System.out.println("Nombre de ligne : " + nbLine);
-        System.out.println("Nombre de colonne : " + header.length);
-
         //DataInfos(int id, int type, boolean targetVar)
 
         // ICI AFFICHER la premiere lecture (avec le hearder) pr le choix de la var cible !
@@ -53,6 +51,14 @@ public class LoadCSV {
 
         BufferedReader lastReader = new BufferedReader(new FileReader(filePath));
 
+        /* Tableau : A une valeur, on associe le nombre d'occurence */
+        HashMap tabListValues[] = new HashMap[header.length];
+
+        for (int i=0;i<tabListValues.length;i++) {
+            tabListValues[i] = new HashMap();
+        }
+
+        System.out.println("Creation de la hashmap de " + tabListValues.length);
         //InputStreamReader isr = new InputStreamReader(new FileInputStream("test"), Charset.forName("ISO-8859-1"));
         String line;
 
@@ -93,36 +99,53 @@ public class LoadCSV {
                         }
                     }
 
-                    tabDataInfos[i]=dataInfo;
-                    
+                    tabDataInfos[i] = dataInfo;
+
                     // TODO IL FAUDRAIT TESTER SI C BINAIRE !
 
+
                     /* On oubli pas d'ajouter la premiere ligne quand m'm */
+
+                    tabListValues[i].put(result[i], 1);
+
                     tabDataValues[l][i] = result[i];
 
                 }
 
-            } 
-            
-            /* Si ce n'est pas la premiere ligne */ 
-            else {
+            } /* Si ce n'est pas la premiere ligne */ else {
 
                 String[] result = line.split(SEPARATOR);
 
                 for (int i = 0; i < result.length; i++) {
 
+                    /* DU TRAVAIL A FAIRE ICI !!!!!!! */
+                    if (tabListValues[i].containsKey(result[i])) {
+
+                        Integer nbOccurence = (Integer) tabListValues[i].get(result[i]);
+
+                        /* Le put ecrase */
+                        tabListValues[i].put(result[i], nbOccurence.intValue() + 1);
+
+                    } else {
+                        tabListValues[i].put(result[i], 1);
+                    }
+
                     // On charge les donnees 
                     tabDataValues[l][i] = result[i];
 
                 }
-
             }
 
             l++;
         }
 
-        data = new Data(tabDataValues, tabDataInfos);
+        /* On met les nb d'occurence */
+        for (int i=0;i<tabDataInfos.length;i++) {
+            tabDataInfos[i].setListValues(tabListValues[i]);
+        }
         
+        data = new Data(tabDataValues, tabDataInfos);
+
         lastReader.close();
     }
 
