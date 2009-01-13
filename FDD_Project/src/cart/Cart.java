@@ -47,7 +47,7 @@ public class Cart {
         // TODO Calcul de toutes les possibilites de scission
 
         // On parcours la liste des colonnes
-        for (int i = 0; i < data.getNbCOlumn(); i++) {
+        for (int i = 0; i < data.getNbColumn(); i++) {
 
             // On ne s'interesse qu'aux variables non-cibles
             if (!data.isTargetVar(i)) {
