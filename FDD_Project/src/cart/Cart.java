@@ -48,7 +48,7 @@ public class Cart {
 
         // On parcours la liste des colonnes
         for (int i = 0; i < data.getNbCOlumn(); i++) {
-            
+
             // On ne s'interesse qu'aux variables non-cibles
             if (!data.isTargetVar(i)) {
 
@@ -73,10 +73,12 @@ public class Cart {
                             }
 
                         }
-
+                        // On cree une nouvelle scission de type String sur la colonne
+                        // en question et avec les criteres definis plus haut
                         Scission scission = new Scission(i, Scission.T_STRING);
                         scission.setCriteriaLeft(leftCriteria);
                         scission.setCriteriaRight(rightCriteria);
+                        // On ajoute la scission aux scissions possible
                         possibleScissions.add(scission);
 
                     }

@@ -75,6 +75,7 @@ public class Node {
 		double rateNbRight = possibleDataRight.getNbRow()
 				/ this.data.getNbRow();
 
+
 		double rateTargetLeft;
 		double rateTargetRight;
 
@@ -140,6 +141,8 @@ public class Node {
 	public boolean isFinalNode() {
 		// TODO Regarder si toutes les instances de data ont la meme variable
 		// cible
+        String target = this.data.getTargetVar();
+        
 		return this.finalNode;
 	}
 
