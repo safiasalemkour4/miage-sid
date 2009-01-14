@@ -27,7 +27,7 @@ public class Node {
 
     /**
      * On construit un noeud en lui donnant ses donnees, la scission qui a
-     * permis sa creation, son niveau dans l'arbre
+     * permis sa creation et son niveau dans l'arbre
      *
      * @param data
      * @param origin
@@ -38,6 +38,7 @@ public class Node {
 
         this.data = data;
         this.originScission = origin;
+        // On calcul les scissions possible pour le noeud
         this.possibleScissions = this.computePossibleScission();
         this.developped = false;
         this.level = level;
@@ -64,8 +65,6 @@ public class Node {
             // On recupere les deux tableaux de donnees issues de la discrimination par la scission
             Data[] tabData = scission.discriminate(this.data);
 
-            // TODO calcul des scissions possibles pour les noeuds dils
-
             // On cree deux noeuds avec les donnees discriminees, la scission a l'origine de la
             // discrimination, le tableau des scissions possible pour le nouveau noeud et
             // on augmente le niveau du noeud de 1 par rapport a son pere.
@@ -78,6 +77,8 @@ public class Node {
             // On ajoute les deux noeuds a l'arbre
             Cart.tree.add(this.leftSon);
             Cart.tree.add(this.rightSon);
+            // Le noeud est maintenant developpe
+            this.developped = true;
 
 
         }
@@ -105,7 +106,12 @@ public class Node {
     }
 
 
-    // TODO
+    /**
+     * Fonction calculant le degre de discrimination de la scission
+     * passee en parametre sur les donnees du noeud
+     * @param scission
+     * @return double
+     */
     public double getDiscriminationDegree(Scission scission) {
 
         int idTarget = this.data.getTargetVarId();
@@ -161,7 +167,7 @@ public class Node {
                 // combinaisons entre les occurences avec d'un cote une valeur
                 // et de l'autre le reste des valeurs
                 if (this.data.isString(i)) {
-                    
+
                     String[] listValue = (String[]) this.data.getListOccurence(i);
 
                     // On boucle sur chaque valeur de la liste pour l'isoler afin de créer

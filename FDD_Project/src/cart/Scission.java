@@ -5,37 +5,37 @@ import java.util.ArrayList;
 
 public class Scission {
 
-	public static final int T_STRING = 1, T_NUMERIC = 2, T_BINARY = 3;
+    public static final int T_STRING = 1,  T_NUMERIC = 2,  T_BINARY = 3;
 
-	// L'id de la colonne qui est utilis� par la scission
-	private int idColumnCriteria;
-	// S'il s'agit d'une scission numeric ou string
-	private int typeScission;
-	// Si le critere est sur un String quels sont les criteres pour les fils
-	// droit et gauche
-	private String criteriaLeft;
-	private ArrayList<String> criteriaRight;
-	// Si le critere est numeric on defini la valeur discriminatoire
-	private int criteriaInterval;
+    // L'id de la colonne qui est utilis� par la scission
+    private int idColumnCriteria;
+    // S'il s'agit d'une scission numeric ou string
+    private int typeScission;
+    // Si le critere est sur un String quels sont les criteres pour les fils
+    // droit et gauche
+    private String criteriaLeft;
+    private ArrayList<String> criteriaRight;
+    // Si le critere est numeric on defini la valeur discriminatoire
+    private int criteriaInterval;
 
-	public Scission(int idColumn, int type) {
-		this.idColumnCriteria = idColumn;
-		this.typeScission = type;
-	}
+    public Scission(int idColumn, int type) {
+        this.idColumnCriteria = idColumn;
+        this.typeScission = type;
+    }
 
-	/**
-	 * Fonction qui separe un ensemble de donnees en deux ensembles discrimines
-	 * par le critere de la scission
-	 * 
-	 * @param node
-	 */
-	public Data[] discriminate(Data data) {
+    /**
+     * Fonction qui separe un ensemble de donnees en deux ensembles discrimines
+     * par le critere de la scission
+     *
+     * @param node
+     */
+    public Data[] discriminate(Data data) {
         // 2 tableau à renvoyer : Scission gauche (données avec crière) et Scission droite (autres données)
-		Data[] tabNode = new Data[2];
+        Data[] tabNode = new Data[2];
         //Donnée contenu à gauche
         String[][] leftData, rightData;
         // Toutes les données possible de la colonne ciblée
-        Object [] tab = data.getListOccurence(idColumnCriteria);
+        Object[] tab = data.getListOccurence(idColumnCriteria);
         // La colonne à tester
         int column = idColumnCriteria;
 
@@ -46,78 +46,76 @@ public class Scission {
 
         //construction des tableaux
         leftData = new String[data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
-        rightData = new String[data.getNbRow()-data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
+        rightData = new String[data.getNbRow() - data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
 
         // Séparation des données
-        for(int row = 0; row <data.getNbRow(); row++) {
+        for (int row = 0; row < data.getNbRow(); row++) {
             // Si donnée corespond au critère gauche mettre dans le tableau Data[0] sinon Data[1]
-            if ( criteriaLeft.compareTo(data.getValue(row, column)) == 0) {
+            if (criteriaLeft.compareTo(data.getValue(row, column)) == 0) {
                 leftData[i] = tempData[row];
                 i++;
-            }
-            else {
+            } else {
                 rightData[j] = tempData[row];
                 j++;
             }
         }
         // Verification des données data (à faire)
-        
 
-		// TODO Separer un tableau en deux tableaux dapres le critere
-		return tabNode;
 
-	}
+        // TODO Separer un tableau en deux tableaux dapres le critere
+        return tabNode;
 
-	public int getIdColumnCriteria() {
-		return this.idColumnCriteria;
-	}
+    }
 
-	public void setIdColumnCriteria(int idColumnCriteria) {
-		this.idColumnCriteria = idColumnCriteria;
-	}
+    public int getIdColumnCriteria() {
+        return this.idColumnCriteria;
+    }
 
-	public int getTypeScission() {
-		return this.typeScission;
-	}
+    public void setIdColumnCriteria(int idColumnCriteria) {
+        this.idColumnCriteria = idColumnCriteria;
+    }
 
-	public void setTypeScission(int typeScission) {
-		this.typeScission = typeScission;
-	}
+    public int getTypeScission() {
+        return this.typeScission;
+    }
 
-	public String getCriteriaLeft() {
-		return this.criteriaLeft;
-	}
+    public void setTypeScission(int typeScission) {
+        this.typeScission = typeScission;
+    }
 
-	public void setCriteriaLeft(String criteriaLeft) {
-		this.criteriaLeft = criteriaLeft;
-	}
+    public String getCriteriaLeft() {
+        return this.criteriaLeft;
+    }
 
-	public ArrayList<String> getCriteriaRight() {
-		return this.criteriaRight;
-	}
+    public void setCriteriaLeft(String criteriaLeft) {
+        this.criteriaLeft = criteriaLeft;
+    }
 
-	public void setCriteriaRight(ArrayList<String> criteriaRight) {
-		this.criteriaRight = criteriaRight;
-	}
+    public ArrayList<String> getCriteriaRight() {
+        return this.criteriaRight;
+    }
 
-	public int getCriteriaInterval() {
-		return this.criteriaInterval;
-	}
+    public void setCriteriaRight(ArrayList<String> criteriaRight) {
+        this.criteriaRight = criteriaRight;
+    }
 
-	public void setCriteriaInterval(int criteriaInterval) {
-		this.criteriaInterval = criteriaInterval;
-	}
+    public int getCriteriaInterval() {
+        return this.criteriaInterval;
+    }
 
-	public boolean isNumeric() {
-		return (this.typeScission == T_NUMERIC);
-	}
+    public void setCriteriaInterval(int criteriaInterval) {
+        this.criteriaInterval = criteriaInterval;
+    }
 
-	public boolean isString() {
-		return (this.typeScission == T_STRING);
-	}
+    public boolean isNumeric() {
+        return (this.typeScission == T_NUMERIC);
+    }
 
-	public boolean isBinary() {
-		return (this.typeScission == T_BINARY);
-	}
+    public boolean isString() {
+        return (this.typeScission == T_STRING);
+    }
 
+    public boolean isBinary() {
+        return (this.typeScission == T_BINARY);
+    }
 }
