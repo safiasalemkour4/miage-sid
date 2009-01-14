@@ -1,7 +1,6 @@
 package cart;
 
 import etl.Data;
-import java.lang.String;
 import java.util.ArrayList;
 
 public class Scission {

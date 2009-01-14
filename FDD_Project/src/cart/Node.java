@@ -36,8 +36,7 @@ public class Node {
      * @param scissions
      * @param level
      */
-    public Node(Data data, Scission origin,
-            int level) {
+    public Node(Data data, Scission origin, int level) {
 
         this.data = data;
         this.originScission = origin;
