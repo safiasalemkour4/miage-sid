@@ -14,8 +14,6 @@ public class Node {
     private Scission originScission;
     // Les scissions encore possible sur le noeud
     private ArrayList<Scission> possibleScissions;
-    // La valeur des degres de discrimination des scissions
-    Double tabDegree[];
     // Le fils gauche
     private Node leftSon;
     // Le fils droit
@@ -44,7 +42,6 @@ public class Node {
         this.developped = false;
         this.level = level;
         this.finalNode = this.isFinalNode();
-        this.tabDegree = new Double[possibleScissions.size()];
         // On ajoute le nouveau noeud a l'arbre
         Cart.tree.add(this);
     }
