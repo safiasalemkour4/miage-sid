@@ -3,6 +3,8 @@ package cart;
 import java.util.ArrayList;
 
 import etl.Data;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class Node {
 
@@ -12,6 +14,8 @@ public class Node {
     private Scission originScission;
     // Les scissions encore possible sur le noeud
     private ArrayList<Scission> possibleScissions;
+    // La valeur des degres de discrimination des scissions
+    Double tabDegree[];
     // Le fils gauche
     private Node leftSon;
     // Le fils droit
@@ -25,41 +29,85 @@ public class Node {
 
     /**
      * On construit un noeud en lui donnant ses donnees, la scission qui a
-     * permis sa creation, les scissions qu'il peut encore effectuer, son niveau
-     * dans l'arbre
+     * permis sa creation, son niveau dans l'arbre
      *
      * @param data
      * @param origin
      * @param scissions
      * @param level
      */
-    public Node(Data data, Scission origin, ArrayList<Scission> scissions,
+    public Node(Data data, Scission origin,
             int level) {
 
         this.data = data;
         this.originScission = origin;
-        this.possibleScissions = scissions;
+        this.possibleScissions = this.computePossibleScission();
         this.developped = false;
         this.level = level;
         this.finalNode = this.isFinalNode();
-        // On ajoute le nouveau noeud � l'arbre
+        this.tabDegree = new Double[possibleScissions.size()];
+        // On ajoute le nouveau noeud a l'arbre
         Cart.tree.add(this);
     }
 
     /**
-     * Fonction qui etend un noeud. Va choisir parmi les scissions possibles
-     * laquelle discrimine le plus. Va creer deux noeuds fils.
+     * Fonction qui etend un noeud en utilisant la scission passee
+     * en parametre.Va creer deux noeuds fils avec les deux nouveaux
+     * sous ensemble de donnees.
      */
-    public void extendNode() {
+    public void developp(Scission scission) {
 
-        // TODO :
         // - verifier si feuille
-        // - Etendre un noeud en calculant les valeurs des differentes scissions
-        // et choisir le Max (ve
-        // - puis creation des deux noeuds fils
+        // - creation des deux noeuds fils avec les sous-ensembles des donnees
         // - insertion des fils dans l'arbre
-        // - appel de la meme fonction sur les deux fils
+
+
+        if (this.isFinalNode()) {
+            System.out.println("Noeud Feuille");
+        } else {
+            // On recupere les deux tableaux de donnees issues de la discrimination par la scission
+            Data[] tabData = scission.discriminate(this.data);
+
+            // TODO calcul des scissions possibles pour les noeuds dils
+
+            // On cree deux noeuds avec les donnees discriminees, la scission a l'origine de la
+            // discrimination, le tableau des scissions possible pour le nouveau noeud et
+            // on augmente le niveau du noeud de 1 par rapport a son pere.
+            Node leftNode = new Node(tabData[0], scission, this.level + 1);
+            Node rightNode = new Node(tabData[1], scission, this.level + 1);
+
+            // On fait le lien entre les noeuds fils et le noeud pere
+            this.leftSon = leftNode;
+            this.rightSon = rightNode;
+            // On ajoute les deux noeuds a l'arbre
+            Cart.tree.add(this.leftSon);
+            Cart.tree.add(this.rightSon);
+
+
+        }
     }
+
+    /**
+     * Fonction qui calcule tous les degres de discrimination des scissions que peut
+     * effectuer le noeud sur son ensemble de donnees. Elle renvoie une HashMap
+     * ayant pour cle la scission et comme valeur son degre.
+     * @return
+     */
+    public HashMap<Scission, Double> getChartDegrees() {
+
+
+        HashMap<Scission, Double> map = new HashMap<Scission, Double>();
+        for (Iterator<Scission> it = possibleScissions.iterator(); it.hasNext();) {
+
+            Scission scission = it.next();
+            map.put(scission, getDiscriminationDegree(scission));
+
+        }
+
+        return map;
+
+    }
+
 
     // TODO
     public double getDiscriminationDegree(Scission scission) {
@@ -92,6 +140,70 @@ public class Node {
 
         double totalDegree = 2 * rateNbLeft * rateNbRight * sumRateTarget;
         return totalDegree;
+    }
+
+    /**
+     * Cette fonction calcule toutes les possibilites de scission qu'offre
+     * l'ensemble de donnees. Renvoi un tableau de scission
+     *
+     * @param data
+     * @return
+     */
+    public ArrayList<Scission> computePossibleScission() {
+
+        ArrayList<Scission> tabScission = new ArrayList<Scission>();
+
+        // TODO Calcul de toutes les possibilites de scission
+
+        // On parcours la liste des colonnes
+        for (int i = 0; i < this.data.getNbColumn(); i++) {
+
+            // On ne s'interesse qu'aux variables non-cibles
+            if (!this.data.isTargetVar(i)) {
+
+                // Si la variable est de type string les scissions sont les
+                // combinaisons entre les occurences avec d'un cote une valeur
+                // et de l'autre le reste des valeurs
+                if (this.data.isString(i)) {
+                    
+                    String[] listValue = (String[]) this.data.getListOccurence(i);
+
+                    // On boucle sur chaque valeur de la liste pour l'isoler afin de créer
+                    // une scission
+                    for (int j = 0; j < listValue.length; j++) {
+
+                        String leftCriteria = listValue[j];
+                        ArrayList<String> rightCriteria = new ArrayList<String>();
+
+                        // On boucle pour stocker les valeurs autres que le leftCriteria
+                        for (int k = 0; k < listValue.length; k++) {
+                            String value = listValue[k];
+                            if (!value.equals(leftCriteria)) {
+                                rightCriteria.add(value);
+                            }
+
+                        }
+                        // On cree une nouvelle scission de type String sur la colonne
+                        // en question et avec les criteres definis plus haut
+                        Scission scission = new Scission(i, Scission.T_STRING);
+                        scission.setCriteriaLeft(leftCriteria);
+                        scission.setCriteriaRight(rightCriteria);
+                        // On ajoute la scission aux scissions possible
+                        possibleScissions.add(scission);
+
+                    }
+
+
+                } else {
+                    // Si la colonne est numerique
+                }
+
+            }
+
+        }
+
+        return tabScission;
+
     }
 
     public Data getData() {
