@@ -1,6 +1,6 @@
 package cart;
 
-import etl.Data;
+import etl.*;
 import java.util.ArrayList;
 
 public class Scission {
@@ -33,7 +33,7 @@ public class Scission {
         // 2 tableau à renvoyer : Scission gauche (données avec crière) et Scission droite (autres données)
         Data[] tabNode = new Data[2];
         //Donnée contenu à gauche
-        String[][] leftData, rightData;
+        String[][] leftData = null, rightData = null;
         // Toutes les données possible de la colonne ciblée
         Object[] tab = data.getListOccurence(idColumnCriteria);
         // La colonne à tester
@@ -62,7 +62,14 @@ public class Scission {
                 }
             }
         }
-        // Verification des données data (à faire)
+
+        DataInfos[] di = data.getTabDataInfos();
+        Data ltab = new Data(leftData, di);
+        Data rtab = new Data(rightData, di);
+        tabNode[0] = ltab;
+        tabNode[1] = rtab;
+
+        // Verification des données data (à faire....)
 
 
         // TODO Separer un tableau en deux tableaux dapres le critere
