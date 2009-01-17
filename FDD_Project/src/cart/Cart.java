@@ -15,7 +15,7 @@ public class Cart {
         // On cree le tableau representant l'arbre
         Cart.tree = new ArrayList<Node>();     
         // On cree le noeud racine (n'a pas de scission d'origine et de niveau 0)
-        Node rootNode = new Node(data, null,  0);
+        Node rootNode = new Node(data, null, "root",  0);
         // On ajoute la racine de l'arbre
         Cart.tree.add(rootNode);
     }

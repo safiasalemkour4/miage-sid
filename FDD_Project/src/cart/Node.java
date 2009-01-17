@@ -8,6 +8,8 @@ import java.util.Iterator;
 
 public class Node {
 
+    // Coté du noeud (droit ou gauche )
+    String side;
     // Un noeud contient des donnees
     private Data data;
     // Scission qui a engendre ce noeud
@@ -34,14 +36,16 @@ public class Node {
      * @param scissions
      * @param level
      */
-    public Node(Data data, Scission origin, int level) {
+    public Node(Data data, Scission origin, String side, int level) {
 
         this.data = data;
         this.originScission = origin;
         // On calcul les scissions possible pour le noeud
-        this.possibleScissions = this.computePossibleScission();
+        this.possibleScissions = new ArrayList<Scission>();
+        this.computePossibleScission();
         this.developped = false;
         this.level = level;
+        this.side = side;
         this.finalNode = this.isFinalNode();
         // On ajoute le nouveau noeud a l'arbre
         Cart.tree.add(this);
@@ -68,8 +72,8 @@ public class Node {
             // On cree deux noeuds avec les donnees discriminees, la scission a l'origine de la
             // discrimination, le tableau des scissions possible pour le nouveau noeud et
             // on augmente le niveau du noeud de 1 par rapport a son pere.
-            Node leftNode = new Node(tabData[0], scission, this.level + 1);
-            Node rightNode = new Node(tabData[1], scission, this.level + 1);
+            Node leftNode = new Node(tabData[0], scission, "left", this.level + 1);
+            Node rightNode = new Node(tabData[1], scission, "right", this.level + 1);
 
             // On fait le lien entre les noeuds fils et le noeud pere
             this.leftSon = leftNode;
@@ -104,7 +108,6 @@ public class Node {
         return map;
 
     }
-
 
     /**
      * Fonction calculant le degre de discrimination de la scission
@@ -153,7 +156,7 @@ public class Node {
      */
     public ArrayList<Scission> computePossibleScission() {
 
-        ArrayList<Scission> tabScission = new ArrayList<Scission>();
+
 
         // TODO Calcul de toutes les possibilites de scission
 
@@ -166,20 +169,21 @@ public class Node {
                 // Si la variable est de type string les scissions sont les
                 // combinaisons entre les occurences avec d'un cote une valeur
                 // et de l'autre le reste des valeurs
+
                 if (this.data.isString(i)) {
 
-                    String[] listValue = (String[]) this.data.getListOccurence(i);
+                    Object[] listValue = this.data.getListOccurence(i);
 
                     // On boucle sur chaque valeur de la liste pour l'isoler afin de créer
                     // une scission
                     for (int j = 0; j < listValue.length; j++) {
 
-                        String leftCriteria = listValue[j];
+                        String leftCriteria = (String) listValue[j];
                         ArrayList<String> rightCriteria = new ArrayList<String>();
 
                         // On boucle pour stocker les valeurs autres que le leftCriteria
                         for (int k = 0; k < listValue.length; k++) {
-                            String value = listValue[k];
+                            String value = (String) listValue[k];
                             if (!value.equals(leftCriteria)) {
                                 rightCriteria.add(value);
                             }
@@ -197,14 +201,37 @@ public class Node {
 
 
                 } else {
-                    // Si la colonne est numerique
+                    if (this.data.isNumeric(i)) {
+                        // Si la colonne est numerique
+//                    int[] listBound = this.data.getBoundaries();
+//                    for (int j = 0; j < listBound.length; j++) {
+//                        int currentBound = listBound[j];
+//                        Scission scission = new Scission(i, Scission.T_NUMERIC);
+//                        scission.setCriteriaInterval(currentBound);
+//                        possibleScissions.add(scission);
+//
+//                    }
+                    }
+                    else{
+                        // Si la colonne est de type binaire on ne stocke qu'une seule scission
+                        Object[] listValue = this.data.getListOccurence(i);
+                        String leftCriteria = (String) listValue[0];
+                        String right = (String) listValue[1];
+                        ArrayList<String>rightCriteria = new ArrayList<String>();
+                        rightCriteria.add(right);
+                        Scission scission = new Scission(i, Scission.T_BINARY);
+                        scission.setCriteriaLeft(leftCriteria);
+                        scission.setCriteriaRight(rightCriteria);
+                        // On ajoute la scission aux scissions possible
+                        possibleScissions.add(scission);
+                    }
                 }
 
             }
 
         }
 
-        return tabScission;
+        return this.possibleScissions;
 
     }
 
@@ -278,5 +305,35 @@ public class Node {
 
     public void setFinalNode(boolean finalNode) {
         this.finalNode = finalNode;
+    }
+
+    public String getSide() {
+        return side;
+    }
+
+    public void setSide(String side) {
+        this.side = side;
+    }
+
+    @Override
+    public String toString() {
+
+        String st = "";
+
+        st += "\nLe noeud " + this.side + this.level + " possede " + this.data.getNbRow() + " lignes. \n";
+        if (this.level == 0) {
+            st += "Il s'agit du noeud racine\n";
+        } else {
+            st += this.getOriginScission().toString();
+        }
+        st += "Developpe? : " + this.developped + "\n";
+        st += "Nombre de scissions possible : " + this.possibleScissions.size() + "\n";
+        st += "Scission possible : \n";
+        for (Iterator<Scission> it = possibleScissions.iterator(); it.hasNext();) {
+            Scission scission = it.next();
+            st += "- " + scission + "\n";
+        }
+
+        return st;
     }
 }

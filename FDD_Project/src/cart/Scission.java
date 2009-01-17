@@ -44,19 +44,22 @@ public class Scission {
         //Tableau temporaire contenant les données à traiter
         String[][] tempData = data.getTabDataValues();
 
-        //construction des tableaux
-        leftData = new String[data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
-        rightData = new String[data.getNbRow() - data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
+        if (this.isString() || this.isBinary()) {
+            //construction des tableaux
+            leftData = new String[data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
+            rightData = new String[data.getNbRow() - data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
 
-        // Séparation des données
-        for (int row = 0; row < data.getNbRow(); row++) {
-            // Si donnée corespond au critère gauche mettre dans le tableau Data[0] sinon Data[1]
-            if (criteriaLeft.compareTo(data.getValue(row, column)) == 0) {
-                leftData[i] = tempData[row];
-                i++;
-            } else {
-                rightData[j] = tempData[row];
-                j++;
+            // Séparation des données
+            for (int row = 0; row < data.getNbRow() - 1; row++) {
+                
+                // Si donnée corespond au critère gauche mettre dans le tableau Data[0] sinon Data[1]
+                if (criteriaLeft.compareTo(data.getValue(row, column)) == 0) {
+                    leftData[i] = tempData[row];
+                    i++;
+                } else {
+                    rightData[j] = tempData[row];
+                    j++;
+                }
             }
         }
         // Verification des données data (à faire)
@@ -117,5 +120,31 @@ public class Scission {
 
     public boolean isBinary() {
         return (this.typeScission == T_BINARY);
+    }
+
+    @Override
+    public String toString() {
+
+        String st = "";
+
+
+        st += "Scission ";
+        switch (this.getTypeScission()) {
+            case Scission.T_STRING:
+                st += "de type String (critere:" + this.getCriteriaLeft() + ")\n";
+                break;
+            case Scission.T_NUMERIC:
+                st += "de type Numerique (critere:" + this.getCriteriaInterval() + ")\n";
+                break;
+            case Scission.T_BINARY:
+                st += "de type Binaire (critere:" + this.getCriteriaLeft() + ")\n";
+                break;
+
+        }
+
+        st += "Sur la colonne " + this.getIdColumnCriteria() + "\n";
+
+
+        return st;
     }
 }
