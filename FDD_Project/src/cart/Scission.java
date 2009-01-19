@@ -42,10 +42,14 @@ public class Scission {
 //System.out.println("nbLigneLeft: "+(data.getNbRow() - data.getNbOccurence(column, criteriaLeft)));
         //Si c'est un critère binaire ou un critère en chaine de caractères
         if (this.isString() || this.isBinary()) {
+//            System.out.println("nb row data = " + data.getNbRow());
+//            System.out.println("data.getNbOccurence(column,criteriaLeft) = " + data.getNbOccurence(column,criteriaLeft));
+//            System.out.println("nb row left = " + (data.getNbRow() - data.getNbOccurence(column, criteriaLeft)));
+
             //construction des tableaux selon criteriaLeft
             leftData = new String[data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
             rightData = new String[data.getNbRow() - data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
-
+            
             // Séparation des données
             for (int row = 0; row < data.getNbRow(); row++) {
 
@@ -77,8 +81,9 @@ public class Scission {
                 }
             }
         }
-        System.out.println("Scission sur la colonne " + this.idColumnCriteria + " et critereLeft = " + this.getCriteriaLeft() + "et critereNum = " + this.getCriteriaInterval());
+        //System.out.println("Scission sur la colonne " + this.idColumnCriteria + " et critereLeft = " + this.getCriteriaLeft() + " et critereNum = " + this.getCriteriaInterval());
         DataInfos[] diLeft = data.getNewDataInfo(leftData, data.getTabDataInfos());
+        //System.out.println("dileft: "+diLeft[0].getName());
         Data ltab = new Data(leftData, diLeft);
         DataInfos[] diright = data.getNewDataInfo(rightData, data.getTabDataInfos());
         Data rtab = new Data(rightData, diright);
