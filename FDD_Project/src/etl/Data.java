@@ -71,6 +71,7 @@ public class Data {
         HashMap tabListValues[] = new HashMap[this.getNbColumn()];
 
         for (int i = 0; i < tabListValues.length; i++) {
+            
             tabListValues[i] = new HashMap();
         }
 
@@ -83,10 +84,12 @@ public class Data {
                 if (res[j].isNumeric()) {
 
                     if (res[j].getMinValue() > new Integer(newTabDataValues[i][j]).intValue()) {
+
                         res[j].setMinValue(new Integer(newTabDataValues[i][j]).intValue());
                     }
 
                     if (res[j].getMaxValue() < new Integer(newTabDataValues[i][j]).intValue()) {
+
                         res[j].setMaxValue(new Integer(newTabDataValues[i][j]).intValue());
                     }
                 }
@@ -100,6 +103,7 @@ public class Data {
                     tabListValues[j].put(newTabDataValues[i][j], nbOccurence.intValue() + 1);
 
                 } else {
+
                     tabListValues[j].put(newTabDataValues[i][j], 1);
                 }
             }
@@ -108,6 +112,7 @@ public class Data {
         /* On met les couples <value, nbOccurence> */
         
         for (int i = 0; i < res.length; i++) {
+
             res[i].setListValues(tabListValues[i]);
         }
 
@@ -116,6 +121,7 @@ public class Data {
         for (int i = 0; i < res.length; i++) {
 
             if (res[i].getListValues().keySet().size() == 2) {
+
                 res[i].setType(DataInfos.T_BINARY);
             }
         }
@@ -176,8 +182,11 @@ public class Data {
     public ArrayList<Integer> getBoundary(int column) {
 
         if (this.tabDataInfos[column].isNumeric()) {
+
             return this.tabDataInfos[column].getListBoundary();
+
         } else {
+            
             return null;
         }
     }
@@ -191,8 +200,11 @@ public class Data {
     public int getMaxValue(int column) {
 
         if (this.tabDataInfos[column].isNumeric()) {
+
             return this.tabDataInfos[column].getMaxValue();
+
         } else {
+
             return -1;
         }
     }
@@ -206,8 +218,11 @@ public class Data {
     public int getMinValue(int column) {
 
         if (this.tabDataInfos[column].isNumeric()) {
+
             return this.tabDataInfos[column].getMinValue();
+
         } else {
+
             return -1;
         }
     }
@@ -219,16 +234,26 @@ public class Data {
      * @return le nombre d'occurence qui sont inferieur ou egal a la borne choisie
      */
 
-    public int getNbOccurence(int column, int valueBoundary) {
+    public int getNbOccurenceBefore(int column, int valueBoundary) {
 
         int res =0;
         
         if (this.tabDataInfos[column].isNumeric()) {
-            //return this.tabDataInfos[column].getNbOccurence(value);
+
+            for (int i=0;i<this.tabDataValues.length;i++) {
+                
+                if (new Integer(this.tabDataValues[i][column]).intValue()<=valueBoundary) {
+                    
+                    res++;
+                }
+            }
+            
         } else {
+
             return -1;
         }
-        return -1;
+
+        return res;
     }
     
     /**
@@ -241,8 +266,11 @@ public class Data {
     public int getNbOccurence(int column, String value) {
 
         if (this.tabDataInfos[column].isBinary() || this.tabDataInfos[column].isString()) {
+
             return this.tabDataInfos[column].getNbOccurence(value);
+
         } else {
+
             return -1;
         }
     }
