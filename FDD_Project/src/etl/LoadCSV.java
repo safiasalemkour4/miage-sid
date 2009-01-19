@@ -115,7 +115,9 @@ public class LoadCSV {
 
                 }
 
-            } /* Si ce n'est pas la premiere ligne */ else {
+            } /* Si ce n'est pas la premiere ligne */
+
+            else {
 
                 String[] result = line.split(SEPARATOR);
 
@@ -124,7 +126,7 @@ public class LoadCSV {
                    if (tabDataInfos[i].isNumeric()) {
 
                        if (tabDataInfos[i].getMinValue()>new Integer(result[i]).intValue()) {
-                                                   tabDataInfos[i].setMinValue(new Integer(result[i]).intValue());
+                         tabDataInfos[i].setMinValue(new Integer(result[i]).intValue());
                        }
 
                        if (tabDataInfos[i].getMaxValue()<new Integer(result[i]).intValue()) {
@@ -159,7 +161,7 @@ public class LoadCSV {
             tabDataInfos[i].setListValues(tabListValues[i]);
         }
 
-        // On test si la colonne est de type binaire
+        /* On test si la colonne est de type binaire */
 
         for (int i = 0; i < tabDataInfos.length; i++) {
 

@@ -1,5 +1,7 @@
 package etl;
 
+import java.util.HashMap;
+
 /*****************************************************************************************************
  *   					    ~ Data Mining Project (Miage Nancy - SID - 2008/2009) ~             	 *
  *****************************************************************************************************
@@ -48,6 +50,78 @@ public class Data {
         this.tabDataInfos = tabDataInfos;
     }
 
+    /**
+     * Methode getNewDataInfo
+     * @param oldDataInfos les DataInfos du noeud superieur
+     * @return le tableau des nouveaux DataInfos (correspondant au noeud courrant)
+     */
+    
+    public DataInfos[] getNewDataInfo(String[][] newTabDataValues, DataInfos[] oldTabDataInfos) {
+
+        /*
+         * On reprend notre ancien DataInfos[]
+         * Il reste maintenant a mettre a jour les statistiques
+         */
+        
+        DataInfos[] res = oldTabDataInfos;
+
+        /* Tableau : A une valeur, on associe le nombre d'occurence */
+
+        HashMap tabListValues[] = new HashMap[this.getNbColumn()];
+
+        for (int i = 0; i < tabListValues.length; i++) {
+            tabListValues[i] = new HashMap();
+        }
+
+        /* On met a jour les informations : minValue, maxValue ainsi que les couples <value,nbOcurrence> */
+        
+        for (int i = 0; i < this.getNbRow(); i++) {
+
+            for (int j = 0; j < this.getNbColumn(); j++) {
+
+                if (res[j].isNumeric()) {
+
+                    if (res[j].getMinValue() > new Integer(newTabDataValues[i][j]).intValue()) {
+                        res[j].setMinValue(new Integer(newTabDataValues[i][j]).intValue());
+                    }
+
+                    if (res[j].getMaxValue() < new Integer(newTabDataValues[i][j]).intValue()) {
+                        res[j].setMaxValue(new Integer(newTabDataValues[i][j]).intValue());
+                    }
+                }
+
+                /* On fait les couples */
+                if (tabListValues[i].containsKey(newTabDataValues[i][j])) {
+
+                    Integer nbOccurence = (Integer) tabListValues[i].get(newTabDataValues[i][j]);
+
+                    /* Le put ecrase */
+                    tabListValues[i].put(newTabDataValues[i][j], nbOccurence.intValue() + 1);
+
+                } else {
+                    tabListValues[i].put(newTabDataValues[i][j], 1);
+                }
+            }
+        }
+
+        /* On met les couples <value, nbOccurence> */
+        
+        for (int i = 0; i < res.length; i++) {
+            res[i].setListValues(tabListValues[i]);
+        }
+
+        /* Enfin on test si la colonne est de devenue de type binaire */
+
+        for (int i = 0; i < res.length; i++) {
+
+            if (res[i].getListValues().keySet().size() == 2) {
+                res[i].setType(DataInfos.T_BINARY);
+            }
+        }
+
+        return res;
+    }
+    
     /**
      * Methode isTargetVar
      * @param column la colonne cible

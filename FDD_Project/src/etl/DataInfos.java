@@ -1,5 +1,6 @@
 package etl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /*****************************************************************************************************
@@ -16,6 +17,7 @@ import java.util.HashMap;
  * ***************************************************************************************************
  *   @version 	******  	1.0																		 *
  *****************************************************************************************************/
+
 public class DataInfos {
 
     /*
@@ -38,6 +40,9 @@ public class DataInfos {
     /* Indique si la variable est la variable cible */
     private boolean targetVar;
 
+    /* La liste des bornes */
+    private ArrayList<Integer> listBoundary;
+    
     /* La valeur minimale de la colonne (Si la colonne est de type numerique) */
     private int minValue;
 
