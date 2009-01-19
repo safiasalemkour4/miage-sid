@@ -32,7 +32,7 @@ public class LoadCSV {
 
         String line;
 
-        int nbLine = 1;
+        int nbLine = 0;
         while ((line = firstReader.readLine()) != null) {
             nbLine++;
         }
@@ -69,7 +69,7 @@ public class LoadCSV {
 
 
         while ((line = lastReader.readLine()) != null) {
-
+            
             if (l == 0) {
 
                 String firstLine = line;
