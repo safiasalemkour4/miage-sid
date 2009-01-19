@@ -1,22 +1,16 @@
-
 package gui;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
- * @author  maxime
+ * @author Romain
  */
-public class MyFrame extends javax.swing.JFrame {
+public class TreeFrame extends javax.swing.JFrame {
 
-    /** Creates new form MyFrame */
-    public MyFrame() {
-	initComponents();
-	this.setVisible(true);
+    /** Creates new form TreeFrame */
+    public TreeFrame() {
+        initComponents();
     }
 
     /** This method is called from within the constructor to
@@ -81,46 +75,46 @@ public class MyFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 771, Short.MAX_VALUE)
+            .addGap(0, 579, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGap(0, 369, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jmi_quitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_quitActionPerformed
-    this.dispose();
-}//GEN-LAST:event_jmi_quitActionPerformed
-
-private void jmi_aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_aboutActionPerformed
-    JOptionPane.showMessageDialog(this, "Projet : Fouille de Données\n" +
-	    "Par : \n" +
-	    "	Florian COLLIGNON\n" +
-	    "	Simon HASNE\n" +
-	    "	Maxime HOEFFEL\n" +
-	    "	Arnaud KNOBLOCH\n" +
-	    "	Romain LAFOND\n" +
-	    "	Eric NGUYEN VAN", 
-	    "About : Miage SID 2009", JOptionPane.INFORMATION_MESSAGE);
-}//GEN-LAST:event_jmi_aboutActionPerformed
-
-private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-    // TODO add your handling code here:
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
 }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    
-    /* surcharge */
-//    public void paint(Graphics g){
-//        super.paint(g);
-//        Graphics2D g2 = (Graphics2D)g;
-//        g2.draw(new Line2D.Double(200,100,150,150));
-//    }
+    private void jmi_quitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_quitActionPerformed
+        this.dispose();
+}//GEN-LAST:event_jmi_quitActionPerformed
 
+    private void jmi_aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_aboutActionPerformed
+        JOptionPane.showMessageDialog(this, "Projet : Fouille de Données\n" +
+                "Par : \n" +
+                "	Florian COLLIGNON\n" +
+                "	Simon HASNE\n" +
+                "	Maxime HOEFFEL\n" +
+                "	Arnaud KNOBLOCH\n" +
+                "	Romain LAFOND\n" +
+                "	Eric NGUYEN VAN",
+                "About : Miage SID 2009", JOptionPane.INFORMATION_MESSAGE);
+}//GEN-LAST:event_jmi_aboutActionPerformed
 
-    
+    /**
+    * @param args the command line arguments
+    */
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TreeFrame().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
