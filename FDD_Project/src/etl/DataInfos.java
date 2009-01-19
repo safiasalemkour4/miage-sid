@@ -40,7 +40,7 @@ public class DataInfos {
     /* Indique si la variable est la variable cible */
     private boolean targetVar;
 
-    /* La liste des bornes */
+    /* La liste des bornes (Si la colonne est de type numerique) */
     private ArrayList<Integer> listBoundary;
     
     /* La valeur minimale de la colonne (Si la colonne est de type numerique) */
@@ -142,6 +142,17 @@ public class DataInfos {
     }
 
     /**
+     * Methode getListBoundary
+     * @return la liste des bornes
+     */
+    
+    public ArrayList<Integer> getListBoundary() {
+
+        return listBoundary;
+    }
+
+
+    /**
      * Methode getMaxValue
      * @return la valeur maximale de la colonne (si elle est de type numerique)
      */
@@ -229,6 +240,16 @@ public class DataInfos {
     public void setListValues(HashMap<?, Integer> listValues) {
 
         this.listValues = listValues;
+    }
+
+    /**
+     * Methode setListBoundary
+     * @param listBoundary la liste des bornes
+     */
+
+    public void setListBoundary(ArrayList<Integer> listBoundary) {
+
+        this.listBoundary = listBoundary;
     }
 
     /**

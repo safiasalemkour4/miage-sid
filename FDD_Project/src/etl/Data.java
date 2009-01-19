@@ -1,5 +1,6 @@
 package etl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /*****************************************************************************************************
@@ -75,9 +76,9 @@ public class Data {
 
         /* On met a jour les informations : minValue, maxValue ainsi que les couples <value,nbOcurrence> */
         
-        for (int i = 0; i < this.getNbRow(); i++) {
+        for (int i = 0; i < newTabDataValues.length; i++) {
 
-            for (int j = 0; j < this.getNbColumn(); j++) {
+            for (int j = 0; j < res.length; j++) {
 
                 if (res[j].isNumeric()) {
 
@@ -166,6 +167,15 @@ public class Data {
         return this.tabDataInfos[column].isBinary();
     }
 
+    public ArrayList<Integer> getBoundary(int column) {
+
+        if (this.tabDataInfos[column].isNumeric()) {
+            return this.tabDataInfos[column].getListBoundary();
+        } else {
+            return null;
+        }
+    }
+    
     /**
      * Methode getMaxValue
      * @param column la colonne cible
