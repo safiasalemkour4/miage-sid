@@ -83,8 +83,16 @@ public class DieView extends JPanel implements Observer {
         this.labelDie_1 = new JLabel("Die 1 :");
         this.labelDie_2 = new JLabel("Die 2 :");
 
-        this.textField_1 = new JTextField("" + this.die_1.getFaceValue());
-        this.textField_2 = new JTextField("" + this.die_2.getFaceValue());
+        if (this.die_1.getFaceValue() == -1 || this.die_2.getFaceValue() == -1) {
+
+            this.textField_1 = new JTextField("");
+            this.textField_2 = new JTextField("");
+
+        } else {
+            
+            this.textField_1 = new JTextField("" + this.die_1.getFaceValue());
+            this.textField_2 = new JTextField("" + this.die_2.getFaceValue());
+        }
 
         this.add(this.labelDie_1);
         this.add(this.textField_1);

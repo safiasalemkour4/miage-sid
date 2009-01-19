@@ -5,12 +5,13 @@ import java.awt.BorderLayout;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*****************************************************************************************************
  *   					    ~ Dice Game (Miage Nancy - SID - 2008/2009) ~							 *
  *****************************************************************************************************
- *    CLASS  	******		PlayerView.java                                                       *
+ *    CLASS  	******		PlayerView.java                                                          *
  *****************************************************************************************************
  *    			******																				 *
  * DESCRIPTION  ******		Panel represenant la vue "player"                       				 *
@@ -24,7 +25,7 @@ import javax.swing.JPanel;
 public class PlayerView extends JPanel implements Observer {
 
     /* Variable de classe permettant de sauvegarder le tour courrant */
-    private static int turn = 0;
+    protected static int turn = 0;
 
     /* Instance sur la fenetre maitresse */
     private DiceGameForm diceGameForm;
@@ -32,6 +33,12 @@ public class PlayerView extends JPanel implements Observer {
     /* Instance du joueur */
     private Player player;
 
+    /* Label "Player :" */
+    private JLabel labelPlayer;
+
+    /* Label affichant le nom du joueur */
+    private JLabel labelPlayerValue;
+    
     /* Label "Turn :" */
     private JLabel labelTurn;
 
@@ -55,7 +62,19 @@ public class PlayerView extends JPanel implements Observer {
 
         this.setLayout(new BorderLayout());
 
-        this.player = new Player();
+        /* On demande et on recupere le nom du joueur */
+
+        String name = (String) JOptionPane.showInputDialog(diceGameForm,"Merci de choisir un nom", "Choix du Nom du Joueur", JOptionPane.QUESTION_MESSAGE, null, null, "Arnaud Knobloch");
+
+        if ((name != null) && (name.length() > 0)) {
+            
+            this.player = new Player(name);
+
+        } else {
+            
+            this.player = new Player();
+        }
+ 
         player.addObserver(this);
         
         updateContent();
@@ -71,9 +90,17 @@ public class PlayerView extends JPanel implements Observer {
         this.removeAll();
         this.updateUI();
 
+        JPanel playerPanel = new JPanel();
+
+        this.labelPlayer = new JLabel("Player : "+this.player.getName());
+        this.labelPlayerValue = new JLabel();
+
+        playerPanel.add(this.labelPlayer);
+        playerPanel.add(this.labelPlayerValue);
+
         JPanel turnPanel = new JPanel();
 
-        this.labelTurn = new JLabel("Turn :" + turn++);
+        this.labelTurn = new JLabel("Turn : " + turn++);
         this.labelTurnValue = new JLabel();
 
         turnPanel.add(this.labelTurn);
@@ -81,13 +108,14 @@ public class PlayerView extends JPanel implements Observer {
 
         JPanel scorePanel = new JPanel();
 
-        this.labelScore = new JLabel("Score :" + this.player.getScore());
+        this.labelScore = new JLabel("Score : " + this.player.getScore());
         this.labelScoreValue = new JLabel();
 
         scorePanel.add(this.labelScore);
         scorePanel.add(this.labelScoreValue);
 
-        this.add(turnPanel, BorderLayout.WEST);
+        this.add(playerPanel, BorderLayout.WEST);
+        this.add(turnPanel, BorderLayout.CENTER);
         this.add(scorePanel, BorderLayout.EAST);
 
     }
@@ -119,4 +147,16 @@ public class PlayerView extends JPanel implements Observer {
 
         this.player.display();
     }
+
+    /**
+     * Getter Player
+     * @return player
+     */
+
+    public Player getPlayer() {
+        
+        return player;
+    }
+
+
 }

@@ -29,7 +29,7 @@ public class Player extends Observable implements Serializable {
      * Constructeur par defaut d'un joueur
      */
 
-    public void Player() {
+    public Player() {
 
         this.name = "Unamed";
     }
@@ -39,7 +39,7 @@ public class Player extends Observable implements Serializable {
      * @param name le nom (login) du joueur
      */
 
-    public void Player(String name) {
+    public Player(String name) {
 
         this.name = name;
     }

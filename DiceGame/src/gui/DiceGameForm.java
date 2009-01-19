@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*****************************************************************************************************
@@ -24,6 +25,9 @@ import javax.swing.JPanel;
 
 public class DiceGameForm extends JFrame implements ActionListener {
 
+    /* Le type de persistance */
+    private int persistType;
+    
     /* Le Panel principal */
     private JPanel content;
 
@@ -46,10 +50,12 @@ public class DiceGameForm extends JFrame implements ActionListener {
      * Constructeur de la fenetre de jeu
      */
     
-    public DiceGameForm() {
+    public DiceGameForm(int persistType) {
 
         super();
 
+        this.persistType = persistType;
+        
         this.dieView = new DieView(this);
         this.playerView = new PlayerView(this);
    
@@ -76,6 +82,9 @@ public class DiceGameForm extends JFrame implements ActionListener {
 
         this.pack();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        this.setLocationRelativeTo(null);
+        
         this.setVisible(true);
 
     }
@@ -90,6 +99,13 @@ public class DiceGameForm extends JFrame implements ActionListener {
         this.dieView.startAction();
         this.playerView.startAction();
 
+        /* Si on est au tour 10 alors on met fin au jeu */
+        if (PlayerView.turn==10) {
+            
+            endOfTheGame();
+            stopAction();
+        }
+
     }
 
     /**
@@ -101,6 +117,24 @@ public class DiceGameForm extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Methode endOfTheGame
+     * Permet de mettre fin au jeu (et de sauvegarder l'entree)
+     */
+    
+    public void endOfTheGame() {
+
+        String name = this.playerView.getPlayer().getName();
+        int score = this.playerView.getPlayer().getScore();
+        
+        System.out.println("On save avec le type de persistance :"+this.persistType);
+        
+        JOptionPane.showMessageDialog(this,  "Merci d'avoir jouer "+name+" ! \nVotre score de "+score+" a été sauvegardé.\n"+
+                "\nVous pourrez peut être retrouver celui-ci dans les\nhighscore si vous êtes dans les 10 meilleurs",
+                "Sauvegarde de la Partie", JOptionPane.INFORMATION_MESSAGE);
+
+    }
+    
     /**
      * Methode actionPerformed
      * Permet de definir des actions en fonction d'evenements
