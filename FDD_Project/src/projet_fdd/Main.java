@@ -35,14 +35,23 @@ public class Main {
         root.setRightSon(filsDroit);
         root.setDevelopped(true);
 
+        /* deuxieme niveau */
+        NodeTest lvl2filsGauche = new NodeTest(null, null, "left", 1);
+        NodeTest lvl2filsDroit = new NodeTest(null, null, "right", 1);
+        filsDroit.setLeftSon(lvl2filsGauche);
+        filsDroit.setRightSon(lvl2filsDroit);
+        filsDroit.setDevelopped(true);
+
+        filsGauche.setLeftSon(lvl2filsGauche);
+        filsGauche.setRightSon(lvl2filsDroit);
+        filsGauche.setDevelopped(true);
+
         // ALGO !!!
         // trouver la hauteur max (en pixel de l'arbre)
         Main.getMaximumHeigth(root);
         // fixer la position de la racine (facile)
         // puis dérouler l'arbre récursivement
         // méthode "drawNode"
-
-        
 
 
         /* AFFICHAGE NIVEAU 1 (racine)*/
@@ -75,11 +84,21 @@ public class Main {
         if(parent.isDevelopped() == true){
             System.out.println("developpé OK!");
 
+            /* cas où les deux fils sont également "developped" */
+            int marge_vertical;
+            if(parent.getRightSon().isDevelopped() == true && parent.getLeftSon().isDevelopped() == true){
+                marge_vertical = DataUI.MARGIN_VERTICAL_BOTH_DEVELOPPED;
+                System.out.println("Les deux fils developped.");
+            }else{
+                marge_vertical = DataUI.MARGIN_VERTICAL_ONE_DEVELOPPED;
+                System.out.println("Un seul fils developped.");
+            }
+
             /**************************************************/
             /* calcul des coordonnées du TreeBox "FILS DROIT" */
             /**************************************************/
             int filsDroitX = parentNodeX + DataUI.TREEBOX_WIDTH + DataUI.MARGIN_RIGHT;
-            int filsDroitY = parentNodeY + (DataUI.TREEBOX_HEIGHT/2) - (DataUI.MARGIN_VERTICAL/2) - DataUI.TREEBOX_HEIGHT;            
+            int filsDroitY = parentNodeY + (DataUI.TREEBOX_HEIGHT/2) - (marge_vertical/2) - DataUI.TREEBOX_HEIGHT;
 
             TreeBox fd = new TreeBox();
             fd.setBounds(filsDroitX, filsDroitY, DataUI.TREEBOX_WIDTH, DataUI.TREEBOX_HEIGHT);
@@ -91,7 +110,7 @@ public class Main {
             /* calcul des coordonnées du TreeBox "FILS DROIT" */
             /**************************************************/
             int filsGaucheX = parentNodeX + DataUI.TREEBOX_WIDTH + DataUI.MARGIN_RIGHT;
-            int filsGaucheY = parentNodeY + (DataUI.TREEBOX_HEIGHT/2) + (DataUI.MARGIN_VERTICAL/2);
+            int filsGaucheY = parentNodeY + (DataUI.TREEBOX_HEIGHT/2) + (marge_vertical/2);
 
             TreeBox fg = new TreeBox();
             fg.setBounds(filsGaucheX, filsGaucheY, DataUI.TREEBOX_WIDTH, DataUI.TREEBOX_HEIGHT);

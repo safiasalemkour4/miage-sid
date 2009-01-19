@@ -16,5 +16,9 @@ public class DataUI {
     /** marge intérieure **/
     public static final int MARGIN_RIGHT = 100;
     /** marge verticale du milieu entre deux fils */
-    public static final int MARGIN_VERTICAL = 20;
+    public static final int MARGIN_VERTICAL_ONE_DEVELOPPED = 10;
+    /** marge verticale du milieu entre deux fils quand les deux sont développés */
+    public static final int MARGIN_VERTICAL_BOTH_DEVELOPPED = 200;
+
+    
 }
