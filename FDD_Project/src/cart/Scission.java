@@ -11,13 +11,12 @@ public class Scission {
     private int idColumnCriteria;
     // S'il s'agit d'une scission numeric ou string
     private int typeScission;
-    // Si le critere est sur un String quels sont les criteres pour les fils
-    // droit et gauche
+    // Si le critere est sur un String quel est le critere pour le fils droit
     private String criteriaLeft;
-    private ArrayList<String> criteriaRight;
     // Si le critere est numeric on defini la valeur discriminatoire
     private int criteriaInterval;
 
+    
     public Scission(int idColumn, int type) {
         this.idColumnCriteria = idColumn;
         this.typeScission = type;
@@ -34,8 +33,7 @@ public class Scission {
         Data[] tabNode = new Data[2];
         //Donnée contenu à gauche
         String[][] leftData = null, rightData = null;
-        // Toutes les données possible de la colonne ciblée
-        Object[] tab = data.getListOccurence(idColumnCriteria);
+        
         // La colonne à tester
         int column = idColumnCriteria;
 
@@ -44,8 +42,9 @@ public class Scission {
         //Tableau temporaire contenant les données à traiter
         String[][] tempData = data.getTabDataValues();
 
+        //Si c'est un critère binaire ou un critère en chaine de caractères
         if (this.isString() || this.isBinary()) {
-            //construction des tableaux
+            //construction des tableaux selon criteriaLeft
             leftData = new String[data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
             rightData = new String[data.getNbRow() - data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
 
@@ -54,6 +53,25 @@ public class Scission {
                 
                 // Si donnée corespond au critère gauche mettre dans le tableau Data[0] sinon Data[1]
                 if (criteriaLeft.compareTo(data.getValue(row, column)) == 0) {
+                    leftData[i] = tempData[row];
+                    i++;
+                } else {
+                    rightData[j] = tempData[row];
+                    j++;
+                }
+            }
+        }
+        //Sinon si c'est un critère numérique
+        else {
+            //construction des tableaux selon criteriaInterval
+            leftData = new String[data.getNbOccurence(column, criteriaInterval)][data.getNbColumn()];
+            rightData = new String[data.getNbRow() - data.getNbOccurence(column, criteriaInterval)][data.getNbColumn()];
+
+            // Séparation des données
+            for (int row = 0; row < data.getNbRow() - 1; row++) {
+
+                // Si donnée corespond au critère gauche mettre dans le tableau Data[0] sinon Data[1]
+                if (criteriaInterval < Integer.parseInt(data.getValue(row, column)) ) {
                     leftData[i] = tempData[row];
                     i++;
                 } else {
@@ -99,14 +117,6 @@ public class Scission {
 
     public void setCriteriaLeft(String criteriaLeft) {
         this.criteriaLeft = criteriaLeft;
-    }
-
-    public ArrayList<String> getCriteriaRight() {
-        return this.criteriaRight;
-    }
-
-    public void setCriteriaRight(ArrayList<String> criteriaRight) {
-        this.criteriaRight = criteriaRight;
     }
 
     public int getCriteriaInterval() {
