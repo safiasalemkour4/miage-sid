@@ -6,10 +6,11 @@ package projet_fdd;
 
 import cart.Node;
 import projet_fdd.NodeTest;
-import gui.DataUI;
+import gui.UI;
 import gui.MyFrame;
 import gui.TreeBox;
 import java.awt.Dimension;
+import java.awt.geom.Line2D;
 
 /**
  *
@@ -58,13 +59,13 @@ public class Main {
 
         System.out.println("height: " + treeFrame.getHeight() + " width: " + treeFrame.getWidth());
         // calcul du noeud racine
-        int noeudRacineX = DataUI.MARGIN_LEFT;
-        int noeudRacineY = (treeFrame.getHeight() + DataUI.TREEBOX_HEIGHT) / 2 - DataUI.TREEBOX_HEIGHT;
+        int noeudRacineX = UI.MARGIN_LEFT;
+        int noeudRacineY = (treeFrame.getHeight()/2) - (UI.TREEBOX_HEIGHT/2);
 
         System.out.println("height: " + noeudRacineY + " width: " + noeudRacineX);
 
         TreeBox tb = new TreeBox();
-        tb.setBounds(noeudRacineX, noeudRacineY, DataUI.TREEBOX_WIDTH, DataUI.TREEBOX_HEIGHT);
+        tb.setBounds(noeudRacineX, noeudRacineY, UI.TREEBOX_WIDTH, UI.TREEBOX_HEIGHT);
         treeFrame.getContentPane().add(tb);
         tb.setVisible(true);
         tb.repaint();        
@@ -74,6 +75,7 @@ public class Main {
 
         treeFrame.setVisible(true);
         treeFrame.validate();
+        treeFrame.repaint();
     }
 
     /**
@@ -87,36 +89,50 @@ public class Main {
             /* cas où les deux fils sont également "developped" */
             int marge_vertical;
             if(parent.getRightSon().isDevelopped() == true && parent.getLeftSon().isDevelopped() == true){
-                marge_vertical = DataUI.MARGIN_VERTICAL_BOTH_DEVELOPPED;
+                marge_vertical = UI.MARGIN_VERTICAL_BOTH_DEVELOPPED;
                 System.out.println("Les deux fils developped.");
             }else{
-                marge_vertical = DataUI.MARGIN_VERTICAL_ONE_DEVELOPPED;
+                marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED;
                 System.out.println("Un seul fils developped.");
             }
 
             /**************************************************/
             /* calcul des coordonnées du TreeBox "FILS DROIT" */
             /**************************************************/
-            int filsDroitX = parentNodeX + DataUI.TREEBOX_WIDTH + DataUI.MARGIN_RIGHT;
-            int filsDroitY = parentNodeY + (DataUI.TREEBOX_HEIGHT/2) - (marge_vertical/2) - DataUI.TREEBOX_HEIGHT;
+            int filsDroitX = parentNodeX + UI.TREEBOX_WIDTH + UI.MARGIN_RIGHT;
+            int filsDroitY = parentNodeY + (UI.TREEBOX_HEIGHT/2) - (marge_vertical/2) - UI.TREEBOX_HEIGHT;
 
             TreeBox fd = new TreeBox();
-            fd.setBounds(filsDroitX, filsDroitY, DataUI.TREEBOX_WIDTH, DataUI.TREEBOX_HEIGHT);
+            fd.setBounds(filsDroitX, filsDroitY, UI.TREEBOX_WIDTH, UI.TREEBOX_HEIGHT);
             treeFrame.getContentPane().add(fd);
             fd.setVisible(true);
             fd.repaint();
 
+            /* on ajoute le trait jusqu'à son parent */
+            Line2D lineD = new Line2D.Double(parentNodeX + UI.TREEBOX_WIDTH,
+                                             parentNodeY + (UI.TREEBOX_HEIGHT/2) + UI.MARGIN_MINE,
+                                             filsDroitX,
+                                             filsDroitY + (UI.TREEBOX_HEIGHT/2) + UI.MARGIN_MINE);
+            MyFrame.getLineList().add(lineD);
+
             /**************************************************/
             /* calcul des coordonnées du TreeBox "FILS DROIT" */
             /**************************************************/
-            int filsGaucheX = parentNodeX + DataUI.TREEBOX_WIDTH + DataUI.MARGIN_RIGHT;
-            int filsGaucheY = parentNodeY + (DataUI.TREEBOX_HEIGHT/2) + (marge_vertical/2);
+            int filsGaucheX = parentNodeX + UI.TREEBOX_WIDTH + UI.MARGIN_RIGHT;
+            int filsGaucheY = parentNodeY + (UI.TREEBOX_HEIGHT/2) + (marge_vertical/2);
 
             TreeBox fg = new TreeBox();
-            fg.setBounds(filsGaucheX, filsGaucheY, DataUI.TREEBOX_WIDTH, DataUI.TREEBOX_HEIGHT);
+            fg.setBounds(filsGaucheX, filsGaucheY, UI.TREEBOX_WIDTH, UI.TREEBOX_HEIGHT);
             treeFrame.getContentPane().add(fg);
             fg.setVisible(true);
             fg.repaint();
+
+            /* on ajoute le trait jusqu'à son parent */
+            Line2D lineG = new Line2D.Double(parentNodeX + UI.TREEBOX_WIDTH,
+                                             parentNodeY + (UI.TREEBOX_HEIGHT/2) + UI.MARGIN_MINE,
+                                             filsGaucheX,
+                                             filsGaucheY + (UI.TREEBOX_HEIGHT/2) + UI.MARGIN_MINE);
+            MyFrame.getLineList().add(lineG);
 
             /* appel récursif vers les fils */
             drawNode(parent.getLeftSon(), filsGaucheX, filsGaucheY);

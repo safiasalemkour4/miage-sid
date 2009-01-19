@@ -4,6 +4,7 @@ package gui;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -12,10 +13,16 @@ import javax.swing.JPanel;
  */
 public class MyFrame extends javax.swing.JFrame {
 
+    private static ArrayList<Line2D> lineList = new ArrayList<Line2D>();
+
     /** Creates new form MyFrame */
     public MyFrame() {
 	initComponents();
 	this.setVisible(true);
+    }
+
+    public static ArrayList<Line2D> getLineList() {
+        return lineList;
     }
 
     /** This method is called from within the constructor to
@@ -113,12 +120,14 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
     
     /* surcharge */
-//    public void paint(Graphics g){
-//        super.paint(g);
-//        Graphics2D g2 = (Graphics2D)g;
-//        g2.draw(new Line2D.Double(200,100,150,150));
-//    }
-
+    public void paint(Graphics g){
+        super.paint(g);
+        Graphics2D g2 = (Graphics2D)g;
+        /* affiche tous les traits */
+        for (Line2D line : this.lineList) {
+            g2.draw(line);
+        }        
+    }
 
     
 

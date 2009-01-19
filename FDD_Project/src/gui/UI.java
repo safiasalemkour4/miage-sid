@@ -4,7 +4,7 @@ package gui;
 /**
  * @author Romain
  */
-public class DataUI {
+public class UI {
 
     /** largueur d'une box */
     public static final int TREEBOX_WIDTH = 183;
@@ -20,5 +20,7 @@ public class DataUI {
     /** marge verticale du milieu entre deux fils quand les deux sont développés */
     public static final int MARGIN_VERTICAL_BOTH_DEVELOPPED = 200;
 
+    /** marge des lines */
+    public static final int MARGIN_MINE = 45;
     
 }
