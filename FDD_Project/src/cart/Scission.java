@@ -63,9 +63,9 @@ public class Scission {
         //Sinon si c'est un critère numérique
         else {
             //construction des tableaux selon criteriaInterval
-            leftData = new String[data.getNbOccurence(column, criteriaInterval)][data.getNbColumn()];
-            rightData = new String[data.getNbRow() - data.getNbOccurence(column, criteriaInterval)][data.getNbColumn()];
-
+            leftData = new String[data.getNbOccurenceBefore(column, criteriaInterval)][data.getNbColumn()];
+            rightData = new String[data.getNbRow() - data.getNbOccurenceBefore(column, criteriaInterval)][data.getNbColumn()];
+            
             // Séparation des données
             for (int row = 0; row < data.getNbRow() - 1; row++) {
 
