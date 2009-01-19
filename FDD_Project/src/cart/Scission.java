@@ -71,7 +71,7 @@ public class Scission {
 
         // Verification des données data (à faire....)
 
-
+        
         // TODO Separer un tableau en deux tableaux dapres le critere
         return tabNode;
 

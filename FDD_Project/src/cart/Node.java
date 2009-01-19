@@ -123,7 +123,8 @@ public class Node {
         // On recupere les deux ensembles qui ont ete discrimine par la scission
         Data possibleDataLeft = scission.discriminate(this.data)[0];
         Data possibleDataRight = scission.discriminate(this.data)[1];
-
+        System.out.print("Calcul de la scission sur le critere : "+scission.getCriteriaLeft()+"\n");
+        System.out.print("--nbRowLeft: " + possibleDataLeft.getNbRow() + " ;nbRowRight: " + possibleDataRight.getNbRow()+"\n");
         // On divise le nombre de ligne des donnees obtenues par le nombre de
         // ligne des donnees totales du noeud
         double rateNbLeft = possibleDataLeft.getNbRow() / this.data.getNbRow();
@@ -134,11 +135,16 @@ public class Node {
 
             // On recupere la valeur courante
             String currentValueTarget = (String) this.data.getListOccurence(this.data.getTargetVarId())[i];
+            System.out.println(";valeurcourante Cible: "+currentValueTarget+"\n");
+            System.out.println(";nb de cible à gauche: "+possibleDataLeft.getNbOccurence(idTarget, currentValueTarget)+"\n");
             // On recupere le nombre d'instance possedant cette valeur a gauche et droite
             rateTargetLeft = possibleDataLeft.getNbOccurence(idTarget, currentValueTarget);
             rateTargetRight = possibleDataRight.getNbOccurence(idTarget, currentValueTarget);
-            // On somme la soustraction
-            sumRateTarget += rateTargetLeft - rateTargetRight;
+            //System.out.print("--rateTargetLeft: " + rateTargetLeft + " ;rateTargetRight: " + rateTargetRight);
+            // On somme la soustraction en valeur absolue
+            sumRateTarget += Math.abs(rateTargetLeft - rateTargetRight);
+
+
 
         }
 
@@ -210,13 +216,12 @@ public class Node {
 //                        possibleScissions.add(scission);
 //
 //                    }
-                    }
-                    else{
+                    } else {
                         // Si la colonne est de type binaire on ne stocke qu'une seule scission
                         Object[] listValue = this.data.getListOccurence(i);
                         String leftCriteria = (String) listValue[0];
                         String right = (String) listValue[1];
-                        ArrayList<String>rightCriteria = new ArrayList<String>();
+                        ArrayList<String> rightCriteria = new ArrayList<String>();
                         rightCriteria.add(right);
                         Scission scission = new Scission(i, Scission.T_BINARY);
                         scission.setCriteriaLeft(leftCriteria);
