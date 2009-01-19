@@ -198,7 +198,6 @@ public class Node {
                         // en question et avec les criteres definis plus haut
                         Scission scission = new Scission(i, Scission.T_STRING);
                         scission.setCriteriaLeft(leftCriteria);
-                        scission.setCriteriaRight(rightCriteria);
                         // On ajoute la scission aux scissions possible
                         possibleScissions.add(scission);
 
@@ -225,7 +224,6 @@ public class Node {
                         rightCriteria.add(right);
                         Scission scission = new Scission(i, Scission.T_BINARY);
                         scission.setCriteriaLeft(leftCriteria);
-                        scission.setCriteriaRight(rightCriteria);
                         // On ajoute la scission aux scissions possible
                         possibleScissions.add(scission);
                     }
