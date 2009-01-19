@@ -80,9 +80,13 @@ public class Scission {
             }
         }
 
-        DataInfos[] di = data.getTabDataInfos();
-        Data ltab = new Data(leftData, di);
-        Data rtab = new Data(rightData, di);
+        DataInfos[] diLeft = data.getNewDataInfo(leftData, data.getTabDataInfos());
+        Data ltab = new Data(leftData, diLeft);
+        DataInfos[] diright = data.getNewDataInfo(rightData, data.getTabDataInfos());
+        Data rtab = new Data(rightData, diright);
+
+       
+       
         tabNode[0] = ltab;
         tabNode[1] = rtab;
 
