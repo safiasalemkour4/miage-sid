@@ -6,13 +6,13 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  * @author  maxime
  */
 public class MyFrame extends javax.swing.JFrame {
 
+    /** liste des lignes à tracer */
     private static ArrayList<Line2D> lineList = new ArrayList<Line2D>();
 
     /** Creates new form MyFrame */
