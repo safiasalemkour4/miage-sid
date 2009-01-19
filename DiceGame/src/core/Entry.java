@@ -1,15 +1,14 @@
 package core;
 
 import java.io.Serializable;
-import java.util.Observable;
 
 /*****************************************************************************************************
  *   					    ~ Dice Game (Miage Nancy - SID - 2008/2009) ~							 *
  *****************************************************************************************************
- *    CLASS  	******		Player.java                                                              *
+ *    CLASS  	******		Entry.java                                                              *
  *****************************************************************************************************
  *    			******																				 *
- * DESCRIPTION  ******		Object metier representant un joueur                      				 *
+ * DESCRIPTION  ******		Object metier representant une entree                      				 *
  * 				******																				 *
  *****************************************************************************************************
  * 	 @author 	******   	Arnaud Knobloch                 										 *
@@ -17,51 +16,33 @@ import java.util.Observable;
  *   @version 	******  	1.0																		 *
  *****************************************************************************************************/
 
-public class Player extends Observable implements Serializable {
+public class Entry implements Serializable {
 
-    /* Le nom (login) du joueur */
+    /* Le nom(login) associe a l'entree */
     private String name;
 
-    /* Le score du joueur */
-    private int score = 0;
+    /* Le score associe a l'entree (et donc au login) */
+    private int score;
 
     /**
-     * Constructeur par defaut d'un joueur
+     * Constructeur d'une entree
+     * @param name le login du joueur
+     * @param score le scoure du joueur (pour cettre entree)
      */
-
-    public void Player() {
-
-        this.name = "Unamed";
-    }
-
-    /**
-     * Constructeur d'un joueur
-     * @param name le nom (login) du joueur
-     */
-
-    public void Player(String name) {
+    
+    public Entry(String name, int score) {
 
         this.name = name;
-    }
-
-    /**
-     * Methode display
-     * Permet de notifier les observers qu'il y a eu un changement
-     * et qu'il faut donc mettre a jour la vue
-     */
-
-    public void display() {
-
-        this.setChanged();
-        this.notifyObservers();
+        this.score = score;
     }
 
     /**
      * Getter Name
      * @return name
      */
-
+    
     public String getName() {
+
         return name;
     }
 
@@ -69,17 +50,27 @@ public class Player extends Observable implements Serializable {
      * Getter Score
      * @return score
      */
-
+    
     public int getScore() {
         return score;
+    }
+
+        /**
+     * Setter Name
+     * @param name le login du joueur
+     */
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
      * Setter Score
      * @param score le score
      */
-    
+
     public void setScore(int score) {
         this.score = score;
     }
+   
 }
