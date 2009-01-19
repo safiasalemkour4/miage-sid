@@ -92,15 +92,15 @@ public class Data {
                 }
 
                 /* On fait les couples */
-                if (tabListValues[i].containsKey(newTabDataValues[i][j])) {
+                if (tabListValues[j].containsKey(newTabDataValues[i][j])) {
 
-                    Integer nbOccurence = (Integer) tabListValues[i].get(newTabDataValues[i][j]);
+                    Integer nbOccurence = (Integer) tabListValues[j].get(newTabDataValues[i][j]);
 
                     /* Le put ecrase */
-                    tabListValues[i].put(newTabDataValues[i][j], nbOccurence.intValue() + 1);
+                    tabListValues[j].put(newTabDataValues[i][j], nbOccurence.intValue() + 1);
 
                 } else {
-                    tabListValues[i].put(newTabDataValues[i][j], 1);
+                    tabListValues[j].put(newTabDataValues[i][j], 1);
                 }
             }
         }
@@ -167,6 +167,12 @@ public class Data {
         return this.tabDataInfos[column].isBinary();
     }
 
+    /**
+     * Methode getBoundary
+     * @param column la colonne cible
+     * @return la liste des bornes de la colonne (si elle est de type numerique)
+     */
+
     public ArrayList<Integer> getBoundary(int column) {
 
         if (this.tabDataInfos[column].isNumeric()) {
@@ -206,6 +212,25 @@ public class Data {
         }
     }
 
+    /**
+     * Methode getNbOccurence
+     * @param column la colonne cible
+     * @param valueBoundary la borne choisie
+     * @return le nombre d'occurence qui sont inferieur ou egal a la borne choisie
+     */
+
+    public int getNbOccurence(int column, int valueBoundary) {
+
+        int res =0;
+        
+        if (this.tabDataInfos[column].isNumeric()) {
+            //return this.tabDataInfos[column].getNbOccurence(value);
+        } else {
+            return -1;
+        }
+        return -1;
+    }
+    
     /**
      * Methode getNbOccurence
      * @param column la colonne cible
