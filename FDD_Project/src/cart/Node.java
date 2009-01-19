@@ -37,7 +37,6 @@ public class Node {
      * @param level
      */
     public Node(Data data, Scission origin, String side, int level) {
-
         this.data = data;
         this.originScission = origin;
         // On calcul les scissions possible pour le noeud
