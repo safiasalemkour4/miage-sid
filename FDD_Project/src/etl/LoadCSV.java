@@ -1,5 +1,6 @@
 package etl;
 
+import cart.Cart;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -134,7 +135,9 @@ public class LoadCSV {
                        }
 
                     }
-                                      
+
+                   System.out.println("On ajoute la cle "+result[i]);
+                   
                     /* on fait les couples */
                     if (tabListValues[i].containsKey(result[i])) {
 
@@ -171,6 +174,9 @@ public class LoadCSV {
         }
 
         data = new Data(tabDataValues, tabDataInfos);
+
+        new Cart(data);
+        System.out.println(Cart.tree.get(0).getChartDegrees());
 
         lastReader.close();
     }

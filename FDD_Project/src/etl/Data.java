@@ -1,6 +1,7 @@
 package etl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 /*****************************************************************************************************
@@ -59,12 +60,35 @@ public class Data {
     
     public DataInfos[] getNewDataInfo(String[][] newTabDataValues, DataInfos[] oldTabDataInfos) {
 
+
+                System.out.println("super important : " +oldTabDataInfos[1]);
+
+         System.out.println("\n--------- DATA ---------\n");
+
+        for (int i = 0; i < newTabDataValues.length; i++) {
+                System.out.print("Ligne "+i+" ->");
+
+            for (int j = 0; j < newTabDataValues[0].length; j++) {
+
+                System.out.print(" "+newTabDataValues[i][j] + ", ");
+            }
+
+            System.out.println();
+        }
+        
         /*
          * On reprend notre ancien DataInfos[]
          * Il reste maintenant a mettre a jour les statistiques
          */
+            DataInfos[] res = new DataInfos[oldTabDataInfos.length];
+            int id=0;
+         for (DataInfos di : oldTabDataInfos) {
+            
+             DataInfos dataInfos = new DataInfos(di.getId(), di.getName(), di.getType(), di.isTargetVar());
+             res[id++] = dataInfos;
+
+         }
         
-        DataInfos[] res = oldTabDataInfos;
 
         /* Tableau : A une valeur, on associe le nombre d'occurence */
 
@@ -83,6 +107,8 @@ public class Data {
 
                 if (res[j].isNumeric()) {
 
+                    System.out.println("On essaye de test : "+newTabDataValues[i][j]+" qui se trouve a la ligne "+i+", colone "+j);
+                    
                     if (res[j].getMinValue() > new Integer(newTabDataValues[i][j]).intValue()) {
 
                         res[j].setMinValue(new Integer(newTabDataValues[i][j]).intValue());
@@ -267,6 +293,8 @@ public class Data {
 
         if (this.tabDataInfos[column].isBinary() || this.tabDataInfos[column].isString()) {
 
+            System.out.println("On va chercher le nb O de "+value+ " sur la colonne "+tabDataInfos[column]);
+            
             return this.tabDataInfos[column].getNbOccurence(value);
 
         } else {
