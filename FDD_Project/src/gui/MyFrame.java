@@ -21,6 +21,10 @@ public class MyFrame extends javax.swing.JFrame {
 	this.setVisible(true);
     }
 
+    public static void removeAllLines(){
+        lineList.clear();
+    }
+
     public static ArrayList<Line2D> getLineList() {
         return lineList;
     }
