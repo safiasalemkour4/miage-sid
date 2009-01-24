@@ -47,7 +47,6 @@ public class TreeBox extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel1.setText("CANCER : \"OUI\"");
 
-        criteresDiscrCB.setEditable(true);
         criteresDiscrCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         criteresDiscrCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

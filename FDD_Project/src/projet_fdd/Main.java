@@ -8,6 +8,8 @@ import gui.UI;
 import gui.MyFrame;
 import gui.TreeBox;
 import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Toolkit;
 import java.awt.geom.Line2D;
 
 /**
@@ -27,10 +29,15 @@ public class Main {
     public static void main(String[] args) {
 
         treeFrame = new MyFrame();
-        treeFrame.setPreferredSize(new Dimension(800, 600));
+
+        /* affichage en plein écran (fullscreen size mode) */
+        //int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+        //int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+        //treeFrame.setSize(new Dimension(screenWidth, screenHeight-30));
+        treeFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
 
         /* construction de l'arbre test */
-        root = new NodeTest(null, null, "root", 0);
+          root = new NodeTest(null, null, "root", 0);
 //        NodeTest filsGauche = new NodeTest(null, null, "left", 1);
 //        NodeTest filsDroit = new NodeTest(null, null, "right", 1);
 //        root.setLeftSon(filsGauche);
@@ -78,7 +85,7 @@ public class Main {
         tb.setVisible(true);
         tb.repaint();
 
-        // on appel désormais la fonction d'affichage pour le ou les fils de "parent"
+        /* on appel désormais la fonction d'affichage pour les fils de "parent" (récursive) */
         drawNode(root, noeudRacineX, noeudRacineY);
 
         treeFrame.setVisible(true);
@@ -104,6 +111,8 @@ public class Main {
                 marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED;
                 System.out.println("Un seul fils developped.");
             }
+
+            getVerticalMargin(parent);
 
             /**************************************************/
             /* calcul des coordonnées du TreeBox "FILS DROIT" */
@@ -148,7 +157,7 @@ public class Main {
             drawNode(parent.getRightSon(), filsDroitX, filsDroitY);
 
         } else {
-            System.out.println("developpé NON!");
+            System.out.println("developpé NON! Feuille !");
         }
     }
 
@@ -175,6 +184,33 @@ public class Main {
     //    | drawNode avec tous l'arbre (en passant le noeud racine)
        drawRootNode();
     // et voilà!
+    }
+
+    public static void getVerticalMargin(NodeTest node){
+        // si les 2 fils du 1er niveau sont développés, alors MARGIN_VERTICAL_BOTH_DEVELOPPED
+        // si les 2 fils du 1er et 2eme niveau sont développés, alors MARGIN_VERTICAL_BOTH_DEVELOPPED x 2
+        // si les 2 fils du 1er niveau sont développées, et que le fils droit (2eme niv) et le fils gauche (2eme niv) issu des
+        // deux noeuds développés du 1er niveau, alors MARGIN_VERTICAL_BOTH_DEVELOPPED x 2
+
+        int marge_vertical;
+        /* cas où les deux fils sont "developped" */
+        if (node.getRightSon().isDevelopped() == true && node.getLeftSon().isDevelopped() == true) {
+            marge_vertical = UI.MARGIN_VERTICAL_BOTH_DEVELOPPED;
+            System.out.println("1 noeud a ses deux fils developped !!!!!!!!");
+        }
+        /* aucun fils n'est développé */
+        if (node.getRightSon().isDevelopped() == false && node.getLeftSon().isDevelopped() == false) {
+            marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED;
+            System.out.println("Pas de developpement du noeud des 2 fils");
+        }
+        if (node.getRightSon().isDevelopped() == true && node.getLeftSon().isDevelopped() == true /* 1er niveau */
+                && node.getRightSon().getRightSon().isDevelopped() == true && node.getRightSon().getLeftSon().isDevelopped() == true /* 2e niv droit */
+                && node.getLeftSon().getRightSon().isDevelopped() == true && node.getLeftSon().getLeftSon().isDevelopped() == true ) /* 2e niv gauche */
+        {
+            marge_vertical = UI.MARGIN_VERTICAL_BOTH_DEVELOPPED;
+            System.out.println("Les deux fils du 1er niveau developped!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
+        
     }
 
 
