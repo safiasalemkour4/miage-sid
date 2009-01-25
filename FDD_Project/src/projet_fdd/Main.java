@@ -103,7 +103,7 @@ public class Main {
             System.out.println("developpé OK!");
 
             /* cas où les deux fils sont également "developped" */
-            int marge_vertical = getVerticalMargin(parent);
+            int marge_vertical = getVerticalMargin2(parent);
 //            if (parent.getRightSon().isDevelopped() == true && parent.getLeftSon().isDevelopped() == true) {
 //                marge_vertical = UI.MARGIN_VERTICAL_BOTH_DEVELOPPED;
 //                System.out.println("Les deux fils developped.");
@@ -112,7 +112,7 @@ public class Main {
 //                System.out.println("[" + node.hashCode() +"]" + "Un seul fils developped.");
 //            }
 
-            getVerticalMargin(parent);
+             System.out.println("Margin: " + marge_vertical);
 
             /**************************************************/
             /* calcul des coordonnées du TreeBox "FILS DROIT" */
@@ -186,111 +186,55 @@ public class Main {
     // et voilà!
     }
 
-    /**
+     /**
      * Calcul en fonction de la disposition de ses fils la valeur de marge verticale
      * à appliquer entre ses deux fils
      * @param node
      * @return la valeur de la marge vertical en pixel entre ses deux fils
      */
-    public static int getVerticalMargin(NodeTest node) {
+     public static int getVerticalMargin2(NodeTest node) {
+        int marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED; /* valeur par défaut */
 
-        int marge_vertical;
-
-        /* à partir d'un noeud racine
-         * le fils droit est développé + le fils gauche est développé
-         * + le fils gauche du fils droit est développé
-         * + le fils droit du fils gauche est développé */
-        if (node.getRightSon().isDevelopped() == true && node.getLeftSon().isDevelopped() == true &&
-                node.getRightSon().getLeftSon().isDevelopped() == true && node.getRightSon().getRightSon().isDevelopped() == false &&
-                node.getLeftSon().getRightSon().isDevelopped() == true && node.getLeftSon().getLeftSon().isDevelopped() == false){
-          
-            marge_vertical = UI.MARGIN_VERTICAL_BOTH_DEVELOPPED * 2;
-            System.out.println("[" + node.hashCode() + "]" + " BANZAII");
-            return marge_vertical;
-        }
-
-        /* à partir d'un noeud racine
-         * le fils droit est développé + le fils gauche est développé
-         * + les 2 fils du fils droit sont développé
-         * + les 2 fils du fils gauche sont développé */
-        if (node.getRightSon().isDevelopped() == true && node.getLeftSon().isDevelopped() == true && /* 1er niveau */
-                node.getRightSon().getRightSon().isDevelopped() == true && node.getRightSon().getLeftSon().isDevelopped() == true && /* 2e niv droit */
-                node.getLeftSon().getRightSon().isDevelopped() == true && node.getLeftSon().getLeftSon().isDevelopped() == true) /* 2e niv gauche */ {
-            marge_vertical = UI.MARGIN_VERTICAL_BOTH_DEVELOPPED * 3;
-            System.out.println("[" + node.hashCode() + "]" + " Les deux fils du 1er niveau sont developpés!");
-            return marge_vertical;
-        }
-
-        /* aucun fils n'est développé */
+         /* aucun fils n'est développé = feuille */
         if (node.getRightSon().isDevelopped() == false && node.getLeftSon().isDevelopped() == false) {
             marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED;
-            System.out.println("[" + node.hashCode() + "]" + "Pas de developpement du noeud des 2 fils...");
+            System.out.println("[" + node.hashCode() + "]" + "Aucun fils developpé.");
             return marge_vertical;
         }
 
-        /* à partir d'un noeud racine
-         * le fils droit est développé + le fils gauche est développé
-         * + le fils droit a ses 2 fils développé
-         * + le fils droit a juste sont fils droit développé
-         */
-         if (node.getRightSon().isDevelopped() == true && node.getLeftSon().isDevelopped() == true /* le fils droit est développé + le fils gauche est développé */
-                && node.getRightSon().getRightSon().isDevelopped() == true && node.getRightSon().getLeftSon().isDevelopped() == true /* 2e niv droit */
-                && node.getLeftSon().getRightSon().isDevelopped() == true) /* 2e niv gauche */ {
-           marge_vertical = UI.MARGIN_VERTICAL_BOTH_DEVELOPPED * 3;
-           System.out.println("[" + node.hashCode() + "]" + "BANANEEEEEEE ");
-           return marge_vertical;
+        /* fils droit développé et fils gauche = feuille */
+        if (node.getRightSon().isDevelopped() == true && node.getLeftSon().isDevelopped() == false) {
+            /* si l'arbre du fils droit est mini, on n'agrandit pas */
+            int right = getVerticalMargin2(node.getRightSon());
+//            if(right == UI.MARGIN_VERTICAL_ONE_DEVELOPPED)
+//                marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED;
+//            else
+               marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED * 20;
+            return marge_vertical + right;
         }
 
-        /* à partir d'un noeud racine
-         * le fils droit est développé + le fils gauche est développé
-         * + le fils gauche a ses 2 fils développé
-         * + le fils gauche a juste sont fils droit développé
-         */
-         if (node.getRightSon().isDevelopped() == true && node.getLeftSon().isDevelopped() == true /* le fils droit est développé + le fils gauche est développé */
-                && node.getLeftSon().getRightSon().isDevelopped() == true && node.getLeftSon().getLeftSon().isDevelopped() == true /* 2e niv droit */
-                && node.getRightSon().getLeftSon().isDevelopped() == true) /* 2e niv gauche */ {
-           marge_vertical = UI.MARGIN_VERTICAL_BOTH_DEVELOPPED * 3;
-           System.out.println("[" + node.hashCode() + "]" + " TOMATTTE");
-           return marge_vertical;
+        /* fils gauche développé et fils droit = feuille */
+        if (node.getLeftSon().isDevelopped() == true && node.getRightSon().isDevelopped() == false) {    
+            /* si l'arbre du fils gauche est mini, on n'agrandit pas */
+            int left = getVerticalMargin2(node.getLeftSon());
+//            if(left == UI.MARGIN_VERTICAL_ONE_DEVELOPPED)
+//                marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED;
+//            else
+               marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED * 20;
+            return marge_vertical + left;
         }
 
-
-        /* à partir d'un noeud racine
-         * le fils droit est développé + le fils gauche est développé
-         * + le fils droit a ses 2 fils développé
-         */
-        if (node.getRightSon().isDevelopped() == true && node.getLeftSon().isDevelopped() == true &&/* le fils droit est développé + le fils gauche est développé */
-                node.getRightSon().getRightSon().isDevelopped() == true && node.getRightSon().getLeftSon().isDevelopped() == true) { /*+ 2 fils du fils droit développés */
-            marge_vertical = UI.MARGIN_VERTICAL_BOTH_DEVELOPPED * 2;
-            System.out.println("[" + node.hashCode() + "]" + " KIKIIIIIIIIIIII DROIT!");
-            return marge_vertical;
-        }
-
-        /* à partir d'un noeud racine
-         * le fils droit est développé + le fils gauche est développé
-         * + le fils gauche a ses 2 fils développé
-         */
-        if (node.getRightSon().isDevelopped() == true && node.getLeftSon().isDevelopped() == true &&/* le fils droit est développé + le fils gauche est développé */
-                node.getLeftSon().getRightSon().isDevelopped() == true && node.getLeftSon().getLeftSon().isDevelopped() == true) { /*+ 2 fils du fils gauche développés */
-            marge_vertical = UI.MARGIN_VERTICAL_BOTH_DEVELOPPED * 2;
-            System.out.println("[" + node.hashCode() + "]" + " KIKIIIIIIIIIIII GAUCHE!");
-            return marge_vertical;
-        }
-
-
-        /* cas où les deux fils sont "developped" */
+        /* fils droit et fils gauche développés */
         if (node.getRightSon().isDevelopped() == true && node.getLeftSon().isDevelopped() == true) {
             marge_vertical = UI.MARGIN_VERTICAL_BOTH_DEVELOPPED;
-            System.out.println("[" + node.hashCode() + "]" + "Un noeud a ses deux fils developpés !");
-            return marge_vertical;
+            return marge_vertical + getVerticalMargin2(node.getRightSon()) + getVerticalMargin2(node.getLeftSon());
         }
 
-        marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED;
-        System.out.println("[" + node.hashCode() + "]" + "Un seul des 2 fils developpé.");
+         return marge_vertical;
 
-        System.out.println("Margin: " + marge_vertical);
-        return marge_vertical;
-    }
+     }
+
+    
 
     /**
      * Calcul la hauteur max de l'arbre à partir du noeud racine
