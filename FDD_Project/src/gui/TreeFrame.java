@@ -10,13 +10,13 @@ import javax.swing.JOptionPane;
 /**
  * @author  maxime
  */
-public class MyFrame extends javax.swing.JFrame {
+public class TreeFrame extends javax.swing.JFrame {
 
     /** liste des lignes à tracer */
     private static ArrayList<Line2D> lineList = new ArrayList<Line2D>();
 
     /** Creates new form MyFrame */
-    public MyFrame() {
+    public TreeFrame() {
 	initComponents();
 	this.setVisible(true);
     }
