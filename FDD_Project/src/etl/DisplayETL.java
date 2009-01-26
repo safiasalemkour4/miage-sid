@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import projet_fdd.Main;
 
 /**
  *
@@ -121,6 +122,8 @@ public class DisplayETL extends JFrame implements ActionListener {
 
            System.out.println(LoadCSV.data);
 
+           System.out.println("Affichage de l'arbre.");
+           //new Main(LoadCSV.data);
  
         }
         

@@ -13,9 +13,9 @@ public class UI {
 
 
     /** largueur d'une box */
-    public static final int TREEBOX_WIDTH = 183;
+    public static final int TREEBOX_WIDTH = 263; //183;
     /** hauteur d'une box */
-    public static final int TREEBOX_HEIGHT = 150;
+    public static final int TREEBOX_HEIGHT = 158; //150;
     
     /** marge bordure gauche **/
     public static final int MARGIN_LEFT = 10;

@@ -25,6 +25,7 @@ public class TreeView extends JFrame {
         /* initialisation de la JFrame */
         setSize(1024,768);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setName("Arbre de discrimant [ultra dev.team #1 @ MIAGE SID 2009 ]");
 
         /* initialisation de son contenu */
         treePanel = new TreePanel();

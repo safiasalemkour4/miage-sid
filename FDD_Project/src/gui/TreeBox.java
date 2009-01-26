@@ -1,6 +1,8 @@
 package gui;
 
 import cart.Node;
+import cart.Scission;
+import java.util.Map.Entry;
 import projet_fdd.Main;
 
 /**
@@ -17,6 +19,14 @@ public class TreeBox extends javax.swing.JPanel {
         initComponents();
         if(node.isDevelopped() == true)
                this.jButton1.setText("-");
+
+        /* on affiche la liste des scissions possibles */
+        System.out.println("Listes:");
+        for(Entry e : node.getChartDegrees().entrySet()){
+            //System.out.println("Scission : " + ((Scission)e.getKey()).getStringForComboBox() + " [" + (Double)e.getValue() + "]");
+            criteresDiscrCB.addItem(new ScissionItem((Scission)e.getKey(), (Double)e.getValue()));
+        }
+       
     }
 
     /** This method is called from within the constructor to
@@ -45,9 +55,9 @@ public class TreeBox extends javax.swing.JPanel {
         jProgressBar1.setStringPainted(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12));
-        jLabel1.setText("CANCER : \"OUI\"");
+        jLabel1.setText("CANCER : \"NON\"");
 
-        criteresDiscrCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        criteresDiscrCB.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         criteresDiscrCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 criteresDiscrCBActionPerformed(evt);
@@ -56,7 +66,7 @@ public class TreeBox extends javax.swing.JPanel {
 
         jLabel2.setText("Critères discriminants");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14));
         jButton1.setText("+");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,18 +79,15 @@ public class TreeBox extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(criteresDiscrCB, 0, 112, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(criteresDiscrCB, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -90,13 +97,13 @@ public class TreeBox extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(15, 15, 15)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(criteresDiscrCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5))
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {criteresDiscrCB, jButton1});
@@ -110,7 +117,7 @@ public class TreeBox extends javax.swing.JPanel {
            Main.drawRootNode();
        }else{
         // retourne le parametre de scission de ce noeud !
-        Main.clickOnTreeBox(node, criteresDiscrCB.getSelectedItem().toString());
+        Main.clickOnTreeBox(node, ((ScissionItem)criteresDiscrCB.getSelectedItem()).getScission());
        }
     }//GEN-LAST:event_jButton1ActionPerformed
 

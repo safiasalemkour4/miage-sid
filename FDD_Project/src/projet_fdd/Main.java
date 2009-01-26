@@ -5,6 +5,7 @@
 package projet_fdd;
 
 import cart.Node;
+import cart.Scission;
 import etl.Data;
 import etl.DisplayETL;
 import etl.LoadCSV;
@@ -157,21 +158,39 @@ public class Main {
     /**
      * Clic sur un noeud
      */
-    public static void clickOnTreeBox(Node noeud, String paramatreScission) {
+    public static void clickOnTreeBox(Node noeud, Scission scission) {
         System.out.println("click sur un node:");
         System.out.println("noeud lvl = " + noeud.getLevel());
-        System.out.println("paramatreScission = " + paramatreScission);
+        //noeud.getChartDegrees().g
+        System.out.println("paramatreScission = " + scission.toString());
 
-        if (noeud.isDevelopped() == true) {
-            // appel de la méthode de simon avec 1 noeud + 1 parametre de scission.
-            // on récupère les deux noeuds fils.
-            // donc on ajoute au noeud >> ses deux fils
-            Node filsGauche = new Node(null, null, "left", noeud.getLevel() + 1);
-            Node filsDroit = new Node(null, null, "right", noeud.getLevel() + 1);
+        if (noeud.isDevelopped() == false) {
+
+            /* on développe le noeud avec la scission */
+            noeud.developp(scission);
+            
+            Node filsGauche =  new Node(noeud.getData(), null, "root",  0);
+            Node filsDroit = new Node(noeud.getData(), null, "root",  0);
             noeud.setLeftSon(filsGauche);
             noeud.setRightSon(filsDroit);
             noeud.setDevelopped(true);
 
+//            System.out.println("==============> lvl = " + noeud.getLevel());
+//              if(noeud.getLeftSon() == null || noeud.getRightSon() == null){
+//                  System.out.println("=============> NULL CHIRLDREN");
+//
+//                  System.exit(0);
+//              }
+
+
+//            if( noeud == null)
+//                System.out.println("noeud null");
+//            if (filsGauche == null)
+//                 System.out.println("fils gauche null");
+//            if (filsDroit == null)
+//                 System.out.println("fils droit null");
+
+            /* on redéssine l'arbre */
             drawRootNode();
         }
     }

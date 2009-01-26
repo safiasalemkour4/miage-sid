@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import projet_fdd.Main;
 
 /**
  *
@@ -178,7 +179,11 @@ public class LoadCSV {
         new Cart(data);
         System.out.println(Cart.tree.get(0).getChartDegrees());
 
+        
         lastReader.close();
+
+        System.out.println("=========== Affichage de l'arbre : ============");
+        new Main(data);
     }
 
     public static boolean isANumber(String s) {
