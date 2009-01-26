@@ -1,7 +1,7 @@
 package gui;
 
+import cart.Node;
 import projet_fdd.Main;
-import projet_fdd.NodeTest;
 
 /**
  * @author  Romain
@@ -9,10 +9,10 @@ import projet_fdd.NodeTest;
 public class TreeBox extends javax.swing.JPanel {
 
     /** sujet de l'affichage */
-    private NodeTest node;
+    private Node node;
 
     /** Creates new form TreeBox */
-    public TreeBox(NodeTest node) {
+    public TreeBox(Node node) {
         this.node = node;
         initComponents();
         if(node.isDevelopped() == true)

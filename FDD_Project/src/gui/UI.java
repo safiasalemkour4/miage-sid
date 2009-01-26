@@ -6,6 +6,12 @@ package gui;
  */
 public class UI {
 
+    /** largeur du panel de l'arbre */
+    public static final int TREEPANEL_WIDTH = 3000;
+    /** hauteur du panel de l'arbre */
+    public static final int TREEPANEL_HEIGHT = 3000;
+
+
     /** largueur d'une box */
     public static final int TREEBOX_WIDTH = 183;
     /** hauteur d'une box */

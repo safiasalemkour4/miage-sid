@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 /**
  * @author  maxime
@@ -17,8 +18,14 @@ public class TreeFrame extends javax.swing.JFrame {
 
     /** Creates new form MyFrame */
     public TreeFrame() {
-	initComponents();
-	this.setVisible(true);
+        initComponents();
+        /* on ajoute le JScrollPane */
+        //this.getContentPane().setLayout(null);
+//        this.getContentPane().add(jScrollPane);
+//        this.getContentPane().repaint();
+//        this.getContentPane().validate();
+//        this.jScrollPane.setLayout(null);
+        this.setVisible(true);
     }
 
     public static void removeAllLines(){
@@ -27,6 +34,10 @@ public class TreeFrame extends javax.swing.JFrame {
 
     public static ArrayList<Line2D> getLineList() {
         return lineList;
+    }
+
+    public JScrollPane getJScrollPane() {
+        return jScrollPane;
     }
 
     /** This method is called from within the constructor to
@@ -38,6 +49,7 @@ public class TreeFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane = new javax.swing.JScrollPane();
         jmb = new javax.swing.JMenuBar();
         jm_file = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -47,6 +59,9 @@ public class TreeFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jm_file.setText("File");
 
@@ -91,11 +106,11 @@ public class TreeFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 528, Short.MAX_VALUE)
+            .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 924, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 397, Short.MAX_VALUE)
+            .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
         );
 
         pack();
@@ -123,20 +138,21 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
     
     /* surcharge */
-    public void paint(Graphics g){
-        super.paint(g);
-        Graphics2D g2 = (Graphics2D)g;
-        /* affiche tous les traits */
-        for (Line2D line : this.lineList) {
-            g2.draw(line);
-        }        
-    }
+//    public void paint(Graphics g){
+//        super.paint(g);
+//        Graphics2D g2 = (Graphics2D)g;
+//        /* affiche tous les traits */
+//        for (Line2D line : this.lineList) {
+//            g2.draw(line);
+//        }
+//    }
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JMenu jm_about;
     private javax.swing.JMenu jm_file;
     private javax.swing.JMenuBar jmb;
