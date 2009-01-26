@@ -235,9 +235,9 @@ public class Node {
                         // Si la colonne est de type binaire on ne stocke qu'une seule scission
                         Object[] listValue = this.data.getListOccurence(i);
                         String leftCriteria = (String) listValue[0];
-                        String right = (String) listValue[1];
-                        ArrayList<String> rightCriteria = new ArrayList<String>();
-                        rightCriteria.add(right);
+//                        String right = (String) listValue[1];
+//                        ArrayList<String> rightCriteria = new ArrayList<String>();
+//                        rightCriteria.add(right);
                         Scission scission = new Scission(i, Scission.T_BINARY);
                         scission.setCriteriaLeft(leftCriteria);
                         // On ajoute la scission aux scissions possible
