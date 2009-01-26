@@ -62,9 +62,9 @@ public class Node {
         // - insertion des fils dans l'arbre
 
 
-        if (this.isFinalNode()) {
-            System.out.println("Noeud Feuille");
-        } else {
+//        if (this.isFinalNode()) {
+//            System.out.println("Noeud Feuille");
+//        } else {
             // On recupere les deux tableaux de donnees issues de la discrimination par la scission
             Data[] tabData = scission.discriminate(this.data);
 
@@ -84,7 +84,7 @@ public class Node {
             this.developped = true;
 
 
-        }
+//        }
     }
 
     /**

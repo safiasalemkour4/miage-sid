@@ -20,8 +20,7 @@ import java.awt.Toolkit;
 import java.awt.geom.Line2D;
 
 /**
- *
- * @author maxime
+ * classe a renommer !
  */
 public class Main {
 
@@ -169,11 +168,11 @@ public class Main {
             /* on développe le noeud avec la scission */
             noeud.developp(scission);
             
-            Node filsGauche =  new Node(noeud.getData(), null, "root",  0);
-            Node filsDroit = new Node(noeud.getData(), null, "root",  0);
-            noeud.setLeftSon(filsGauche);
-            noeud.setRightSon(filsDroit);
-            noeud.setDevelopped(true);
+//            Node filsGauche =  new Node(noeud.getData(), null, "root",  0);
+//            Node filsDroit = new Node(noeud.getData(), null, "root",  0);
+//            noeud.setLeftSon(filsGauche);
+//            noeud.setRightSon(filsDroit);
+//            noeud.setDevelopped(true);
 
 //            System.out.println("==============> lvl = " + noeud.getLevel());
 //              if(noeud.getLeftSon() == null || noeud.getRightSon() == null){
