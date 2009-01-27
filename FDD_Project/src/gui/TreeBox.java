@@ -2,6 +2,7 @@ package gui;
 
 import cart.Node;
 import cart.Scission;
+import etl.DataInfos;
 import java.util.Map.Entry;
 import projet_fdd.Main;
 
@@ -41,7 +42,29 @@ public class TreeBox extends javax.swing.JPanel {
          Double repartition = round((nbLignes/nbLignesTotal)* 100,2);
          this.jProgressBar1.setValue(repartition.intValue());
          this.jProgressBar1.setString(node.getData().getNbRow() + " / " + Main.totalRows + " [" + repartition + " %]");
-         this.jProgressBar1.setToolTipText(node.getData().getNbRow() + " / " + Main.totalRows + " [" + repartition + " %]");
+
+         Scission pere = node.getOriginScission();
+         String kikoo = "null";
+         if(pere != null){
+             for (DataInfos di : node.getData().getTabDataInfos()) {
+                 if (di.getName().equals(node.getData().getTargetVar())) {
+                    kikoo += "id: " + di.getId() + " = " + di.getName();
+                    kikoo += " ---> " + node.getData().getListOccurence(di.getId());
+                    // occurence1
+                    String occurence1 = (String)node.getData().getListOccurence(di.getId())[0];
+                    int nbOccurence1 = node.getData().getNbOccurence(di.getId(), occurence1);
+                    occurenceLabel1.setText(occurence1 + "  [" + nbOccurence1 + "]");
+                    // occurence2
+                    String occurence2 = (String)node.getData().getListOccurence(di.getId())[1];
+                    int nbOccurence2 = node.getData().getNbOccurence(di.getId(), occurence2);
+                    occurenceLabel2.setText(occurence2 + "  [" + nbOccurence2 + "]");
+                    kikoo += "taille tableau occcur: " + node.getData().getListOccurence(di.getId()).length;
+                 }
+             }
+         }
+
+         this.jProgressBar1.setToolTipText(node.getData().getNbRow() + " / " + Main.totalRows + " [" + repartition + " %] + \n" +
+                 "colonne avant:" + kikoo);
     }
 
     /** on arrondi à x décimales */
@@ -64,10 +87,12 @@ public class TreeBox extends javax.swing.JPanel {
         criteresDiscrCB = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        occurenceLabel1 = new javax.swing.JLabel();
+        occurenceLabel2 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEtchedBorder())));
 
-        jProgressBar1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jProgressBar1.setForeground(new java.awt.Color(204, 204, 255));
         jProgressBar1.setToolTipText("Répartition de la valeur cible");
         jProgressBar1.setValue(25);
@@ -95,6 +120,10 @@ public class TreeBox extends javax.swing.JPanel {
             }
         });
 
+        occurenceLabel1.setText("occurence1");
+
+        occurenceLabel2.setText("occurence2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,27 +131,36 @@ public class TreeBox extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(criteresDiscrCB, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1))
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(occurenceLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                            .addComponent(occurenceLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1)
-                .addGap(15, 15, 15)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(occurenceLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(occurenceLabel2)
+                .addGap(14, 14, 14)
                 .addComponent(jLabel2)
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(criteresDiscrCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -153,6 +191,8 @@ public class TreeBox extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JLabel occurenceLabel1;
+    private javax.swing.JLabel occurenceLabel2;
     // End of variables declaration//GEN-END:variables
 
 }

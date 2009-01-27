@@ -188,7 +188,6 @@ public class DataInfos {
      */
 
     public boolean isTargetVar() {
-
         return targetVar;
     }
 

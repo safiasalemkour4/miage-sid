@@ -52,6 +52,8 @@ public class Data {
         this.tabDataInfos = tabDataInfos;
     }
 
+
+
     /**
      * Methode getNewDataInfo
      * @param oldDataInfos les DataInfos du noeud superieur
@@ -154,6 +156,8 @@ public class Data {
 
         return res;
     }
+
+
     
     /**
      * Methode isTargetVar
@@ -384,11 +388,11 @@ public class Data {
 
     /**
      * Methode getTabDataValues
+     * Retourne les infos du noeud (data du noeud)
      * @return le tableau representant les valeurs des donnees
      */
     
     public String[][] getTabDataValues() {
-
         return tabDataValues;
     }
 
@@ -398,7 +402,6 @@ public class Data {
      */
     
     public DataInfos[] getTabDataInfos() {
-
         return tabDataInfos;
     }
 
