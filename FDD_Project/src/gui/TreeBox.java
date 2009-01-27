@@ -54,11 +54,18 @@ public class TreeBox extends javax.swing.JPanel {
                     int nbOccurence1 = node.getData().getNbOccurence(di.getId(), occurence1);                   
                     Double repartitionOccu1 = round((nbOccurence1/nbLignesTotalTB)*100, 2);
                     occurenceLabel1.setText(occurence1 + "  [" + nbOccurence1 + "] " + repartitionOccu1 + "%");
-                    // occurence2
-                    String occurence2 = (String)node.getData().getListOccurence(di.getId())[1];
-                    int nbOccurence2 = node.getData().getNbOccurence(di.getId(), occurence2);
-                    Double repartitionOccu2 = round((nbOccurence2/nbLignesTotalTB)*100, 2);
-                    occurenceLabel2.setText(occurence2 + "  [" + nbOccurence2 + "] " + repartitionOccu2 + "%");
+                    // occurence2 (s'il y en a une)
+
+                    if(node.getData().getListOccurence(di.getId()).length > 1){
+                        String occurence2 = (String)node.getData().getListOccurence(di.getId())[1];
+                        int nbOccurence2 = node.getData().getNbOccurence(di.getId(), occurence2);
+                        Double repartitionOccu2 = round((nbOccurence2/nbLignesTotalTB)*100, 2);
+                        occurenceLabel2.setText(occurence2 + "  [" + nbOccurence2 + "] " + repartitionOccu2 + "%");
+                    }else{
+                        // on cache le label occurence2
+                        occurenceLabel2.setVisible(false);
+                    }
+                    
                  }
              }
 
