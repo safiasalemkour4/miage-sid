@@ -65,23 +65,23 @@ public class Node {
 //        if (this.isFinalNode()) {
 //            System.out.println("Noeud Feuille");
 //        } else {
-            // On recupere les deux tableaux de donnees issues de la discrimination par la scission
-            Data[] tabData = scission.discriminate(this.data);
+        // On recupere les deux tableaux de donnees issues de la discrimination par la scission
+        Data[] tabData = scission.discriminate(this.data);
 
-            // On cree deux noeuds avec les donnees discriminees, la scission a l'origine de la
-            // discrimination, le tableau des scissions possible pour le nouveau noeud et
-            // on augmente le niveau du noeud de 1 par rapport a son pere.
-            Node leftNode = new Node(tabData[0], scission, "left", this.level + 1);
-            Node rightNode = new Node(tabData[1], scission, "right", this.level + 1);
+        // On cree deux noeuds avec les donnees discriminees, la scission a l'origine de la
+        // discrimination, le tableau des scissions possible pour le nouveau noeud et
+        // on augmente le niveau du noeud de 1 par rapport a son pere.
+        Node leftNode = new Node(tabData[0], scission, "left", this.level + 1);
+        Node rightNode = new Node(tabData[1], scission, "right", this.level + 1);
 
-            // On fait le lien entre les noeuds fils et le noeud pere
-            this.leftSon = leftNode;
-            this.rightSon = rightNode;
-            // On ajoute les deux noeuds a l'arbre
-            Cart.tree.add(this.leftSon);
-            Cart.tree.add(this.rightSon);
-            // Le noeud est maintenant developpe
-            this.developped = true;
+        // On fait le lien entre les noeuds fils et le noeud pere
+        this.leftSon = leftNode;
+        this.rightSon = rightNode;
+        // On ajoute les deux noeuds a l'arbre
+        Cart.tree.add(this.leftSon);
+        Cart.tree.add(this.rightSon);
+        // Le noeud est maintenant developpe
+        this.developped = true;
 
 
 //        }
@@ -179,46 +179,47 @@ public class Node {
 
         // On parcours la liste des colonnes
         for (int i = 0; i < this.data.getNbColumn(); i++) {
+            // La scission n'est possible que s'il y a plus d'1 valeur possible dans la colonne
+            if (this.data.getListOccurence(i).length > 1) {
+                // On ne s'interesse qu'aux variables non-cibles
+                if (!this.data.isTargetVar(i)) {
 
-            // On ne s'interesse qu'aux variables non-cibles
-            if (!this.data.isTargetVar(i)) {
+                    // Si la variable est de type string les scissions sont les
+                    // combinaisons entre les occurences avec d'un cote une valeur
+                    // et de l'autre le reste des valeurs
 
-                // Si la variable est de type string les scissions sont les
-                // combinaisons entre les occurences avec d'un cote une valeur
-                // et de l'autre le reste des valeurs
+                    if (this.data.isString(i)) {
 
-                if (this.data.isString(i)) {
+                        Object[] listValue = this.data.getListOccurence(i);
 
-                    Object[] listValue = this.data.getListOccurence(i);
+                        // On boucle sur chaque valeur de la liste pour l'isoler afin de créer
+                        // une scission
+                        for (int j = 0; j < listValue.length; j++) {
 
-                    // On boucle sur chaque valeur de la liste pour l'isoler afin de créer
-                    // une scission
-                    for (int j = 0; j < listValue.length; j++) {
+                            String leftCriteria = (String) listValue[j];
+                            ArrayList<String> rightCriteria = new ArrayList<String>();
 
-                        String leftCriteria = (String) listValue[j];
-                        ArrayList<String> rightCriteria = new ArrayList<String>();
+                            // On boucle pour stocker les valeurs autres que le leftCriteria
+                            for (int k = 0; k < listValue.length; k++) {
+                                String value = (String) listValue[k];
+                                if (!value.equals(leftCriteria)) {
+                                    rightCriteria.add(value);
+                                }
 
-                        // On boucle pour stocker les valeurs autres que le leftCriteria
-                        for (int k = 0; k < listValue.length; k++) {
-                            String value = (String) listValue[k];
-                            if (!value.equals(leftCriteria)) {
-                                rightCriteria.add(value);
                             }
+                            // On cree une nouvelle scission de type String sur la colonne
+                            // en question et avec les criteres definis plus haut
+                            Scission scission = new Scission(i, Scission.T_STRING);
+                            scission.setCriteriaLeft(leftCriteria);
+                            // On ajoute la scission aux scissions possible
+                            possibleScissions.add(scission);
 
                         }
-                        // On cree une nouvelle scission de type String sur la colonne
-                        // en question et avec les criteres definis plus haut
-                        Scission scission = new Scission(i, Scission.T_STRING);
-                        scission.setCriteriaLeft(leftCriteria);
-                        // On ajoute la scission aux scissions possible
-                        possibleScissions.add(scission);
-
-                    }
 
 
-                } else {
-                    if (this.data.isNumeric(i)) {
-                        // Si la colonne est numerique
+                    } else {
+                        if (this.data.isNumeric(i)) {
+                            // Si la colonne est numerique
 //                        ArrayList<Integer> listBound = this.data.getBoundary(i);
 //                        for (Iterator<Integer> it = listBound.iterator(); it.hasNext();) {
 //                            Integer currentBound = it.next();
@@ -227,26 +228,22 @@ public class Node {
 //                            possibleScissions.add(scission);
 //
 //                        }
-
-
-
-
-                    } else {
-                        // Si la colonne est de type binaire on ne stocke qu'une seule scission
-                        Object[] listValue = this.data.getListOccurence(i);
-                        String leftCriteria = (String) listValue[0];
-//                        String right = (String) listValue[1];
-//                        ArrayList<String> rightCriteria = new ArrayList<String>();
-//                        rightCriteria.add(right);
-                        Scission scission = new Scission(i, Scission.T_BINARY);
-                        scission.setCriteriaLeft(leftCriteria);
-                        // On ajoute la scission aux scissions possible
-                        possibleScissions.add(scission);
+                        } else {
+                            // Si la colonne est de type binaire on ne stocke qu'une seule scission
+                            Object[] listValue = this.data.getListOccurence(i);
+                            String leftCriteria = (String) listValue[0];
+                            String right = (String) listValue[1];
+                            ArrayList<String> rightCriteria = new ArrayList<String>();
+                            rightCriteria.add(right);
+                            Scission scission = new Scission(i, Scission.T_BINARY);
+                            scission.setCriteriaLeft(leftCriteria);
+                            // On ajoute la scission aux scissions possible
+                            possibleScissions.add(scission);
+                        }
                     }
+
                 }
-
             }
-
         }
 
         return this.possibleScissions;
