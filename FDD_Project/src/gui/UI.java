@@ -28,5 +28,10 @@ public class UI {
 
     /** marge des lines */
     public static final int MARGIN_MINE = 45;
+
+    /** largueur d'un label */
+    public static final int TREEBOXLABEL_WIDTH = 200;
+     /** hauteur d'un label */
+    public static final int TREEBOXLABEL_HEIGHT = 20;
     
 }

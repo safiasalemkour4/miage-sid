@@ -4,6 +4,7 @@ package gui;
 
 import java.awt.geom.Line2D;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  * @author Romain
@@ -45,6 +46,14 @@ public class TreeView extends JFrame {
      */
     public void addTreeBox(TreeBox tb){
         this.treePanel.add(tb);
+    }
+
+    /**
+     * Ajoute le label permettant d'afficher une des deux variables d'une scission d'un noeud
+     * @param label a afficher
+     */
+    public void addLabel(JLabel label){
+        this.treePanel.add(label);
     }
 
     /**

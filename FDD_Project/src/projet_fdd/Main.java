@@ -7,6 +7,7 @@ package projet_fdd;
 import cart.Node;
 import cart.Scission;
 import etl.Data;
+import etl.DataInfos;
 import etl.DisplayETL;
 import etl.LoadCSV;
 import gui.UI;
@@ -16,8 +17,10 @@ import gui.TreeView;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.geom.Line2D;
+import javax.swing.JLabel;
 
 /**
  * classe a renommer !
@@ -32,29 +35,13 @@ public class Main {
     /** occurence */
     public static int totalRows;
 
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String[] args) {
-//
-//
-//        treeView = new TreeView();
-//
-//        /* affichage en plein écran (fullscreen size mode) */
+    public Main(Data data){
+
+         /* affichage en plein écran (fullscreen size mode) */
 //        //int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 //        //int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 //        //treeFrame.setSize(new Dimension(screenWidth, screenHeight-30));
 //        //treeFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
-//
-//        /* construction de l'arbre test */
-//        root = new Node(null, null, "root", 0);
-//
-//        // on positionne le noeud racine puis affiche l'arbre en entier
-//        drawRootNode();
-//
-//    }
-
-    public Main(Data data){
         
         // On cree le noeud racine (n'a pas de scission d'origine et de niveau 0)
         totalRows = data.getNbRow();
@@ -147,6 +134,51 @@ public class Main {
                     filsGaucheX,
                     filsGaucheY + (UI.TREEBOX_HEIGHT / 2));
             treeView.addLine(lineG);
+
+            /*****************************************************************************************/
+            /** Ajout des labels variable discrimante, occurence gauche et droite de cette dernière **/
+            /*****************************************************************************************/
+
+            /* On récolte les 2 occurences de la variable de scission */
+            String occurenceDiscrDroit = "?";
+            String occurenceDiscrGauche = "?";
+            String variableDiscr = "?";
+            /* pour tous les noeuds sauf la racine */
+            if(parent.getRightSon() != null)
+            for (DataInfos di : parent.getData().getTabDataInfos()) {
+                 if (di.getId() == parent.getLeftSon().getOriginScission().getIdColumnCriteria()) {
+                     variableDiscr = di.getName();
+                     occurenceDiscrDroit = (String)parent.getRightSon().getData().getListOccurence(di.getId())[0];
+                     occurenceDiscrGauche = (String)parent.getLeftSon().getData().getListOccurence(di.getId())[0];
+                 }
+             }
+            
+            /* ajout du label de la valeur de la variable discrimante choisie */
+            JLabel lbOccurenceDiscrDroit = new JLabel(occurenceDiscrDroit);
+            lbOccurenceDiscrDroit.setBounds(parentNodeX + UI.TREEBOX_WIDTH + 5,
+                                            parentNodeY + UI.TREEBOX_HEIGHT/2 - UI.TREEBOXLABEL_HEIGHT/2 - 40,
+                                            UI.TREEBOXLABEL_WIDTH, UI.TREEBOXLABEL_HEIGHT);
+            lbOccurenceDiscrDroit.setVisible(true);
+            treeView.addLabel(lbOccurenceDiscrDroit);
+
+            /* ajout du label de la valeur de la variable discrimante choisie */
+            JLabel lbOccurenceDiscrGauche = new JLabel(occurenceDiscrGauche);
+            lbOccurenceDiscrGauche.setBounds(parentNodeX + UI.TREEBOX_WIDTH + 5,
+                                            parentNodeY + UI.TREEBOX_HEIGHT/2 - UI.TREEBOXLABEL_HEIGHT/2 + 40,
+                                            UI.TREEBOXLABEL_WIDTH, UI.TREEBOXLABEL_HEIGHT);
+            lbOccurenceDiscrGauche.setVisible(true);
+            treeView.addLabel(lbOccurenceDiscrGauche);
+            
+            /* ajout du label de la valeur de la variable discrimante choisie */
+            JLabel lbVariableDiscr = new JLabel("[" + variableDiscr + "]");
+            lbVariableDiscr.setBounds(parentNodeX + UI.TREEBOX_WIDTH + 10,
+                                            parentNodeY + UI.TREEBOX_HEIGHT/2 - UI.TREEBOXLABEL_HEIGHT/2,
+                                            UI.TREEBOXLABEL_WIDTH, UI.TREEBOXLABEL_HEIGHT);
+            lbVariableDiscr.setVisible(true);
+            treeView.addLabel(lbVariableDiscr);
+
+
+
 
             /* appel récursif vers les fils */
             drawNode(parent.getLeftSon(), filsGaucheX, filsGaucheY);

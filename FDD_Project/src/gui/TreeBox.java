@@ -97,7 +97,7 @@ public class TreeBox extends javax.swing.JPanel {
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEtchedBorder())));
 
-        jProgressBar1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jProgressBar1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jProgressBar1.setForeground(new java.awt.Color(255, 102, 255));
         jProgressBar1.setToolTipText("Répartition de la valeur cible");
         jProgressBar1.setValue(25);
@@ -105,7 +105,7 @@ public class TreeBox extends javax.swing.JPanel {
         jProgressBar1.setString("25 occurences");
         jProgressBar1.setStringPainted(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16));
         jLabel1.setForeground(new java.awt.Color(255, 0, 204));
         jLabel1.setText("CANCER");
 
@@ -166,7 +166,7 @@ public class TreeBox extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(criteresDiscrCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
