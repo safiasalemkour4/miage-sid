@@ -29,6 +29,8 @@ public class Main {
     public static TreeView treeView;
     /** l'arbre (commence par le noeud racine) */
     public static Node root;
+    /** occurence */
+    public static int totalRows;
 
 //    /**
 //     * @param args the command line arguments
@@ -55,6 +57,7 @@ public class Main {
     public Main(Data data){
         
         // On cree le noeud racine (n'a pas de scission d'origine et de niveau 0)
+        totalRows = data.getNbRow();
         root = new Node(data, null, "root",  0);
         System.out.println("rootNode = " + root);
         treeView = new TreeView();
@@ -160,36 +163,12 @@ public class Main {
     public static void clickOnTreeBox(Node noeud, Scission scission) {
         System.out.println("click sur un node:");
         System.out.println("noeud lvl = " + noeud.getLevel());
-        //noeud.getChartDegrees().g
         System.out.println("paramatreScission = " + scission.toString());
 
         if (noeud.isDevelopped() == false) {
-
             /* on développe le noeud avec la scission */
             noeud.developp(scission);
-            
-//            Node filsGauche =  new Node(noeud.getData(), null, "root",  0);
-//            Node filsDroit = new Node(noeud.getData(), null, "root",  0);
-//            noeud.setLeftSon(filsGauche);
-//            noeud.setRightSon(filsDroit);
-//            noeud.setDevelopped(true);
-
-//            System.out.println("==============> lvl = " + noeud.getLevel());
-//              if(noeud.getLeftSon() == null || noeud.getRightSon() == null){
-//                  System.out.println("=============> NULL CHIRLDREN");
-//
-//                  System.exit(0);
-//              }
-
-
-//            if( noeud == null)
-//                System.out.println("noeud null");
-//            if (filsGauche == null)
-//                 System.out.println("fils gauche null");
-//            if (filsDroit == null)
-//                 System.out.println("fils droit null");
-
-            /* on redéssine l'arbre */
+            /* on affiche l'arbre à partir de la racine */
             drawRootNode();
         }
     }

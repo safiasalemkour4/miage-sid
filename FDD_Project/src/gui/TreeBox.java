@@ -17,17 +17,38 @@ public class TreeBox extends javax.swing.JPanel {
     public TreeBox(Node node) {
         this.node = node;
         initComponents();
-        if(node.isDevelopped() == true)
+        if(node.isDevelopped() == true){
                this.jButton1.setText("-");
-
-        /* on affiche la liste des scissions possibles */
-        System.out.println("Listes:");
-        for(Entry e : node.getChartDegrees().entrySet()){
-            //System.out.println("Scission : " + ((Scission)e.getKey()).getStringForComboBox() + " [" + (Double)e.getValue() + "]");
-            criteresDiscrCB.addItem(new ScissionItem((Scission)e.getKey(), (Double)e.getValue()));
+               /* on affiche la variable discriminante choisie (de scission) */
+               //this.criteresDiscrCB.setEnabled(false);
+               this.criteresDiscrCB.removeAllItems();
+               /* pour obtenir la scission d'un noeud, on regarde l'origine de la scission d'un de ses fils */
+               this.criteresDiscrCB.addItem(new ScissionItem(   node.getRightSon().getOriginScission(),
+                                                                0.0));
+               this.criteresDiscrCB.setEnabled(false);
+        }else{
+            /* on affiche la liste des scissions possibles */
+            for(Entry e : node.getChartDegrees().entrySet()){
+                //System.out.println("Scission : " + ((Scission)e.getKey()).getStringForComboBox() + " [" + (Double)e.getValue() + "]");
+                criteresDiscrCB.addItem(new ScissionItem((Scission)e.getKey(), (Double)e.getValue()));
+            }
         }
-       
+
+        /* on affiche les informations utiles dans la TreeBox */
+         this.jLabel1.setText(node.getData().getTargetVar());
+         Double nbLignes = new Double(node.getData().getNbRow());
+         Double nbLignesTotal = new Double(Main.totalRows);
+         Double repartition = round((nbLignes/nbLignesTotal)* 100,2);
+         this.jProgressBar1.setValue(repartition.intValue());
+         this.jProgressBar1.setString(node.getData().getNbRow() + " / " + Main.totalRows + " [" + repartition + " %]");
+         this.jProgressBar1.setToolTipText(node.getData().getNbRow() + " / " + Main.totalRows + " [" + repartition + " %]");
     }
+
+    /** on arrondi à x décimales */
+    public double round(double what, int howmuch) {
+        return (double) ((int) (what * Math.pow(10, howmuch) + .5)) / Math.pow(10, howmuch);
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -46,7 +67,7 @@ public class TreeBox extends javax.swing.JPanel {
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEtchedBorder())));
 
-        jProgressBar1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jProgressBar1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jProgressBar1.setForeground(new java.awt.Color(204, 204, 255));
         jProgressBar1.setToolTipText("Répartition de la valeur cible");
         jProgressBar1.setValue(25);
@@ -57,7 +78,7 @@ public class TreeBox extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel1.setText("CANCER : \"NON\"");
 
-        criteresDiscrCB.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        criteresDiscrCB.setFont(new java.awt.Font("Tahoma", 0, 9));
         criteresDiscrCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 criteresDiscrCBActionPerformed(evt);
@@ -93,7 +114,7 @@ public class TreeBox extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
                 .addGap(15, 15, 15)
                 .addComponent(jLabel2)
@@ -101,7 +122,7 @@ public class TreeBox extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(criteresDiscrCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
