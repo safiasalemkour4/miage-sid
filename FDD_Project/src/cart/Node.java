@@ -174,9 +174,6 @@ public class Node {
     public ArrayList<Scission> computePossibleScission() {
 
 
-
-        // TODO Calcul de toutes les possibilites de scission
-
         // On parcours la liste des colonnes
         for (int i = 0; i < this.data.getNbColumn(); i++) {
             // La scission n'est possible que s'il y a plus d'1 valeur possible dans la colonne
