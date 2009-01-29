@@ -102,7 +102,7 @@ public class Node {
             Scission scission = it.next();
             double degree = getDiscriminationDegree(scission);
             map.put(scission, degree);
-            System.out.println("\nJ'ajoute le degree " + degree + " a la scission sur [" + scission.toString() + "]");
+            //System.out.println("\nJ'ajoute le degree " + degree + " a la scission sur [" + scission.toString() + "]");
 
         }
 
@@ -125,21 +125,21 @@ public class Node {
         // On recupere les deux ensembles qui ont ete discrimine par la scission
         Data possibleDataLeft = scission.discriminate(this.data)[0];
         Data possibleDataRight = scission.discriminate(this.data)[1];
-        System.out.print("Calcul degree de la scission sur le critere : " + scission.getCriteriaLeft());
-        System.out.print("\n--totalRow: " + data.getNbRow() + " ;nbRowLeft: " + possibleDataLeft.getNbRow() + " ;nbRowRight: " + possibleDataRight.getNbRow());
+        //System.out.print("Calcul degree de la scission sur le critere : " + scission.getCriteriaLeft());
+        //System.out.print("\n--totalRow: " + data.getNbRow() + " ;nbRowLeft: " + possibleDataLeft.getNbRow() + " ;nbRowRight: " + possibleDataRight.getNbRow());
         // On divise le nombre de ligne des donnees obtenues par le nombre de
         // ligne des donnees totales du noeud
         double rateNbLeft = (new Integer(possibleDataLeft.getNbRow()).doubleValue()) / (new Integer(this.data.getNbRow()).doubleValue());
         double rateNbRight = (new Integer(possibleDataRight.getNbRow()).doubleValue()) / (new Integer(this.data.getNbRow()).doubleValue());
-        System.out.println("\nrateNbLeft = " + rateNbLeft + " ; rateNbRight = " + rateNbRight);
+        //System.out.println("\nrateNbLeft = " + rateNbLeft + " ; rateNbRight = " + rateNbRight);
         // On boucle sur toutes les valeurs que peut prendre la cible
         for (int i = 0; i < this.data.getListOccurence(idTarget).length; i++) {
-            System.out.println("\n--boucle sur somme--");
+            //System.out.println("\n--boucle sur somme--");
             // On recupere la valeur courante
             String currentValueTarget = (String) this.data.getListOccurence(this.data.getTargetVarId())[i];
             try {
-                System.out.println("valeur courante Cible: " + currentValueTarget);
-                System.out.println("nb de cible à gauche: " + possibleDataLeft.getNbOccurence(idTarget, currentValueTarget));
+                //System.out.println("valeur courante Cible: " + currentValueTarget);
+                //System.out.println("nb de cible à gauche: " + possibleDataLeft.getNbOccurence(idTarget, currentValueTarget));
                 // On recupere le nombre d'instance possedant cette valeur a gauche et droite
 
                 rateTargetLeft = possibleDataLeft.getNbOccurence(idTarget, currentValueTarget);
@@ -152,14 +152,14 @@ public class Node {
             } catch (NullPointerException e) {
                 rateTargetRight = 0;
             }
-            System.out.print("rateTargetLeft: " + rateTargetLeft + " ;rateTargetRight: " + rateTargetRight);
+            //System.out.print("rateTargetLeft: " + rateTargetLeft + " ;rateTargetRight: " + rateTargetRight);
             // On somme la soustraction en valeur absolue
             sumRateTarget += Math.abs(rateTargetLeft - rateTargetRight);
 
 
 
         }
-        System.out.println("\nBilan discrimination - nbRowTotal : " + this.data.getNbRow() + " rateNbLeft: " + rateNbLeft + " - rateNbRight: " + rateNbRight + " - sumRateTarget: " + sumRateTarget);
+        //System.out.println("\nBilan discrimination - nbRowTotal : " + this.data.getNbRow() + " rateNbLeft: " + rateNbLeft + " - rateNbRight: " + rateNbRight + " - sumRateTarget: " + sumRateTarget);
         double totalDegree = 2 * rateNbLeft * rateNbRight * sumRateTarget;
         return totalDegree;
     }
