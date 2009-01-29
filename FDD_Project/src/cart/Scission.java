@@ -1,6 +1,8 @@
 package cart;
 
 import etl.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Scission {
 
@@ -27,6 +29,13 @@ public class Scission {
      * @param node
      */
     public Data[] discriminate(Data data) {
+        
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Scission.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         // 2 tableau à renvoyer : Scission gauche (données avec crière) et Scission droite (autres données)
         Data[] tabNode = new Data[2];
         //Donnée contenu à gauche

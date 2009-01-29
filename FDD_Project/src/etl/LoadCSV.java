@@ -54,7 +54,6 @@ public class LoadCSV {
             tabListValues[i] = new HashMap();
         }
 
-        System.out.println("Creation de la hashmap de " + tabListValues.length);
         //InputStreamReader isr = new InputStreamReader(new FileInputStream("test"), Charset.forName("ISO-8859-1"));
         String line;
 
@@ -130,8 +129,6 @@ public class LoadCSV {
                        }
 
                     }
-
-                   System.out.println("On ajoute la cle "+result[i]);
                    
                     /* on fait les couples */
                     if (tabListValues[i].containsKey(result[i])) {

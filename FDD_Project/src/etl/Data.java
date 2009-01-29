@@ -61,19 +61,6 @@ public class Data {
      */
     
     public DataInfos[] getNewDataInfo(String[][] newTabDataValues, DataInfos[] oldTabDataInfos) {
-;
-
-        System.out.println("\n--------- DATA ---------\n");
-
-        for (int i = 0; i < newTabDataValues.length; i++) {
-
-            for (int j = 0; j < newTabDataValues[0].length; j++) {
-
-                System.out.print(" "+newTabDataValues[i][j] + ", ");
-            }
-
-            System.out.println();
-        }
         
         /*
          * On reprend notre ancien DataInfos[]
@@ -291,8 +278,6 @@ public class Data {
     public int getNbOccurence(int column, String value) {
 
         if (this.tabDataInfos[column].isBinary() || this.tabDataInfos[column].isString()) {
-
-            System.out.println("On va chercher le nb O de "+value+ " sur la colonne "+tabDataInfos[column]);
             
             return this.tabDataInfos[column].getNbOccurence(value);
 
