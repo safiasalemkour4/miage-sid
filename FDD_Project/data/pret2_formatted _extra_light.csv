@@ -1,0 +1,165 @@
+CODE_CLIENT,RAISON,STATUT_MARITAL,TITRE,TITRE_COEMP,GARANTIE,ASSURANCE,LOGEMENT,TYPE_LOGEMENT,PROFESSION,ENFANTS,ANCIENNETE_BANCAIRE,SALAIRE,SALAIRE_COEMP,NB_PERS,REVENU/TETE,LOYER,AGE,EMPRUNTS_COURANTS,DUREE_EMPRUNT,REMBOURSEMENT,SUCCES
+4,TV,Marie,Mme,M.,Oui,Oui,Proprietaire,Appartement,Employe,2,3,6146,7925,4,3517,2241,32,0,4,Lent,N
+5,Autre,Celibataire,Mlle,Aucun,Non,Non,Locataire,Appartement,Ouvrier,0,5,5803,0,1,5803,1200,26,124,2,Normal,N
+7,Autre,Marie,Mme,M.,Oui,Oui,Proprietaire,Maison,Ouvrier,3,8,1964,1122,5,617,0,37,0,4,Lent,N
+8,TV,Marie,Mme,M.,Oui,Non,Proprietaire,Appartement,Representant,4,16,5405,4777,6,1697,2633,35,0,2,Normal,N
+11,TV,Marie,Mme,M.,Oui,Oui,Proprietaire,Appartement,Enseignant,2,15,29942,37804,4,16936,1920,35,0,3,Rapide,N
+23,Courrier,Divorce,Mme,Aucun,Non,Oui,Proprietaire,Maison,Cadre,1,4,9054,0,2,4527,1572,41,988,2,Normal,N
+24,TV,Celibataire,M.,Mme,Oui,Non,Locataire,Appartement,Ouvrier,0,7,8923,0,2,4461,2880,27,651,3,Rapide,N
+25,TV,Marie,M.,Mme,Oui,Oui,Proprietaire,Maison,Ouvrier qualifie,0,8,7833,7958,2,7895,1280,42,868,4,Lent,N
+27,Autre,Separe,Mme,Aucun,Non,Non,Locataire,Appartement,Employe de bureau,1,5,772,0,2,386,480,30,384,4,Lent,N
+74,Autre,Veuf,Mme,Aucun,Non,Non,Locataire,Appartement,Retraite,0,20,12388,0,1,12388,2696,69,496,3,Rapide,N
+78,Courrier,Marie,M.,Mme,Oui,Non,Proprietaire,Maison,Representant,1,5,10824,6283,3,5702,2856,28,0,3,Rapide,N
+82,Autre,Marie,M.,Mme,Oui,Oui,Locataire,Appartement,Ouvrier,0,21,8529,0,2,4264,688,43,868,3,Rapide,N
+84,Autre,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Ouvrier,1,21,7440,6225,3,4555,1588,47,0,4,Lent,N
+88,Autre,Marie,Mme,M.,Oui,Non,Locataire,Maison,Ouvrier,2,7,8400,11208,4,4902,3440,44,248,3,Rapide,N
+89,Autre,Marie,Mme,M.,Oui,Oui,Proprietaire,Maison,Ouvrier,4,7,1869,1213,6,513,0,34,0,2,Normal,N
+91,TV,Marie,Mme,M.,Oui,Oui,Famille,Maison,Ouvrier,0,18,2366,2115,2,2240,0,31,0,4,Lent,N
+92,Autre,Divorce,M.,Aucun,Non,Oui,Famille,Appartement,Ouvrier,0,12,8547,0,1,8547,0,29,402,3,Lent,N
+93,Autre,Marie,Mme,M.,Oui,Oui,Proprietaire,Maison,Retraite,0,33,5804,8340,2,7072,0,58,470,3,Lent,N
+95,TV,Marie,M.,Mme,Oui,Oui,Proprietaire,Maison,Ouvrier,1,21,7453,0,3,2484,2251,48,895,4,Lent,N
+97,Autre,Divorce,Mme,Aucun,Non,Non,Famille,Appartement,Enseignant,0,16,13994,0,1,13994,0,46,456,4,Lent,N
+99,TV,Celibataire,Mme,Aucun,Non,Non,Proprietaire,Maison,Ouvrier,1,13,25928,0,2,12964,0,26,1360,3,Rapide,N
+103,Courrier,Marie,Mme,M.,Oui,Oui,Famille,Appartement,Retraite,0,20,4469,3733,2,4101,0,61,476,4,Lent,N
+107,TV,Marie,Mme,M.,Oui,Non,Famille,Maison,Employe,2,15,7899,8086,4,3996,0,47,1019,4,Lent,N
+108,TV,Marie,M.,Mme,Oui,Non,Locataire,Maison,Ouvrier,0,3,6720,4468,2,5594,2400,31,558,4,Lent,N
+111,Autre,Marie,M.,Aucun,Non,Non,Proprietaire,Appartement,Cadre,0,25,14112,0,1,14112,3760,49,2170,3,Rapide,N
+112,Autre,Marie,Mme,M.,Oui,Non,Proprietaire,Maison,Enseignant,2,24,11035,13990,4,6256,4145,39,115,4,Lent,N
+114,TV,Celibataire,Mlle,Aucun,Non,Non,Famille,Appartement,Employe de bureau,0,3,6000,0,1,6000,0,24,0,4,Lent,N
+117,Autre,Marie,Mme,M.,Oui,Non,Locataire,Appartement,Ouvrier,0,10,4291,4819,2,4555,0,44,0,4,Lent,N
+118,TV,Marie,Mme,M.,Oui,Non,Famille,Maison,Chomeur,1,13,0,0,3,0,0,47,0,4,Lent,N
+645,TV,Marie,Mme,M.,Oui,Oui,Proprietaire,Maison,Employe,0,9,7174,8937,2,8055,0,42,0,4,Lent,N
+646,TV,Marie,Mme,Aucun,Non,Non,Proprietaire,Maison,Ouvrier qualifie,0,20,12384,0,1,12384,0,56,1364,3,Rapide,N
+654,Courrier,Marie,Mme,M.,Oui,Non,Locataire,Appartement,Ouvrier,1,18,6993,5020,3,4004,2240,48,186,4,Lent,N
+655,Autre,Divorce,Mme,Aucun,Non,Non,Proprietaire,Maison,Ouvrier qualifie,0,17,8492,0,1,8492,1437,46,256,3,Rapide,N
+658,Autre,Marie,Mme,M.,Oui,Oui,Proprietaire,Maison,Ouvrier,3,7,1749,1021,5,554,0,40,0,4,Lent,N
+665,TV,Marie,Mme,M.,Oui,Non,Famille,Maison,Employe,2,15,8376,7934,4,4077,0,44,1013,4,Lent,N
+666,TV,Celibataire,M.,Aucun,Non,Non,Locataire,Appartement,Cadre,0,8,13728,0,1,13728,1076,29,1388,3,Rapide,N
+671,Courrier,Divorce,Mme,Aucun,Non,Oui,Proprietaire,Maison,Cadre,1,4,9669,0,2,4834,1354,42,1048,2,Normal,N
+672,TV,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Ouvrier,3,25,9844,6148,5,3198,2620,41,620,4,Lent,N
+673,TV,Marie,M.,Mme,Oui,Oui,Proprietaire,Maison,Ouvrier qualifie,0,8,7715,7358,2,7536,1176,44,880,4,Lent,N
+674,Autre,Marie,M.,Mme,Oui,Oui,Proprietaire,Appartement,Ouvrier,0,14,5811,0,2,2905,2239,43,224,4,Lent,N
+677,TV,Celibataire,M.,Mme,Oui,Non,Proprietaire,Maison,Retraite,0,10,11788,0,2,5894,1440,70,806,4,Lent,N
+680,Courrier,Divorce,Mme,Aucun,Non,Oui,Proprietaire,Maison,Cadre,2,4,9553,0,3,3184,1389,36,1031,3,Rapide,N
+683,Autre,Celibataire,M.,Aucun,Non,Non,Famille,Maison,Inactif,0,18,2790,0,1,2790,0,32,0,3,Rapide,N
+684,Autre,Marie,Mme,M.,Oui,Oui,Proprietaire,Maison,Ouvrier,0,6,9600,12528,2,11064,3200,67,0,3,Rapide,N
+688,TV,Marie,M.,Mme,Oui,Non,Proprietaire,Maison,Ouvrier,1,10,8360,6656,3,5005,0,48,879,4,Lent,N
+689,TV,Separe,Mme,M.,Oui,Non,Locataire,Maison,Employe de bureau,1,10,5577,5808,3,3795,960,39,0,4,Lent,N
+690,TV,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Employe,1,18,7099,0,3,2366,0,40,0,3,Rapide,N
+695,Autre,Marie,M.,Mme,Oui,Oui,Proprietaire,Appartement,Retraite,1,33,11320,11065,3,7461,3414,63,0,4,Lent,N
+696,TV,Marie,M.,Mme,Oui,Oui,Proprietaire,Maison,Ouvrier qualifie,1,8,9632,5467,3,5033,2987,39,352,4,Lent,N
+697,Courrier,Divorce,Mme,Aucun,Non,Oui,Proprietaire,Maison,Cadre,1,4,10037,0,2,5018,1369,37,936,2,Normal,N
+700,Autre,Concubin,Mme,M.,Oui,Non,Proprietaire,Maison,Retraite,0,14,3279,5010,2,4144,0,65,0,4,Lent,N
+702,TV,Marie,M.,Mme,Oui,Oui,Proprietaire,Maison,Ouvrier,1,20,7309,0,3,2436,1981,45,941,4,Lent,N
+703,TV,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Retraite,0,10,8649,7022,2,7835,2000,61,0,3,Rapide,N
+704,Autre,Celibataire,Mme,Aucun,Non,Non,Locataire,Appartement,Retraite,0,9,6240,0,1,6240,0,72,0,4,Lent,N
+706,Autre,Concubin,Mme,M.,Oui,Non,Locataire,Maison,Retraite,4,17,8881,10246,6,4521,3444,37,620,3,Rapide,N
+709,TV,Celibataire,M.,Mme,Oui,Non,Proprietaire,Maison,Retraite,0,9,12523,0,2,6261,1533,67,757,4,Lent,N
+710,Autre,Divorce,M.,Aucun,Non,Oui,Proprietaire,Appartement,Cadre,1,11,20301,0,2,10150,2248,51,783,2,Normal,N
+711,TV,Celibataire,Mlle,Aucun,Non,Non,Famille,Appartement,Cadre,0,4,7894,0,1,7894,0,28,1024,4,Lent,N
+713,Autre,Marie,Mme,M.,Oui,Non,Proprietaire,Maison,Cadre,0,20,11131,6259,2,8695,0,46,1537,4,Lent,N
+715,TV,Concubin,Mme,M.,Oui,Non,Locataire,Appartement,Employe de bureau,1,20,9700,4920,3,4873,2240,44,868,4,Lent,N
+716,TV,Marie,Mme,M.,Oui,Non,Proprietaire,Maison,Enseignant,1,6,13643,20511,3,11384,1058,52,1193,4,Lent,N
+717,Autre,Divorce,Mme,Aucun,Non,Non,Locataire,Maison,Cadre,0,8,9792,0,1,9792,2400,53,0,3,Rapide,N
+719,TV,Marie,Mme,M.,Oui,Oui,Proprietaire,Maison,Ouvrier qualifie,1,10,8501,12540,3,7013,1577,47,225,2,Normal,N
+720,Autre,Concubin,M.,Aucun,Non,Non,Locataire,Appartement,Representant,1,0,12028,0,2,6014,560,26,830,3,Rapide,N
+721,Courrier,Marie,Mme,M.,Oui,Non,Proprietaire,Maison,Retraite,3,0,7711,12848,5,4111,1821,42,1986,3,Rapide,N
+723,Autre,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Employe,2,10,8083,0,4,2020,1088,33,620,4,Lent,N
+1159,Autre,Marie,M.,Mme,Oui,Oui,Proprietaire,Maison,Representant,1,11,9241,5149,3,4796,1471,48,1999,4,Lent,N
+1160,Autre,Marie,M.,Mme,Oui,Non,Locataire,Maison,Representant,3,5,8347,6657,5,3000,1200,35,1240,3,Rapide,N
+1162,TV,Concubin,Mme,M.,Oui,Non,Locataire,Maison,Retraite,2,5,5553,4224,4,2444,2400,24,868,4,Lent,N
+1382,Autre,Marie,Mme,M.,Oui,Non,Locataire,Maison,Employe de bureau,2,18,11788,15144,4,6733,3840,41,744,3,Lent,O
+1387,TV,Celibataire,Mlle,Aucun,Non,Non,Locataire,Appartement,Retraite,0,6,6432,0,1,6432,1200,25,372,4,Lent,O
+1389,Autre,Celibataire,Mme,Aucun,Non,Non,Locataire,Appartement,Cadre,0,4,17419,0,1,17419,2400,54,0,4,Lent,O
+1390,Autre,Celibataire,Mlle,Aucun,Non,Oui,Famille,Maison,Representant,0,6,16833,0,1,16833,1223,36,0,3,Rapide,O
+1393,TV,Marie,M.,Mme,Oui,Non,Locataire,Maison,Ouvrier,3,17,10819,0,5,2163,2052,41,1612,4,Lent,O
+1394,Autre,Marie,Mme,M.,Non,Non,Locataire,Maison,Ouvrier qualifie,1,23,12288,18998,3,10428,748,42,744,3,Rapide,O
+1397,TV,Separe,Mme,Aucun,Non,Non,Locataire,Appartement,Enseignant,1,10,10080,0,2,5040,2400,35,868,3,Rapide,O
+1398,Autre,Marie,M.,Aucun,Non,Non,Locataire,Maison,Employe de bureau,0,17,11520,0,1,11520,0,54,744,3,Rapide,O
+1400,Autre,Marie,M.,Mme,Oui,Non,Locataire,Maison,Retraite,0,10,7622,7142,2,7382,0,63,372,1,Rapide,O
+1402,TV,Celibataire,Mlle,Aucun,Non,Non,Locataire,Appartement,Employe de bureau,0,5,7372,0,1,7372,1680,32,1450,3,Lent,O
+1403,Autre,Marie,M.,Mme,Oui,Non,Locataire,Maison,Ouvrier qualifie,1,28,7003,4521,3,3841,536,46,496,3,Lent,O
+1404,TV,Celibataire,M.,Aucun,Non,Non,Locataire,Appartement,Ouvrier,0,13,7392,0,1,7392,1440,33,821,4,Lent,O
+1405,Courrier,Marie,M.,Mme,Oui,Non,Proprietaire,Maison,Representant,2,5,10819,10178,4,5249,2931,28,0,2,Normal,O
+1407,Autre,Marie,Mme,M.,Oui,Non,Locataire,Appartement,Ouvrier qualifie,1,17,8673,12379,3,7017,2640,38,0,4,Lent,O
+1408,TV,Concubin,Mlle,M.,Oui,Non,Locataire,Maison,Employe de bureau,0,3,14208,23745,2,18976,5600,27,0,4,Lent,O
+1412,Courrier,Celibataire,M.,Aucun,Non,Non,Locataire,Appartement,Ouvrier qualifie,0,5,9600,0,1,9600,0,27,0,3,Rapide,O
+1415,TV,Celibataire,Mlle,Aucun,Non,Non,Locataire,Maison,Ouvrier qualifie,0,9,9230,0,1,9230,0,29,985,4,Lent,O
+1418,TV,Veuf,Mme,Aucun,Non,Non,Locataire,Appartement,Retraite,0,30,3993,0,1,3993,376,57,186,1,Rapide,O
+1421,TV,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Ouvrier,3,20,7267,7656,5,2984,3120,38,0,4,Lent,O
+1423,TV,Marie,Mme,M.,Oui,Non,Locataire,Appartement,Chomeur,0,8,0,0,2,0,1432,54,0,4,Lent,O
+1427,Autre,Marie,M.,Mme,Oui,Non,Locataire,Maison,Cadre,0,22,11428,0,2,5714,1888,55,496,4,Lent,O
+1428,TV,Marie,Mme,M.,Oui,Non,Locataire,Appartement,Cadre,3,18,9052,9883,5,3787,3196,39,930,4,Lent,O
+1430,Courrier,Celibataire,M.,Aucun,Non,Non,Locataire,Maison,Ouvrier,0,4,5664,0,1,5664,0,21,0,4,Lent,O
+1431,Autre,Celibataire,M.,Mme,Oui,Non,Locataire,Appartement,Employe,0,16,8131,0,2,4065,2240,34,0,4,Lent,O
+1432,TV,Veuf,Mme,Aucun,Non,Non,Locataire,Maison,Ouvrier,1,15,5745,0,2,2872,800,47,620,4,Lent,O
+1433,Autre,Marie,Mme,M.,Oui,Non,Locataire,Maison,Ouvrier,0,5,3360,4598,2,3979,0,59,0,3,Lent,O
+1437,Autre,Separe,Mme,Aucun,Non,Non,Locataire,Appartement,Ouvrier,0,4,7948,0,1,7948,1256,49,620,4,Lent,O
+1442,TV,Veuf,Mme,Aucun,Non,Non,Locataire,Maison,Retraite,0,23,9192,0,1,9192,2032,71,1568,1,Rapide,O
+1443,Autre,Concubin,Mme,M.,Oui,Non,Locataire,Appartement,Chomeur,3,8,0,0,5,0,2308,36,372,3,Rapide,O
+1445,Courrier,Celibataire,Mme,Aucun,Non,Oui,Proprietaire,Maison,Cadre,0,6,5977,0,1,5977,0,23,894,4,Lent,O
+1446,Autre,Concubin,Mme,M.,Oui,Non,Locataire,Appartement,Cadre,3,5,6720,8443,5,3032,0,39,682,4,Lent,O
+1448,Autre,Veuf,M.,Aucun,Non,Non,Locataire,Maison,Retraite,0,10,7800,0,1,7800,1904,54,0,4,Lent,O
+1450,TV,Marie,Mme,M.,Oui,Non,Locataire,Appartement,Chomeur,0,29,0,0,2,0,2400,54,155,4,Lent,O
+1451,TV,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Representant,0,20,35030,32068,2,33549,3240,49,0,4,Lent,O
+1456,Autre,Divorce,Mme,Aucun,Non,Non,Locataire,Appartement,Employe de bureau,1,9,10900,0,2,5450,4000,36,620,4,Lent,O
+1458,Courrier,Concubin,Mme,M.,Oui,Non,Locataire,Maison,Retraite,2,11,2688,1425,4,1028,3840,29,0,4,Lent,O
+1459,TV,Marie,M.,M.,Oui,Non,Locataire,Maison,Employe,3,18,6441,6729,5,2634,2164,39,775,3,Rapide,O
+1460,Autre,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Ouvrier qualifie,1,12,8784,0,3,2928,1680,50,0,4,Lent,O
+1461,TV,Marie,Mme,M.,Oui,Non,Locataire,Appartement,Employe,3,23,5001,5596,5,2119,0,33,496,4,Lent,O
+1462,Autre,Celibataire,Mlle,Aucun,Non,Non,Locataire,Appartement,Ouvrier,1,5,8428,0,2,4214,4000,46,0,4,Lent,O
+1466,TV,Concubin,M.,Mme,Oui,Non,Proprietaire,Maison,Ouvrier,2,15,6761,0,4,1690,4435,33,0,2,Normal,O
+1468,Autre,Divorce,Mme,Aucun,Non,Non,Locataire,Maison,Cadre,0,13,10540,0,1,10540,2468,52,2480,4,Lent,O
+1471,Autre,Marie,M.,Mme,Oui,Non,Locataire,Maison,Ouvrier qualifie,0,25,11520,12196,2,11858,1520,49,0,3,Rapide,O
+1474,Autre,Celibataire,Mlle,Aucun,Non,Non,Locataire,Appartement,Employe de bureau,0,6,8256,0,1,8256,1400,28,0,3,Rapide,O
+1475,Autre,Celibataire,Mme,Aucun,Non,Non,Locataire,Appartement,Retraite,0,3,5760,0,1,5760,3080,54,155,4,Lent,O
+1476,Autre,Divorce,Mme,M.,Oui,Non,Locataire,Appartement,Ouvrier qualifie,1,3,13401,7622,3,7007,0,38,372,3,Rapide,O
+1477,Autre,Celibataire,M.,Aucun,Non,Non,Locataire,Appartement,Ouvrier,0,6,6326,0,1,6326,1200,26,0,1,Rapide,O
+1479,Courrier,Divorce,Mme,Aucun,Non,Non,Locataire,Maison,Ouvrier qualifie,0,8,13324,0,1,13324,0,50,2480,4,Lent,O
+1481,Courrier,Concubin,M.,Mme,Oui,Non,Locataire,Maison,Representant,0,2,14232,14995,2,14613,2480,47,372,3,Rapide,O
+1482,TV,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Ouvrier,0,7,7540,6892,2,7216,1240,27,744,4,Lent,O
+1483,Autre,Separe,Mme,Aucun,Non,Non,Locataire,Appartement,Employe,0,10,9024,0,1,9024,1248,53,496,4,Lent,O
+1488,Autre,Concubin,M.,Mme,Oui,Non,Locataire,Appartement,Ouvrier qualifie,0,11,12960,9628,2,11294,2240,37,1748,4,Lent,O
+1490,Autre,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Cadre,0,18,9600,0,2,4800,1320,43,561,4,Lent,O
+1491,Autre,Separe,Mme,Aucun,Non,Non,Locataire,Appartement,Enseignant,2,0,10368,0,3,3456,0,34,1240,4,Lent,O
+1493,Autre,Marie,Mme,M.,Oui,Non,Locataire,Maison,Employe,2,4,9235,13094,4,5582,3120,47,2281,3,Rapide,O
+1494,Courrier,Marie,Mme,M.,Oui,Non,Locataire,Maison,Retraite,0,8,0,0,2,0,4800,45,0,2,Normal,O
+1497,TV,Marie,M.,Mme,Oui,Non,Locataire,Maison,Employe,2,10,8544,6772,4,3829,1120,48,604,4,Lent,O
+1501,Autre,Marie,M.,Mme,Oui,Non,Locataire,Maison,Ouvrier,3,13,6504,5788,5,2458,3216,40,0,4,Lent,O
+1502,TV,Separe,Mme,Aucun,Non,Non,Locataire,Appartement,Retraite,0,16,4675,0,1,4675,0,64,0,4,Lent,O
+1503,TV,Marie,Mme,M.,Oui,Non,Locataire,Maison,Employe,0,20,7161,9259,2,8210,2800,45,1860,4,Lent,O
+1506,Autre,Marie,Mme,M.,Oui,Non,Locataire,Appartement,Inactif,2,20,0,0,4,0,1760,40,496,4,Lent,O
+1509,Courrier,Celibataire,M.,Aucun,Non,Non,Locataire,Appartement,Employe,0,12,7248,0,1,7248,720,31,868,3,Lent,O
+1510,TV,Celibataire,M.,Aucun,Non,Non,Locataire,Appartement,Ouvrier qualifie,0,2,10992,0,1,10992,1920,27,1054,1,Rapide,O
+1511,TV,Marie,M.,Mme,Oui,Non,Locataire,Maison,Ouvrier,1,11,8376,0,3,2792,1440,44,930,3,Lent,O
+1512,Autre,Marie,Mme,M.,Oui,Non,Locataire,Maison,Retraite,0,39,7099,10939,2,9019,4000,63,1550,4,Lent,O
+1514,Autre,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Inactif,2,11,0,0,4,0,0,51,248,4,Lent,O
+1515,Autre,Celibataire,M.,Mme,Oui,Non,Locataire,Maison,Ouvrier,1,2,6652,0,3,2217,1580,28,1292,4,Lent,O
+1516,Autre,Celibataire,M.,Aucun,Non,Non,Locataire,Appartement,Inactif,0,6,6600,0,1,6600,820,22,173,3,Rapide,O
+1518,Autre,Celibataire,Mme,M.,Oui,Non,Locataire,Maison,Employe de bureau,0,25,7296,7564,2,7430,1600,45,1550,4,Lent,O
+1520,Autre,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Ouvrier,0,18,6974,6998,2,6986,1600,54,0,3,Rapide,O
+1523,Autre,Marie,Mme,M.,Non,Non,Locataire,Appartement,Employe,2,2,6019,8875,4,3723,1764,30,372,4,Lent,O
+1525,TV,Concubin,Mme,M.,Oui,Non,Locataire,Maison,Employe,0,10,5880,3633,2,4756,1800,46,899,4,Lent,O
+1527,TV,Marie,M.,Mme,Oui,Non,Locataire,Maison,Ouvrier qualifie,2,19,11716,0,4,2929,240,44,3100,4,Lent,O
+1529,Courrier,Marie,Mme,M.,Oui,Oui,Proprietaire,Maison,Chomeur,3,20,0,0,5,0,2112,33,434,4,Lent,O
+1530,TV,Marie,Mme,M.,Oui,Non,Locataire,Maison,Ouvrier,4,5,1123,1113,6,372,2640,40,930,3,Lent,O
+1531,TV,Divorce,Mme,Aucun,Non,Non,Locataire,Appartement,Ouvrier qualifie,2,8,10224,0,3,3408,0,35,675,4,Lent,O
+1532,Autre,Marie,M.,Mme,Oui,Non,Locataire,Maison,Ouvrier qualifie,1,20,13228,10795,3,8007,3760,40,1484,4,Lent,O
+1533,Autre,Marie,Mme,M.,Oui,Non,Locataire,Appartement,Employe de bureau,2,12,4896,3441,4,2084,0,29,744,4,Lent,O
+1534,TV,Marie,M.,Mme,Oui,Non,Locataire,Maison,Retraite,1,35,3355,0,3,1118,4000,58,186,4,Lent,O
+1536,TV,Marie,Mme,M.,Oui,Non,Proprietaire,Maison,Cadre,1,11,9120,11217,3,6779,0,28,248,3,Rapide,O
+1537,TV,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Ouvrier,0,5,6614,7934,2,7274,996,28,728,4,Lent,O
+1538,TV,Celibataire,Mme,Aucun,Non,Oui,Locataire,Appartement,Ouvrier,0,28,5841,0,1,5841,1440,61,911,3,Rapide,O
+1539,TV,Divorce,Mme,Aucun,Non,Non,Locataire,Appartement,Cadre,1,12,8971,0,2,4485,1120,35,0,3,Lent,O
+1540,TV,Celibataire,Mme,M.,Oui,Non,Locataire,Maison,Representant,0,16,4512,4598,2,4555,1680,40,0,4,Lent,O
+1541,Autre,Divorce,Mlle,Aucun,Non,Non,Locataire,Appartement,Ouvrier,1,14,5971,0,2,2985,720,32,310,3,Rapide,O
+1545,Courrier,Marie,Mme,M.,Oui,Non,Locataire,Maison,Chomeur,0,15,0,0,2,0,0,49,0,4,Lent,O
+1549,TV,Divorce,M.,Aucun,Non,Non,Locataire,Appartement,Ouvrier,0,10,6235,0,1,6235,688,33,0,4,Lent,O
+1550,Autre,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Representant,2,5,13872,0,4,3468,6160,42,620,4,Lent,O
+1551,TV,Celibataire,Mlle,Aucun,Non,Non,Locataire,Maison,Employe de bureau,0,30,6081,0,1,6081,0,47,1550,4,Lent,O
+1552,Courrier,Celibataire,M.,Aucun,Non,Non,Locataire,Appartement,Employe,0,12,11049,0,1,11049,0,35,0,4,Lent,O
+1553,Courrier,Veuf,Mme,Aucun,Non,Non,Proprietaire,Appartement,Employe,0,32,7080,0,1,7080,0,62,0,4,Lent,O
+1554,Courrier,Concubin,Mme,M.,Oui,Non,Locataire,Appartement,Employe de bureau,0,12,6326,4272,2,5299,1448,25,806,4,Lent,O
+1557,Autre,Celibataire,M.,Aucun,Non,Non,Locataire,Appartement,Ouvrier,0,12,7569,0,1,7569,1200,28,1339,3,Lent,O
+1558,Autre,Veuf,Mme,Aucun,Non,Non,Locataire,Maison,Retraite,0,0,7320,0,1,7320,1984,53,0,4,Lent,O
+1561,Autre,Marie,M.,Mme,Oui,Non,Locataire,Appartement,Ouvrier,1,14,9600,0,3,3200,2320,47,1116,1,Rapide,O
