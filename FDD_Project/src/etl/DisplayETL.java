@@ -119,11 +119,6 @@ public class DisplayETL extends JFrame implements ActionListener {
             } catch (IOException ex) {
                 Logger.getLogger(DisplayETL.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-           System.out.println(LoadCSV.data);
-
-           System.out.println("Affichage de l'arbre.");
-           //new Main(LoadCSV.data);
  
         }
         

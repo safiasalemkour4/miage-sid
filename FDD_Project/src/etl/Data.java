@@ -61,14 +61,11 @@ public class Data {
      */
     
     public DataInfos[] getNewDataInfo(String[][] newTabDataValues, DataInfos[] oldTabDataInfos) {
+;
 
-
-                System.out.println("super important : " +oldTabDataInfos[1]);
-
-         System.out.println("\n--------- DATA ---------\n");
+        System.out.println("\n--------- DATA ---------\n");
 
         for (int i = 0; i < newTabDataValues.length; i++) {
-                System.out.print("Ligne "+i+" ->");
 
             for (int j = 0; j < newTabDataValues[0].length; j++) {
 
@@ -82,8 +79,9 @@ public class Data {
          * On reprend notre ancien DataInfos[]
          * Il reste maintenant a mettre a jour les statistiques
          */
-            DataInfos[] res = new DataInfos[oldTabDataInfos.length];
-            int id=0;
+         DataInfos[] res = new DataInfos[oldTabDataInfos.length];
+         int id=0;
+
          for (DataInfos di : oldTabDataInfos) {
             
              DataInfos dataInfos = new DataInfos(di.getId(), di.getName(), di.getType(), di.isTargetVar());
@@ -91,7 +89,6 @@ public class Data {
 
          }
         
-
         /* Tableau : A une valeur, on associe le nombre d'occurence */
 
         HashMap tabListValues[] = new HashMap[this.getNbColumn()];
@@ -109,8 +106,6 @@ public class Data {
 
                 if (res[j].isNumeric()) {
 
-                    System.out.println("On essaye de test : "+newTabDataValues[i][j]+" qui se trouve a la ligne "+i+", colone "+j);
-                    
                     if (res[j].getMinValue() > new Integer(newTabDataValues[i][j]).intValue()) {
 
                         res[j].setMinValue(new Integer(newTabDataValues[i][j]).intValue());

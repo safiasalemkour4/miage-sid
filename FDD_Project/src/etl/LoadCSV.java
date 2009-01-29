@@ -24,8 +24,6 @@ public class LoadCSV {
 
     public static void LoadCSVHeader(String filePath) throws IOException {
 
-        System.out.println("Loading file " + filePath);
-
         BufferedReader firstReader = new BufferedReader(new FileReader(filePath));
 
         // Header
@@ -40,10 +38,6 @@ public class LoadCSV {
         }
 
         firstReader.close();
-
-        //DataInfos(int id, int type, boolean targetVar)
-
-        // ICI AFFICHER la premiere lecture (avec le hearder) pr le choix de la var cible !
 
         tabDataValues = new String[nbLine][header.length];
         tabDataInfos = new DataInfos[header.length];
