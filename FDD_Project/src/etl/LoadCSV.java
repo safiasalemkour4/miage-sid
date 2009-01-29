@@ -168,7 +168,7 @@ public class LoadCSV {
         data = new Data(tabDataValues, tabDataInfos);
 
         new Cart(data);
-        System.out.println(Cart.tree.get(0).getChartDegrees());
+        //System.out.println(Cart.tree.get(0).getChartDegrees());
 
         
         lastReader.close();
