@@ -7,32 +7,62 @@ import java.io.IOException;
 import java.util.HashMap;
 import projet_fdd.Main;
 
-/**
- *
- * @author arnaud
- */
+/*****************************************************************************************************
+ *   					    ~ Data Mining Project (Miage Nancy - SID - 2008/2009) ~             	 *
+ *****************************************************************************************************
+ *    CLASS  	******		LoadCSV.java                                                             *
+ *****************************************************************************************************
+ *    			******																				 *
+ * DESCRIPTION  ******		Classe permettant de charger les donnees CSV (en memoire) 				 *
+ * 				******																				 *
+ *****************************************************************************************************
+ * 	 @author 	******   	Romain Lafond, Maxime Hoeffel, Simon Hasne, Eric Nguyen-Van,             *
+ *              ******      Florian Collignon, Arnaud Knobloch                 						 *
+ * ***************************************************************************************************
+ *   @version 	******  	1.0																		 *
+ *****************************************************************************************************/
+
 public class LoadCSV {
 
+    /* Constante : ici ',' */
     private static final String SEPARATOR = ",";
+
+    /* Le header (entete) de notre fichier CSV */
     public static String[] header;
+
+    /* Tableau representant les valeurs des donnees */
     public static String[][] tabDataValues;
+
+    /* Tableau donnant les informations sur les donnees */
     public static DataInfos[] tabDataInfos;
+
+    /* Les donnees */
     public static Data data;
 
-    public LoadCSV() {
-    }
+    /**
+     * Constructeur par defaut
+     */
+
+    public LoadCSV() {}
+
+    /**
+     * Methode LoadCSVHeader
+     * @param filePath le chemin du fichier
+     * @throws java.io.IOException les exceptions d'entrees/sorties
+     */
 
     public static void LoadCSVHeader(String filePath) throws IOException {
 
         BufferedReader firstReader = new BufferedReader(new FileReader(filePath));
 
-        // Header
+        /* Notre Header */
         String headerLine = firstReader.readLine();
         header = headerLine.split(",");
 
         String line;
-
         int nbLine = 0;
+
+        /* On compte le nombre de ligne */
         while ((line = firstReader.readLine()) != null) {
             nbLine++;
         }
@@ -43,6 +73,12 @@ public class LoadCSV {
         tabDataInfos = new DataInfos[header.length];
     }
 
+    /**
+     * Methode LoadCSVData
+     * @param filePath le chemin du fichier
+     * @param targetColumn l'indice de la colonne cible
+     * @throws java.io.IOException les exceptions d'entrees/sorties
+     */
     public static void LoadCSVData(String filePath, int targetColumn) throws IOException {
 
         BufferedReader lastReader = new BufferedReader(new FileReader(filePath));
@@ -54,14 +90,11 @@ public class LoadCSV {
             tabListValues[i] = new HashMap();
         }
 
-        //InputStreamReader isr = new InputStreamReader(new FileInputStream("test"), Charset.forName("ISO-8859-1"));
-        String line;
-
-        // Le header (on le passe)
+        /* Le header (on le passe */
         lastReader.readLine();
         int l = 0;
 
-
+        String line;
 
         while ((line = lastReader.readLine()) != null) {
             
@@ -69,35 +102,41 @@ public class LoadCSV {
 
                 String firstLine = line;
 
-                // ICI IL FAUT REGARDER LA LIGNE 1 AFIN DE REPERER LES TYPES 
-
+                /* Ici, on regarde la ligne 1 afin de reperer les types */
+                
                 String[] result = line.split(SEPARATOR);
 
                 for (int i = 0; i < result.length; i++) {
 
-                    // On test le type
+                    /* On test le type */
                     DataInfos dataInfo = null;
 
                     if (isANumber(result[i])) {
 
                         if (targetColumn == i) {
+
                             dataInfo = new DataInfos(i, header[i], DataInfos.T_NUMERIC, true);
+
                         } else {
+
                             dataInfo = new DataInfos(i, header[i], DataInfos.T_NUMERIC, false);
                         }
 
                     } else {
+                        
                         if (targetColumn == i) {
+
                             dataInfo = new DataInfos(i, header[i], DataInfos.T_STRING, true);
+
                         } else {
+
                             dataInfo = new DataInfos(i, header[i], DataInfos.T_STRING, false);
                         }
                     }
 
                     tabDataInfos[i] = dataInfo;
 
-
-                    /* On oubli pas d'ajouter la premiere ligne quand m'm */
+                    /* On oubli pas d'ajouter la premiere ligne quand meme */
 
                     tabListValues[i].put(result[i], 1);
 
@@ -110,7 +149,9 @@ public class LoadCSV {
 
                 }
 
-            } /* Si ce n'est pas la premiere ligne */
+            }
+
+            /* Si ce n'est pas la premiere ligne */
 
             else {
 
@@ -121,16 +162,18 @@ public class LoadCSV {
                    if (tabDataInfos[i].isNumeric()) {
 
                        if (tabDataInfos[i].getMinValue()>new Integer(result[i]).intValue()) {
+
                          tabDataInfos[i].setMinValue(new Integer(result[i]).intValue());
                        }
 
                        if (tabDataInfos[i].getMaxValue()<new Integer(result[i]).intValue()) {
+
                         tabDataInfos[i].setMaxValue(new Integer(result[i]).intValue());
                        }
 
                     }
                    
-                    /* on fait les couples */
+                    /* On fait les couples */
                     if (tabListValues[i].containsKey(result[i])) {
 
                         Integer nbOccurence = (Integer) tabListValues[i].get(result[i]);
@@ -142,17 +185,18 @@ public class LoadCSV {
                         tabListValues[i].put(result[i], 1);
                     }
 
-                    // On charge les donnees 
+                    /* On charge les donnees */
                     tabDataValues[l][i] = result[i];
-
                 }
             }
 
             l++;
         }
 
-        /* On met les nb d'occurence */
+        /* On met le nombre d'occurence */
+        
         for (int i = 0; i < tabDataInfos.length; i++) {
+
             tabDataInfos[i].setListValues(tabListValues[i]);
         }
 
@@ -169,22 +213,33 @@ public class LoadCSV {
 
         new Cart(data);
         //System.out.println(Cart.tree.get(0).getChartDegrees());
-
         
         lastReader.close();
 
-        System.out.println("=========== Affichage de l'arbre : ============");
         new Main(data);
     }
 
+    /**
+     * Methode isANumber
+     * @param s la chaine de caractere
+     * @return true si la chaine est un nombre (entier ou flottant), false sinon
+     */
+    
     public static boolean isANumber(String s) {
+
         if (s == null) {
+
             return false;
         }
+
         try {
+
             new java.math.BigDecimal(s);
+
             return true;
+
         } catch (NumberFormatException e) {
+
             return false;
         }
     }

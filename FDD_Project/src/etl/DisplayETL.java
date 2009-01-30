@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package etl;
 
 import java.awt.BorderLayout;
@@ -15,24 +11,47 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import projet_fdd.Main;
 
-/**
- *
- * @author arnaud
- */
+/*****************************************************************************************************
+ *   					    ~ Data Mining Project (Miage Nancy - SID - 2008/2009) ~             	 *
+ *****************************************************************************************************
+ *    CLASS  	******		DisplayETL.java                                                          *
+ *****************************************************************************************************
+ *    			******																				 *
+ * DESCRIPTION  ******		JFrame permettant de charger les donnees                 				 *
+ * 				******																				 *
+ *****************************************************************************************************
+ * 	 @author 	******   	Romain Lafond, Maxime Hoeffel, Simon Hasne, Eric Nguyen-Van,             *
+ *              ******      Florian Collignon, Arnaud Knobloch                 						 *
+ * ***************************************************************************************************
+ *   @version 	******  	1.0																		 *
+ *****************************************************************************************************/
+
 public class DisplayETL extends JFrame implements ActionListener {
 
-    
+    /* Le chemin du fichier source */
     private String pathFile;
+
+    /* Le composant JTextField */
     private JTextField textFieldInput;
-    private JButton buttonInput,  buttonOk,  buttonLoad;
+
+    /* Les composants JButton */
+    private JButton buttonInput, buttonOk, buttonLoad;
+
+    /* Le composant JFileChooser */
     private JFileChooser fileChooserInput;
-    JPanel content;
-    JComboBox comboHeader;
+
+    /* Le composant JComboBox */
+    private JComboBox comboHeader;
+
+    /* Le JPanel principal */
+    private JPanel content;
+
+    /**
+     * Constructeur
+     */
 
     public DisplayETL() {
 
@@ -73,6 +92,11 @@ public class DisplayETL extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    /**
+     * Methode actionPerformed
+     * @param e l'action (ici le clique)
+     */
+    
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == buttonInput) {
@@ -96,7 +120,6 @@ public class DisplayETL extends JFrame implements ActionListener {
                 Logger.getLogger(DisplayETL.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-
             JPanel header = new JPanel();
 
             comboHeader = new JComboBox(LoadCSV.header);
@@ -108,22 +131,23 @@ public class DisplayETL extends JFrame implements ActionListener {
             content.add(header, BorderLayout.CENTER);
 
             this.pack();
-
         }
 
         if (e.getSource() == buttonLoad) {
-
 
             try {
                 LoadCSV.LoadCSVData(this.pathFile, comboHeader.getSelectedIndex());
             } catch (IOException ex) {
                 Logger.getLogger(DisplayETL.class.getName()).log(Level.SEVERE, null, ex);
             }
- 
         }
-        
     }
 
+    /**
+     * Mehode Main
+     * @param args la liste des arguments
+     */
+    
     public static void main(String[] args) {
 
         new DisplayETL();
