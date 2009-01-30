@@ -4,6 +4,7 @@ import cart.Cart;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import projet_fdd.Main;
 
@@ -206,6 +207,22 @@ public class LoadCSV {
 
             if (tabDataInfos[i].getListValues().keySet().size() == 2) {
                 tabDataInfos[i].setType(DataInfos.T_BINARY);
+            }
+        }
+
+        /*
+         * On test si la colonne est numerique et si c'est le cas,
+         * on demande a l'utilisateur de saisir els bornes
+         */
+
+        for (int i = 0; i < tabDataInfos.length; i++) {
+
+            if (tabDataInfos[i].isNumeric()) {
+                
+                /* On appelle la gui afin que l'utilisateur definisse les bornes */
+                ArrayList<Integer> listBoundary = null;
+
+                tabDataInfos[i].setListBoundary(listBoundary);
             }
         }
 

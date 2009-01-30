@@ -366,6 +366,15 @@ public class Data {
     }
 
     /**
+     * Methode getTargetVar
+     * @return le nom de la colonne (variable) cible
+     */
+    public String getColumnName(int column) {
+
+        return tabDataInfos[column].getName();
+    }
+    
+    /**
      * Methode getTabDataValues
      * Retourne les infos du noeud (data du noeud)
      * @return le tableau representant les valeurs des donnees
