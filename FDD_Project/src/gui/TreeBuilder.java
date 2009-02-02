@@ -1,53 +1,33 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package projet_fdd;
+
+package gui;
 
 import cart.Node;
 import cart.Scission;
 import etl.Data;
 import etl.DataInfos;
-import etl.DisplayETL;
 import etl.LoadCSV;
-import gui.UI;
-import gui.TreeFrame;
-import gui.TreeBox;
-import gui.TreeView;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.Point;
-import java.awt.Toolkit;
 import java.awt.geom.Line2D;
 import javax.swing.JLabel;
 
 /**
- * classe a renommer !
+ * Classe contenant l'algo pour afficher l'arbre
  */
-public class Main {
+public class TreeBuilder {
 
     /** fenetre affichant l'arbre */
-    //public static TreeFrame treeFrame;
-    public static TreeView treeView;
+    public static TreeFrame treeView;
     /** l'arbre (commence par le noeud racine) */
     public static Node root;
-    /** occurence */
-    public static int totalRows;
 
-    public Main(Data data){
+    /**
+     * Constructeur
+     * @param data
+     */
+    public TreeBuilder(){
 
-         /* affichage en plein écran (fullscreen size mode) */
-//        //int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
-//        //int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-//        //treeFrame.setSize(new Dimension(screenWidth, screenHeight-30));
-//        //treeFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
-        
         // On cree le noeud racine (n'a pas de scission d'origine et de niveau 0)
-        totalRows = data.getNbRow();
-        root = new Node(data, null, "root",  0);
-        System.out.println("rootNode = " + root);
-        treeView = new TreeView();
+        root = new Node(LoadCSV.data, null, "root", 0);
+        treeView = TreeFrame.getInstance();
         // on positionne le noeud racine puis affiche l'arbre en entier
         drawRootNode();
     }
@@ -63,13 +43,13 @@ public class Main {
 
         System.out.println("height: " + treeView.getHeight() + " width: " + treeView.getWidth());
         // calcul du noeud racine
-        int noeudRacineX = UI.MARGIN_LEFT;
-        int noeudRacineY = UI.TREEPANEL_HEIGHT / 2;
+        int noeudRacineX = UIVars.MARGIN_LEFT;
+        int noeudRacineY = UIVars.TREEPANEL_HEIGHT / 2;
 
         System.out.println("height: " + noeudRacineY + " width: " + noeudRacineX);
 
-        TreeBox tb = new TreeBox(root);
-        tb.setBounds(noeudRacineX, noeudRacineY, UI.TREEBOX_WIDTH, UI.TREEBOX_HEIGHT);
+        NodePanel tb = new NodePanel(root);
+        tb.setBounds(noeudRacineX, noeudRacineY, UIVars.TREEBOX_WIDTH, UIVars.TREEBOX_HEIGHT);
 
         /* on ajoute */
         treeView.addTreeBox(tb);
@@ -100,39 +80,39 @@ public class Main {
             /**************************************************/
             /* calcul des coordonnées du TreeBox "FILS DROIT" */
             /**************************************************/
-            int filsDroitX = parentNodeX + UI.TREEBOX_WIDTH + UI.MARGIN_RIGHT;
-            int filsDroitY = parentNodeY + (UI.TREEBOX_HEIGHT / 2) - (marge_vertical / 2) - UI.TREEBOX_HEIGHT;
+            int filsDroitX = parentNodeX + UIVars.TREEBOX_WIDTH + UIVars.MARGIN_RIGHT;
+            int filsDroitY = parentNodeY + (UIVars.TREEBOX_HEIGHT / 2) - (marge_vertical / 2) - UIVars.TREEBOX_HEIGHT;
 
-            TreeBox fd = new TreeBox(parent.getRightSon());
-            fd.setBounds(filsDroitX, filsDroitY, UI.TREEBOX_WIDTH, UI.TREEBOX_HEIGHT);
+            NodePanel fd = new NodePanel(parent.getRightSon());
+            fd.setBounds(filsDroitX, filsDroitY, UIVars.TREEBOX_WIDTH, UIVars.TREEBOX_HEIGHT);
             treeView.addTreeBox(fd);
             fd.setVisible(true);
             fd.repaint();
 
             /* on ajoute le trait jusqu'à son parent */
-            Line2D lineD = new Line2D.Double(parentNodeX + UI.TREEBOX_WIDTH,
-                    parentNodeY + (UI.TREEBOX_HEIGHT / 2),
+            Line2D lineD = new Line2D.Double(parentNodeX + UIVars.TREEBOX_WIDTH,
+                    parentNodeY + (UIVars.TREEBOX_HEIGHT / 2),
                     filsDroitX,
-                    filsDroitY + (UI.TREEBOX_HEIGHT / 2));
+                    filsDroitY + (UIVars.TREEBOX_HEIGHT / 2));
             treeView.addLine(lineD);
 
             /**************************************************/
             /* calcul des coordonnées du TreeBox "FILS DROIT" */
             /**************************************************/
-            int filsGaucheX = parentNodeX + UI.TREEBOX_WIDTH + UI.MARGIN_RIGHT;
-            int filsGaucheY = parentNodeY + (UI.TREEBOX_HEIGHT / 2) + (marge_vertical / 2);
+            int filsGaucheX = parentNodeX + UIVars.TREEBOX_WIDTH + UIVars.MARGIN_RIGHT;
+            int filsGaucheY = parentNodeY + (UIVars.TREEBOX_HEIGHT / 2) + (marge_vertical / 2);
 
-            TreeBox fg = new TreeBox(parent.getLeftSon());
-            fg.setBounds(filsGaucheX, filsGaucheY, UI.TREEBOX_WIDTH, UI.TREEBOX_HEIGHT);
+            NodePanel fg = new NodePanel(parent.getLeftSon());
+            fg.setBounds(filsGaucheX, filsGaucheY, UIVars.TREEBOX_WIDTH, UIVars.TREEBOX_HEIGHT);
             treeView.addTreeBox(fg);
             fg.setVisible(true);
             fg.repaint();
 
             /* on ajoute le trait jusqu'à son parent */
-            Line2D lineG = new Line2D.Double(parentNodeX + UI.TREEBOX_WIDTH,
-                    parentNodeY + (UI.TREEBOX_HEIGHT / 2),
+            Line2D lineG = new Line2D.Double(parentNodeX + UIVars.TREEBOX_WIDTH,
+                    parentNodeY + (UIVars.TREEBOX_HEIGHT / 2),
                     filsGaucheX,
-                    filsGaucheY + (UI.TREEBOX_HEIGHT / 2));
+                    filsGaucheY + (UIVars.TREEBOX_HEIGHT / 2));
             treeView.addLine(lineG);
 
             /*****************************************************************************************/
@@ -155,25 +135,25 @@ public class Main {
             
             /* ajout du label de la valeur de la variable discrimante choisie */
             JLabel lbOccurenceDiscrDroit = new JLabel(occurenceDiscrDroit);
-            lbOccurenceDiscrDroit.setBounds(parentNodeX + UI.TREEBOX_WIDTH + 5,
-                                            parentNodeY + UI.TREEBOX_HEIGHT/2 - UI.TREEBOXLABEL_HEIGHT/2 - 40,
-                                            UI.TREEBOXLABEL_WIDTH, UI.TREEBOXLABEL_HEIGHT);
+            lbOccurenceDiscrDroit.setBounds(parentNodeX + UIVars.TREEBOX_WIDTH + 5,
+                                            parentNodeY + UIVars.TREEBOX_HEIGHT/2 - UIVars.TREEBOXLABEL_HEIGHT/2 - 40,
+                                            UIVars.TREEBOXLABEL_WIDTH, UIVars.TREEBOXLABEL_HEIGHT);
             lbOccurenceDiscrDroit.setVisible(true);
             treeView.addLabel(lbOccurenceDiscrDroit);
 
             /* ajout du label de la valeur de la variable discrimante choisie */
             JLabel lbOccurenceDiscrGauche = new JLabel(occurenceDiscrGauche);
-            lbOccurenceDiscrGauche.setBounds(parentNodeX + UI.TREEBOX_WIDTH + 5,
-                                            parentNodeY + UI.TREEBOX_HEIGHT/2 - UI.TREEBOXLABEL_HEIGHT/2 + 40,
-                                            UI.TREEBOXLABEL_WIDTH, UI.TREEBOXLABEL_HEIGHT);
+            lbOccurenceDiscrGauche.setBounds(parentNodeX + UIVars.TREEBOX_WIDTH + 5,
+                                            parentNodeY + UIVars.TREEBOX_HEIGHT/2 - UIVars.TREEBOXLABEL_HEIGHT/2 + 40,
+                                            UIVars.TREEBOXLABEL_WIDTH, UIVars.TREEBOXLABEL_HEIGHT);
             lbOccurenceDiscrGauche.setVisible(true);
             treeView.addLabel(lbOccurenceDiscrGauche);
             
             /* ajout du label de la valeur de la variable discrimante choisie */
             JLabel lbVariableDiscr = new JLabel("[" + variableDiscr + "]");
-            lbVariableDiscr.setBounds(parentNodeX + UI.TREEBOX_WIDTH + 10,
-                                            parentNodeY + UI.TREEBOX_HEIGHT/2 - UI.TREEBOXLABEL_HEIGHT/2,
-                                            UI.TREEBOXLABEL_WIDTH, UI.TREEBOXLABEL_HEIGHT);
+            lbVariableDiscr.setBounds(parentNodeX + UIVars.TREEBOX_WIDTH + 10,
+                                            parentNodeY + UIVars.TREEBOX_HEIGHT/2 - UIVars.TREEBOXLABEL_HEIGHT/2,
+                                            UIVars.TREEBOXLABEL_WIDTH, UIVars.TREEBOXLABEL_HEIGHT);
             lbVariableDiscr.setVisible(true);
             treeView.addLabel(lbVariableDiscr);
 
@@ -212,11 +192,11 @@ public class Main {
      * @return la valeur de la marge vertical en pixel entre ses deux fils
      */
      public static int getVerticalMargin2(Node node) {
-        int marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED; /* valeur par défaut */
+        int marge_vertical = UIVars.MARGIN_VERTICAL_ONE_DEVELOPPED; /* valeur par défaut */
 
          /* aucun fils n'est développé = feuille */
         if (node.getRightSon().isDevelopped() == false && node.getLeftSon().isDevelopped() == false) {
-            marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED;
+            marge_vertical = UIVars.MARGIN_VERTICAL_ONE_DEVELOPPED;
             System.out.println("[" + node.hashCode() + "]" + "Aucun fils developpé.");
             return marge_vertical;
         }
@@ -228,7 +208,7 @@ public class Main {
 //            if(right == UI.MARGIN_VERTICAL_ONE_DEVELOPPED)
 //                marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED;
 //            else
-               marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED * 20;
+               marge_vertical = UIVars.MARGIN_VERTICAL_ONE_DEVELOPPED * 20;
             return marge_vertical + right;
         }
 
@@ -239,13 +219,13 @@ public class Main {
 //            if(left == UI.MARGIN_VERTICAL_ONE_DEVELOPPED)
 //                marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED;
 //            else
-               marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED * 20;
+               marge_vertical = UIVars.MARGIN_VERTICAL_ONE_DEVELOPPED * 20;
             return marge_vertical + left;
         }
 
         /* fils droit et fils gauche développés */
         if (node.getRightSon().isDevelopped() == true && node.getLeftSon().isDevelopped() == true) {
-            marge_vertical = UI.MARGIN_VERTICAL_BOTH_DEVELOPPED;
+            marge_vertical = UIVars.MARGIN_VERTICAL_BOTH_DEVELOPPED;
             return marge_vertical + getVerticalMargin2(node.getRightSon()) + getVerticalMargin2(node.getLeftSon());
         }
 

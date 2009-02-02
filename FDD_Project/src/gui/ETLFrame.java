@@ -1,5 +1,6 @@
-package etl;
+package gui;
 
+import etl.*;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +30,10 @@ import javax.swing.JTextField;
  *   @version 	******  	1.0																		 *
  *****************************************************************************************************/
 
-public class DisplayETL extends JFrame implements ActionListener {
+public class ETLFrame extends JFrame implements ActionListener {
+
+    /** instance de l'UI */
+    private static ETLFrame instance = null;
 
     /* Le chemin du fichier source */
     private String pathFile;
@@ -52,8 +56,7 @@ public class DisplayETL extends JFrame implements ActionListener {
     /**
      * Constructeur
      */
-
-    public DisplayETL() {
+    private ETLFrame() {
 
         content = new JPanel();
         content.setLayout(new BorderLayout());
@@ -83,13 +86,24 @@ public class DisplayETL extends JFrame implements ActionListener {
         content.add(input, BorderLayout.NORTH);
 
         this.setTitle("ETL - Loading Data");
-
+        this.setResizable(false);
+        this.setAlwaysOnTop(true);
         this.setContentPane(content);
 
         this.pack();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+
+    /**
+     * Retourne l'instance unique de l'UI
+     * @return
+     */
+    public static ETLFrame getInstance(){
+        if(instance == null)
+            instance = new ETLFrame();
+        return instance;
     }
 
     /**
@@ -117,7 +131,7 @@ public class DisplayETL extends JFrame implements ActionListener {
             try {
                 LoadCSV.LoadCSVHeader(this.pathFile);
             } catch (IOException ex) {
-                Logger.getLogger(DisplayETL.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ETLFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             JPanel header = new JPanel();
@@ -135,10 +149,13 @@ public class DisplayETL extends JFrame implements ActionListener {
 
         if (e.getSource() == buttonLoad) {
 
+            this.setAlwaysOnTop(false);
+            this.setVisible(false);
+
             try {
                 LoadCSV.LoadCSVData(this.pathFile, comboHeader.getSelectedIndex());
             } catch (IOException ex) {
-                Logger.getLogger(DisplayETL.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ETLFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -150,6 +167,6 @@ public class DisplayETL extends JFrame implements ActionListener {
     
     public static void main(String[] args) {
 
-        new DisplayETL();
+        new ETLFrame();
     }
 }

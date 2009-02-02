@@ -3,19 +3,19 @@ package gui;
 import cart.Node;
 import cart.Scission;
 import etl.DataInfos;
+import etl.LoadCSV;
 import java.util.Map.Entry;
-import projet_fdd.Main;
 
 /**
  * @author  Romain
  */
-public class TreeBox extends javax.swing.JPanel {
+public class NodePanel extends javax.swing.JPanel {
 
     /** sujet de l'affichage */
     private Node node;
 
     /** Creates new form TreeBox */
-    public TreeBox(Node node) {
+    public NodePanel(Node node) {
         this.node = node;
         initComponents();
         if(node.isDevelopped() == true){
@@ -38,10 +38,10 @@ public class TreeBox extends javax.swing.JPanel {
         /* on affiche les informations utiles dans la TreeBox */
          this.jLabel1.setText(node.getData().getTargetVar());
          Double nbLignes = new Double(node.getData().getNbRow());
-         Double nbLignesTotal = new Double(Main.totalRows);
+         Double nbLignesTotal = new Double(LoadCSV.data.getNbRow());
          Double repartition = round((nbLignes/nbLignesTotal)* 100,2);
          this.jProgressBar1.setValue(repartition.intValue());
-         this.jProgressBar1.setString(node.getData().getNbRow() + " / " + Main.totalRows + " [" + repartition + " %]");
+         this.jProgressBar1.setString(node.getData().getNbRow() + " / " + LoadCSV.data.getNbRow() + " [" + repartition + " %]");
 
 
              for (DataInfos di : node.getData().getTabDataInfos()) {
@@ -69,12 +69,17 @@ public class TreeBox extends javax.swing.JPanel {
                  }
              }
 
-         this.jProgressBar1.setToolTipText(node.getData().getNbRow() + " / " + Main.totalRows + " [" + repartition + " %]");
+         this.jProgressBar1.setToolTipText(node.getData().getNbRow() + " / " + LoadCSV.data.getNbRow() + " [" + repartition + " %]");
     }
 
     /** on arrondi à x décimales */
     public double round(double what, int howmuch) {
-        return (double) ((int) (what * Math.pow(10, howmuch) + .5)) / Math.pow(10, howmuch);
+       return (double) ((int) (what * Math.pow(10, howmuch) + .5)) / Math.pow(10, howmuch);
+//        String pattern = "0.00";
+//        DecimalFormat df = new DecimalFormat(pattern);
+//        Double lol = Double.parseDouble(df.format(what));
+//        return lol.doubleValue();
+
     }
 
 
@@ -179,10 +184,10 @@ public class TreeBox extends javax.swing.JPanel {
        if(jButton1.getText().equals("-")){
            node.setDevelopped(false);
            /* réaffiche l'arbre */
-           Main.drawRootNode();
+           TreeBuilder.drawRootNode();
        }else{
-        // retourne le parametre de scission de ce noeud !
-        Main.clickOnTreeBox(node, ((ScissionItem)criteresDiscrCB.getSelectedItem()).getScission());
+            /* retourne le parametre de scission de ce noeud ! */
+            TreeBuilder.clickOnTreeBox(node, ((ScissionItem)criteresDiscrCB.getSelectedItem()).getScission());
        }
     }//GEN-LAST:event_jButton1ActionPerformed
 

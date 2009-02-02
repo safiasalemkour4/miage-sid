@@ -1,12 +1,13 @@
 package etl;
 
 import cart.Cart;
+import gui.TreeIntervalFrame;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import projet_fdd.Main;
+import gui.TreeBuilder;
 
 /*****************************************************************************************************
  *   					    ~ Data Mining Project (Miage Nancy - SID - 2008/2009) ~             	 *
@@ -229,11 +230,24 @@ public class LoadCSV {
         data = new Data(tabDataValues, tabDataInfos);
 
         new Cart(data);
+        
         //System.out.println(Cart.tree.get(0).getChartDegrees());
         
         lastReader.close();
 
-        new Main(data);
+       /* une fois le parsing effectué, on peut demandé les intervalles
+        * sur les colonnes numériques */
+        TreeIntervalFrame tiv = TreeIntervalFrame.getInstance();
+        tiv.setLocationRelativeTo(null);
+        tiv.setVisible(true);
+    }
+
+    /**
+     * Retourne les données (Data)
+     * @return data
+     */
+    public static Data getData(){
+        return data;
     }
 
     /**

@@ -4,7 +4,7 @@ package gui;
 /**
  * @author Romain
  */
-public class UI {
+public class UIVars {
 
     /** largeur du panel de l'arbre */
     public static final int TREEPANEL_WIDTH = 3000;
