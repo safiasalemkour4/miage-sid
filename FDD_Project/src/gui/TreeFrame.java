@@ -29,7 +29,6 @@ public class TreeFrame extends javax.swing.JFrame {
     
     /** unique instance de l'UI */
     private static TreeFrame instance = null;
-
     /** Panel affichant l'arbre */
     private TreePanel treePanel;
     /** JScrollPane affichant le Panel contenant l'arbre */
@@ -67,7 +66,6 @@ public class TreeFrame extends javax.swing.JFrame {
          /* Intervalles */
         ImageIcon iconImport = new ImageIcon("import.png");
         Action actionImport = new AbstractAction("Import", iconImport) {
-
             public void actionPerformed(ActionEvent e) {
                 ETLFrame.getInstance();
             }
@@ -99,7 +97,6 @@ public class TreeFrame extends javax.swing.JFrame {
 
             public void actionPerformed(ActionEvent e) {
                TreeFrame.getInstance().resize();
-
             }
         };
         
@@ -227,7 +224,6 @@ public class TreeFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("iFouille de données (Ed. 2009) - \"Parce que nous ne nous contentons pas fouiller, nous trouvons !\"");
-        setAlwaysOnTop(true);
         setFocusCycleRoot(false);
 
         jm_file.setText("File");

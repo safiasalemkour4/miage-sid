@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -30,7 +31,7 @@ import javax.swing.JTextField;
  *   @version 	******  	1.0																		 *
  *****************************************************************************************************/
 
-public class ETLFrame extends JFrame implements ActionListener {
+public class ETLFrame extends JDialog implements ActionListener {
 
     /** instance de l'UI */
     private static ETLFrame instance = null;
@@ -87,7 +88,7 @@ public class ETLFrame extends JFrame implements ActionListener {
 
         this.setTitle("ETL - Loading Data");
         this.setResizable(false);
-        this.setAlwaysOnTop(true);
+        this.setModal(true);
         this.setContentPane(content);
 
         this.pack();
@@ -166,7 +167,6 @@ public class ETLFrame extends JFrame implements ActionListener {
      */
     
     public static void main(String[] args) {
-
         new ETLFrame();
     }
 }

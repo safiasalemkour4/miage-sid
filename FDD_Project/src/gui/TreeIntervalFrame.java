@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.Map.Entry;
+import javax.swing.JDialog;
 
 /**
  *
  * @author Romain
  */
-public class TreeIntervalFrame extends javax.swing.JFrame {
+public class TreeIntervalFrame extends JDialog {
 
     /** instance de l'UI */
     private static TreeIntervalFrame instance = null;
@@ -32,8 +33,9 @@ public class TreeIntervalFrame extends javax.swing.JFrame {
      * Contructeur de la fenetre TreeInterval
      */
     private TreeIntervalFrame(Data data) {       
-        super("Saisies des intervalles des colonnes de type numérique.");
-        super.setAlwaysOnTop(true);
+        setTitle("Saisies des intervalles des colonnes de type numérique.");
+        //setModalExclusionType(ModalExclusionType.NO_EXCLUDE);
+        setModal(true);
 
         this.intervalsMap = new HashMap<Integer, ArrayList<Integer>>();
         this.intervalColumns = new ArrayList<String>();
@@ -90,7 +92,7 @@ public class TreeIntervalFrame extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        buttonValider = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         jTable1.setBackground(new java.awt.Color(255, 204, 255));
@@ -128,10 +130,10 @@ public class TreeIntervalFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getColumn(0).setResizable(false);
 
-        jButton1.setText("Valider");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonValider.setText("Valider");
+        buttonValider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonValiderActionPerformed(evt);
             }
         });
 
@@ -154,7 +156,7 @@ public class TreeIntervalFrame extends javax.swing.JFrame {
                 .addContainerGap(233, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonValider, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -165,14 +167,14 @@ public class TreeIntervalFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                    .addComponent(buttonValider, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonValiderActionPerformed
         /* on va remplir la map contenant pour une colonne numérique renseignée les intervalles saisies */
         for (int col = 0; col < intervalColumns.size(); col++) {
             /* nom de la colonne */
@@ -195,6 +197,8 @@ public class TreeIntervalFrame extends javax.swing.JFrame {
 
                 /* on associe les intervalles au numéro de la colonne */
                 this.intervalsMap.put(numColonne, intervalsList);
+                this.buttonValider.setEnabled(false);
+                this.jTable1.setEnabled(false);
             }
         }
 
@@ -214,16 +218,22 @@ public class TreeIntervalFrame extends javax.swing.JFrame {
         TreeFrame.getInstance().prepapeTree();
         TreeBuilder tui = new TreeBuilder();
 
-
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_buttonValiderActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    /**
+     * Retourne la map des intervalles des colonnes numériques
+     * @return map des intervalles des colonnes numériques
+     */
+    public HashMap<Integer, ArrayList<Integer>> getIntervalsMap(){
+        return intervalsMap;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton buttonValider;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
