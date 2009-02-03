@@ -216,12 +216,17 @@ public class LoadCSV {
          * on demande a l'utilisateur de saisir els bornes
          */
 
+         /** Map associant pour une colonne numerique renseignee les intervalles saisies */
+         HashMap<Integer, ArrayList<Integer>> intervalsMap = null;
+         //intervalsMap =
+
+
         for (int i = 0; i < tabDataInfos.length; i++) {
 
             if (tabDataInfos[i].isNumeric()) {
                 
-                /* On appelle la gui afin que l'utilisateur definisse les bornes */
-                ArrayList<Integer> listBoundary = null;
+                /* On recupere les bornes */
+                ArrayList<Integer> listBoundary = intervalsMap.get(i);
 
                 tabDataInfos[i].setListBoundary(listBoundary);
             }
