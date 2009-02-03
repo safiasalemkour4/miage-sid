@@ -46,8 +46,7 @@ public class Node {
         this.level = level;
         this.side = side;
         this.finalNode = this.isFinalNode();
-        // On ajoute le nouveau noeud a l'arbre
-        Cart.tree.add(this);
+
     }
 
     /**
@@ -77,9 +76,7 @@ public class Node {
         // On fait le lien entre les noeuds fils et le noeud pere
         this.leftSon = leftNode;
         this.rightSon = rightNode;
-        // On ajoute les deux noeuds a l'arbre
-        Cart.tree.add(this.leftSon);
-        Cart.tree.add(this.rightSon);
+
         // Le noeud est maintenant developpe
         this.developped = true;
 

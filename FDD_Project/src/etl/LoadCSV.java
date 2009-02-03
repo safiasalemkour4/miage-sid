@@ -1,13 +1,12 @@
 package etl;
 
-import cart.Cart;
 import gui.TreeIntervalFrame;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import gui.TreeBuilder;
+
 
 /*****************************************************************************************************
  *   					    ~ Data Mining Project (Miage Nancy - SID - 2008/2009) ~             	 *
@@ -211,14 +210,20 @@ public class LoadCSV {
             }
         }
 
-        /*
+
+  /*
          * On test si la colonne est numerique et si c'est le cas,
          * on demande a l'utilisateur de saisir els bornes
-         */
+         * une fois le parsing effectué, on peut demandé les intervalles
+         * sur les colonnes numériques */
+        data = new Data(tabDataValues, tabDataInfos); // uniquement pour parser les colonnes (temporaire)
+
+        TreeIntervalFrame tiv = TreeIntervalFrame.getInstance();
+        tiv.setLocationRelativeTo(null);
+        tiv.setVisible(true);
 
          /** Map associant pour une colonne numerique renseignee les intervalles saisies */
-         HashMap<Integer, ArrayList<Integer>> intervalsMap = null;
-         //intervalsMap =
+         HashMap<Integer, ArrayList<Integer>> intervalsMap = tiv.getIntervalsMap();
 
 
         for (int i = 0; i < tabDataInfos.length; i++) {
@@ -234,17 +239,8 @@ public class LoadCSV {
 
         data = new Data(tabDataValues, tabDataInfos);
 
-        new Cart(data);
-        
-        //System.out.println(Cart.tree.get(0).getChartDegrees());
-        
         lastReader.close();
 
-       /* une fois le parsing effectué, on peut demandé les intervalles
-        * sur les colonnes numériques */
-        TreeIntervalFrame tiv = TreeIntervalFrame.getInstance();
-        tiv.setLocationRelativeTo(null);
-        tiv.setVisible(true);
     }
 
     /**
