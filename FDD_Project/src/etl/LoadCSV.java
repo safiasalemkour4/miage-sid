@@ -74,7 +74,7 @@ public class LoadCSV {
         tabDataValues = new String[nbLine][header.length];
         tabDataInfos = new DataInfos[header.length];
     }
-
+ 
     /**
      * Methode LoadCSVData
      * @param filePath le chemin du fichier
