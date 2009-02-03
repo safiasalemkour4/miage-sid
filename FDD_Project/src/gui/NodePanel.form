@@ -47,11 +47,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" pref="123" max="-2" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="occurenceLabel2" pref="110" max="32767" attributes="0"/>
-                          <Component id="occurenceLabel1" alignment="0" pref="110" max="32767" attributes="1"/>
-                      </Group>
+                      <Component id="occurenceLabel1" pref="110" max="32767" attributes="1"/>
                   </Group>
+                  <Component id="occurenceLabel2" alignment="1" min="-2" pref="132" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -139,11 +137,13 @@
     </Component>
     <Component class="javax.swing.JLabel" name="occurenceLabel1">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="occurence1"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="occurenceLabel2">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="occurence2"/>
       </Properties>
     </Component>

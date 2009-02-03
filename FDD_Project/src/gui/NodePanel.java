@@ -62,18 +62,48 @@ public class NodePanel extends javax.swing.JPanel {
              for (DataInfos di : node.getData().getTabDataInfos()) {
                  if (di.getName().equals(node.getData().getTargetVar())) {
                       Double nbLignesTotalTB = new Double(node.getData().getNbRow());
+                      //test
+                      System.out.println("Nb occurence 1: " + node.getData().getListOccurence(di.getId()).length);
+
+
                     // occurence1
                     String occurence1 = (String)node.getData().getListOccurence(di.getId())[0];
                     int nbOccurence1 = node.getData().getNbOccurence(di.getId(), occurence1);                   
                     Double repartitionOccu1 = round((nbOccurence1/nbLignesTotalTB)*100, 2);
                     occurenceLabel1.setText(occurence1 + "  [" + nbOccurence1 + "] " + repartitionOccu1 + "%");
-                    // occurence2 (s'il y en a une)
 
+                    // occurence2 (s'il y en a une 2eme ou plusieurs)
                     if(node.getData().getListOccurence(di.getId()).length > 1){
-                        String occurence2 = (String)node.getData().getListOccurence(di.getId())[1];
-                        int nbOccurence2 = node.getData().getNbOccurence(di.getId(), occurence2);
-                        Double repartitionOccu2 = round((nbOccurence2/nbLignesTotalTB)*100, 2);
-                        occurenceLabel2.setText(occurence2 + "  [" + nbOccurence2 + "] " + repartitionOccu2 + "%");
+                        String occurence2 = "";
+                        int nbOccurence2 = 0;
+                        String tooltip = "<html>"; // détails/infos supplémentaires
+
+                        /* s'il n'y a que 2 types (cas binaire) */
+                        if(node.getData().getListOccurence(di.getId()).length == 2){
+                            occurence2 = (String)node.getData().getListOccurence(di.getId())[1];
+                            nbOccurence2 = node.getData().getNbOccurence(di.getId(), occurence2);
+                            Double repartitionOccu2 = round((nbOccurence2/nbLignesTotalTB)*100, 2);
+                            occurenceLabel2.setText(occurence2 + "  [" + nbOccurence2 + "] " + repartitionOccu2 + "%");
+                        }else{
+                            /* il y a plusieurs types : donc non-<ocurrence1> */
+                            occurence2 = "<html><b style='color:#ff0000'>¬</b> " + occurence1;
+                            String occurenceSupp = "<html>";
+                            int nbOccurenceSupp = 0;
+                            for(int i=1; i<node.getData().getListOccurence(di.getId()).length; i++){
+                                occurenceSupp = (String)node.getData().getListOccurence(di.getId())[i];
+                                nbOccurenceSupp = node.getData().getNbOccurence(di.getId(), occurenceSupp);
+                                nbOccurence2 += nbOccurenceSupp;
+                                tooltip += "- <b>" + occurenceSupp + "</b> " + nbOccurenceSupp + "/" + nbLignesTotalTB + "  [" + round((nbOccurenceSupp/nbLignesTotalTB)*100, 2) + "%] <br />";
+                            }
+                            
+                            Double repartitionOccu2 = round((nbOccurence2/nbLignesTotalTB)*100, 2);
+                            occurenceLabel2.setText(occurence2 + "  [" + nbOccurence2 + "] " + repartitionOccu2 + "%" + "</html>");
+                            tooltip += "</html>";
+                           occurenceLabel2.setToolTipText(tooltip);
+                        }
+
+                        
+                        
                     }else{
                         // on cache le label occurence2
                         occurenceLabel2.setVisible(false);
@@ -144,8 +174,10 @@ public class NodePanel extends javax.swing.JPanel {
             }
         });
 
+        occurenceLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         occurenceLabel1.setText("occurence1");
 
+        occurenceLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         occurenceLabel2.setText("occurence2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -164,9 +196,8 @@ public class NodePanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(occurenceLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .addComponent(occurenceLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))))
+                        .addComponent(occurenceLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                    .addComponent(occurenceLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

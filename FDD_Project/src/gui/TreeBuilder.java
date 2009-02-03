@@ -1,4 +1,3 @@
-
 package gui;
 
 import cart.Node;
@@ -25,7 +24,12 @@ public class TreeBuilder {
      * Constructeur
      * @param data
      */
-    public TreeBuilder(){
+    public TreeBuilder() {
+
+        /* configuration d'affichage des tooltips */
+        ToolTipManager.sharedInstance().setDismissDelay(3000);
+        ToolTipManager.sharedInstance().setInitialDelay(0);
+        ToolTipManager.sharedInstance().setReshowDelay(0);
 
         // On cree le noeud racine (n'a pas de scission d'origine et de niveau 0)
         root = new Node(LoadCSV.data, null, "root", 0);
@@ -127,42 +131,36 @@ public class TreeBuilder {
             String listeOccurenceGauche = "?";
             String variableDiscr = "?";
             /* pour tous les noeuds sauf la racine */
-            if(parent.getRightSon() != null)
-            for (DataInfos di : parent.getData().getTabDataInfos()) {
-                 if (di.getId() == parent.getLeftSon().getOriginScission().getIdColumnCriteria()) {
-                     variableDiscr = di.getName();
-                     /* occurence gauche */
-                      occurenceDiscrGauche = (String)parent.getLeftSon().getData().getListOccurence(di.getId())[0];
+            if (parent.getRightSon() != null) {
+                for (DataInfos di : parent.getData().getTabDataInfos()) {
+                    if (di.getId() == parent.getLeftSon().getOriginScission().getIdColumnCriteria()) {
+                        variableDiscr = di.getName();
+                        /* occurence gauche */
+                        occurenceDiscrGauche = (String) parent.getLeftSon().getData().getListOccurence(di.getId())[0];
 
-                      /* s'il n'y a qu'une seule occurence droite (non gauche) */
-                      if(parent.getRightSon().getData().getListOccurence(di.getId()).length == 1){
-                         occurenceDiscrDroit = (String) parent.getRightSon().getData().getListOccurence(di.getId())[0];
-                         listeOccurenceGauche = "Une seule occurence de non " + occurenceDiscrGauche + ".";
-                      }else{
-                         /* il y en a plusieurs, on récupère les occurences droites (non gauche) */
-                         occurenceDiscrDroit = "<html><b style='color:#ff0000'>non</b> " + occurenceDiscrGauche + "<br />  "
-                                                    + "   (<u style='color:#AC58FA'>détails</u>)</html>";
-                           /* liste des 'non gauche' */
-                         listeOccurenceGauche = "<html>";
-                         for(int i=0; i < parent.getRightSon().getData().getListOccurence(di.getId()).length ; i++){
-                             listeOccurenceGauche += "- <b>" + parent.getRightSon().getData().getListOccurence(di.getId())[i] + "</b><br />";
-                         }
-                         listeOccurenceGauche += "</html>";
-                      }
-                 }
-             }
+                        /* s'il n'y a qu'une seule occurence droite (non gauche) */
+                        if (parent.getRightSon().getData().getListOccurence(di.getId()).length == 1) {
+                            occurenceDiscrDroit = (String) parent.getRightSon().getData().getListOccurence(di.getId())[0];
+                            listeOccurenceGauche = "Une seule occurence de non " + occurenceDiscrGauche + ".";
+                        } else {
+                            /* il y en a plusieurs, on récupère les occurences droites (non gauche) */
+                            occurenceDiscrDroit = "<html><b style='color:#ff0000'>¬</b> " + occurenceDiscrGauche + "<br />  " + "   (<u style='color:#AC58FA'>détails</u>)</html>";
+                            /* liste des 'non gauche' */
+                            listeOccurenceGauche = "<html>";
+                            for (int i = 0; i < parent.getRightSon().getData().getListOccurence(di.getId()).length; i++) {
+                                listeOccurenceGauche += "- <b>" + parent.getRightSon().getData().getListOccurence(di.getId())[i] + "</b><br />";
+                            }
+                            listeOccurenceGauche += "</html>";
+                        }
+                    }
+                }
+            }
 
-            /* configuration d'affichage des tooltips */
-            ToolTipManager.sharedInstance().setDismissDelay(3000);
-            ToolTipManager.sharedInstance().setInitialDelay(0);
-            ToolTipManager.sharedInstance().setReshowDelay(0);
-            
-            
             /* ajout du label de la valeur de la variable discrimante choisie */
             JLabel lbOccurenceDiscrDroit = new JLabel(occurenceDiscrDroit);
             lbOccurenceDiscrDroit.setBounds(parentNodeX + UIVars.TREEBOX_WIDTH + 5,
-                                            parentNodeY + UIVars.TREEBOX_HEIGHT/2 - UIVars.TREEBOXLABEL_HEIGHT/2 - 40,
-                                            UIVars.TREEBOXLABEL_WIDTH, UIVars.TREEBOXLABEL_HEIGHT);
+                    parentNodeY + UIVars.TREEBOX_HEIGHT / 2 - UIVars.TREEBOXLABEL_HEIGHT / 2 - 40,
+                    UIVars.TREEBOXLABEL_WIDTH, UIVars.TREEBOXLABEL_HEIGHT);
             lbOccurenceDiscrDroit.setVisible(true);
             /* on ajoute la liste des occurences non gauche */
             lbOccurenceDiscrDroit.setToolTipText(listeOccurenceGauche);
@@ -171,16 +169,16 @@ public class TreeBuilder {
             /* ajout du label de la valeur de la variable discrimante choisie */
             JLabel lbOccurenceDiscrGauche = new JLabel(occurenceDiscrGauche);
             lbOccurenceDiscrGauche.setBounds(parentNodeX + UIVars.TREEBOX_WIDTH + 5,
-                                            parentNodeY + UIVars.TREEBOX_HEIGHT/2 - UIVars.TREEBOXLABEL_HEIGHT/2 + 40,
-                                            UIVars.TREEBOXLABEL_WIDTH, UIVars.TREEBOXLABEL_HEIGHT);
+                    parentNodeY + UIVars.TREEBOX_HEIGHT / 2 - UIVars.TREEBOXLABEL_HEIGHT / 2 + 40,
+                    UIVars.TREEBOXLABEL_WIDTH, UIVars.TREEBOXLABEL_HEIGHT);
             lbOccurenceDiscrGauche.setVisible(true);
             treeView.addLabel(lbOccurenceDiscrGauche);
-            
+
             /* ajout du label de la valeur de la variable discrimante choisie */
             JLabel lbVariableDiscr = new JLabel("[" + variableDiscr + "]");
             lbVariableDiscr.setBounds(parentNodeX + UIVars.TREEBOX_WIDTH + 10,
-                                            parentNodeY + UIVars.TREEBOX_HEIGHT/2 - UIVars.TREEBOXLABEL_HEIGHT/2,
-                                            UIVars.TREEBOXLABEL_WIDTH, UIVars.TREEBOXLABEL_HEIGHT);
+                    parentNodeY + UIVars.TREEBOX_HEIGHT / 2 - UIVars.TREEBOXLABEL_HEIGHT / 2,
+                    UIVars.TREEBOXLABEL_WIDTH, UIVars.TREEBOXLABEL_HEIGHT);
             lbVariableDiscr.setVisible(true);
             treeView.addLabel(lbVariableDiscr);
 
@@ -212,16 +210,16 @@ public class TreeBuilder {
         }
     }
 
-     /**
+    /**
      * Calcul en fonction de la disposition de ses fils la valeur de marge verticale
      * à appliquer entre ses deux fils
      * @param node
      * @return la valeur de la marge vertical en pixel entre ses deux fils
      */
-     public static int getVerticalMargin2(Node node) {
+    public static int getVerticalMargin2(Node node) {
         int marge_vertical = UIVars.MARGIN_VERTICAL_ONE_DEVELOPPED; /* valeur par défaut */
 
-         /* aucun fils n'est développé = feuille */
+        /* aucun fils n'est développé = feuille */
         if (node.getRightSon().isDevelopped() == false && node.getLeftSon().isDevelopped() == false) {
             marge_vertical = UIVars.MARGIN_VERTICAL_ONE_DEVELOPPED;
             System.out.println("[" + node.hashCode() + "]" + "Aucun fils developpé.");
@@ -235,18 +233,18 @@ public class TreeBuilder {
 //            if(right == UI.MARGIN_VERTICAL_ONE_DEVELOPPED)
 //                marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED;
 //            else
-               marge_vertical = UIVars.MARGIN_VERTICAL_ONE_DEVELOPPED * 20;
+            marge_vertical = UIVars.MARGIN_VERTICAL_ONE_DEVELOPPED * 20;
             return marge_vertical + right;
         }
 
         /* fils gauche développé et fils droit = feuille */
-        if (node.getLeftSon().isDevelopped() == true && node.getRightSon().isDevelopped() == false) {    
+        if (node.getLeftSon().isDevelopped() == true && node.getRightSon().isDevelopped() == false) {
             /* si l'arbre du fils gauche est mini, on n'agrandit pas */
             int left = getVerticalMargin2(node.getLeftSon());
 //            if(left == UI.MARGIN_VERTICAL_ONE_DEVELOPPED)
 //                marge_vertical = UI.MARGIN_VERTICAL_ONE_DEVELOPPED;
 //            else
-               marge_vertical = UIVars.MARGIN_VERTICAL_ONE_DEVELOPPED * 20;
+            marge_vertical = UIVars.MARGIN_VERTICAL_ONE_DEVELOPPED * 20;
             return marge_vertical + left;
         }
 
@@ -256,7 +254,7 @@ public class TreeBuilder {
             return marge_vertical + getVerticalMargin2(node.getRightSon()) + getVerticalMargin2(node.getLeftSon());
         }
 
-         return marge_vertical;
+        return marge_vertical;
 
-     }
+    }
 }
