@@ -159,7 +159,6 @@ public class Scission {
 
         String st = "";
 
-
         st += "Scission ";
         switch (this.getTypeScission()) {
             case Scission.T_STRING:
@@ -171,12 +170,10 @@ public class Scission {
             case Scission.T_BINARY:
                 st += "de type Binaire (critere:" + this.getCriteriaLeft() + ")\n";
                 break;
-
         }
 
         st += "Sur la colonne " + this.getIdColumnCriteria() + "\n";
-
-
+        
         return st;
     }
 }

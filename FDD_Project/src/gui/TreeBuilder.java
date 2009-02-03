@@ -8,6 +8,8 @@ import etl.DataInfos;
 import etl.LoadCSV;
 import java.awt.geom.Line2D;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.ToolTipManager;
 
 /**
  * Classe contenant l'algo pour afficher l'arbre
@@ -122,16 +124,39 @@ public class TreeBuilder {
             /* On récolte les 2 occurences de la variable de scission */
             String occurenceDiscrDroit = "?";
             String occurenceDiscrGauche = "?";
+            String listeOccurenceGauche = "?";
             String variableDiscr = "?";
             /* pour tous les noeuds sauf la racine */
             if(parent.getRightSon() != null)
             for (DataInfos di : parent.getData().getTabDataInfos()) {
                  if (di.getId() == parent.getLeftSon().getOriginScission().getIdColumnCriteria()) {
                      variableDiscr = di.getName();
-                     occurenceDiscrDroit = (String)parent.getRightSon().getData().getListOccurence(di.getId())[0];
-                     occurenceDiscrGauche = (String)parent.getLeftSon().getData().getListOccurence(di.getId())[0];
+                     /* occurence gauche */
+                      occurenceDiscrGauche = (String)parent.getLeftSon().getData().getListOccurence(di.getId())[0];
+
+                      /* s'il n'y a qu'une seule occurence droite (non gauche) */
+                      if(parent.getRightSon().getData().getListOccurence(di.getId()).length == 1){
+                         occurenceDiscrDroit = (String) parent.getRightSon().getData().getListOccurence(di.getId())[0];
+                         listeOccurenceGauche = "Une seule occurence de non " + occurenceDiscrGauche + ".";
+                      }else{
+                         /* il y en a plusieurs, on récupère les occurences droites (non gauche) */
+                         occurenceDiscrDroit = "<html><b style='color:#ff0000'>non</b> " + occurenceDiscrGauche + "<br />  "
+                                                    + "   (<u style='color:#AC58FA'>détails</u>)</html>";
+                           /* liste des 'non gauche' */
+                         listeOccurenceGauche = "<html>";
+                         for(int i=0; i < parent.getRightSon().getData().getListOccurence(di.getId()).length ; i++){
+                             listeOccurenceGauche += "- <b>" + parent.getRightSon().getData().getListOccurence(di.getId())[i] + "</b><br />";
+                         }
+                         listeOccurenceGauche += "</html>";
+                      }
                  }
              }
+
+            /* configuration d'affichage des tooltips */
+            ToolTipManager.sharedInstance().setDismissDelay(3000);
+            ToolTipManager.sharedInstance().setInitialDelay(0);
+            ToolTipManager.sharedInstance().setReshowDelay(0);
+            
             
             /* ajout du label de la valeur de la variable discrimante choisie */
             JLabel lbOccurenceDiscrDroit = new JLabel(occurenceDiscrDroit);
@@ -139,6 +164,8 @@ public class TreeBuilder {
                                             parentNodeY + UIVars.TREEBOX_HEIGHT/2 - UIVars.TREEBOXLABEL_HEIGHT/2 - 40,
                                             UIVars.TREEBOXLABEL_WIDTH, UIVars.TREEBOXLABEL_HEIGHT);
             lbOccurenceDiscrDroit.setVisible(true);
+            /* on ajoute la liste des occurences non gauche */
+            lbOccurenceDiscrDroit.setToolTipText(listeOccurenceGauche);
             treeView.addLabel(lbOccurenceDiscrDroit);
 
             /* ajout du label de la valeur de la variable discrimante choisie */

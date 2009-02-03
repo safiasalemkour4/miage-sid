@@ -160,13 +160,4 @@ public class ETLFrame extends JDialog implements ActionListener {
             }
         }
     }
-
-    /**
-     * Mehode Main
-     * @param args la liste des arguments
-     */
-    
-    public static void main(String[] args) {
-        new ETLFrame();
-    }
 }

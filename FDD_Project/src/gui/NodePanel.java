@@ -4,6 +4,8 @@ import cart.Node;
 import cart.Scission;
 import etl.DataInfos;
 import etl.LoadCSV;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map.Entry;
 
 /**
@@ -27,11 +29,24 @@ public class NodePanel extends javax.swing.JPanel {
                this.criteresDiscrCB.addItem(new ScissionItem(   node.getRightSon().getOriginScission(),
                                                                 0.0));
                this.criteresDiscrCB.setEnabled(false);
-        }else{
+        }else{            
+            /* on stocke dans un ArrayList pour pouvoir les trier */
+            ArrayList<ScissionItem> comboboxItems = new ArrayList<ScissionItem>();
+            for(Entry e : node.getChartDegrees().entrySet()){                
+                comboboxItems.add(new ScissionItem((Scission)e.getKey(), (Double)e.getValue()));
+            }
+            /* on trie */
+            Collections.sort(comboboxItems);
             /* on affiche la liste des scissions possibles */
-            for(Entry e : node.getChartDegrees().entrySet()){
-                //System.out.println("Scission : " + ((Scission)e.getKey()).getStringForComboBox() + " [" + (Double)e.getValue() + "]");
-                criteresDiscrCB.addItem(new ScissionItem((Scission)e.getKey(), (Double)e.getValue()));
+            for(ScissionItem item : comboboxItems){
+                criteresDiscrCB.addItem(item);
+            }
+
+            /* s'il n'y a plus rien à développer : population = 1 */
+            if(comboboxItems.size() == 0){
+                criteresDiscrCB.addItem("Aucun critère");
+                jButton1.setEnabled(false);
+                criteresDiscrCB.setEnabled(false);
             }
         }
 
@@ -46,8 +61,6 @@ public class NodePanel extends javax.swing.JPanel {
 
              for (DataInfos di : node.getData().getTabDataInfos()) {
                  if (di.getName().equals(node.getData().getTargetVar())) {
-//                    kikoo += "id: " + di.getId() + " = " + di.getName();
-//                    kikoo += " ---> " + node.getData().getListOccurence(di.getId());
                       Double nbLignesTotalTB = new Double(node.getData().getNbRow());
                     // occurence1
                     String occurence1 = (String)node.getData().getListOccurence(di.getId())[0];
@@ -110,7 +123,7 @@ public class NodePanel extends javax.swing.JPanel {
         jProgressBar1.setString("25 occurences");
         jProgressBar1.setStringPainted(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 204));
         jLabel1.setText("CANCER");
 

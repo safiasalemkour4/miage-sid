@@ -223,7 +223,7 @@ public class TreeFrame extends javax.swing.JFrame {
         jmi_about = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("iFouille de données (Ed. 2009) - \"Parce que nous ne nous contentons pas fouiller, nous trouvons !\"");
+        setTitle("iFouille de données (Ed. 2009) - \"Parce que nous ne nous contentons pas de fouiller, nous trouvons !\"");
         setFocusCycleRoot(false);
 
         jm_file.setText("File");
