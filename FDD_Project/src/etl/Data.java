@@ -191,13 +191,14 @@ public class Data {
      */
 
     public ArrayList<Integer> getBoundary(int column) {
+        System.out.println("appel de la colonne: " + this.getColumnName(column));
 
         if (this.tabDataInfos[column].isNumeric()) {
-
+            //vérifie que this.tabDataInfos[column] n'est pas null
+            System.out.println(this.getColumnName(column)  + ": taille de la liste des intervalles: " + this.tabDataInfos[column].getListBoundary());
             return this.tabDataInfos[column].getListBoundary();
 
-        } else {
-            
+        } else {            
             return null;
         }
     }

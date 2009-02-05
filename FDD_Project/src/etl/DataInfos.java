@@ -147,7 +147,6 @@ public class DataInfos {
      */
     
     public ArrayList<Integer> getListBoundary() {
-
         return listBoundary;
     }
 
@@ -247,7 +246,6 @@ public class DataInfos {
      */
 
     public void setListBoundary(ArrayList<Integer> listBoundary) {
-
         this.listBoundary = listBoundary;
     }
 

@@ -1,5 +1,7 @@
 package etl;
 
+import gui.TreeBuilder;
+import gui.TreeFrame;
 import gui.TreeIntervalFrame;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -240,6 +242,10 @@ public class LoadCSV {
         data = new Data(tabDataValues, tabDataInfos);
 
         lastReader.close();
+
+        /* on affiche désormais l'arbre */
+        TreeFrame.getInstance().prepapeTree();
+        TreeBuilder tui = new TreeBuilder();
 
     }
 

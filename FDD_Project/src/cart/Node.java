@@ -214,14 +214,15 @@ public class Node {
                     } else {
                         if (this.data.isNumeric(i)) {
                             // Si la colonne est numerique
-//                        ArrayList<Integer> listBound = this.data.getBoundary(i);
-//                        for (Iterator<Integer> it = listBound.iterator(); it.hasNext();) {
-//                            Integer currentBound = it.next();
-//                            Scission scission = new Scission(i, Scission.T_NUMERIC);
-//                            scission.setCriteriaInterval(currentBound);
-//                            possibleScissions.add(scission);
-//
-//                        }
+                            ArrayList<Integer> listBound = this.data.getBoundary(i);
+
+                            for (Iterator<Integer> it = listBound.iterator(); it.hasNext();) {
+                                Integer currentBound = it.next();
+                                Scission scission = new Scission(i, Scission.T_NUMERIC);
+                                scission.setCriteriaInterval(currentBound);
+                                possibleScissions.add(scission);
+
+                            }
                         } else {
                             // Si la colonne est de type binaire on ne stocke qu'une seule scission
                             Object[] listValue = this.data.getListOccurence(i);

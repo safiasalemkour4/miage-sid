@@ -212,11 +212,7 @@ public class TreeIntervalFrame extends JDialog {
             System.out.println();
         }
 
-
         this.setVisible(false);
-        /* on affiche désormais l'arbre */
-        TreeFrame.getInstance().prepapeTree();
-        TreeBuilder tui = new TreeBuilder();
 
 }//GEN-LAST:event_buttonValiderActionPerformed
 
