@@ -44,7 +44,7 @@ public class TreeIntervalFrame extends JDialog {
         for (int col = 0; col < data.getNbColumn(); col++) {
             if (data.isNumeric(col)) {
                 System.out.println("La colonne " + col + "[ " + data.getColumnName(col) + "] est de type numérique.");
-                intervalColumns.add(data.getColumnName(col) + " [" + col + "]");
+                intervalColumns.add("(" + col + ")  " + data.getColumnName(col) + " [" + data.getMinValue(col) + "-" + data.getMaxValue(col) + "]");
             }
         }
 
@@ -78,6 +78,9 @@ public class TreeIntervalFrame extends JDialog {
                 return canEdit[columnIndex];
             }
         });
+
+        // Set the first visible column to 100 pixels wide
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(180);
        
     }
 
@@ -96,7 +99,7 @@ public class TreeIntervalFrame extends JDialog {
         jButton2 = new javax.swing.JButton();
 
         jTable1.setBackground(new java.awt.Color(255, 204, 255));
-        jTable1.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jTable1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -150,13 +153,12 @@ public class TreeIntervalFrame extends JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(233, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonValider, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonValider, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -184,8 +186,8 @@ public class TreeIntervalFrame extends JDialog {
 
             if (dataColonne != null && dataColonne.trim().length() > 0) {
                 /* on regarde le numéro de colonne */
-                int numColonne = Integer.parseInt(nomColonne.substring(nomColonne.indexOf("[") + 1, nomColonne.length() - 1));
-
+                int numColonne = Integer.parseInt(nomColonne.substring(nomColonne.indexOf("(") + 1, nomColonne.indexOf(")")));
+                
                 /* on récupère les intervalles */
                 StringTokenizer st = new StringTokenizer(dataColonne, ";");
                 /* accès aux tokens */
