@@ -215,7 +215,7 @@ public class Node {
                         if (this.data.isNumeric(i)) {
                             // Si la colonne est numerique
                             ArrayList<Integer> listBound = this.data.getBoundary(i);
-
+                            System.out.println("ComputePossibleScission:listBound: "+listBound);
                             for (Iterator<Integer> it = listBound.iterator(); it.hasNext();) {
                                 Integer currentBound = it.next();
                                 Scission scission = new Scission(i, Scission.T_NUMERIC);

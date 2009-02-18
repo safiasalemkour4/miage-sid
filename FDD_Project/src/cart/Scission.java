@@ -1,8 +1,7 @@
 package cart;
 
 import etl.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 
 public class Scission {
 
@@ -31,11 +30,11 @@ public class Scission {
     public Data[] discriminate(Data data) {
         /*
         try {
-            Thread.sleep(1000);
+        Thread.sleep(1000);
         } catch (InterruptedException ex) {
-            Logger.getLogger(Scission.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(Scission.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-        
+
         // 2 tableau à renvoyer : Scission gauche (données avec crière) et Scission droite (autres données)
         Data[] tabNode = new Data[2];
         //Donnée contenu à gauche
@@ -46,9 +45,11 @@ public class Scission {
 
         int i = 0;
         int j = 0;
+        Data ltab;
+        Data rtab;
         //Tableau temporaire contenant les données à traiter
         String[][] tempData = data.getTabDataValues();
-//System.out.println("nbLigneLeft: "+(data.getNbRow() - data.getNbOccurence(column, criteriaLeft)));
+
         //Si c'est un critère binaire ou un critère en chaine de caractères
         if (this.isString() || this.isBinary()) {
 //            System.out.println("nb row data = " + data.getNbRow());
@@ -58,7 +59,7 @@ public class Scission {
             //construction des tableaux selon criteriaLeft
             leftData = new String[data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
             rightData = new String[data.getNbRow() - data.getNbOccurence(column, criteriaLeft)][data.getNbColumn()];
-            
+
             // Séparation des données
             for (int row = 0; row < data.getNbRow(); row++) {
 
@@ -71,41 +72,86 @@ public class Scission {
                     j++;
                 }
             }
+
+            //System.out.println("Scission sur la colonne " + this.idColumnCriteria + " et critereLeft = " + this.getCriteriaLeft() + " et critereNum = " + this.getCriteriaInterval());
+            DataInfos[] diLeft = data.getNewDataInfo(leftData, data.getTabDataInfos());
+            //System.out.println("dileft: "+diLeft[0].getName());
+            ltab = new Data(leftData, diLeft);
+            // On recupere la liste des intervalles pour le nouveau noeud gauche
+            for (int k = 0; k < diLeft.length; k++) {
+
+                if (diLeft[k].isNumeric()) {
+                    ArrayList<Integer> listeBorns = data.getTabDataInfos()[k].getListBoundary();
+                    diLeft[k].setListBoundary(listeBorns);
+                }
+            }
+
+            DataInfos[] diright = data.getNewDataInfo(rightData, data.getTabDataInfos());
+            rtab = new Data(rightData, diright);
+            // On recupere la liste des intervalles pour le nouveau noeud droit
+            for (int k = 0; k < diright.length; k++) {
+
+                if (diright[k].isNumeric()) {
+                    ArrayList<Integer> listeBorns = data.getTabDataInfos()[k].getListBoundary();
+                    diright[k].setListBoundary(listeBorns);
+                }
+            }
+
         } //Sinon si c'est un critère numérique
         else {
             //construction des tableaux selon criteriaInterval
             leftData = new String[data.getNbOccurenceBefore(column, criteriaInterval)][data.getNbColumn()];
             rightData = new String[data.getNbRow() - data.getNbOccurenceBefore(column, criteriaInterval)][data.getNbColumn()];
-            
+            System.out.println("scission; idCol : " + this.getIdColumnCriteria() + " ; criteria: " + this.getCriteriaInterval());
+            System.out.println("scission; nb Ligne discrim numeric: " + data.getNbOccurenceBefore(column, criteriaInterval));
+            System.out.println("Taille left : " + data.getNbOccurenceBefore(column, criteriaInterval));
+            System.out.println("Taille right: " + (data.getNbRow() - data.getNbOccurenceBefore(column, criteriaInterval)));
             // Séparation des données
             for (int row = 0; row < data.getNbRow(); row++) {
 
                 // Si donnée corespond au critère gauche mettre dans le tableau Data[0] sinon Data[1]
-                if (criteriaInterval < Integer.parseInt(data.getValue(row, column))) {
+                if (Integer.parseInt(data.getValue(row, column)) <= criteriaInterval) {
+                    System.out.println("i: " + i);
+                    System.out.println("On stocke à gauche: " + data.getValue(row, column));
                     leftData[i] = tempData[row];
                     i++;
                 } else {
+                    System.out.println("j: " + j);
+                    System.out.println("On stocke à droite: " + data.getValue(row, column));
                     rightData[j] = tempData[row];
                     j++;
                 }
             }
-        }
-        //System.out.println("Scission sur la colonne " + this.idColumnCriteria + " et critereLeft = " + this.getCriteriaLeft() + " et critereNum = " + this.getCriteriaInterval());
-        DataInfos[] diLeft = data.getNewDataInfo(leftData, data.getTabDataInfos());
-        //System.out.println("dileft: "+diLeft[0].getName());
-        Data ltab = new Data(leftData, diLeft);
-        DataInfos[] diright = data.getNewDataInfo(rightData, data.getTabDataInfos());
-        Data rtab = new Data(rightData, diright);
+            //System.out.println("Scission sur la colonne " + this.idColumnCriteria + " et critereLeft = " + this.getCriteriaLeft() + " et critereNum = " + this.getCriteriaInterval());
+            DataInfos[] diLeft = data.getNewDataInfo(leftData, data.getTabDataInfos());
+            //System.out.println("dileft: "+diLeft[0].getName());
+            ltab = new Data(leftData, diLeft);
+            // On recupere la liste des intervalles pour le nouveau noeud gauche
+            for (int k = 0; k < diLeft.length; k++) {
+                if (diLeft[k].isNumeric()) {
+                    ArrayList<Integer> listeBorns = data.getTabDataInfos()[k].getListBoundary();
+                    diLeft[k].setListBoundary(listeBorns);
+                }
 
+            }
+
+            DataInfos[] diright = data.getNewDataInfo(rightData, data.getTabDataInfos());
+            rtab = new Data(rightData, diright);
+            // On recupere la liste des intervalles pour le nouveau noeud droit
+            for (int k = 0; k < diright.length; k++) {
+
+                if (diright[k].isNumeric()) {
+                    ArrayList<Integer> listeBorns = data.getTabDataInfos()[k].getListBoundary();
+                    diright[k].setListBoundary(listeBorns);
+                }
+            }
+        }
 
 
         tabNode[0] = ltab;
         tabNode[1] = rtab;
 
-        // Verification des données data (à faire....)
 
-
-        // TODO Separer un tableau en deux tableaux dapres le critere
         return tabNode;
 
     }
@@ -173,7 +219,7 @@ public class Scission {
         }
 
         st += "Sur la colonne " + this.getIdColumnCriteria() + "\n";
-        
+
         return st;
     }
 }
