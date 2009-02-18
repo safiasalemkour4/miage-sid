@@ -155,7 +155,7 @@ public class NodePanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 204));
-        jLabel1.setText("CANCER");
+        jLabel1.setText("SUCCES");
 
         criteresDiscrCB.setFont(new java.awt.Font("Tahoma", 0, 9));
         criteresDiscrCB.addActionListener(new java.awt.event.ActionListener() {
