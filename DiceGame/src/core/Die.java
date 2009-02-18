@@ -63,5 +63,15 @@ public class Die extends Observable implements Serializable {
 
         return faceValue;
     }
+
+    /**
+     * Setter faceValue
+     * @param faceValue the value
+     */
+    
+    public void setFaceValue(int faceValue) {
+
+        this.faceValue = faceValue;
+    }
   
 }

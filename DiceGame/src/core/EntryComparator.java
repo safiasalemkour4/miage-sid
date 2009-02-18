@@ -1,14 +1,14 @@
-package persist;
+package core;
 
-import core.HighScore;
+import java.util.Comparator;
 
 /*****************************************************************************************************
  *   					    ~ Dice Game (Miage Nancy - SID - 2008/2009) ~							 *
  *****************************************************************************************************
- *    CLASS  	******		JDBCKit.java                                                             *
+ *    CLASS  	******		EntryComparator.java                                                     *
  *****************************************************************************************************
  *    			******																				 *
- * DESCRIPTION  ******		Le kit de persistence JDBC                                				 *
+ * DESCRIPTION  ******		Object permettant de comparer les entrees                  				 *
  * 				******																				 *
  *****************************************************************************************************
  * 	 @author 	******   	Arnaud Knobloch                 										 *
@@ -16,16 +16,20 @@ import core.HighScore;
  *   @version 	******  	1.0																		 *
  *****************************************************************************************************/
 
-public class JDBCKit extends PersistKit {
+public class EntryComparator implements Comparator {
 
     /**
-     * Methode makeKit
-     * @return un highscore du type choisit
+     * Methode compare
+     * @param entry_1 l'entree a comparer
+     * @param entry_2 l'entree a comparer
+     * @return
      */
+    
+    public int compare(Object entry_1, Object entry_2) {
 
-    @Override
-    public HighScore makeKit() {
-        
-        return HighScore.getInstance(PersistKit.JDBC);
+        Integer score_1 = new Integer(((Entry) entry_1).getScore());
+        Integer score_2 = new Integer(((Entry) entry_2).getScore());
+        return score_2.compareTo(score_1);
     }
 }
+

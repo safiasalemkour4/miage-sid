@@ -25,6 +25,14 @@ public class Entry implements Serializable {
     private int score;
 
     /**
+     * Constructeur par defaut (vide)
+     */
+    
+    public Entry() {
+        
+    }
+    
+    /**
      * Constructeur d'une entree
      * @param name le login du joueur
      * @param score le scoure du joueur (pour cettre entree)
@@ -72,5 +80,4 @@ public class Entry implements Serializable {
     public void setScore(int score) {
         this.score = score;
     }
-   
 }

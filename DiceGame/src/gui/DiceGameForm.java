@@ -1,8 +1,14 @@
 package gui;
 
+import core.DiceGame;
+import core.HighScore;
+import core.Entry;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,16 +33,25 @@ public class DiceGameForm extends JFrame implements ActionListener {
 
     /* Le type de persistance */
     private int persistType;
+
+    /* Notre instance de jeu */
+    private DiceGame diceGame;
     
     /* Le Panel principal */
     private JPanel content;
 
-    /* La vue De */
-    private DieView dieView;
+    /* La vue du De 1 */
+    private DieView dieView_1;
 
-    /* La vu Player */
+    /* La vue du De 2 */
+    private DieView dieView_2;
+    
+    /* La vue Player */
     private PlayerView playerView;
 
+    /* Le titre du jeu */
+    private JLabel labelTitle;
+    
     /* Le bouton "start" */
     private JButton buttonStart;
 
@@ -54,28 +69,64 @@ public class DiceGameForm extends JFrame implements ActionListener {
 
         super();
 
-        this.persistType = persistType;
+        this.diceGame = DiceGame.getInstance(persistType);
         
-        this.dieView = new DieView(this);
-        this.playerView = new PlayerView(this);
-   
+        this.persistType = persistType;
+
+        this.setBackground(Color.BLACK);
+
+        this.labelTitle = new JLabel(new ImageIcon("data/dice_game.png"));
+        
+        this.dieView_1 = new DieView(this.diceGame.getDie_1());
+        this.diceGame.getDie_1().addObserver(dieView_1);
+        
+        this.dieView_2 = new DieView(this.diceGame.getDie_2());
+        this.diceGame.getDie_2().addObserver(dieView_2);
+        
+        this.playerView = new PlayerView(this.diceGame.getPlayer(), this.diceGame);
+        this.diceGame.getPlayer().addObserver(playerView);
+
         this.content = new JPanel();
         this.content.setLayout(new BorderLayout());
 
         JPanel actionPanel = new JPanel();
-        this.buttonStart = new JButton("Start");
+        actionPanel.setLayout(new GridLayout(0,3));
+        this.buttonStart = new JButton(new ImageIcon("data/start.png"));
+        this.buttonStart.setBackground(Color.BLACK);
+        this.buttonStart.setFocusPainted(false);
+		this.buttonStart.setBorderPainted(false);
+		this.buttonStart.setContentAreaFilled(false);
         this.buttonStart.addActionListener(this);
-        this.buttonStop = new JButton("Stop");
+        this.buttonStop = new JButton(new ImageIcon("data/stop.png"));
+        this.buttonStop.setBackground(Color.BLACK);
+        this.buttonStop.setFocusPainted(false);
+		this.buttonStop.setBorderPainted(false);
+		this.buttonStop.setContentAreaFilled(false);
         this.buttonStop.addActionListener(this);
-        this.buttonHighScore = new JButton("View HighScore");
+        this.buttonHighScore = new JButton(new ImageIcon("data/highscore.png"));
+        this.buttonHighScore.setBackground(Color.BLACK);
+        this.buttonHighScore.setFocusPainted(false);
+		this.buttonHighScore.setBorderPainted(false);
+		this.buttonHighScore.setContentAreaFilled(false);
         this.buttonHighScore.addActionListener(this);
+        actionPanel.add(new JLabel(" "));
+        actionPanel.add(new JLabel(" "));
+        actionPanel.add(new JLabel(" "));
         actionPanel.add(this.buttonStart);
         actionPanel.add(this.buttonStop);
-        actionPanel.add(new JLabel(" "));
         actionPanel.add(this.buttonHighScore);
-                
-        this.content.add(this.playerView, BorderLayout.NORTH);
-        this.content.add(this.dieView, BorderLayout.CENTER);
+
+        JPanel panelPlayerView = new JPanel();
+        panelPlayerView.setLayout(new BorderLayout());
+        panelPlayerView.add(this.labelTitle, BorderLayout.NORTH);
+        panelPlayerView.add(this.playerView, BorderLayout.CENTER);
+
+        JPanel panelDieView = new JPanel();
+        panelDieView.add(this.dieView_1);
+        panelDieView.add(this.dieView_2);
+
+        this.content.add(panelPlayerView, BorderLayout.NORTH);
+        this.content.add(panelDieView, BorderLayout.CENTER);
         this.content.add(actionPanel, BorderLayout.SOUTH);
 
         this.setContentPane(content);
@@ -96,11 +147,12 @@ public class DiceGameForm extends JFrame implements ActionListener {
 
     public void startAction() {
         
-        this.dieView.startAction();
+        this.dieView_1.startAction();
+        this.dieView_2.startAction();
         this.playerView.startAction();
 
         /* Si on est au tour 10 alors on met fin au jeu */
-        if (PlayerView.turn==10) {
+        if (DiceGame.turn==10) {
             
             endOfTheGame();
             stopAction();
@@ -115,6 +167,16 @@ public class DiceGameForm extends JFrame implements ActionListener {
     
     public void stopAction() {
 
+        DiceGame.turn = 0;
+        this.playerView.getPlayer().setScore(0);
+
+        this.playerView.updateContent();
+
+        this.diceGame.getDie_1().setFaceValue(-1);
+        this.diceGame.getDie_2().setFaceValue(-1);
+
+        this.dieView_1.updateContent();
+        this.dieView_2.updateContent();
     }
 
     /**
@@ -128,9 +190,18 @@ public class DiceGameForm extends JFrame implements ActionListener {
         int score = this.playerView.getPlayer().getScore();
         
         System.out.println("On save avec le type de persistance :"+this.persistType);
+
+        HighScore highScore = this.diceGame.getHighscore();
+
+        System.out.println("On save : "+name+" / "+score);
+
+        highScore.add(new Entry(name, score));
+
+        highScore.save();
+
         
         JOptionPane.showMessageDialog(this,  "Merci d'avoir jouer "+name+" ! \nVotre score de "+score+" a été sauvegardé.\n"+
-                "\nVous pourrez peut être retrouver celui-ci dans les\nhighscore si vous êtes dans les 10 meilleurs",
+                "\nVous pourrez peut être retrouver celui-ci dans les\nhighscore si vous êtes dans les 20 meilleurs",
                 "Sauvegarde de la Partie", JOptionPane.INFORMATION_MESSAGE);
 
     }
@@ -158,20 +229,30 @@ public class DiceGameForm extends JFrame implements ActionListener {
         /* Si clique sur le bouton "HighScore" */
         if (e.getSource() == this.buttonHighScore) {
 
-            new HighScoreView();
+            new HighScoreView(this.persistType);
         }
     }
 
     /**
-     * Getter DieView
-     * @return DieView
+     * Getter DieView_1
+     * @return DieView_1
      */
 
-    public DieView getDieView() {
+    public DieView getDieView_1() {
 
-        return dieView;
+        return dieView_1;
     }
 
+    /**
+     * Getter DieView_2
+     * @return DieView_2
+     */
+
+    public DieView getDieView_2() {
+
+        return dieView_2;
+    }
+    
     /**
      * Getter PlayerView
      * @return PlayerView

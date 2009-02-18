@@ -5,10 +5,10 @@ import core.HighScore;
 /*****************************************************************************************************
  *   					    ~ Dice Game (Miage Nancy - SID - 2008/2009) ~							 *
  *****************************************************************************************************
- *    CLASS  	******		JDBCKit.java                                                             *
+ *    CLASS  	******		XMLKit.java                                                              *
  *****************************************************************************************************
  *    			******																				 *
- * DESCRIPTION  ******		Le kit de persistence JDBC                                				 *
+ * DESCRIPTION  ******		Le kit de persistence XML                                				 *
  * 				******																				 *
  *****************************************************************************************************
  * 	 @author 	******   	Arnaud Knobloch                 										 *
@@ -16,16 +16,16 @@ import core.HighScore;
  *   @version 	******  	1.0																		 *
  *****************************************************************************************************/
 
-public class JDBCKit extends PersistKit {
+public class XMLKit extends PersistKit {
 
-    /**
+     /**
      * Methode makeKit
      * @return un highscore du type choisit
      */
 
     @Override
     public HighScore makeKit() {
-        
-        return HighScore.getInstance(PersistKit.JDBC);
+
+        return HighScore.getInstance(PersistKit.XML);
     }
 }

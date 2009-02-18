@@ -1,71 +1,99 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package persist;
 
 import core.Entry;
 import core.HighScore;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 
-/**
- *
- * @author arnaud
- */
+/*****************************************************************************************************
+ *   					    ~ Dice Game (Miage Nancy - SID - 2008/2009) ~							 *
+ *****************************************************************************************************
+ *    CLASS  	******		HighScoreJDBC.java                                                       *
+ *****************************************************************************************************
+ *    			******																				 *
+ * DESCRIPTION  ******		Notre persistence de type BDD                             				 *
+ * 				******																				 *
+ *****************************************************************************************************
+ * 	 @author 	******   	Arnaud Knobloch                 										 *
+ * ***************************************************************************************************
+ *   @version 	******  	1.0																		 *
+ *****************************************************************************************************/
+
 public class HighScoreJDBC extends HighScore {
-    
-    private final String SERVEUR = "localhost";
+
+    /* Les parametres de la base */
+    private final String SERVEUR = "localhost:8889";
     private final String USER = "root";
-    private final String PASSWORD = "270382";
-    private final String BDD = "jeudedes";
-    private Mysql sql = null;
+    private final String PASSWORD = "root";
+    private final String BDD = "dicegame";
 
+    /* Notre objet manipulant la base */
+    private SQL sql = null;
+
+    /**
+     * Constructeur
+     */
+    
     public HighScoreJDBC() {
-        sql = new Mysql(SERVEUR, USER, PASSWORD, BDD);
-        sql.connexion();
+
+        sql = new SQL(SERVEUR, USER, PASSWORD, BDD);
     }
 
-    @Override
-    public void load() {
-        try {
-            String SELECT = "SELECT * FROM Highscore";
-            sql.executer_requete(SELECT);
-            ResultSet rs;
-                while ((rs = sql.fetch_array()) != null) {
-                    this.add(new Entry(rs.getString("Nom"), rs.getInt("Score")));
-                }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(HighScoreJDBC.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+    /**
+     * Methode Save
+     * Permet de sauvegarder la liste des entrees (nom,score)
+     */
+    
     @Override
     public void save() {
 
-        /*
-        String DELETE = "DELETE FROM Highscore;";
-        sql.executer_requete(DELETE);
-        LinkedList<Entry> ll = this.getListes_highscore();
-        Collections.sort(ll, new ScoreComparator());
-        Integer count = 0;
-        for (Entry e : ll) {
-            String INSERT = "INSERT INTO Highscore (Nom, Score) VALUES ('" + e.getName() + "', " + e.getScore() + ");";
-            sql.executer_requete(INSERT);
-            count++;
-            if (count == 15) {
-                break;
-            }
-        }
-         * */
+        sql.connexion();
+                       
+        String DELETE = "TRUNCATE TABLE highscore";
+        sql.executeRequest(DELETE);
 
+        ArrayList<Entry> listHighScore = this.getListHighScore();
+
+        for (Entry e : listHighScore) {
+            
+            String INSERT = "INSERT INTO highscore (name, Score) VALUES ('" + e.getName() + "', " + e.getScore() + ");";
+            sql.executeRequest(INSERT);
+        }
+         
+        sql.close();
     }
 
+    /**
+     * Methode Load
+     * Permet de sauvegarder la liste des entrees (nom,score)
+     */
+
+    @Override
+    public void load() {
+
+        sql.connexion();
+
+        try {
+
+            String SELECT = "SELECT * FROM highscore";
+            sql.executeRequest(SELECT);
+            ResultSet rs;
+
+            ArrayList<Entry> listHighScore = new ArrayList<Entry>();
+
+            while ((rs = sql.fetchArray()) != null) {
+                listHighScore.add(new Entry(rs.getString("name"), rs.getInt("score")));
+            }
+
+            this.setListHighScore(listHighScore);
+
+        } catch (SQLException ex) {
+           System.out.println("Probleme au niveau de la base !");
+           ex.printStackTrace();
+        }
+
+        sql.close();
+    }
 
 }

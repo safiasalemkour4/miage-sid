@@ -1,12 +1,12 @@
 package gui;
 
 import core.Die;
-import java.awt.GridLayout;
+import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /*****************************************************************************************************
  *   					    ~ Dice Game (Miage Nancy - SID - 2008/2009) ~							 *
@@ -24,48 +24,34 @@ import javax.swing.JTextField;
 
 public class DieView extends JPanel implements Observer {
 
-    /* Instance sur la fenetre maitresse */
-    private DiceGameForm diceGameForm;
+    /* L'objet associe a la vue */
+    private Die die;
     
-    /*
-     * Note : j'ai choisi d'utiliser 2 isntances de de plutot qu'une 
-     * collection de de car cela s'applique mieux à notre modele metier
-     * /
-  
-    /* Notre premier de */
-    private Die die_1;
+    /* Label "Die" */
+    private JLabel labelDie;
 
-    /* Notre second de */
-    private Die die_2;
-
-    /* Label "Die 1 :" */
-    private JLabel labelDie_1;
-
-    /* Label "Die 2 :" */
-    private JLabel labelDie_2;
-
-    /* TextField affichant la valeur du premier de */
-    private JTextField textField_1;
-
-    /* TextField affichant la valeur du second de */
-    private JTextField textField_2;
-
+    /* Nos images de de */
+    private ImageIcon[] tabDiePictures = {
+        new ImageIcon("data/die_0.png"),
+        new ImageIcon("data/die_1.png"),
+        new ImageIcon("data/die_2.png"),
+        new ImageIcon("data/die_3.png"),
+        new ImageIcon("data/die_4.png"),
+        new ImageIcon("data/die_5.png"),
+        new ImageIcon("data/die_6.png"),
+    };
+    
     /**
      * Constructeur
      * @param diceGameForm la fenetre maitresse
      */
     
-    public DieView(DiceGameForm diceGameForm) {
-
-        this.diceGameForm = diceGameForm;
-
-        this.setLayout(new GridLayout(3, 2));
+    public DieView(Die die) {
         
-        this.die_1 = new Die();
-        this.die_1.addObserver(this);
-        this.die_2 = new Die();
-        this.die_2.addObserver(this);
-        
+        this.die = die;
+
+        this.setBackground(Color.BLACK);
+
         updateContent();
 
     }
@@ -80,29 +66,18 @@ public class DieView extends JPanel implements Observer {
         this.removeAll();
         this.updateUI();
 
-        this.labelDie_1 = new JLabel("Die 1 :");
-        this.labelDie_2 = new JLabel("Die 2 :");
+        this.labelDie = new JLabel(tabDiePictures[0]);
 
-        if (this.die_1.getFaceValue() == -1 || this.die_2.getFaceValue() == -1) {
+        if (this.die.getFaceValue() == -1) {
 
-            this.textField_1 = new JTextField("");
-            this.textField_2 = new JTextField("");
+            this.labelDie = new JLabel(tabDiePictures[0]);
 
         } else {
             
-            this.textField_1 = new JTextField("" + this.die_1.getFaceValue());
-            this.textField_2 = new JTextField("" + this.die_2.getFaceValue());
+            this.labelDie = new JLabel(tabDiePictures[this.die.getFaceValue()]);
         }
 
-        this.add(this.labelDie_1);
-        this.add(this.textField_1);
-
-        this.add(new JLabel());
-        this.add(new JLabel());
-
-        this.add(this.labelDie_2);
-        this.add(this.textField_2);
-
+        this.add(this.labelDie);
     }
 
     /**
@@ -123,29 +98,20 @@ public class DieView extends JPanel implements Observer {
     
     public void startAction() {
 
-        this.die_1.roll();
-        this.die_2.roll();
-        this.die_1.display();
-        this.die_2.display();
+        this.die.roll();
+
+        this.die.display();
+
     }
 
     /**
-     * Getter Die_1
-     * @return die_1
+     * Getter Die
+     * @return die
      */
     
-    public Die getDie_1() {
+    public Die getDie() {
         
-        return die_1;
+        return die;
     }
 
-    /**
-     * Getter Die_2
-     * @return die_2
-     */
-
-    public Die getDie_2() {
-        
-        return die_2;
-    }
 }

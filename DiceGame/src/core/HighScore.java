@@ -5,9 +5,12 @@
 package core;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Observable;
 import persist.HighScoreJDBC;
 import persist.HighScoreSerializable;
+import persist.HighScoreXML;
 import persist.PersistKit;
 
 /*****************************************************************************************************
@@ -27,10 +30,11 @@ import persist.PersistKit;
 public abstract class HighScore implements Serializable {
 
     /* Instance d'un HighScore */
-    private static HighScore highscore = null;
+    protected static HighScore highscore = null;
+
 
     /* List des HighScore<Entry> : (nom, score) */
-    private LinkedList<Entry> listHighScore = new LinkedList<Entry>();
+    private ArrayList<Entry> listHighScore = new ArrayList<Entry>();
 
     /**
      * Constructeur par defaut (vide)
@@ -80,6 +84,10 @@ public abstract class HighScore implements Serializable {
             } else if (type == PersistKit.SERIALIZABLE) {
 
                 highscore = new HighScoreSerializable();
+
+            } else if (type == PersistKit.XML) {
+
+                highscore = new HighScoreXML();
             }
         }
 
@@ -91,7 +99,7 @@ public abstract class HighScore implements Serializable {
      * @return ListHighScore
      */
 
-    public LinkedList<Entry> getListHighScore() {
+    public ArrayList<Entry> getListHighScore() {
 
         return listHighScore;
     }
@@ -100,7 +108,7 @@ public abstract class HighScore implements Serializable {
      * Setter ListHighScore
      */
 
-    public void setListHighScore(LinkedList<Entry> listHighScore) {
+    public void setListHighScore(ArrayList<Entry> listHighScore) {
 
         this.listHighScore = listHighScore;
     }

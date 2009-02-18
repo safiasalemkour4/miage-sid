@@ -1,21 +1,31 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package persist;
 
 import core.HighScore;
 
-/**
- *
- * @author arnaud
- */
+/*****************************************************************************************************
+ *   					    ~ Dice Game (Miage Nancy - SID - 2008/2009) ~							 *
+ *****************************************************************************************************
+ *    CLASS  	******		SerializableKit.java                                                     *
+ *****************************************************************************************************
+ *    			******																				 *
+ * DESCRIPTION  ******		Le kit de persistence Serialisation                        				 *
+ * 				******																				 *
+ *****************************************************************************************************
+ * 	 @author 	******   	Arnaud Knobloch                 										 *
+ * ***************************************************************************************************
+ *   @version 	******  	1.0																		 *
+ *****************************************************************************************************/
+
 public class SerializableKit extends PersistKit {
 
+    /**
+     * Methode makeKit
+     * @return un highscore du type choisit
+     */
+    
     @Override
     public HighScore makeKit() {
-        HighScore hs = HighScore.getInstance(PersistKit.SERIALIZABLE);
-        hs.load();
-        return hs;
+        
+        return HighScore.getInstance(PersistKit.SERIALIZABLE);
     }
 }

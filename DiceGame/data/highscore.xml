@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_07" class="java.beans.XMLDecoder"> 
+ <object class="persist.HighScoreXML"> 
+  <void property="listHighScore"> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>30</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>30</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>zzz</string> 
+     </void> 
+     <void property="score"> 
+      <int>30</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>30</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>20</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>20</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>20</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>20</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>20</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>z</string> 
+     </void> 
+     <void property="score"> 
+      <int>20</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>20</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>10</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>10</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>10</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>10</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>10</int> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>zzz</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+    </object> 
+   </void> 
+   <void method="add"> 
+    <object class="core.Entry"> 
+     <void property="name"> 
+      <string>Arnaud Knobloch</string> 
+     </void> 
+     <void property="score"> 
+      <int>10</int> 
+     </void> 
+    </object> 
+   </void> 
+  </void> 
+ </object> 
+</java> 

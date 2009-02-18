@@ -1,11 +1,13 @@
 package gui;
 
+import core.DiceGame;
 import core.Player;
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*****************************************************************************************************
@@ -24,15 +26,12 @@ import javax.swing.JPanel;
 
 public class PlayerView extends JPanel implements Observer {
 
-    /* Variable de classe permettant de sauvegarder le tour courrant */
-    protected static int turn = 0;
-
-    /* Instance sur la fenetre maitresse */
-    private DiceGameForm diceGameForm;
-
-    /* Instance du joueur */
+    /* Instance du jeu */
+    private DiceGame diceGame;
+    
+    /* L'objet associe a la vue */
     private Player player;
-
+    
     /* Label "Player :" */
     private JLabel labelPlayer;
 
@@ -56,26 +55,14 @@ public class PlayerView extends JPanel implements Observer {
      * @param diceGameForm la fenetre maitresse
      */
     
-    public PlayerView(DiceGameForm diceGameForm) {
+    public PlayerView(Player player, DiceGame diceGame) {
 
-        this.diceGameForm = diceGameForm;
+        this.player = player;
+        this.diceGame = diceGame;
+        
+        this.setLayout(new GridLayout(0,2));
 
-        this.setLayout(new BorderLayout());
-
-        /* On demande et on recupere le nom du joueur */
-
-        String name = (String) JOptionPane.showInputDialog(diceGameForm,"Merci de choisir un nom", "Choix du Nom du Joueur", JOptionPane.QUESTION_MESSAGE, null, null, "Arnaud Knobloch");
-
-        if ((name != null) && (name.length() > 0)) {
-            
-            this.player = new Player(name);
-
-        } else {
-            
-            this.player = new Player();
-        }
- 
-        player.addObserver(this);
+        this.setBackground(Color.BLACK);
         
         updateContent();
     }
@@ -92,7 +79,9 @@ public class PlayerView extends JPanel implements Observer {
 
         JPanel playerPanel = new JPanel();
 
-        this.labelPlayer = new JLabel("Player : "+this.player.getName());
+        this.labelPlayer = new JLabel("<html><font color='#8b0000'>Player : </font>"+this.player.getName()+"</html>");
+        this.labelPlayer.setForeground(Color.WHITE);
+        this.labelPlayer.setFont(new Font("Arial Black", Font.BOLD, 18));
         this.labelPlayerValue = new JLabel();
 
         playerPanel.add(this.labelPlayer);
@@ -100,7 +89,9 @@ public class PlayerView extends JPanel implements Observer {
 
         JPanel turnPanel = new JPanel();
 
-        this.labelTurn = new JLabel("Turn : " + turn++);
+        this.labelTurn = new JLabel("<html><font color='#8b0000'>Turn : </font>" + ++DiceGame.turn+"</html>");
+        this.labelTurn.setForeground(Color.WHITE);
+        this.labelTurn.setFont(new Font("Arial Black", Font.BOLD, 18));
         this.labelTurnValue = new JLabel();
 
         turnPanel.add(this.labelTurn);
@@ -108,16 +99,20 @@ public class PlayerView extends JPanel implements Observer {
 
         JPanel scorePanel = new JPanel();
 
-        this.labelScore = new JLabel("Score : " + this.player.getScore());
+        this.labelScore = new JLabel("<html><font color='#8b0000'>Score : </font>" + this.player.getScore()+"</html>");
+        this.labelScore.setForeground(Color.WHITE);
+        this.labelScore.setFont(new Font("Arial Black", Font.BOLD, 18));
         this.labelScoreValue = new JLabel();
 
         scorePanel.add(this.labelScore);
         scorePanel.add(this.labelScoreValue);
 
-        this.add(playerPanel, BorderLayout.WEST);
-        this.add(turnPanel, BorderLayout.CENTER);
-        this.add(scorePanel, BorderLayout.EAST);
-
+        this.add(playerPanel);
+        this.add(turnPanel);
+        this.add(scorePanel);
+        this.add(new JLabel());
+        this.add(new JLabel());
+        this.add(new JLabel());
     }
 
     /**
@@ -130,7 +125,7 @@ public class PlayerView extends JPanel implements Observer {
 
         /* Si la somme des 2 des est egal a 7 alors on ajoute 10 points */
 
-        if (this.diceGameForm.getDieView().getDie_1().getFaceValue() + this.diceGameForm.getDieView().getDie_2().getFaceValue() == 7) {
+        if (this.diceGame.getDie_1().getFaceValue() + this.diceGame.getDie_2().getFaceValue() == 7) {
 
             this.player.setScore(this.player.getScore() + 10);
         }
