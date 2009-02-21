@@ -1,6 +1,6 @@
 package dicegame;
 
-import gui.DiceGameForm;
+import gui.DiceGameFrame;
 import javax.swing.JOptionPane;
 import persist.PersistKit;
 
@@ -33,10 +33,10 @@ public class Main {
 
         /* On charge notre fenetre avec le type souhaite */
         switch (typePersist) {
-            case 0: new DiceGameForm(PersistKit.JDBC); break;
-            case 1: new DiceGameForm(PersistKit.SERIALIZABLE); break;
-            case 2: new DiceGameForm(PersistKit.XML); break;
-            default :  new DiceGameForm(PersistKit.JDBC); break;
+            case 0: new DiceGameFrame(PersistKit.JDBC); break;
+            case 1: new DiceGameFrame(PersistKit.SERIALIZABLE); break;
+            case 2: new DiceGameFrame(PersistKit.XML); break;
+            default :  new DiceGameFrame(PersistKit.JDBC); break;
         }
     }
 }

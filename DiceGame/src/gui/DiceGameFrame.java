@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 /*****************************************************************************************************
  *   					    ~ Dice Game (Miage Nancy - SID - 2008/2009) ~							 *
  *****************************************************************************************************
- *    CLASS  	******		DiceGameForm.java                                                        *
+ *    CLASS  	******		DiceGameFrame.java                                                        *
  *****************************************************************************************************
  *    			******																				 *
  * DESCRIPTION  ******		Fenetre principale du projet DiceGame                      				 *
@@ -29,7 +29,7 @@ import javax.swing.JPanel;
  *   @version 	******  	1.0																		 *
  *****************************************************************************************************/
 
-public class DiceGameForm extends JFrame implements ActionListener {
+public class DiceGameFrame extends JFrame implements ActionListener {
 
     /* Le type de persistance */
     private int persistType;
@@ -65,7 +65,7 @@ public class DiceGameForm extends JFrame implements ActionListener {
      * Constructeur de la fenetre de jeu
      */
     
-    public DiceGameForm(int persistType) {
+    public DiceGameFrame(int persistType) {
 
         super();
 
@@ -229,7 +229,7 @@ public class DiceGameForm extends JFrame implements ActionListener {
         /* Si clique sur le bouton "HighScore" */
         if (e.getSource() == this.buttonHighScore) {
 
-            new HighScoreView(this.persistType);
+            new HighScoreFrame(this.persistType);
         }
     }
 

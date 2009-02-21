@@ -26,7 +26,7 @@ import javax.swing.JTable;
 /*****************************************************************************************************
  *   					    ~ Dice Game (Miage Nancy - SID - 2008/2009) ~							 *
  *****************************************************************************************************
- *    CLASS  	******		HighScoreView.java                                                       *
+ *    CLASS  	******		HighScoreFrame.java                                                       *
  *****************************************************************************************************
  *    			******																				 *
  * DESCRIPTION  ******		JFrame represenant la vue "highscore"                      				 *
@@ -37,7 +37,7 @@ import javax.swing.JTable;
  *   @version 	******  	1.0																		 *
  *****************************************************************************************************/
 
-public class HighScoreView extends JDialog implements ActionListener {
+public class HighScoreFrame extends JDialog implements ActionListener {
 
     /* Le type de persistance */
     private int persistType;
@@ -55,7 +55,7 @@ public class HighScoreView extends JDialog implements ActionListener {
      * Constructeur
      */
     
-    public HighScoreView(int persistType) {
+    public HighScoreFrame(int persistType) {
 
         super();
 
