@@ -102,22 +102,22 @@ public class Scission {
             //construction des tableaux selon criteriaInterval
             leftData = new String[data.getNbOccurenceBefore(column, criteriaInterval)][data.getNbColumn()];
             rightData = new String[data.getNbRow() - data.getNbOccurenceBefore(column, criteriaInterval)][data.getNbColumn()];
-            System.out.println("scission; idCol : " + this.getIdColumnCriteria() + " ; criteria: " + this.getCriteriaInterval());
-            System.out.println("scission; nb Ligne discrim numeric: " + data.getNbOccurenceBefore(column, criteriaInterval));
-            System.out.println("Taille left : " + data.getNbOccurenceBefore(column, criteriaInterval));
-            System.out.println("Taille right: " + (data.getNbRow() - data.getNbOccurenceBefore(column, criteriaInterval)));
+//            System.out.println("scission; idCol : " + this.getIdColumnCriteria() + " ; criteria: " + this.getCriteriaInterval());
+//            System.out.println("scission; nb Ligne discrim numeric: " + data.getNbOccurenceBefore(column, criteriaInterval));
+//            System.out.println("Taille left : " + data.getNbOccurenceBefore(column, criteriaInterval));
+//            System.out.println("Taille right: " + (data.getNbRow() - data.getNbOccurenceBefore(column, criteriaInterval)));
             // Séparation des données
             for (int row = 0; row < data.getNbRow(); row++) {
 
                 // Si donnée corespond au critère gauche mettre dans le tableau Data[0] sinon Data[1]
                 if (Integer.parseInt(data.getValue(row, column)) <= criteriaInterval) {
-                    System.out.println("i: " + i);
-                    System.out.println("On stocke à gauche: " + data.getValue(row, column));
+                    //System.out.println("i: " + i);
+                    //System.out.println("On stocke à gauche: " + data.getValue(row, column));
                     leftData[i] = tempData[row];
                     i++;
                 } else {
-                    System.out.println("j: " + j);
-                    System.out.println("On stocke à droite: " + data.getValue(row, column));
+                    //System.out.println("j: " + j);
+                    //System.out.println("On stocke à droite: " + data.getValue(row, column));
                     rightData[j] = tempData[row];
                     j++;
                 }

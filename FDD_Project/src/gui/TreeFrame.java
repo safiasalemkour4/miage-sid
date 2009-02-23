@@ -63,11 +63,11 @@ public class TreeFrame extends javax.swing.JFrame {
         toolBar.setBorder(new EtchedBorder());
         
         /* ajout des raccourcis */
-         /* Intervalles */
+         /* Import */
         ImageIcon iconImport = new ImageIcon("import.png");
         Action actionImport = new AbstractAction("Import", iconImport) {
             public void actionPerformed(ActionEvent e) {
-                ETLFrame.getInstance();
+                    ETLFrame.getInstance().setVisible(true);
             }
         };
 

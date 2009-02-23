@@ -221,6 +221,7 @@ public class LoadCSV {
         data = new Data(tabDataValues, tabDataInfos); // uniquement pour parser les colonnes (temporaire)
 
         TreeIntervalFrame tiv = TreeIntervalFrame.getInstance();
+        tiv.cleanJTable();
         tiv.setLocationRelativeTo(null);
         tiv.setVisible(true);
 

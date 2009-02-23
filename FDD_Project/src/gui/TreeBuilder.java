@@ -157,20 +157,20 @@ public class TreeBuilder {
             }
 
             /* ajout du label de la valeur de la variable discrimante choisie */
-            JLabel lbOccurenceDiscrDroit = new JLabel(occurenceDiscrDroit);
+            JLabel lbOccurenceDiscrDroit = new JLabel(occurenceDiscrGauche);
             lbOccurenceDiscrDroit.setBounds(parentNodeX + UIVars.TREEBOX_WIDTH + 5,
                     parentNodeY + UIVars.TREEBOX_HEIGHT / 2 - UIVars.TREEBOXLABEL_HEIGHT / 2 - 40,
                     UIVars.TREEBOXLABEL_WIDTH, UIVars.TREEBOXLABEL_HEIGHT);
-            lbOccurenceDiscrDroit.setVisible(true);
-            /* on ajoute la liste des occurences non gauche */
-            lbOccurenceDiscrDroit.setToolTipText(listeOccurenceGauche);
+            lbOccurenceDiscrDroit.setVisible(true);            
             treeView.addLabel(lbOccurenceDiscrDroit);
 
             /* ajout du label de la valeur de la variable discrimante choisie */
-            JLabel lbOccurenceDiscrGauche = new JLabel(occurenceDiscrGauche);
+            JLabel lbOccurenceDiscrGauche = new JLabel(occurenceDiscrDroit);
             lbOccurenceDiscrGauche.setBounds(parentNodeX + UIVars.TREEBOX_WIDTH + 5,
                     parentNodeY + UIVars.TREEBOX_HEIGHT / 2 - UIVars.TREEBOXLABEL_HEIGHT / 2 + 40,
                     UIVars.TREEBOXLABEL_WIDTH, UIVars.TREEBOXLABEL_HEIGHT);
+            /* on ajoute la liste des occurences non gauche */
+            lbOccurenceDiscrGauche.setToolTipText(listeOccurenceGauche);
             lbOccurenceDiscrGauche.setVisible(true);
             treeView.addLabel(lbOccurenceDiscrGauche);
 
@@ -190,7 +190,7 @@ public class TreeBuilder {
             drawNode(parent.getRightSon(), filsDroitX, filsDroitY);
 
         } else {
-            System.out.println("developpé NON! Feuille !");
+            //System.out.println("developpé NON! Feuille !");
         }
     }
 

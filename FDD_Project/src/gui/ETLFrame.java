@@ -94,7 +94,7 @@ public class ETLFrame extends JDialog implements ActionListener {
         this.pack();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
+        this.setVisible(false);
     }
 
     /**

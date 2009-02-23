@@ -180,6 +180,8 @@ public class TreeIntervalFrame extends JDialog {
     private void buttonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonValiderActionPerformed
 
        boolean dataIsCorrect = true;
+       String missingIntervals = "La saisie des intervalles de : \n";
+
 
         /* on va remplir la map contenant pour une colonne numérique renseignée les intervalles saisies */
         for (int col = 0; col < intervalColumns.size(); col++) {
@@ -204,11 +206,9 @@ public class TreeIntervalFrame extends JDialog {
                 /* on associe les intervalles au numéro de la colonne */
                 this.intervalsMap.put(numColonne, intervalsList);
 
-            } else {
-                /* garde fou pour vérifier la validité de la saisie */
-                JOptionPane.showMessageDialog(this, "La saisie des intervalles de " + (String) jTable1.getValueAt(col, 0) + " n'est pas correcte.\n");
+            } else {               
                 dataIsCorrect = false;
-                this.intervalsMap.clear();
+                missingIntervals += "- " + (String) jTable1.getValueAt(col, 0) + " n'est pas correcte.\n";
             }
             
         }
@@ -229,6 +229,10 @@ public class TreeIntervalFrame extends JDialog {
             }
 
             this.setVisible(false);
+        }else{
+            /* garde fou pour vérifier la validité de la saisie */
+            this.intervalsMap.clear();
+            JOptionPane.showMessageDialog(this, missingIntervals);
         }
 
 }//GEN-LAST:event_buttonValiderActionPerformed
@@ -243,6 +247,14 @@ public class TreeIntervalFrame extends JDialog {
      */
     public HashMap<Integer, ArrayList<Integer>> getIntervalsMap(){
         return intervalsMap;
+    }
+
+    public void cleanJTable(){
+        for (int col = 0; col < intervalColumns.size(); col++) {
+              this.jTable1.setValueAt("", col, 1);
+        }
+        jTable1.setEnabled(true);
+        buttonValider.setEnabled(true);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

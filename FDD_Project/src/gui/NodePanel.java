@@ -65,7 +65,6 @@ public class NodePanel extends javax.swing.JPanel {
                       //test
                       System.out.println("Nb occurence 1: " + node.getData().getListOccurence(di.getId()).length);
 
-
                     // occurence1
                     String occurence1 = (String)node.getData().getListOccurence(di.getId())[0];
                     int nbOccurence1 = node.getData().getNbOccurence(di.getId(), occurence1);                   
@@ -153,7 +152,7 @@ public class NodePanel extends javax.swing.JPanel {
         jProgressBar1.setString("25 occurences");
         jProgressBar1.setStringPainted(true);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16));
         jLabel1.setForeground(new java.awt.Color(255, 0, 204));
         jLabel1.setText("SUCCES");
 
