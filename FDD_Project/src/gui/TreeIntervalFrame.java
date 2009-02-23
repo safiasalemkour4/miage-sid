@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.Map.Entry;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -177,6 +178,9 @@ public class TreeIntervalFrame extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonValiderActionPerformed
+
+       boolean dataIsCorrect = true;
+
         /* on va remplir la map contenant pour une colonne numérique renseignée les intervalles saisies */
         for (int col = 0; col < intervalColumns.size(); col++) {
             /* nom de la colonne */
@@ -187,7 +191,7 @@ public class TreeIntervalFrame extends JDialog {
             if (dataColonne != null && dataColonne.trim().length() > 0) {
                 /* on regarde le numéro de colonne */
                 int numColonne = Integer.parseInt(nomColonne.substring(nomColonne.indexOf("(") + 1, nomColonne.indexOf(")")));
-                
+
                 /* on récupère les intervalles */
                 StringTokenizer st = new StringTokenizer(dataColonne, ";");
                 /* accès aux tokens */
@@ -199,22 +203,33 @@ public class TreeIntervalFrame extends JDialog {
 
                 /* on associe les intervalles au numéro de la colonne */
                 this.intervalsMap.put(numColonne, intervalsList);
-                this.buttonValider.setEnabled(false);
-                this.jTable1.setEnabled(false);
+
+            } else {
+                /* garde fou pour vérifier la validité de la saisie */
+                JOptionPane.showMessageDialog(this, "La saisie des intervalles de " + (String) jTable1.getValueAt(col, 0) + " n'est pas correcte.\n");
+                dataIsCorrect = false;
+                this.intervalsMap.clear();
             }
+            
         }
 
-        /* affichage test de la map d'intervalles */
-        System.out.println("Affichage de la map d'intervalles");
-        for(Entry colonne: intervalsMap.entrySet()){
-            System.out.print("Colonne " + colonne.getKey() + " ----->    ");
-            for(Integer unInterval : (ArrayList<Integer>)colonne.getValue()){
-                System.out.print("[" + unInterval + "]");
-            }
-            System.out.println();
-        }
+        /* si les données saisies sont correctes */
+        if (dataIsCorrect) {
+            this.buttonValider.setEnabled(false);
+            this.jTable1.setEnabled(false);
 
-        this.setVisible(false);
+            /* affichage test de la map d'intervalles */
+            System.out.println("Affichage de la map d'intervalles");
+            for (Entry colonne : intervalsMap.entrySet()) {
+                System.out.print("Colonne " + colonne.getKey() + " ----->    ");
+                for (Integer unInterval : (ArrayList<Integer>) colonne.getValue()) {
+                    System.out.print("[" + unInterval + "]");
+                }
+                System.out.println();
+            }
+
+            this.setVisible(false);
+        }
 
 }//GEN-LAST:event_buttonValiderActionPerformed
 
