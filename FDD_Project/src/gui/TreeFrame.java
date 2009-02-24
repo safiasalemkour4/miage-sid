@@ -64,7 +64,7 @@ public class TreeFrame extends javax.swing.JFrame {
         
         /* ajout des raccourcis */
          /* Import */
-        ImageIcon iconImport = new ImageIcon("import.png");
+        ImageIcon iconImport = new ImageIcon(getClass().getResource("/img/import.png"));
         Action actionImport = new AbstractAction("Import", iconImport) {
             public void actionPerformed(ActionEvent e) {
                     ETLFrame.getInstance().setVisible(true);
@@ -73,7 +73,7 @@ public class TreeFrame extends javax.swing.JFrame {
 
 
         /* Intervalles */
-        ImageIcon iconInterv = new ImageIcon("intervalles.png");
+        ImageIcon iconInterv = new ImageIcon(getClass().getResource("/img/intervalles.png"));
         Action actionInterv = new AbstractAction("Intervalles", iconInterv) {
 
             public void actionPerformed(ActionEvent e) {
@@ -83,7 +83,7 @@ public class TreeFrame extends javax.swing.JFrame {
         };
 
          /* Zoom + */
-        ImageIcon iconZoomIn = new ImageIcon("zoom-in.png");
+        ImageIcon iconZoomIn = new ImageIcon(getClass().getResource("/img/zoom-in.png"));
         Action actionZoomIn = new AbstractAction("Zoom In", iconZoomIn) {
 
             public void actionPerformed(ActionEvent e) {
@@ -92,7 +92,7 @@ public class TreeFrame extends javax.swing.JFrame {
         };
 
         /* Zoom + */
-        ImageIcon iconResize = new ImageIcon("resize.png");
+        ImageIcon iconResize = new ImageIcon(getClass().getResource("/img/resize.png"));
         Action actionResize = new AbstractAction("Resize", iconResize) {
 
             public void actionPerformed(ActionEvent e) {
@@ -101,7 +101,7 @@ public class TreeFrame extends javax.swing.JFrame {
         };
         
          /* Zoom - */
-        ImageIcon iconZoomOut = new ImageIcon("zoom-out.png");
+        ImageIcon iconZoomOut = new ImageIcon(getClass().getResource("/img/zoom-out.png"));
         Action actionZoomOut = new AbstractAction("Zoom In", iconZoomOut) {
 
             public void actionPerformed(ActionEvent e) {
@@ -179,7 +179,6 @@ public class TreeFrame extends javax.swing.JFrame {
     }
 
     public void centerOnRootNode(){
-        System.out.println("taillou: " +  this.getHeight());
         this.treeScrollPanel.getVerticalScrollBar().setValue((UIVars.TREEPANEL_WIDTH/2) - (this.getHeight()/2) + (UIVars.TREEBOX_HEIGHT/2)); // + taille fenetre /2
     }
 
